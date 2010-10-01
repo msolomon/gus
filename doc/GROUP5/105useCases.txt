@@ -1,0 +1,105 @@
+1.	Sync with server
+2.	Create account
+3.	Delete account
+4.	Deactivate account
+5.	Update Account
+6.	Update Personal Page (myspace style)
+7.	Add user to group
+8.	Add leader to group
+9.	Promote user to moderator
+10.	Add note to user (group specific)
+11.	Edit note
+12.	Remove note
+13.	Demote group leader
+14.	Demote group moderator
+15.	Promote group moderator to leader
+16.	Add moderator to group
+17.	Link user
+18.	Link leader
+19.	Link moderator
+20.	Un-link user
+21.	Un-link leader
+22.	Un-link moderator
+23.	Upload document to group
+24.	View document (only for text, pdf, or image)
+25.	Download document
+26.	Check-out document
+27.	Check-in document
+28.	Update document (provides a diff)
+29.	Copy document
+30.	Delete document
+31.	Create Group
+32.	Edit Group
+33.	Delete Group
+34.	Create Formula (MATH)
+35.	Edit Formula (MATH)
+36.	Create web page (provides a limited dreamweaver-esque gui)
+37.	Edit web page
+38.	Add wiki to group
+39.	Edit wiki
+40.	Delete wiki
+41.	Add forum
+42.	Edit forum
+43.	Delete forum
+44.	Add post to thread
+45.	Edit post
+46.	Hide post
+47.	Delete post
+48.	Add thread
+49.	Edit thread
+50.	Delete thread
+51.	Add blog
+52.	Edit blog
+53.	Delete blog
+54.	Add blog post
+55.	Edit blog post
+56.	Delete blog post
+57.	Comment on blog post
+58.	Edit comment
+59.	Hide comment
+60.	Delete comment
+61.	RSVP to event (waitlisted if .full.)
+62.	Remove RSVP to event
+63.	Set RSVP limit for event (*edits event*)
+64.	Notify user when added to an event (server use-case)
+65.	Send email to group
+66.	Send email to user
+67.	Update expected event turn-out (server function)
+68.	Compare calendar
+69.	Share event
+70.	Invite to event
+71.	Insert symbol to webpage
+72.	Insert symbol to thread
+73.	Insert symbol to blog post
+74.	Insert symbol to forum post
+75.	Insert symbol to comment
+76.	Log in
+77.	Log out
+78.	Time out user (server function)
+79.	Log user actions
+80.	View user action log
+81.	Search users
+82.	Search groups
+83.	Browse groups
+84.	Report user
+85.	Report error
+86.	Log error
+87.	View error log
+88.	Edit .mailman. settings
+89.	Join group
+90.	Leave group
+91.	Request an add to a private group
+92.	Create/Name gus server
+93.	Ping gus server
+94.	Un-install gus server
+95.	Set-up initial group
+96.	Sync date/time (to local time on server box)
+97.	Change date/time
+98.	Check disk space
+99.	Display remaining disk space
+100.	Email low disk space warning to administrators
+101.	Display group tree (with highlighting for paths to your groups. if not logged in, no highlighting)
+102.	Display group member list
+103.	Display group mod list
+104.	Display group leader list
+105.	Display leader/s of parent group (if original group, display administrator/s)
