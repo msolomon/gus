@@ -1,0 +1,341 @@
+<html>
+<body>
+
+<h3>Add Wiki to Group</h3>
+
+
+<p><b>Actors: </b>Group owner, server
+
+<p><b>Goals: </b>Add a group wiki for collaboration, communication, etc. within the group
+
+<p><b>Preconditions: </b>Group owner owns a group, group does not yet have a wiki, group owner is logged into gus.
+
+<p><b>Summary: </b>A wiki can be added to a group for collaboration, documentation, communication, entertainment, or anything else the group wants.  Users that are members of the group will be able to edit the wiki freely and other members will be able to view the changes.
+
+<p><b>Related use cases: </b>Edit wiki, delete wiki
+
+<p><b>Steps:</b>
+<ol>
+<li>Group owner opens the group management menu.
+<li>Group owner checks the box to enable a group wiki and adjusts permissions for the wiki.
+<li>Group owner saves changes.
+<li>Server adds a pre-generated "main" page to the wiki and adds a link to the group page.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>During group creation, group owner can start at step 2 and continue as normal.
+<li>At step 3, group owner can choose not to save changes and the process stops.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to add the wiki again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.
+
+
+
+<h3>Edit Wiki</h3>
+
+
+<p><b>Actors: </b>User, server
+
+<p><b>Goals: </b>Edit the content of the group wiki
+
+<p><b>Preconditions: </b>Group has a wiki, user is a member of that group, user has permission to edit the wiki, user is logged in.
+
+<p><b>Summary: </b>If the user wants to add content to the wiki, they can edit wiki pages or add new pages to the wiki.
+
+<p><b>Related use cases: </b>Add wiki to group, delete wiki
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds the page of the wiki they want to edit.
+<li>User clicks the "edit" button on the page.
+<li>User uses the built in editor to adjust the contents of the page.
+<li>User saves changes.
+<li>Server updates contents of the page to match the user's edits and takes the user back to the edited page.
+</ol>
+
+
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 1, user can choose to create a new page in the wiki instead of editing an existing one.
+<li>At step 4, user can choose to preview changes before they're made to the wiki.
+<li>At step 4, user can choose to cancel making changes.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to edit the wiki again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to edit the wiki, the server will let them know and prevent them from editing the wiki.
+
+
+
+<h3>Delete Wiki</h3>
+
+
+<p><b>Actors: </b>Group owner, server
+
+<p><b>Goals: </b>Remove a wiki and its contents from a group.
+
+<p><b>Preconditions: </b>Group has a wiki, group owner is logged into gus
+
+<p><b>Summary: </b>The group owner wants to remove the group's wiki for some reason.  Perhaps users aren't using it or it's being abused.
+
+<p><b>Related use cases: </b>Add wiki to group, edit wiki
+
+<p><b>Steps:</b>
+<ol>
+<li>Group owner opens the group mamangement menu.
+<li>Group owner unchecks the box that enables a group wiki.
+<li>Group owner saves changes.
+<li>Server deletes the entire contents of the wiki.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to save changes and process stops.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the wiki again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.
+
+
+
+<h3>Add Forum</h3>
+
+
+<p><b>Actors: </b>Group owner, server
+
+<p><b>Goals: </b>Add a forum to the group for communication within the group
+
+<p><b>Preconditions: </b>Group owner owns a group, group does not yet have a forum, group owner is logged into gus.
+
+<p><b>Summary: </b>A forum can be added to group to facilitate communication amongst its members.
+
+<p><b>Related use cases: </b>Edit forum, delete forum, add post to thread, edit post, hide post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>Group owner opens the group management menu.
+<li>Group owner checks the box to enable a group forum and adjusts permissions for the forum.
+<li>Group owner saves changes.
+<li>Server creates a new forum for the group.
+<li>Group owner does the initial setup for the forum.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>During group creation, group owner can start at step 2 and continue as normal.
+<li>At step 3, group owner can choose not to save changes and the process stops.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to add the forum again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.
+
+
+
+<h3>Edit Forum</h3>
+
+
+<p><b>Actors: </b>Group owner, group moderator, group leader, server
+
+<p><b>Goals: </b>Edit the settings for the the group forum
+
+<p><b>Preconditions: </b>User has sufficient permissions to edit the forum, user is a member of the group, user is logged in.
+
+<p><b>Summary: </b>A group owner, moderator, or leader can edit the forum settings depending on their privileges within the group.
+
+<p><b>Related use cases: </b>Add forum, delete forum, add post to thread, edit post, hide post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User opens the forum management menu.
+<li>User adjusts forum settings.
+<li>User saves changes.
+<li>Server updates the settings on the forum.
+</ol>
+
+
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to save and changes to the forum are discarded
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to edit the forum again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If user does not have sufficient permissions they will be unable to edit the forum.
+
+
+<h3>Delete Forum</h3>
+
+
+<p><b>Actors: </b>Group owner, server
+
+<p><b>Goals: </b>Delete the group's forum.
+
+<p><b>Preconditions: </b>Group owner owns a group, group has a forum, group owner is logged into gus.
+
+<p><b>Summary: </b>The group owner wants to remove teh group's forum.
+
+<p><b>Related use cases: </b>Edit forum, addforum, add post to thread, edit post, hide post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>Group owner opens the group management menu.
+<li>Group owner unchecks the box to enable a group forum.
+<li>Group owner saves changes.
+<li>Server deletes the group's forum.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, group owner can choose not to save changes and the process stops.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the forum again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.
+
+
+<h3>Add post to thread</h3>
+
+
+<p><b>Actors: </b>user, server
+
+<p><b>Goals: </b>Post a response in a discussion thread in the group's forum.
+
+<p><b>Preconditions: </b>User is a member of a group, group has a forum, forum has at least one thread, user has permission to post to the forum, user is logged in.
+
+<p><b>Summary: </b>Posting to a thread allows users to communicate with one another.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, edit post, hide post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds the thread on the forum they want to post to.
+<li>User clicks the "reply" button on the forum.
+<li>User types their post into a text box and clicks the "post" button.
+<li>Server posts the post to the thread and takes the user back to the thread.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to post by clicking their browser's "back" button or clicking the "cancel" button on the web interface.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to post to the thread again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to post, they won't have a "reply" button available.
+
+
+
+
+<h3>Edit post</h3>
+
+
+<p><b>Actors: </b>user, server
+
+<p><b>Goals: </b>User wants to edit their own post on a forum
+
+<p><b>Preconditions: </b>User is a member of a group, group has a forum, forum has at least one thread, user has permission to post to the forum, user is logged in, user has a post on the forum.
+
+<p><b>Summary: </b>Users can choose to edit their posts to fix mistakes or retract statements. Moderators, leaders, and owners in the group can have the ability to edit other user's posts.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, add post to thread, hide post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds the post they want to edit.
+<li>User clicks the "edit" button on the post.
+<li>User edits their post ina text box and clicks the "post" button.
+<li>Server updates the post in the thread and takes the user back to the thread.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to post by clicking their browser's "back" button or clicking the "cancel" button on the web interface.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to post to the thread again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to edit the post, they won't have an "edit" button available.
+
+
+<h3>Hide post</h3>
+
+
+<p><b>Actors: </b>group owner, moderator, group leader, server
+
+<p><b>Goals: </b>Hide a post from public view.
+
+<p><b>Preconditions: </b>User is a member of a group, group has a forum, forum has at least one thread, user is logged in, user has permission to moderate forums.
+
+<p><b>Summary: </b>If a user posts inappropriate content to the forum, a user with appropriate permissions can choose to hide the content from public view.  Other users with sufficient permissions can view the post and determine how they should respond.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, add post to thread, edit post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds the post they want to hide.
+<li>User clicks the "hide" button on the post.
+<li>User gives a reason why they are hiding the post.
+<li>Server updates the thread by hiding the post and takes the user back to the thread.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to hide a post by clicking their browser's "back" button or clicking the "cancel" button on the web interface.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to hide the post again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to hide posts, they won't have a "hide" button available.
+
+<h3>Delete post</h3>
+
+
+<p><b>Actors: </b>group owner, moderator, group leader, user, server
+
+<p><b>Goals: </b>Delete a post from a thread on the forum.
+
+<p><b>Preconditions: </b>User is a member of a group, group has a forum, forum has at least one thread, user is logged in, user has a post in a thread on the forum.
+
+<p><b>Summary: </b>If a user wants to delete a post they made, they can do so. Moderators for the forum will still be able to see the post, but other users will not.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, add post to thread, edit post, hidepost, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds the post they want to delete.
+<li>User clicks the "edit" button on the post.
+<li>User checks the checkbox for "delete post"
+<li>User saves changes to the post.
+<li>Server updates the thread by hiding the post from all users except moderators and takes the user back to the thread.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to delete the post by clicking their browser's "back" button or clicking the "cancel" button on the web interface.
+<li>At step 3, user has the option to give a reason why they are deleting the post.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the post again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to edit the post, they won't have an "edit" button available.
+</body>
+</html>
+
+
+
+<h3>Name</h3>
+
+
+<p><b>Actors: </b>
+
+<p><b>Goals: </b>
+
+<p><b>Preconditions: </b>
+
+<p><b>Summary: </b>
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>
+</ol>
+
+
+
+<p><b>Postconditions: </b>
+
+<p><b>Alternative: </b>
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b>
