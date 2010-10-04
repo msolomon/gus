@@ -35,21 +35,21 @@
 35.	Edit Formula (MATH)
 36.	Create web page (provides a limited dreamweaver-esque gui)
 37.	Edit web page
-38.	Add wiki to group  *Alex Started here and worked downwards*
-39.	Edit wiki
-40.	Delete wiki
-41.	Add forum
-42.	Edit forum
-43.	Delete forum
-44.	Add post to thread
-45.	Edit post
-46.	Hide post
-47.	Delete post
-48.	Add thread
-49.	Edit thread
-50.	Delete thread
-51.	Add blog
-52.	Edit blog
+38.*A	Add wiki to group  *Alex Started here and worked downwards*
+39.*A	Edit wiki
+40.*A	Delete wiki
+41.*A	Add forum
+42.*A	Edit forum
+43.*A	Delete forum
+44.*A	Add post to thread
+45.*A	Edit post
+46.*A	Hide post
+47.*A	Delete post
+48.*A	Add thread
+49.*A	Edit thread
+50.*A	Delete thread
+51.*A	Add blog
+52.*A	Edit blog
 53.	Delete blog
 54.	Add blog post
 55.	Edit blog post
