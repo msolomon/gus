@@ -1,4 +1,4 @@
-1.	Sync with server
+1.*L	Sync with server
 2.	Create account
 3.	Delete account
 4.	Deactivate account
@@ -7,9 +7,9 @@
 7.	Add user to group
 8.	Add leader to group
 9.	Promote user to moderator
-10.	Add note to user (group specific)
-11.	Edit note
-12.	Remove note
+10.*L	Add note to user (group specific)
+11.*L	Edit note
+12.*L	Remove note
 13.	Demote group leader
 14.	Demote group moderator
 15.	Promote group moderator to leader
@@ -58,9 +58,9 @@
 58.	Edit comment
 59.	Hide comment
 60.	Delete comment
-61.	RSVP to event (waitlisted if .full.)
-62.	Remove RSVP to event
-63.	Set RSVP limit for event (*edits event*)
+61.*L	RSVP to event (waitlisted if .full.)
+62.*L	Remove RSVP to event
+63.*L	Set RSVP limit for event (*edits event*)
 64.	Notify user when added to an event (server use-case)
 65.	Send email to group
 66.	Send email to user
