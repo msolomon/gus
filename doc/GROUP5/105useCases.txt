@@ -35,7 +35,7 @@
 35.	Edit Formula (MATH)
 36.	Create web page (provides a limited dreamweaver-esque gui)
 37.	Edit web page
-38.	Add wiki to group
+38.	Add wiki to group  *Alex Started here and worked downwards*
 39.	Edit wiki
 40.	Delete wiki
 41.	Add forum
