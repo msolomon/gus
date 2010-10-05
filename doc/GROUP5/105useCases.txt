@@ -84,8 +84,8 @@
 84.	Report user
 85.	Report error
 86.	Log error
-87.	View error log
-88.*C	Edit .mailman. settings
+87.*C	View error log
+88.	Edit .mailman. settings
 89.	Join group
 90.	Leave group
 91.	Request an add to a private group
