@@ -85,7 +85,7 @@
 85.	Report error
 86.	Log error
 87.	View error log
-88.	Edit .mailman. settings
+88.*C	Edit .mailman. settings
 89.	Join group
 90.	Leave group
 91.	Request an add to a private group
@@ -100,6 +100,8 @@
 100.	Email low disk space warning to administrators
 101.	Display group tree (with highlighting for paths to your groups. if not logged in, no highlighting)
 102.	Display group member list
-103.	Display group mod list
+103.	 group mod list
 104.	Display group leader list
-105.	Display leader/s of parent group (if original group, display administrator/s)
+105.	Display leader/s of parent group (if original group, display administrated 0 (delta 0)
+Unpacking objects: 100% (5/5), done.
+r/s)
