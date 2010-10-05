@@ -51,6 +51,6 @@ This module REFERENCES the User Manager's Get User Info object.</p>
   Show Module (from the Module Manager) REQUESTS INFO FROM this module, which in turn, returns DISPLAY INFO.<br />
 This module REFERENCES the User Manager's Get User Info object.</p>
 <p>&nbsp;</p>
-<a href="group1.html">Brett's Class Diagrams</a>
+<a href="group1.html" Brett's Class Diagrams></a>
 </body>
 </html>
