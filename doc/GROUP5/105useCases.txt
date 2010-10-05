@@ -1,6 +1,6 @@
 1.*L	Sync with server
 2.*C	Create account
-3.	Delete account
+3.*T	Delete account
 4.	Deactivate account
 5.	Update Account
 6.*C	Update Personal Page (myspace style)
@@ -51,13 +51,13 @@
 51.*A	Add blog
 52.*A	Edit blog
 53.*A	Delete blog
-54.	Add blog post
-55.	Edit blog post
-56.	Delete blog post
-57.	Comment on blog post
-58.	Edit comment
-59.	Hide comment
-60.	Delete comment
+54.*T	Add blog post
+55.*T	Edit blog post
+56.*T	Delete blog post
+57.*T	Comment on blog post
+58.*T	Edit comment
+59.*T	Hide comment
+60.*T	Delete comment
 61.*L	RSVP to event (waitlisted if .full.)
 62.*L	Remove RSVP to event
 63.*L	Set RSVP limit for event (*edits event*)
