@@ -525,9 +525,181 @@
 
 <p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the blog again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't own the group or have sufficient privileges, they won't be able to access the group management menu.
 
+
+<h3>Update Personal Page</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors:</b> User, browser
+
+<p><b>Goals:</b> Update content on the user's profile page
+
+<p><b>Preconditions:</b> User must have GUS account
+
+<p><b>Summary: </b>User wants to change the content on their profile page, and enters an edit session. Once editing is finished, the user submits the new content to GUS.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logins into account
+<li>User clicks on Edit Personal Page link
+<li>Server populates form page with available fields and current values
+<li>User changes/adds values to forms
+<li>User clicks submit
+<li>GUS core recieves new data and updates in the database
+</ol>
+
+<p><b>Postconditions: </b> User's page content is changed in the GUS database
+
+<p><b>Alternative: </b> User cancels edit process or a state is reached that makes edit submission unacceptable.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> User enters content (certain/all html) that is not allowed, and is resent back to the edit page.
+
+
+<h3>Upload Document to Group</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> Group web page, User
+
+<p><b>Goals: </b> Upload a document to GUS and convert into GUS doc format if possible.
+
+<p><b>Preconditions: </b> User must have an account, must meet specific group criteria to be allowed to upload to group.
+
+<p><b>Summary: </b> User has a document they want to upload to GUS to circulate and collaborate.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logs in
+<li>User visits group document website
+<li>User clicks Upload Document link
+<li>Browser interface window pops up
+<li>User selects document for upload
+<li>Upload of file completes
+</ol>
+
+<p><b>Postconditions: </b> Group document link is listed in group document page.
+
+<p><b>Alternative: </b> User uploads another file instead of a document
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> Document cannot be uploaded in raw format because it doesn't meet safe file specifications, document cannot be converted because of convert failure, user cancels before selecting document for upload
+
+
+<h3>Update Document</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> Editing user, group web page, other group users
+
+<p><b>Goals: </b> User makes change document, possibly with many users at one time
+
+<p><b>Preconditions: </b> User must me logged in, user must meet group criteria for updating document.
+
+<p><b>Summary: </b> User wants to edit a GUS document, and clicks the document link on the group's document section of their website to view and edit the document
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User navigates to document section of group web page
+<li>User clicks on document link
+<li>Group web page displays document content
+<li>User types to make document changes
+	<ul>
+	<li>If user is in an online mode with low enough latency, changes are made live and saved as user types.
+	<li>If not, file is locked in the database in case it is shared. Other users can communicate in document chat, and can view document.
+	</ul>
+<li>User is done with editing and closes document.
+<li>Document is saved and any locks are freed.
+</ol>
+
+<p><b>Postconditions: </b> Document may have changed name or content.
+
+<p><b>Alternative: </b> User deletes document, user locks file but doesn't save changes.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> User opens document, but loses internet connection. Upon reconnection, user can try to save document, or merge if changes have been made in the mean time. If conflicts arise, a diff can be displayed and user can choose which changes to keep.
+
+
+<h3>Compare Calendar</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> User or group owning calendar, other users/groups, calendar page
+
+<p><b>Goals: </b> Display 2 or more calendars simultaniously for comparison
+
+<p><b>Preconditions: </b> User must be logged in
+
+<p><b>Summary: </b> User wishes to compare 2 or more calendars, commonly to find available times for all parties.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User navigates to their own user/group calendar
+<li>User clicks on Add Calendar
+<li>User browses or searches through available calendar in GUS directory.
+<li>User checks boxes for all calendars they want to add
+<li>Calendar page displays events color codes for each entity.
+<li>User can toggle each entity on/off
+</ol>
+
+<p><b>Postconditions: </b> Calendar page shows multiple calendars on one page.
+
+<p><b>Alternative: </b> User click on searched calendars individually.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> Some/all calendars requested for comparison are not available to to permission issues.
+
+
+<h3>View Error Log</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> GUS Admin
+
+<p><b>Goals: </b> View events in error log
+
+<p><b>Preconditions: </b> User must be a GUS administrator
+
+<p><b>Summary: </b> User logs into GUS core and view error logs. Logs can be parsed as GUS format or as raw logs for help in addressing issues and troubleshooting.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logs into GUS core
+<li>User navigates to Error Logging section
+<li>User clicks on View Error logs
+<li>User is presented with GUS parsing or raw file display
+	<ul>
+	<li>If GUS parsing enabled (default), any special linking to other log files / extra formatting is displayed
+	<li>Otherwise, raw log content is displayed
+	</ul>
+<li>User can navigate to actions described in error log file and reproduce issues
+<li>User can potential resolved error issues
+</ol>
+
+<p><b>Postconditions: </b> No changes to be made to logs
+
+<p><b>Alternative: </b> User can link sections in log to support ticketing system for quick acces by other admins. User can click on log links and see other user / group logs for more information.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> User does not have adequate credentials to log into GUS core and see logs
+
 </body>
 </html>
-
 
 
 <h3>Name</h3>
@@ -558,3 +730,4 @@
 </ul>
 
 <p><b>Fail: </b>
+
