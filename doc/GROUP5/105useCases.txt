@@ -50,7 +50,7 @@
 50.*A	Delete thread
 51.*A	Add blog
 52.*A	Edit blog
-53.	Delete blog
+53.*A	Delete blog
 54.	Add blog post
 55.	Edit blog post
 56.	Delete blog post

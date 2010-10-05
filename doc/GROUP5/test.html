@@ -493,6 +493,38 @@
 
 <p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to edit blog again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't own the blog or have sufficient privileges, they won't be able to access the blog control panel.
 
+
+<h3>Delete blog</h3>
+
+
+<p><b>Actors: </b>User, server
+
+<p><b>Goals: </b>User would like to delete their blog or the blog for their owned group
+
+<p><b>Preconditions: </b>User has a blog for their profile/group, user is logged in, user has permission to edit the blog
+
+<p><b>Summary: </b>User has decied that they no longer want a blog.  They choose to delete it.
+
+<p><b>Related use cases: </b>add blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, edit comment, hide comment, delete comment
+
+<p><b>Steps:</b>
+<ol>
+<li>User opens their user control panel.
+<li>User unchecks the box to include a blog on their profile.
+<li>User saves their settings.
+<li>Server updates their profile and deletes the blog.
+</ol>
+
+
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 2, the user can stop the process by clicking their browser's "back" button or clicking the cancel button.
+<li>User can remove a blog from their group by using the group management menu and following similar steps.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the blog again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't own the group or have sufficient privileges, they won't be able to access the group management menu.
+
 </body>
 </html>
 
