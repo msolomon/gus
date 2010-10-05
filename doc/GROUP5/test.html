@@ -526,6 +526,178 @@
 <p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the blog again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't own the group or have sufficient privileges, they won't be able to access the group management menu.
 
 
+
+<h3>Add blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to add a post to their blog</p>
+<p><b>Preconditions:</b> User has a blog for their profile/group, user is logged in, user has permission to post to blog</p>
+<p><b>Summary: </b>A user has a blog and wishes to add a post to it</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, edit blog post, delete blog post, comment on blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User finds their blog</li>
+<li>User opens the form to add a post</li>
+<li>User enters the post</li>
+<li>User submits the post</li>
+<li>Server updates their blog with the new post</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+<p>
+<p><b>Fail: </b> User enters content that is not allowed, and is sent back to the add form</p>
+
+<h3>Edit blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors:</b> User, server</p>
+<p><b>Goals: </b>User would like to edit a post on their blog</p>
+<p><b>Preconditions:</b> User has a blog for their profile/group, user is logged in, user has permission to edit posts on blog, blog has posts that are editable</p>
+<p><b>Summary: </b>A user has a blog and wishes to edit the content of a post on it</p>
+<p><b>Related use cases: add blog, delete blog, edit blog, add blog post, delete blog post, comment on blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User finds their blog</li>
+<li>User clicks on Edit Blog Posts link</li>
+<li>User selects blog post to edit</li>
+<li>User modifies the content of the blog post</li>
+<li>User submits edit</li>
+<li>Server updates the post on the blog</li>
+</ol>
+<p><b>Alternative:</b>
+<ul>
+<li>User cancels the process and is returned to the Edit Blog Posts page</li>
+</ul>
+<p>
+<p><b>Fail: If the user does not select any posts to edit, they will be returned to the Edit Blog Posts page. If the user does not have permission to edit the post, they will be notified that they do not have sufficient privileges.</p>
+
+<h3>Delete blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors:</b> User, server</p>
+<p><b>Goals: </b>User would like to remove a post from their blog</p>
+<p><b>Preconditions:</b> User has a blog for their profile/group, user is logged in, user has permission to remove posts from blog, blog has posts that are removable</p>
+<p><b>Summary: </b>A user has a blog and wishes to remove posts from it</p>
+<p><b>Related use cases: add blog, delete blog, edit blog, add blog post, edit blog post, comment on blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User finds their blog</li>
+<li>User clicks on Edit Blog Posts link</li>
+<li>User selects blog post for deletion</li>
+<li>User confirms post deletion</li>
+<li>Server removes the post from the blog</li>
+</ol>
+<p><b>Alternative:</b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+<p>
+<p><b>Fail: If the user does not select any posts to delete, they will be returned to the Edit Blog Posts page. If the user does not have permission to delete the post, they will be notified that they do not have sufficient privileges.</p>
+
+<h3>Comment on blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to comment on the blog</p>
+<p><b>Summary: </b>A user wants to leave a comment on an existing blog post</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing a blog post</li>
+<li>User clicks the Comment on Blog Post button</li>
+<li>User enters their comment</li>
+<li>User submits the comment</li>
+<li>Server adds the comment and updates the blog post with the new comment</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+<p>
+<p><b>Fail: </b> User enters content that is not allowed, and is sent back to the add comment page. If the user does not have sufficient privileges to view or comment on a blog post, they will be denied access to the post comment page</p>
+
+<h3>Edit comment</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to edit a comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to edit the comment</p>
+<p><b>Summary: </b>A user wants to edit a previously made comment</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing their blog's control panel</li>
+<li>User opens a tab containing a list of comments they have made</li>
+<li>User selects the Edit Comment button next to the comment they would like to edit</li>
+<li>User edits the contents of the comment</li>
+<li>User submits the edited comment</li>
+<li>Server updates the comment and updates the blog post with the changed comment</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User is viewing a blog post containing a comment they have made</li>
+<li>User selects the Edit Comment button next to the comment they would like to edit</li>
+<li>User edits the contents of the comment</li>
+<li>User submits the edited comment</li>
+<li>Server updates the comment and updates the blog post with the changed comment</li>
+</ul>
+</p>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+</p>
+<p><b>Fail: </b> User enters content that is not allowed, and is sent back to the edit comment page. If the user does not have sufficient privileges to edit the comment, they will be denied access to the edit comment page</p>
+
+<h3>Hide comment</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to hide a comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to hide the comment</p>
+<p><b>Summary: </b>A user wants to hide a a comment that has been made on their blog post</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, edit comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing a comment on one of their blog posts</li>
+<li>User clicks the Hide Comment button next to the comment they would like to hide</li>
+<li>User confirms they would like to hide the comment</li>
+<li>Server updates the comment and hides it from view on the blog post</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process when asked to confirm the action</li>
+</ul>
+</p>
+<p><b>Fail: </b> If the user does not have sufficient privileges to hide the comment, they will be denied access to hide the comment</p>
+
+<h3>Delete comment</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to delete a comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to delete the comment</p>
+<p><b>Summary: </b>A user wants to delete a comment on their blog post, or the user wants to delete a comment they have made on another blog post</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, edit comment, hide comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing a comment on one of their blog posts</li>
+<li>User clicks the Delete Comment button next to the comment they would like to delete</li>
+<li>User confirms they would like to delete the comment</li>
+<li>Server removes the comment from the blog post</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User is viewing a blog post containing a comment they have made</li>
+<li>User selects the Delete Comment button next to the comment they would like to delete</li>
+<li>User confirms they would like to delete the comment</li>
+<li>Server removes the comment from the blog post</li>
+</ul>
+</p>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process when asked to confirm the action</li>
+</ul>
+</p>
+<p><b>Fail: </b> If the user does not have sufficient privileges to delete the comment, they will be denied access to delete the comment</p>
+
 <h3>Update Personal Page</h3>
 <i>Colby Blair</i>
 
