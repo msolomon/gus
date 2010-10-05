@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<h1>GUS - CORE COMPONENT</h1>
+<p><img src="gus.png"/>  </p>
+<h2>Module Manager</h2>
+<p>The Module Manager is responsible for displaying pages, and will be stored on the server as index.php (and is the default webpage).<br />
+ADD MODULE: Adds a module to the filesystem and adds its entry to the database. Note: Modules are given a unique name upon addition to allow for multiple subgroups.<br /> 
+REMOVE MODULE: Removes a module from the filesystem and removes its database entry.<br />
+SHOW MODULE: Outputs the requested module.<br />
+GET/SAVE SETTINGS: In conjunction with the configuration page, saves module-specific settings to that module's settings table.<br />
+AUTHENTICATES: via the User Manager.
+</p>
+<h2>Configuration Page</h2>
+<p>QUERIES and SENDS DATA to and from the module manager<br />
+  CONTAINS the actual interface controls to add and remove modules.<br />
+AUTHENTICATES via the User Manager.</p>
+<h2>User Manager</h2>
+<p>MANAGE USERS INDIVIDUALLY to edit a user's privelege one-by-one.<br />
+  MASS ADD (or remove) USERS to add or remove a whole class list.<br />
+  GET USER INFO to return that user's name, check password against stored hash, return user's database ID, etc.</p>
+<h2>Log In</h2>
+<p>LOG IN: Authenticates via the user manager.</p>
+<p>&nbsp;</p>
+<h1>GUS - ROSTER MODULE</h1>
+<p><img src="roster.png"/></p>
+<h2>Roster Module</h2>
+<p>PURPOSE: The User Auth table only holds data for authentication, and the roster may contain other fields such as dues paid, user information, profiles, and so on. This way, a particular subgroup can have its own roster separate from the master list.<br />
+SET ROSTER ITEM: Adds a user to the roster.<br />
+DISPLAY ROSTER ITEMS: Displays a select number of roster items (as chosen on config page).
+<br />
+Show Module (from the Module Manager) REQUESTS INFO FROM this module, which in turn, returns DISPLAY INFO.<br />
+This module REFERENCES the User Manager's Get User Info object.</p>
+<p>&nbsp;</p>
+<h1>GUS - FORUM MODULE</h1>
+<p><img src="forum.png"/></p>
+<h2>Forum Module</h2>
+<p>PURPOSE: Some groups wanted the option for a forum.<br />
+  INTERNAL USER LIST: contains information regarding which users are moderators (and contains no info if a user is not a moderator).<br />
+  ADD POST/TOPIC: Adds a post, topic, thread, etc.<br />
+  REMOVE POST/TOPIC: Removes a post, topic, thread, etc. Mods can remove other users' items and will automatically leave a &quot;REMOVED BY MOD&quot; note.<br />
+  EDIT POST/TOPIC: Allows users or mods to 
+  edit posts. Mods that edit others' posts will automatically leave an &quot;EDITED BY MOD&quot; note.<br />
+  DISPLAY POSTS/TOPICS: Displays posts in a thread, lists of threads under a topic, or lists of topics.
+  <br />
+  Show Module (from the Module Manager) REQUESTS INFO FROM this module, which in turn, returns DISPLAY INFO.<br />
+This module REFERENCES the User Manager's Get User Info object.</p>
+<p>&nbsp;</p>
+</body>
+</html>
