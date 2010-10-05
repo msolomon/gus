@@ -11,9 +11,10 @@
 
 <p>
 
-<b> Lee's Class Diagram </b>
-<p>
+<b>Lee's Class Diagram</b><br>
+
 <img src="lee_class.png">
+
 <br>
 Groups: Can have multiple subgroups
 <p>
@@ -44,6 +45,31 @@ Email address, Membership status, and UserID.
 I pulled information from my own experience as an ACM officer (VP) as well as from fellow and past officers .
 <br>
 
+<p>
+<b>Scott Beddall's Class Diagram:</b><br>
+
+<img src="scott_class.png">
+<br>
+<p>
+  <i>User_Info</i>: Contains general information about a given user, including bio information  
+<p>
+  <i>User</i>: Basic user class. Sends and receives messages.
+<p>
+  <i>Advisor</i>: A faculty member with the same privileges as an Officer.
+<p>
+  <i>Officer</i>: Extended user class. Can edit anything within a group; including user privileges, Calendar entries, and Task List entries.
+<p>
+  <i>Group</i>: Aggregation of users and groups. Maintains zero or more Task Lists and one Calander.
+<p>
+  <i>Task List</i>: Object with its own self contained functions that will be called upon to fulfill functions based on input from Users, Advisors, and Officers.
+<p>
+  <i>Calendar</i>: A unified calendar specific to events pertaining to the group.
+<br>
+<p>
+This class diagram was derived from an interview with VAST Launch Director Sean Wagoner. Most of the features were "make or break." By this, I mean that he wanted either all of these or none at all. Any piece of software without these features will be useless to him and his club. Specifically, Sean requested that we at least include private/public messaging, user Bios, Group Task Lists, and a Group Calander.
+<br>
+<p>
+The users each have their own information class. These "info" classes are made up of public and private components that can all be viewed by an officer (but are only partially visible to regular users). An Officer is merely a user with access to private functions, so it will inherit functions like send_message() and broadcast() from it parent class. All user's can view the Task List and Calendar, while only officers and advisors are able to change them. Groups can hold users or be made up of aggregate groups.
 
 <br>
 <br>
@@ -83,11 +109,6 @@ and possibly automated Facebook notifications would be extremelyhelpful.
 <p>
 
 My information came from an interview with Teara Lyons, the VP of TALuS.
-<br>
-
-
-<br>
-<br>
 <br>
 
 

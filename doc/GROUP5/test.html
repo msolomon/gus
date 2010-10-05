@@ -525,9 +525,353 @@
 
 <p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the blog again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't own the group or have sufficient privileges, they won't be able to access the group management menu.
 
+
+
+<h3>Add blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to add a post to their blog</p>
+<p><b>Preconditions:</b> User has a blog for their profile/group, user is logged in, user has permission to post to blog</p>
+<p><b>Summary: </b>A user has a blog and wishes to add a post to it</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, edit blog post, delete blog post, comment on blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User finds their blog</li>
+<li>User opens the form to add a post</li>
+<li>User enters the post</li>
+<li>User submits the post</li>
+<li>Server updates their blog with the new post</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+<p>
+<p><b>Fail: </b> User enters content that is not allowed, and is sent back to the add form</p>
+
+<h3>Edit blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors:</b> User, server</p>
+<p><b>Goals: </b>User would like to edit a post on their blog</p>
+<p><b>Preconditions:</b> User has a blog for their profile/group, user is logged in, user has permission to edit posts on blog, blog has posts that are editable</p>
+<p><b>Summary: </b>A user has a blog and wishes to edit the content of a post on it</p>
+<p><b>Related use cases: add blog, delete blog, edit blog, add blog post, delete blog post, comment on blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User finds their blog</li>
+<li>User clicks on Edit Blog Posts link</li>
+<li>User selects blog post to edit</li>
+<li>User modifies the content of the blog post</li>
+<li>User submits edit</li>
+<li>Server updates the post on the blog</li>
+</ol>
+<p><b>Alternative:</b>
+<ul>
+<li>User cancels the process and is returned to the Edit Blog Posts page</li>
+</ul>
+<p>
+<p><b>Fail: If the user does not select any posts to edit, they will be returned to the Edit Blog Posts page. If the user does not have permission to edit the post, they will be notified that they do not have sufficient privileges.</p>
+
+<h3>Delete blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors:</b> User, server</p>
+<p><b>Goals: </b>User would like to remove a post from their blog</p>
+<p><b>Preconditions:</b> User has a blog for their profile/group, user is logged in, user has permission to remove posts from blog, blog has posts that are removable</p>
+<p><b>Summary: </b>A user has a blog and wishes to remove posts from it</p>
+<p><b>Related use cases: add blog, delete blog, edit blog, add blog post, edit blog post, comment on blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User finds their blog</li>
+<li>User clicks on Edit Blog Posts link</li>
+<li>User selects blog post for deletion</li>
+<li>User confirms post deletion</li>
+<li>Server removes the post from the blog</li>
+</ol>
+<p><b>Alternative:</b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+<p>
+<p><b>Fail: If the user does not select any posts to delete, they will be returned to the Edit Blog Posts page. If the user does not have permission to delete the post, they will be notified that they do not have sufficient privileges.</p>
+
+<h3>Comment on blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to comment on the blog</p>
+<p><b>Summary: </b>A user wants to leave a comment on an existing blog post</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing a blog post</li>
+<li>User clicks the Comment on Blog Post button</li>
+<li>User enters their comment</li>
+<li>User submits the comment</li>
+<li>Server adds the comment and updates the blog post with the new comment</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+<p>
+<p><b>Fail: </b> User enters content that is not allowed, and is sent back to the add comment page. If the user does not have sufficient privileges to view or comment on a blog post, they will be denied access to the post comment page</p>
+
+<h3>Edit comment</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to edit a comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to edit the comment</p>
+<p><b>Summary: </b>A user wants to edit a previously made comment</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing their blog's control panel</li>
+<li>User opens a tab containing a list of comments they have made</li>
+<li>User selects the Edit Comment button next to the comment they would like to edit</li>
+<li>User edits the contents of the comment</li>
+<li>User submits the edited comment</li>
+<li>Server updates the comment and updates the blog post with the changed comment</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User is viewing a blog post containing a comment they have made</li>
+<li>User selects the Edit Comment button next to the comment they would like to edit</li>
+<li>User edits the contents of the comment</li>
+<li>User submits the edited comment</li>
+<li>Server updates the comment and updates the blog post with the changed comment</li>
+</ul>
+</p>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+</p>
+<p><b>Fail: </b> User enters content that is not allowed, and is sent back to the edit comment page. If the user does not have sufficient privileges to edit the comment, they will be denied access to the edit comment page</p>
+
+<h3>Hide comment</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to hide a comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to hide the comment</p>
+<p><b>Summary: </b>A user wants to hide a a comment that has been made on their blog post</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, edit comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing a comment on one of their blog posts</li>
+<li>User clicks the Hide Comment button next to the comment they would like to hide</li>
+<li>User confirms they would like to hide the comment</li>
+<li>Server updates the comment and hides it from view on the blog post</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process when asked to confirm the action</li>
+</ul>
+</p>
+<p><b>Fail: </b> If the user does not have sufficient privileges to hide the comment, they will be denied access to hide the comment</p>
+
+<h3>Delete comment</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to delete a comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to delete the comment</p>
+<p><b>Summary: </b>A user wants to delete a comment on their blog post, or the user wants to delete a comment they have made on another blog post</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, edit comment, hide comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing a comment on one of their blog posts</li>
+<li>User clicks the Delete Comment button next to the comment they would like to delete</li>
+<li>User confirms they would like to delete the comment</li>
+<li>Server removes the comment from the blog post</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User is viewing a blog post containing a comment they have made</li>
+<li>User selects the Delete Comment button next to the comment they would like to delete</li>
+<li>User confirms they would like to delete the comment</li>
+<li>Server removes the comment from the blog post</li>
+</ul>
+</p>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process when asked to confirm the action</li>
+</ul>
+</p>
+<p><b>Fail: </b> If the user does not have sufficient privileges to delete the comment, they will be denied access to delete the comment</p>
+
+<h3>Update Personal Page</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors:</b> User, GUS Core / server, GUS database
+
+<p><b>Goals:</b> Update content on the user's profile page
+
+<p><b>Preconditions:</b> User must have GUS account
+
+<p><b>Summary: </b>User wants to change the content on their profile page, and enters an edit session. Once editing is finished, the user submits the new content to GUS.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logins into account
+<li>User clicks on Edit Personal Page link
+<li>Server populates form page with available fields and current values
+<li>User changes/adds values to forms
+<li>User clicks submit
+<li>GUS core recieves new data and updates in the database
+</ol>
+
+<p><b>Postconditions: </b> User's page content is changed in the GUS database
+
+<p><b>Alternative: </b> User cancels edit process or a state is reached that makes edit submission unacceptable.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> User enters content (certain/all html) that is not allowed, and is resent back to the edit page.
+
+
+<h3>Upload Document to Group</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> Group web page, User
+
+<p><b>Goals: </b> Upload a document to GUS and convert into GUS doc format if possible.
+
+<p><b>Preconditions: </b> User must have an account, must meet specific group criteria to be allowed to upload to group.
+
+<p><b>Summary: </b> User has a document they want to upload to GUS to circulate and collaborate.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logs in
+<li>User visits group document website
+<li>User clicks Upload Document link
+<li>Browser interface window pops up
+<li>User selects document for upload
+<li>Upload of file completes
+</ol>
+
+<p><b>Postconditions: </b> Group document link is listed in group document page.
+
+<p><b>Alternative: </b> User uploads another file instead of a document
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> Document cannot be uploaded in raw format because it doesn't meet safe file specifications, document cannot be converted because of convert failure, user cancels before selecting document for upload
+
+
+<h3>Update Document</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> Editing user, group web page, other group users
+
+<p><b>Goals: </b> User makes change document, possibly with many users at one time
+
+<p><b>Preconditions: </b> User must me logged in, user must meet group criteria for updating document.
+
+<p><b>Summary: </b> User wants to edit a GUS document, and clicks the document link on the group's document section of their website to view and edit the document
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User navigates to document section of group web page
+<li>User clicks on document link
+<li>Group web page displays document content
+<li>User types to make document changes
+	<ul>
+	<li>If user is in an online mode with low enough latency, changes are made live and saved as user types.
+	<li>If not, file is locked in the database in case it is shared. Other users can communicate in document chat, and can view document.
+	</ul>
+<li>User is done with editing and closes document.
+<li>Document is saved and any locks are freed.
+</ol>
+
+<p><b>Postconditions: </b> Document may have changed name or content.
+
+<p><b>Alternative: </b> User deletes document, user locks file but doesn't save changes.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> User opens document, but loses internet connection. Upon reconnection, user can try to save document, or merge if changes have been made in the mean time. If conflicts arise, a diff can be displayed and user can choose which changes to keep.
+
+
+<h3>Compare Calendar</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> User or group owning calendar, other users/groups
+
+<p><b>Goals: </b> Display 2 or more calendars simultaniously for comparison
+
+<p><b>Preconditions: </b> User must be logged in
+
+<p><b>Summary: </b> User wishes to compare 2 or more calendars, commonly to find available times for all parties.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User navigates to their own user/group calendar
+<li>User clicks on Add Calendar
+<li>User browses or searches through available calendar in GUS directory.
+<li>User checks boxes for all calendars they want to add
+<li>Calendar page displays events color codes for each entity.
+<li>User can toggle each entity on/off
+</ol>
+
+<p><b>Postconditions: </b> Calendar page shows multiple calendars on one page.
+
+<p><b>Alternative: </b> User click on searched calendars individually.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> Some/all calendars requested for comparison are not available to to permission issues.
+
+
+<h3>View Error Log</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> GUS Admin
+
+<p><b>Goals: </b> View events in error log
+
+<p><b>Preconditions: </b> User must be a GUS administrator
+
+<p><b>Summary: </b> User logs into GUS core and view error logs. Logs can be parsed as GUS format or as raw logs for help in addressing issues and troubleshooting.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logs into GUS core
+<li>User navigates to Error Logging section
+<li>User clicks on View Error logs
+<li>User is presented with GUS parsing or raw file display
+	<ul>
+	<li>If GUS parsing enabled (default), any special linking to other log files / extra formatting is displayed
+	<li>Otherwise, raw log content is displayed
+	</ul>
+<li>User can navigate to actions described in error log file and reproduce issues
+<li>User can potential resolved error issues
+</ol>
+
+<p><b>Postconditions: </b> User can add notes to logs
+
+<p><b>Alternative: </b> User can link sections in log to support ticketing system for quick acces by other admins. User can click on log links and see other user / group logs for more information.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> User does not have adequate credentials to log into GUS core and edit logs
+
 </body>
 </html>
-
 
 
 <h3>Name</h3>
@@ -558,3 +902,4 @@
 </ul>
 
 <p><b>Fail: </b>
+
