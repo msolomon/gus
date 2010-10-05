@@ -73,11 +73,11 @@
 73.	Insert symbol to blog post
 74.	Insert symbol to forum post
 75.	Insert symbol to comment
-76.	Log in
-77.	Log out
-78.	Time out user (server function)
-79.	Log user actions
-80.	View user action log
+76.*T	Log in
+77.*T	Log out
+78.*T	Time out user (server function)
+79.*T	Log user actions
+80.*T	View user action log
 81.	Search users
 82.	Search groups
 83.	Browse groups
