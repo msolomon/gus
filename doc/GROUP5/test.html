@@ -595,7 +595,7 @@
 <h3>Update Document</h3>
 <i>Colby Blair</i>
 
-<p><b>Actors: </b> User, Group web page
+<p><b>Actors: </b> Editing user, group web page, other group users
 
 <p><b>Goals: </b> User makes change document, possibly with many users at one time
 
@@ -607,9 +607,14 @@
 
 <p><b>Steps:</b>
 <ol>
-<li>
-<li>
-<li>
+<li>User navigates to document section of group web page
+<li>User clicks on document link
+<li>Group web page displays document content
+<li>User types to make document changes
+	<ul>
+	<li>If user is in an online mode with low enough latency, changes are made live and saved as user types.
+	<li>If not, file is locked in the database in case it is shared. Other users can communicate in document chat, and can view document.
+	</ul>
 <li>
 <li>
 <li>
