@@ -1,9 +1,9 @@
 1.*L	Sync with server
-2.	Create account
-3.	Delete account
+2.*C	Create account
+3.*T	Delete account
 4.	Deactivate account
 5.	Update Account
-6.	Update Personal Page (myspace style)
+6.*C	Update Personal Page (myspace style)
 7.	Add user to group
 8.	Add leader to group
 9.	Promote user to moderator
@@ -25,7 +25,7 @@
 25.	Download document
 26.	Check-out document
 27.	Check-in document
-28.	Update document (provides a diff)
+28.*C	Update document (provides a diff)
 29.	Copy document
 30.	Delete document
 31.	Create Group
@@ -51,13 +51,13 @@
 51.*A	Add blog
 52.*A	Edit blog
 53.*A	Delete blog
-54.	Add blog post
-55.	Edit blog post
-56.	Delete blog post
-57.	Comment on blog post
-58.	Edit comment
-59.	Hide comment
-60.	Delete comment
+54.*T	Add blog post
+55.*T	Edit blog post
+56.*T	Delete blog post
+57.*T	Comment on blog post
+58.*T	Edit comment
+59.*T	Hide comment
+60.*T	Delete comment
 61.*L	RSVP to event (waitlisted if .full.)
 62.*L	Remove RSVP to event
 63.*L	Set RSVP limit for event (*edits event*)
@@ -65,7 +65,7 @@
 65.	Send email to group
 66.	Send email to user
 67.	Update expected event turn-out (server function)
-68.	Compare calendar
+68.*C	Compare calendar
 69.	Share event
 70.	Invite to event
 71.	Insert symbol to webpage
@@ -73,18 +73,18 @@
 73.	Insert symbol to blog post
 74.	Insert symbol to forum post
 75.	Insert symbol to comment
-76.	Log in
-77.	Log out
-78.	Time out user (server function)
-79.	Log user actions
-80.	View user action log
+76.*T	Log in
+77.*T	Log out
+78.*T	Time out user (server function)
+79.*T	Log user actions
+80.*T	View user action log
 81.	Search users
 82.	Search groups
 83.	Browse groups
 84.	Report user
 85.	Report error
 86.	Log error
-87.	View error log
+87.*C	View error log
 88.	Edit .mailman. settings
 89.	Join group
 90.	Leave group
@@ -100,6 +100,8 @@
 100.	Email low disk space warning to administrators
 101.	Display group tree (with highlighting for paths to your groups. if not logged in, no highlighting)
 102.	Display group member list
-103.	Display group mod list
+103.	 group mod list
 104.	Display group leader list
-105.	Display leader/s of parent group (if original group, display administrator/s)
+105.	Display leader/s of parent group (if original group, display administrated 0 (delta 0)
+Unpacking objects: 100% (5/5), done.
+r/s)
