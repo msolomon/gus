@@ -1,9 +1,9 @@
 1.*L	Sync with server
-2.	Create account
+2.*C	Create account
 3.	Delete account
 4.	Deactivate account
 5.	Update Account
-6.	Update Personal Page (myspace style)
+6.*C	Update Personal Page (myspace style)
 7.	Add user to group
 8.	Add leader to group
 9.	Promote user to moderator
@@ -25,7 +25,7 @@
 25.	Download document
 26.	Check-out document
 27.	Check-in document
-28.	Update document (provides a diff)
+28.*C	Update document (provides a diff)
 29.	Copy document
 30.	Delete document
 31.	Create Group
@@ -65,7 +65,7 @@
 65.	Send email to group
 66.	Send email to user
 67.	Update expected event turn-out (server function)
-68.	Compare calendar
+68.*C	Compare calendar
 69.	Share event
 70.	Invite to event
 71.	Insert symbol to webpage
