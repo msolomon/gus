@@ -615,22 +615,21 @@
 	<li>If user is in an online mode with low enough latency, changes are made live and saved as user types.
 	<li>If not, file is locked in the database in case it is shared. Other users can communicate in document chat, and can view document.
 	</ul>
-<li>
-<li>
-<li>
+<li>User is done with editing and closes document.
+<li>Document is saved and any locks are freed.
 </ol>
 
-<p><b>Postconditions: </b>
+<p><b>Postconditions: </b> Document may have changed name or content.
 
-<p><b>Alternative: </b>
+<p><b>Alternative: </b> User deletes document, user locks file but doesn't save changes.
 <ul>
 <li>
 </ul>
 
-<p><b>Fail: </b>
+<p><b>Fail: </b> User opens document, but loses internet connection. Upon reconnection, user can try to save document, or merge if changes have been made in the mean time. If conflicts arise, a diff can be displayed and user can choose which changes to keep.
 
 
-<h3>Name</h3>
+<h3>Compare Calendar</h3>
 <i>Colby Blair</i>
 
 <p><b>Actors: </b>
