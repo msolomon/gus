@@ -525,9 +525,163 @@
 
 <p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the blog again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't own the group or have sufficient privileges, they won't be able to access the group management menu.
 
+
+<h3>Update Personal Page</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors:</b> User, browser
+
+<p><b>Goals:</b> Update content on the user's profile page
+
+<p><b>Preconditions:</b> User must have GUS account
+
+<p><b>Summary: </b>User wants to change the content on their profile page, and enters an edit session. Once editing is finished, the user submits the new content to GUS.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logins into account
+<li>User clicks on Edit Personal Page link
+<li>Server populates form page with available fields and current values
+<li>User changes/adds values to forms
+<li>User clicks submit
+<li>GUS core recieves new data and updates in the database
+</ol>
+
+<p><b>Postconditions: </b> User's page content is changed in the GUS database
+
+<p><b>Alternative: </b> User cancels edit process or a state is reached that makes edit submission unacceptable.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> User enters content (certain/all html) that is not allowed, and is resent back to the edit page.
+
+
+<h3>Upload Document to Group</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> Group web page, User
+
+<p><b>Goals: </b> Upload a document to GUS and convert into GUS doc format if possible.
+
+<p><b>Preconditions: </b> User must have an account, must meet specific group criteria to be allowed to upload to group.
+
+<p><b>Summary: </b> User has a document they want to upload to GUS to circulate and collaborate.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logs in
+<li>User visits group document website
+<li>User clicks Upload Document link
+<li>Browser interface window pops up
+<li>User selects document for upload
+<li>Upload of file completes
+</ol>
+
+<p><b>Postconditions: </b> Group document link is listed in group document page.
+
+<p><b>Alternative: </b> User uploads another file instead of a document
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> Document cannot be uploaded in raw format because it doesn't meet safe file specifications, document cannot be converted because of convert failure, user cancels before selecting document for upload
+
+
+<h3>Update Document</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> User, Group web page
+
+<p><b>Goals: </b> User makes change document, possibly with many users at one time
+
+<p><b>Preconditions: </b> User must me logged in, user must meet group criteria for updating document.
+
+<p><b>Summary: </b> User wants to edit a GUS document, and clicks the document link on the group's document section of their website to view and edit the document
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>
+<li>
+<li>
+<li>
+<li>
+<li>
+</ol>
+
+<p><b>Postconditions: </b>
+
+<p><b>Alternative: </b>
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b>
+
+
+<h3>Name</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b>
+
+<p><b>Goals: </b>
+
+<p><b>Preconditions: </b>
+
+<p><b>Summary: </b>
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>
+</ol>
+
+<p><b>Postconditions: </b>
+
+<p><b>Alternative: </b>
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b>
+
+
+<h3>Name</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b>
+
+<p><b>Goals: </b>
+
+<p><b>Preconditions: </b>
+
+<p><b>Summary: </b>
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>
+</ol>
+
+<p><b>Postconditions: </b>
+
+<p><b>Alternative: </b>
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b>
+
 </body>
 </html>
-
 
 
 <h3>Name</h3>
@@ -558,3 +712,4 @@
 </ul>
 
 <p><b>Fail: </b>
+
