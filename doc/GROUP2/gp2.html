@@ -44,11 +44,18 @@ Email address, Membership status, and UserID.
 I pulled information from my own experience as an ACM officer (VP) as well as from fellow and past officers .
 <br>
 
+<p>
 Scott Beddall's Class Diagram:<br>
 
 <img src="scott_class.png">
 <br>
+<p>
+  User_Info: Contains general information about a given user, including bio information  
 
-
+<p>
+This class diagram was derived from an interview with VAST Launch Director Sean Wagoner. Most of the features were "make or break." By this, I mean that he wanted either all of these or none at all. Any piece of software without these features will be useless to him and his club. 
+<br>
+<p>
+The users each have their own information class. These "info" classes are made up of public and private components that can all be viewed by an officer (but are only partially visible to regular users). An Officer is merely a user with access to private functions, so it will inherit functions like send_message() and broadcast() from it parent class. All user's can view the Task List and Calender, while only officers and advisors are able to change them. Groups can hold can be made up of aggregate groups.
 
 </body>
