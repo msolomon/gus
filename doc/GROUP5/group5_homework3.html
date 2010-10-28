@@ -1063,6 +1063,38 @@ Syncs the user's program which they used to edit somthing in one of their groups
 </ol>
 <p><b>Fail:</b>At step 4 the connection with the server could fail, and no changes will be made. At step 3 the gus program can find that the user has not RSVP'd to that event. An error message will inform the user of the problems.
 
+
+
+	<h3>Log in</h3>
+	<i>Timothy Bianchetti</i>
+	<p><b>Actors: </b>User, server</p>
+	<p><b>Goals: </b>User would like to log into their account</p>
+	<p><b>Preconditions:</b> User has an internet connection, user has an account</p>
+	<p><b>Summary: </b>A user wants to log into their gus account to access all the functionality of gus that requires an account</p>
+	<p><b>Related use cases:</b> log out</p>
+	<p><b>Steps:</b>
+	<ol>
+	<li>User is viewing a page with a login form</li>
+	<li>User enters their username and password</li>
+	<li>User clicks the Log In button</li>
+	<li>Server verifies the credentials of the user</li>
+	<li>Server creates a session for the user</li>
+	</ol>
+	<p><b>Alternative: </b>
+	<ul>
+	<li>User cancels the process</li>
+	</ul>
+	<p>
+	<p><b>Fail: </b> If the user enters a username and password that do not match, they will be redirected to a base login page with an error message.</p>
+
+
+
+
+
+
+
+
+
 </body>
 </html>
 
