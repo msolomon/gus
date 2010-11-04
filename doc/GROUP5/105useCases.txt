@@ -1,107 +1,147 @@
-1.*L	Sync with server
-2.*C	Create account
-3.*T	Delete account
-4.	Deactivate account
-5.	Update Account
-6.*C	Update Personal Page (myspace style)
-7.	Add user to group
-8.	Add leader to group
-9.	Promote user to moderator
-10.*L	Add note to user (group specific)
-11.*L	Edit note
-12.*L	Remove note
-13.	Demote group leader
-14.	Demote group moderator
-15.	Promote group moderator to leader
-16.	Add moderator to group
-17.	Link user
-18.	Link leader
-19.	Link moderator
-20.	Un-link user
-21.	Un-link leader
-22.	Un-link moderator
-23.	Upload document to group
-24.	View document (only for text, pdf, or image)
-25.	Download document
-26.	Check-out document
-27.	Check-in document
-28.*C	Update document (provides a diff)
-29.	Copy document
-30.	Delete document
-31.	Create Group
-32.	Edit Group
-33.	Delete Group
-34.	Create Formula (MATH)
-35.	Edit Formula (MATH)
-36.	Create web page (provides a limited dreamweaver-esque gui)
-37.	Edit web page
-38.*A	Add wiki to group  *Alex Started here and worked downwards*
-39.*A	Edit wiki
-40.*A	Delete wiki
-41.*A	Add forum
-42.*A	Edit forum
-43.*A	Delete forum
-44.*A	Add post to thread
-45.*A	Edit post
-46.*A	Hide post
-47.*A	Delete post
-48.*A	Add thread
-49.*A	Edit thread
-50.*A	Delete thread
-51.*A	Add blog
-52.*A	Edit blog
-53.*A	Delete blog
-54.*T	Add blog post
-55.*T	Edit blog post
-56.*T	Delete blog post
-57.*T	Comment on blog post
-58.*T	Edit comment
-59.*T	Hide comment
-60.*T	Delete comment
-61.*L	RSVP to event (waitlisted if .full.)
-62.*L	Remove RSVP to event
-63.*L	Set RSVP limit for event (*edits event*)
-64.	Notify user when added to an event (server use-case)
-65.	Send email to group
-66.	Send email to user
-67.	Update expected event turn-out (server function)
-68.*C	Compare calendar
-69.	Share event
-70.	Invite to event
-71.	Insert symbol to webpage
-72.	Insert symbol to thread
-73.	Insert symbol to blog post
-74.	Insert symbol to forum post
-75.	Insert symbol to comment
-76.*T	Log in
-77.*T	Log out
-78.*T	Time out user (server function)
-79.*T	Log user actions
-80.*T	View user action log
-81.	Search users
-82.	Search groups
-83.	Browse groups
-84.	Report user
-85.	Report error
-86.	Log error
-87.*C	View error log
-88.	Edit .mailman. settings
-89.	Join group
-90.	Leave group
-91.	Request an add to a private group
-92.	Create/Name gus server
-93.	Ping gus server
-94.	Un-install gus server
-95.	Set-up initial group
-96.	Sync date/time (to local time on server box)
-97.	Change date/time
-98.	Check disk space
-99.	Display remaining disk space
-100.	Email low disk space warning to administrators
-101.	Display group tree (with highlighting for paths to your groups. if not logged in, no highlighting)
-102.	Display group member list
-103.	 group mod list
-104.	Display group leader list
-105.	Display leader/s of parent group (if original group, display administrated 0 (delta 0)
-Unpacking objects: 100% (5/5), done.
-r/s)
+*Groups*
+
+Group membership
+-Join group
+-Leave group
+-Request an add to a private group
+
+Group and member management
+-Create Group
+-Edit Group
+-Delete Group
+-Add user to group
+-Add leader to group
+-Promote user to moderator
+-Demote group leader
+-Demote group moderator
+-Promote group moderator to leader
+-Add moderator to group
+-Add note to user (group specific)
+-Edit note
+-Remove note
+
+Linking
+-Link user
+-Link leader
+-Link moderator
+-Un-link user
+-Un-link leader
+-Un-link moderator
+
+
+*Server Functionality*
+
+Account Creation/Deletion/Management
+-Create account
+-Delete account
+-Deactivate account
+-Update Account
+-Update Personal Page (myspace style)
+
+Login
+-Log in
+-Log out
+-Time out user (server function)
+
+Setup and server/administrative functions
+-Create/Name gus server
+-Ping gus server
+-Un-install gus server
+-Set-up initial group
+-Sync date/time (to local time on server box)
+-Change date/time
+-Check disk space
+-Display remaining disk space
+-Email low disk space warning to administrators
+-Edit .mailman. settings
+-Sync with server
+
+Logging
+-Log user actions
+-View user action log
+-Log error
+-View error log
+-Report error
+-Report user
+
+
+*Member Interaction*
+
+Finding users/groups
+-Search users
+-Search groups
+-Browse groups
+-Display group tree (with highlighting for paths to your groups. if not logged in, no highlighting)
+-Display group member list
+-Display group mod list
+-Display group leader list
+-Display leader/s of parent group (if original group, display administrated)
+
+E-mail
+-Send email to group
+-Send email to user
+
+
+*Group Features*
+
+Documents
+-Upload document to group
+-View document (only for text, pdf, or image)
+-Download document
+-Check-out document
+-Check-in document
+-Update document (provides a diff)
+-Copy document
+-Delete document
+
+Web pages
+-Create web page (provides a limited dreamweaver-esque gui)
+-Edit web page
+
+Calendar and Events
+-RSVP to event (waitlisted if .full.)
+-Remove RSVP to event
+-Set RSVP limit for event (*edits event*)
+-Notify user when added to an event (server use-case)
+-Update expected event turn-out (server function)
+-Compare calendar
+-Share event
+-Invite to event
+
+Forums
+-Add forum
+-Edit forum
+-Delete forum
+-Add post to thread
+-Edit post
+-Hide post
+-Delete post
+-Add thread
+-Edit thread
+-Delete thread
+
+Wiki
+-Add wiki to group
+-Edit wiki
+-Delete wiki
+
+Blogs
+-Add blog
+-Edit blog
+-Delete blog
+-Add blog post
+-Edit blog post
+-Delete blog post
+-Comment on blog post
+-Edit comment
+-Hide comment
+-Delete comment
+
+Symbols and formulae
+-Insert symbol to webpage
+-Insert symbol to thread
+-Insert symbol to blog post
+-Insert symbol to forum post
+-Insert symbol to comment
+-Create Formula (MATH)
+-Edit Formula (MATH)
