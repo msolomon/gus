@@ -1,0 +1,30 @@
+November 3, 2010
+
+Current backlog (see: gus/doc/GROUP5/backlog/nov3.2010)
+1. Get everyone on one common online meeting resource.
+        DONE -- solution, Skype
+
+2. Produce a master version of the class diagram.
+        DONE -- class_descriptions.dia   and   class_associations.dia
+
+3. Produce a preliminairy GUI on paper or through simple html.
+        NOT STARTED -- Timothy will produce by Fri Nov. 5th
+
+4. Code a test version of the classes to be used for the prototyping.
+        IN PROCESS -- Leah will finish by class Thur, Nov. 4th
+
+5. a. Divide up the use cases into subject groups.
+           DONE -- 105usecases.txt
+   b. Figure out what use cases / methods are necessairy for what other use cases.
+           IN PROCESS -- Alex will produce by Fri Nov. 5th
+   c. Decide on use cases to prototype for this week.
+           IN PROCESS -- see minutes from last Thursday.
+   d. Divvy out the use cases and methods necessairy for this week's scrum.
+           NOT STARTED
+
+6. Refine 105usecases.txt to creat a master backlog
+	NOT STARTED
+
+Master backlog
+	See gus/doc/GROUP5/105usecases.txt
+	however this is not yet in any way a master backlog
