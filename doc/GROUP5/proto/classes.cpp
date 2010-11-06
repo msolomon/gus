@@ -1,5 +1,8 @@
+/* Functions begin with capital letters, variables begin with lower case letters */
+
 #include <string>
 #include <iostream>
+#include <stdio.h>
 #include <fstream>
 
 using namespace std;
@@ -19,7 +22,10 @@ char* webpage;                //linke to the webpage
 
 public:
 void PrintAllUsers();
-char* Leader();
+userl* Leader();
+userl* Mod();
+userl* Member();
+
 char* Webpage();
 bool IsInGroup(string who);
 bool IsSubGroup(string who);
@@ -37,18 +43,23 @@ group* Group;
 
 class user
 {
-public:
 char* name;                 //the user's name... might like this to be in its own class later
 char* password;             //the user's password. need a better mechanism for this
 int userID;                 //for referenc purposes
 groupl* groups;             //the list of groups the user is in
+
+public:
+char* Name();
 };
 
 class userl                 // a member of a user list
 {
-public:
 userl* next;
 user* who;
+
+public:
+userl* Next();
+user* Who();
 };
 
 
@@ -56,16 +67,36 @@ user* who;
 //////////This is the start of the functions from/////////////
 //////////////////////the group class...//////////////////////
 //////////////////////////////////////////////////////////////
+userl* group::Leader()
+{
+   return leader;
+}
+
+userl* group::Mod()
+{
+   return mod;
+}
+
+userl* group::Member()
+{
+   return member;
+}
+
 void group::PrintAllUsers()
 {
    userl* listptr = leader;
+   user* who = NULL;
+   char* name = NULL;
    cout << "Leaders: " << '\n';
-   while(listptr != '\0')
+   while(listptr != NULL)
    {
-      cout << (*listptr->who->name) << '\n';
-      listptr = listptr->next;
+      who = (*listptr).Who();
+      name = (*who).Name();
+      printf("%s\n", name);
+//      cout << name << '\n';
+      listptr = (*listptr).Next();
    };
-
+/*
    listptr = mod;
    cout << '\n' << "Moderators: " << '\n';
    while(listptr != '\0')
@@ -81,8 +112,24 @@ void group::PrintAllUsers()
       cout << (*listptr->who->name) << '\n';
       listptr = listptr->next;
    };
+*/
+}
+userl* userl::Next()
+{
+   return next;
 }
 
+user* userl::Who()
+{
+   return who;
+}
+
+char* user::Name()
+{
+   return name;
+}
+
+/*
 char* Leader()
 {
 }
@@ -114,7 +161,7 @@ void AddMod(user who)
 void AddLead(user who)
 {
 }
-
+*/
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
