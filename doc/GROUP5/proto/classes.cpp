@@ -93,27 +93,31 @@ void group::PrintAllUsers()
       who = (*listptr).Who();
       name = (*who).Name();
       printf("%s\n", name);
-//      cout << name << '\n';
       listptr = (*listptr).Next();
    };
-/*
+
    listptr = mod;
    cout << '\n' << "Moderators: " << '\n';
-   while(listptr != '\0')
+   while(listptr != NULL)
    {
-      cout << (*listptr->who->name) << '\n';
-      listptr = listptr->next;
+      who = (*listptr).Who();
+      name = (*who).Name();
+      printf("%s\n", name);
+      listptr = (*listptr).Next();
    };
 
    listptr = member;
    cout << '\n' << "Members: " << '\n';
-   while(listptr != '\0')
+   while(listptr != NULL)
    {
-      cout << (*listptr->who->name) << '\n';
-      listptr = listptr->next;
+      who = (*listptr).Who();
+      name = (*who).Name();
+      printf("%s\n", name);
+      listptr = (*listptr).Next();
    };
-*/
 }
+
+/////////////////////userl methods////////////////////
 userl* userl::Next()
 {
    return next;
@@ -124,11 +128,13 @@ user* userl::Who()
    return who;
 }
 
+//////////////////////user methods///////////////////
 char* user::Name()
 {
    return name;
 }
 
+////////////////////not yet needed methods from various classes not in propper form//////////////
 /*
 char* Leader()
 {
