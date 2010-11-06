@@ -1,8 +1,8 @@
 PROG=gus-test
 VERSION=1.0
 CC=g++
-CCFLAGS=-g -pg
-CFLAGS=-g -pg
+INC=-Isrc/mysql-connector-c++-1.1.0-linux-glibc2.3-x86-32bit/include -Isrc/mysql-connector-c++-1.1.0-linux-glibc2.3-x86-32bit/lib
+CCFLAGS=-g -pg $(INC)
 OBJS= main.o test.o db.o
 
 $(PROG): $(OBJS)
@@ -16,3 +16,6 @@ test.o: test.cpp test.h gusConf.h
 	
 db.o: db.cpp db.h gusConf.h
 	$(CC) $(CCFLAGS) db.cpp -c 
+
+clean:
+	rm *.o
