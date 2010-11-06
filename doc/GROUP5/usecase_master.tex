@@ -1,0 +1,58 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\title{GUS Use Cases}
+\date{}
+\begin{document}
+  \maketitle
+  This is an attempt to further define GUS use cases. It is based
+  off prototyping that is occuring, as well as planning down the
+  road for creating new / using existing systems.
+ 
+\section{System Functions}
+ 
+ \subsection{Create User Account}
+ Description of the subsection.
+ 
+ 
+ \textbf{Actors:} New User, Administrator, Server \\
+
+ 
+ \textbf{Goals:} To add a new user in the GUS environment. \\
+ 
+ 
+ \textbf{Preconditions:} None. \\
+ 
+ 
+ \textbf{Summary:} A new user or an administratore navigates to the user 
+			registration page. Either enters the new user 
+			information, and then submit the information. The GUS 
+			environment performs necessary checks, and adds the 
+			user if they pass the checks. \\
+ 
+ 
+ \textbf{Related use cases:} New User Information Sent to GUS. \\
+ 
+ 
+ \textbf{Steps:}
+\begin{enumerate}
+  \item New user / existing administrator fills out user registration form.
+  \item The submit button is pressed.
+  \item New User Information is Sent To GUS.
+  \item Send user a confirmation on receipt of registration.
+\end{enumerate}
+   
+   
+ \textbf{Alternative:} User cancels submission. \\
+  
+  
+ \textbf{Fail:} User is recycled to user page with correct content 
+			inserted back into form, and an error message is 
+			displayed to indicated the problem (internal, user 
+			error). \\
+
+
+
+
+\end{document}
+
