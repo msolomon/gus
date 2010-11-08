@@ -5,6 +5,9 @@
 #include "gusConf.h"
 #include <typeinfo>
 
+extern int yylex();
+extern int nlin;
+
 // better error reporting
 #define YYERROR_VERBOSE
 
@@ -25,28 +28,25 @@ bool yyerror(const char *msg)
 }
 
 %token EXIT 
-%token USER GROUP STRING
+%token USER GROUP STRING SPACE
 
-%type <sval> STRING
+%type <sval> USER STRING
 
 %%
 
-database: ts;
+database: lines				{return(0);}
+	;
 
-ts: USER EXIT;
+lines: 	line | line "\n" | line "\n" lines;
 
-lines: 	line | line lines;
-
-line: 	expr "\n";
-
-expr: 	USER STRING
-	| GROUP STRING
+line: 	USER STRING attrs
+	| GROUP STRING attrs
 	;
 
 attrs:	attr
 	| attr attrs;
 
-attr:	STRING "=" STRING;
+attr:	STRING ':' STRING;
 
 %%
 
