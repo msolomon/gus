@@ -16,10 +16,8 @@ int nlin;
 "\n"          { ++nlin; return(yytext[0]);}
 "user"		{return(USER);}
 "group"		{return(GROUP);}
-"="		{return(yytext[0]);}
-[^%: ,\-\n]+    	{yylval.sval = strdup(yytext);
-		 return(STRING);
-		}
+"%"		{return(yytext[0]);}
+" "		{}
 <<EOF>>      	{return(EXIT);}
 
 %%

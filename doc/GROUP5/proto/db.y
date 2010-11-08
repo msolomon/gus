@@ -27,11 +27,26 @@ bool yyerror(const char *msg)
 %token EXIT 
 %token USER GROUP STRING
 
-%type <sval> USER GROUP STRING
+%type <sval> STRING
 
 %%
 
-database: STRING; 
+database: ts;
+
+ts: USER EXIT;
+
+lines: 	line | line lines;
+
+line: 	expr "\n";
+
+expr: 	USER STRING
+	| GROUP STRING
+	;
+
+attrs:	attr
+	| attr attrs;
+
+attr:	STRING "=" STRING;
 
 %%
 

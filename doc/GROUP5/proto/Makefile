@@ -7,13 +7,16 @@ LEX=flex
 YACC=bison
 CCFLAGS=-g -pg $(INC)
 CFLAGS=-g -pg $(INC)
-OBJS=main.o db.o $(PARSER).tab.o lex.yy.o
+OBJS=main.o node.o db.o $(PARSER).tab.o lex.yy.o
 
 $(PROG): $(OBJS)
 	$(CC) $(CCFLAGS) $(OBJS) -lfl -o $(PROG)
 
 main.o: main.cpp gusConf.h
 	$(CC) $(CCFLAGS) main.cpp -c
+
+node.o: node.cpp node.h gusConf.h
+	$(CC) $(CCFLAGS) node.cpp -c 
 
 test.o: test.cpp test.h gusConf.h
 	$(CC) $(CCFLAGS) test.cpp -c 

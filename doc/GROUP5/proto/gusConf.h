@@ -19,6 +19,12 @@ using namespace std;
 #ifndef GUSCONFH
 #define GUSCONFH
 
-#define DBTYPE "MYSQL"
+//#define DBTYPE "MYSQL"
+//#define DBTYPE "LDAP"
+#define DBTYPE "FILE"
+#define DBFNAME "db/main.gusdb"
+
+#include "node.h"
+#include "db.h"
 
 #endif
