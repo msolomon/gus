@@ -8,6 +8,9 @@
 extern int yylex();
 extern int nlin;
 
+//gus data structures
+extern db *db1;
+
 // better error reporting
 #define YYERROR_VERBOSE
 

@@ -23,6 +23,7 @@ using namespace std;
 //#define DBTYPE "LDAP"
 #define DBTYPE "FILE"
 #define DBFNAME "db/main.gusdb"
+#define MAX_BUF_SIZE 256
 
 #include "node.h"
 #include "db.h"

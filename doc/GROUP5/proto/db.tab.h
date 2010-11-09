@@ -42,7 +42,8 @@
      EXIT = 258,
      USER = 259,
      GROUP = 260,
-     STRING = 261
+     STRING = 261,
+     SPACE = 262
    };
 #endif
 
@@ -53,7 +54,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 20 "db.y"
+#line 26 "db.y"
 
 	double dval;
 	int varindex;
@@ -63,7 +64,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 67 "db.tab.h"
+#line 68 "db.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

@@ -10,7 +10,7 @@
 
 class db {
 private:
-	node *data; //database data
+	node *data[MAX_BUF_SIZE]; //database data
 
 public:
 	db() {
