@@ -1,25 +1,107 @@
-<mike_s> so. since last time, we turned it in. that went well, i think. before next scrum, we should all pick a use case to write a unit test for, and add it to a list on a shared google doc
-<RevanTal> do we want to just list out what use cases there are now, and then post that in a google doc, just add names next to what you are going to work on?
-<mike_s> okay. lets do it
-<Sverk> that sounds good to me
-<mike_s> i'll share one
-<mike_s> link posted to group
-<mike_s> https://docs.google.com/document/d/1GOTA_y8WHjAE1xEdlF2wUwAd3nF2acDGQhBnXqBiNAk/edit?hl=en
-<RevanTal> so we've got:
-<RevanTal> add user, remove user, add group, associate group and user
-<RevanTal> we came up with 5 in class right?  i can't remember the others...
-<mike_s> what else do we need
-<Sverk> delete group?
-<mike_s> display group members?
-<RevanTal> but at least we've got enough use cases for 1 each
-<Sverk> that'd be a good one
-<mike_s> good. done. everyone pick one. free for all style
-<mike_s> okay. all scrummed out? just add your test case with a useful name to the python file so it will be easy to merge
-<mike_s> we could just post it all on a google doc
-<RevanTal> that is by monday? or tuseday, or what?
-<RevanTal> we could even post it on that google doc
-<mike_s> sure, it doesn't matter. i guess before next scrum or next class, if you need the time
-<Sverk> k
-<mike_s> alright done. it's dinner time. any issues to google docs, i suppose.
-<mike_s> haha good to know.  adios!
-<RevanTal> bye!
+[19:04] <@joran> everyones here yeh?
+[19:04] <NMazu> Are all of us here?
+[19:06] <mike_s> alright. scrum-a-lum time
+[19:07] <NMazu> Report: Still not done, still working with Python and now the database class. Do we need to design our test case to work with the database class?
+[19:07] <sasha___> I wouldn't think so....
+[19:07] <@joran> naw we prolly want a "facade" class thing
+[19:07] <@joran> that interfaces both
+[19:07] <@joran> to use a design pattern :P
+[19:08] <NMazu> Okay. Then I should be able to get it done in no time. I've been distracted with other assignments.
+[19:08] <NMazu> We need these test's done for tomorrow?
+[19:08] <@joran> or add the db hooks directly to the Member and Group class
+[19:08] <@joran> naw thurs i think
+[19:08] <RevanTal> yeah, i think it is thrusday
+[19:08] <NMazu> Oh really?  I'm done then. Nothing to add to the scrum.
+[19:09] <NMazu> Will still listen though
+[19:09] <@joran> lol i only have to say php's built in database support is way better than python's
+[19:09] <mike_s> We are supposed to write just a test case, right? which means just drive the functions as they are written (whether or not they utilize the database)
+[19:09] <@joran> yeah
+[19:09] <mike_s> that's what frameworks are for :)
+[19:10] <StephenF> I talked to Jeffery today, and the test cases don't have to compile or work NOW, but they should be stubbed out at least
+[19:10] <@joran> meh i think all my test cases work...
+[19:10] <mike_s> the tests don't have to work or they don't have to pass?
+[19:10] <RevanTal> unless he means for them to work for when gus is complete
+[19:11] <StephenF> The code right now doesn't have to pass, but we need to have the input/output laid out for the test cases. It's mostly about managing expectations right now I think
+[19:11] <NMazu> Makes sense
+[19:12] <RevanTal> yup
+[19:12] <@joran> did someone do the minutes for friday?
+[19:12] <mike_s> okay. so are we going to use this github that joran seems to have made, or do we just want to seperately put our tests in git? or google docs?
+[19:13] <@joran> i just made that im not sure how to share it with others you might have to just branch it
+[19:13] <@joran> i also added em to our class git
+[19:14] <mike_s> short term, wormulon git might be easier
+[19:14] <sasha___> long term, github would be better...
+[19:15] <StephenF> Do we have more than one repo for this project? Because we should really condense to one, if that's the case. With all our documents in one place.
+[19:15] <Sverk> Dr. J probably also wants everything in git so he can look at it
+[19:15] <@joran> i was just putting em up and i think we need to have one place to keep all our stuff
+[19:15] <@joran> i added em to our class git also
+[19:16] <sasha___> isn't everything already in one place on git?
+[19:16] <sasha___> the group3+4=7 folder?
+[19:16] <@joran> yeh ... it is ... i thought it was group7
+[19:17] <sasha___> well, somebody changed it from the awesome name to the easier to type name...
+[19:17] <@joran> (i changed it last week... i dunno maybe someone changed it back?)
+[19:17] <@joran> ;lol
+[19:17] <Sverk> lol
+[19:18] <@joran> did someone do minutes last week since he wants minutes from all of the scrums?
+[19:18] <NMazu> no?
+[19:18] <@joran> last fri i mean when i was here but i wasnt
+[19:18] <mike_s> no. i think i have the log though
+[19:18] <sasha___> noooo.
+[19:19] <@joran> nice just copy paste if u have log
+[19:19] <sasha___> of course.
+[19:19] <@joran> oh yeh i did that scrum backlog doc and shared w/ group
+[19:19] <@joran> if anyone has anything to add to it? or change from last week?
+[19:20] <NMazu> Are we pretty much done? Because I have somewhere else I need to be pretty soon.
+[19:21] <NMazu> Other than figuring out the minutes, I mean
+[19:21] <sasha___> yeah, I think we are pretty much done.
+[19:21] <@joran> i guess
+[19:21] <sasha___> finish up test cases, do minutes, go team.
+[19:22] <@joran> oh mike did u notice i got rid of all things password related to the Member class?
+[19:22] <@joran> when i copied it for my DB stuff
+[19:22] <@joran> so in my github thing
+[19:23] <mike_s> no, i didn't look at it
+[19:23] <@joran> yeh i got rid of the password stuff
+[19:23] <@joran> figured thats better in the db stuff
+[19:23] <mike_s> so where is the latest copy we should all work from?
+[19:23] <@joran> and i added a userID field to it
+[19:24] <@joran> but u dun need to set it
+[19:24] <@joran> its in the wormulon git
+[19:24] <@joran> or the github git
+[19:24] <@joran> unless your opposed to those changes
+[19:26] <StephenF> I browsed that code. Are you storing the salt in the DB? Because that's a certain type of awesome joran
+[19:26] <StephenF> :D
+[19:26] <@joran> i will be .... i dunno if it does it atm
+[19:26] <@joran> it was late i was tired and hung over
+[19:27] <Sverk> lol
+[19:27] <StephenF> Heh, a unique salt for each entry is kind of cool. Even if it's sitting in the table :)
+[19:29] <mike_s> isn't that how you're supposed to salt?
+[19:29] <@joran> yeah i think you could just do it
+[19:29] <@joran> yeah
+[19:29] <@joran> it does the insert from an object
+[19:29] <@joran> so ideally you would call something like
+[19:30] <@joran> salt=randbits(64)
+[19:30] <@joran> pw=db.encodepw(pw,salt);
+[19:30] <@joran> then add ,'salt':salt
+[19:30] <@joran> to the insert obj
+[19:30] <@joran> but for testing the salt is me
+[19:30] <@joran> :P
+[19:31] <@joran> (in otherwords thats the default salt)
+[19:31] <@joran> i tried to make it fairly extensible and flexible
+[19:32] == StephenF [4cb2a776@gateway/web/freenode/ip.76.178.167.118] has quit [Ping timeout: 265 seconds]
+[19:32] <@joran> so who is on minutes tonight?
+[19:33] <mike_s> anyway. who is doing minutes? last week's are done and in git. how about we all just use the prototype currently in git, and add our test cases in seperate files? just do an "from groups import *" to import the appropriate classes/functions
+[19:33] <@joran> yup that works for me
+[19:33] <@joran> https://spreadsheets.google.com/ccc?key=0Al9ra7vZa683dG9mSWtURHp5Q2dKdk5ELThzZ0NUcEE&hl=en&authkey=CJbzoOMD#gid=0
+[19:34] <@joran> anyone have anything to add to that thing?
+[19:34] <mike_s> how about someone who hasn't done minutes yet does, if we have no volunteers
+[19:35] <@joran> bah it takes like 2 mins ill do it
+[19:35] <mike_s> okay, cool. test cases in different files, use the prototype on wormulon. all clear?
+[19:35] <Sverk> yep
+[19:35] <@joran> (the member class is a tiny bit different
+[19:35] <@joran> )
+[19:36] <sasha___> deal.
+[19:36] <mike_s> so long as it works
+[19:36] <@joran> seemed all right in my tests
+[19:36] <@joran> i try to have the db class build member objects and group objects when it can
+[19:36] <mike_s> haha i guess we'll find out then. adios, team
+[19:36] <@joran> sounds good
+[19:36] <@joran> so long
