@@ -105,3 +105,6 @@
 [19:36] <mike_s> haha i guess we'll find out then. adios, team
 [19:36] <@joran> sounds good
 [19:36] <@joran> so long
+Scrum summary:
+ Just use the prototype currently in git, and add our test cases in seperate files. Do an "from groups import *" to import the appropriate classes/functions into your test file.  If you have trouble and can't google-fix it, reply to this.  It'll probably be a quick fix.
+
