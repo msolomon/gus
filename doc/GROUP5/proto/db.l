@@ -15,11 +15,10 @@ int nlin;
 "bye"         	{return(EXIT);}
 "user"		{return(USER);}
 "group"		{return(GROUP);}
-" "		{}
-"\n"		{return(yytext[0]);}
-":"		{cout << "TS20\n"; return(yytext[0]);}
-[^: \n]+	{yylval.sval = strdup(yytext);
-		cout << "TS22:" << yytext << "\n"; 
+"\n"		{nlin++; return(yytext[0]);}
+"="		{return(yytext[0]);}
+" "		{ }
+[^= \n]+	{yylval.sval = strdup(yytext);
 		return(STRING);}
 <<EOF>>		{return(EXIT);}
 %%

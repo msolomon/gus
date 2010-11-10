@@ -54,7 +54,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 26 "db.y"
+#line 27 "db.y"
 
 	double dval;
 	int varindex;

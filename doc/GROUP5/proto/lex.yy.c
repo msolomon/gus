@@ -379,7 +379,7 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[34] =
     {   0,
-        0,    0,   12,   10,    8,    7,   10,    9,   10,   10,
+        0,    0,   12,   10,    7,    9,   10,    8,   10,   10,
        10,   10,   10,   10,   10,    1,    0,   10,   10,   10,
        10,   10,   10,    4,   10,   10,   10,    2,   10,    3,
         5,    6,    0
@@ -392,8 +392,8 @@ static yyconst flex_int32_t yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    3,    1,    1,    4,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    5,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    6,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        5,    1,    1,    1,    1,    1,    1,    1,    6,    1,
         1,    1,    7,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    8,    1,    1,    1,    9,    1,    1,
         1,    1,    1,    1,    1,    1,    1,   10,    1,    1,
@@ -793,12 +793,12 @@ YY_RULE_SETUP
 {return(GROUP);}
 	YY_BREAK
 case 7:
+/* rule 7 can match eol */
 YY_RULE_SETUP
 #line 18 "db.l"
-{}
+{nlin++; return(yytext[0]);}
 	YY_BREAK
 case 8:
-/* rule 8 can match eol */
 YY_RULE_SETUP
 #line 19 "db.l"
 {return(yytext[0]);}
@@ -806,25 +806,24 @@ YY_RULE_SETUP
 case 9:
 YY_RULE_SETUP
 #line 20 "db.l"
-{cout << "TS20\n"; return(yytext[0]);}
+{ }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 21 "db.l"
 {yylval.sval = strdup(yytext);
-		cout << "TS22:" << yytext << "\n"; 
 		return(STRING);}
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 24 "db.l"
+#line 23 "db.l"
 {return(EXIT);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 25 "db.l"
+#line 24 "db.l"
 ECHO;
 	YY_BREAK
-#line 828 "lex.yy.c"
+#line 827 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1820,7 +1819,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 25 "db.l"
+#line 24 "db.l"
 
 
 

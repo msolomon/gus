@@ -10,6 +10,7 @@ extern int nlin;
 
 //gus data structures
 extern db *db1;
+node *ntemp = new node; //node temp
 
 // better error reporting
 #define YYERROR_VERBOSE
@@ -37,19 +38,27 @@ bool yyerror(const char *msg)
 
 %%
 
-database: lines				{return(0);}
+database: lines EXIT			{return(0);}
 	;
 
-lines: 	line | line "\n" | line "\n" lines;
+lines: line | line '\n' | line '\n' lines;
 
-line: 	USER STRING attrs
-	| GROUP STRING attrs
+line: 	USER STRING attrs		{db1->pushNode(ntemp);
+					 db1->insertHeadNode("user", $2); 
+					 ntemp = new node;
+					}
+	| GROUP STRING attrs		{db1->pushNode(ntemp);
+					 db1->insertHeadNode("group", $2); 
+					 ntemp = new node;
+					}
+
 	;
 
 attrs:	attr
 	| attr attrs;
 
-attr:	STRING ':' STRING;
+attr:	STRING '=' STRING		{ntemp->addNode($1, $3);}
+	;
 
 %%
 
