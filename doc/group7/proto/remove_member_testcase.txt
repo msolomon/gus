@@ -1,0 +1,49 @@
+Test case: Remove Member
+
+
+Location:
+    /doc/group7/proto/remove_member_testcase.py
+
+
+Name of File:
+    remove_member_testcase.py
+
+
+Input:
+    input data included in test case.
+
+
+Oracle:
+Test Remove Member:
+--------------------
+['matrim', 'moiraine', 'perrin']
+
+Remove Member matrim : removed
+['moiraine', 'perrin']
+
+Remove Member moiraine : can't remove owner
+['moiraine', 'perrin']
+
+Remove Member perrin : removed
+['moiraine']
+
+Remove Member lanfear : member not in group
+['moiraine']
+
+
+Log:
+Test Remove Member:
+--------------------
+['matrim', 'moiraine', 'perrin']
+
+Remove Member matrim : removed
+['moiraine', 'perrin']
+
+Remove Member moiraine : can't remove owner
+['moiraine', 'perrin']
+
+Remove Member perrin : removed
+['moiraine']
+
+Remove Member lanfear : member not in group
+['moiraine']
