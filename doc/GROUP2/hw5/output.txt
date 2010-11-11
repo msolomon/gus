@@ -1,0 +1,65 @@
+"sbeddallsbeddallsbeddall" is too long.
+	Failure
+"hai" is too short
+	Failure
+End Test Case. 
+
+Illegal characters present in string.
+	Failure
+"hai" is too short
+	Failure
+End Test Case. 
+
+Illegal characters present in string.
+	Failure
+Input validation passed.
+	Success
+End Test Case. 
+
+Input validation passed.
+	Success
+Input validation passed.
+	Success
+End Test Case. 
+
+Illegal characters present in string.
+	Failure
+Input validation passed.
+	Success
+End Test Case. 
+
+Input validation passed.
+	Success
+Input validation passed.
+	Success
+End Test Case. 
+
+"abcdefghijklmnopqrsts" is too long.
+	Failure
+"boundaryconditionlong" is too long
+	Failure
+End Test Case. 
+
+Input validation passed.
+	Success
+Input validation passed.
+	Success
+End Test Case. 
+
+Input validation passed.
+	Success
+Illegal characters present in string
+	Failure
+End Test Case. 
+
+Input validation passed.
+	Success
+Input validation passed.
+	Success
+End Test Case. 
+
+Input validation passed.
+	Success
+Input validation passed.
+	Success
+End Test Case. 
