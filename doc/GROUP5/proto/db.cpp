@@ -30,6 +30,18 @@ bool db::open() {
 	}
 }
 
+char *db::select(char *field, char *key, char *val) {
+	//returns matches, comma delimited if more than one
+	//ex. select cn (field) where user (key) equals (val)
+	for(int i = 0; i < this->dataI; i++) {
+		if(strcmp(this->data[i]->getVal(key), val) == 0
+		) {
+				return(this->data[i]->getVal(field));
+		}
+	}
+	return("");
+}
+
 bool db::save() {
 	return(false);
 }

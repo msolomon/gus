@@ -31,4 +31,7 @@ lex.yy.c: $(PARSER).l $(PARSER).tab.h
 	$(LEX) $(PARSER).l
 
 clean:
+	rm *.o *.tab.h *.tab.c lex.yy.c
+
+dist-clean:	
 	rm *.o *.tab.h *.tab.c lex.yy.c $(PROG)
