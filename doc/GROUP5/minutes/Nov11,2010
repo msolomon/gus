@@ -1,0 +1,31 @@
+Didn't go well
+we do not like c++
+need a new language (php)
+	-good interfacing tools
+	-yay for sql
+	-windows
+		-wamp (appache / mysql...)
+
+we do not like cve
+	- doesn't work easily
+	- why use something else when we have git and skype
+	- doesn't take php
+
+===================================================
+Things that did go well
+diagraming
+classes / use cases
+
+===================================================
+Plans for next scrum
+-see actual (visual) representation of work (not just code)
+-get php running on all machines
+-get a mysql server an all machines
+-continue populating use case lists
+-get database wrappers done
+-write good test cases
+-functions
+	add / delete groups
+	add / delete user
+	link groups / users (lists?)
+	database functions
