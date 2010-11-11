@@ -31,15 +31,25 @@ void node::addNode(char *name, char *val) {
 }
 
 char *node::getVal(char *name) { 
-        for(node *pTemp = this; ; pTemp = pTemp->next) {
+        //returns single matching value, or multiple comma del if mutliple found
+	char retval[MAX_BUF_SIZE];
+        retval[0] = '\0';
+	for(node *pTemp = this; ; pTemp = pTemp->next) {
                 if(pTemp == NULL) {
-                        cout << "NODE_WARNING: list element with name " << name << " is not in the list." << endl;
-                        return("");
+                        //cout << "NODE_WARNING: list element with name " << name << " is not in the list." << endl;
+                        return(strdup(retval));
                 }
                 else if(strcmp(name, pTemp->name) == 0) {
-                        return(pTemp->val);
+			if(strlen(retval) == 0) {
+                                strcpy(retval,pTemp->val);
+                        }
+                        else {
+                                strcat(retval,",");
+                                strcat(retval,pTemp->val);
+                        }
                 }
         }
+	return(strdup(retval));
 }
 
 bool node::isEmpty() {
