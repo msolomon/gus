@@ -24,9 +24,11 @@ public:
 	
 	};
 
-	bool pushNode(node *); //pushes a node onto the end of this->data
-	bool insertHeadNode(char*, char*);
+	bool pushNode(node *); //pushes a node onto the end of this->data[dataI]
+	bool insertHeadNode(char*, char*); //puts node at the beginning of this->data[dataI]
+	
 	bool open();
+	char *select(char*,char*,char*); //select *field where *key equals *value
 	bool save();
 
 	//troubleshooting / debug methods

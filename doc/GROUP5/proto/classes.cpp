@@ -1,9 +1,8 @@
 /* Functions begin with capital letters, variables begin with lower case letters */
 
-#include <string>
-#include <iostream>
-#include <stdio.h>
-#include <fstream>
+#include "gusConf.h"
+
+db *db1 = new db; //db1 has to be created here for bison. Working on a work around
 
 using namespace std;
 class userl;                 // a member of a user list
@@ -21,6 +20,12 @@ groupl* subgroup;             //pointer to the head of the subgroup list
 char* webpage;                //linke to the webpage
 
 public:
+	group(char* name) {
+		this->number = atoi(db1->select("id","group",name));
+		this->name = strdup(name);
+		//more
+		this->webpage = db1->select("webpage","group",name);
+	}
 void PrintAllUsers();
 userl* Leader();
 userl* Mod();
@@ -173,12 +178,3 @@ void AddLead(user who)
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 
-
-
-
-
-
-int main()
-{
-
-}
