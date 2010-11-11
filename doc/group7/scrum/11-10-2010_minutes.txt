@@ -9,27 +9,16 @@
 [19:07] <@Sverk> lol
 [19:07] <joran> did everyone else already leave?
 [19:07] <@Sverk> no
-[19:07] <joran> or is it just us :P
-[19:07] <@Sverk> for now just us
 [19:08] <joran> lol alrighty then
-[19:13] <joran> lol i just emailed em well see
 [19:14] <joran> now that i got django all installed and working with the database which was a pain in the ass to do
 [19:14] <joran> but now that its all done ... it is kinda nice
 [19:14] <joran> the way it does models and stuff is actually really nice
-[19:15] <joran> hmm break for 5 mins and see if anyone else shows up?
 [19:16] <@Sverk> guess so
-[19:16] <@Sverk> i'm not really going anywhere, have this in other monitor while i work
-[19:17] <joran> ok im gonna go scarf some chinese food ill be back in 5 mins
 [19:17] <@Sverk> k
-[19:32] <joran> back
-[19:32] <joran> bleh no one huh
-[19:32] <@Sverk> yep
 [19:32] <joran> hows yer guys unit test things commin
-[19:32] <joran> (they pretty easy)
 [19:33] <@Sverk> good, mine works
 [19:33] <RevanTal> pretty good, i'm going to upload mine to git this evening
 [19:33] <@Sverk> like most things about python so far except the lack of {} around functions
-[19:34] <joran> yeh its really pretty easy
 [19:34] <RevanTal> well... guess i'm going to email my file to max...
 [19:34] <joran> did you guys install mysql and the mysqldb thing?
 [19:34] <RevanTal> i don't have ssh, i'll get it from you on friday
