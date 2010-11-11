@@ -1,3 +1,3 @@
 user cblair cn=Colby sn=Blair
 user jcamel cn=Joe sn=Camel email=jcamel@uidaho.edu
-group group1 member=cblair member=jcamel email=group1@gus.org
+group group1 id=1 member=cblair member=jcamel webpage=www.group1.org email=group1@gus.org
