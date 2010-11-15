@@ -1,8 +1,8 @@
 <?php
 
-echo "TS: Starting GUS<br />\n";
 include("conf/gus.php");
-$gusmain = new gus;
-echo $gusmain->vt;
+$gus_main = new gus;
+
+echo $gus_main->page_content();
 
 ?>

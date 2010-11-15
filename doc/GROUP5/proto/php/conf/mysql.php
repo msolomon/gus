@@ -30,6 +30,17 @@ class mysql {
 		$result = mysql_fetch_array($result);
 		return($result); //returns the first value in case of > 1
 	}
+
+	public function select_cond($who, $table, $cond) {
+		$result = mysql_query("SELECT $who from $table where $cond");
+		if(!$result) {
+			echo "warning: " . mysql_error($this->ds) . "<br />\n";
+			return($result);
+		}
+		$result = mysql_fetch_array($result);
+		return($result); //returns the first value in case of > 1
+	}
+
 }
 
 ?>
