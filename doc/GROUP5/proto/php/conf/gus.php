@@ -35,7 +35,7 @@ class gus {
 
 	public function page_content() {
 		require_once(TMPLDIR . "/" . $this->vt . "/main.php");
-		if(empty($_GET['page'])) $_GET['page'] = 'default';
+		if(empty($_GET['page'])) $_GET['page'] = 'home';
 		$content = $this->ds->select_cond('content', 'page', "name='" . $_GET['page'] . "'");
 		$content = $content[0]; //take the first with multi matches
 		return(page_header() . $content . page_footer());

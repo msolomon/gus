@@ -6,6 +6,13 @@ return("
 <title>GUS Default Visual Template</title>
 <body>
 
+<ul>
+ <li><a href=\"index.php?page=home\">Home</a></li>
+ <li><a href=\"index.php?page=about\">About</a></li>
+ <li>Login</li>
+ <li>Register</li>
+</ul>
+
 ");
 }
 

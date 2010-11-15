@@ -34,7 +34,7 @@ switch(DBMODE) {
 			or die(" MYSQL: Could not populate table $table, ERROR:<br />\n"
 				. mysql_error($ds));
 		echo " MYSQL: table attr populated.<br />\n";	
-		mysql_query("INSERT INTO page (name,content) VALUES ('default','This is the default page')") 
+		mysql_query("INSERT INTO page (name,content) VALUES ('home','This is the default page')") 
 			or die(" MYSQL: Could not populate table page, ERROR:<br />\n"
 				. mysql_error($ds));
 		echo " MYSQL: table page populated.<br />\n";	
