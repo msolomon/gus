@@ -3,7 +3,7 @@ This is the root directory of the Gus group management tool.
 Manifest:
 
 	doc/	Documentation for this project
-
+        http/	Web Documents 
 Authors:
 	Colby Blair
 	Timothy Bianchetti
