@@ -11,7 +11,7 @@ class gus {
 		if(!$this->init_db()) {
 			{$this->error("Could not initialize the ". DBMODE . " database.");}
 		}
-		if(!$this->set_visual_template()) 
+		if(!$this->init_data()) 
 			{$this->error("Could not set visual template.");}
 	}
 
@@ -26,14 +26,11 @@ class gus {
 		return($this->ds = new mysql(DBHOST,DBADMIN,DBPW));
 	}
 	
-	private function set_visual_template() {
-		//if there is an html vt arg, use that as the vt
-		//otherwise, obtain the vt from the database
-		if(empty($_GET["vt"])) { 
-			$this->vt = "default";
-			return("true");
-		}
-		else {$this->vt = $_GET["vt"]; return(true);}
+	private function init_data() {
+		$this->vt = $this->ds->select("vt","attrs");
+		$this->vt = $this->vt[0]; //set to fir val in result, ignores multi matches
+		if(!empty($_GET["vt"])) {$this->vt = $_GET["vt"];} //override if html arg
+		return($this->vt);
 	}
 };
 
