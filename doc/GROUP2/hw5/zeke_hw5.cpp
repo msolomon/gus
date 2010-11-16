@@ -3,7 +3,8 @@
 ** Zeke Long                                                            **
 ** CS383 HW5                                                            **
 **                                                                      **
-** Program to test advisor info to make sure GUS displays it properly   ** 
+**  Program to test advisor/user info to make sure GUS displays it      **
+**  properly                                                            ** 
 **                                                                      **
 **************************************************************************
 *************************************************************************/
