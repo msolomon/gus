@@ -17,17 +17,27 @@ switch(DBMODE) {
 		mysql_select_db(DBNAME,$ds) or die( "MYSQL: could not select database "
 							. DBNAME);
 		#create and initialize gus attribute table
-		$table = "attrs";
-		mysql_query("CREATE TABLE $table (
+		mysql_query("CREATE TABLE attr (
 				vt VARCHAR(100)
 				)",$ds) 
-			or die(" MYSQL: Could not create table $table, ERROR:<br />\n"
+			or die(" MYSQL: Could not create table attr, ERROR:<br />\n"
 				. mysql_error($ds));
-		echo " MYSQL: created table $table.<br />\n";
-		mysql_query("INSERT INTO $table (vt) VALUES ('default')") 
+		echo " MYSQL: created table attr.<br />\n";
+		mysql_query("CREATE TABLE page (
+				name VARCHAR(100),
+				content TEXT
+				)",$ds) 
+			or die(" MYSQL: Could not create table page, ERROR:<br />\n"
+				. mysql_error($ds));
+		echo " MYSQL: created table page.<br />\n";
+		mysql_query("INSERT INTO attr (vt) VALUES ('default')") 
 			or die(" MYSQL: Could not populate table $table, ERROR:<br />\n"
 				. mysql_error($ds));
-		echo " MYSQL: table $table populated.<br />\n";
+		echo " MYSQL: table attr populated.<br />\n";	
+		mysql_query("INSERT INTO page (name,content) VALUES ('home','This is the default page')") 
+			or die(" MYSQL: Could not populate table page, ERROR:<br />\n"
+				. mysql_error($ds));
+		echo " MYSQL: table page populated.<br />\n";	
 		#mysql done
 		echo " MYSQL: Install complete<br />\n";
 		break;
