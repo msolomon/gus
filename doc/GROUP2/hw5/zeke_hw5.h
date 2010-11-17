@@ -79,6 +79,7 @@ int BinarySearchTree::DisplayAdvisorInfo(GroupNodePtr& treePtr, char* suppliedNa
         DisplayAdvisorInfo(treePtr->rightPtr, suppliedName);
     }
 
+    cout << "GROUP NOT FOUND\n";
     return 0;
 }
 
@@ -101,9 +102,11 @@ int BinarySearchTree::DisplayUserInfo(GroupNodePtr& treePtr, char* suppliedName,
                    cout << "\nUser: " << userName << endl;
                    cout << "Email: " << tmpPtr->email << endl;
                    cout << "Phone: " << tmpPtr->phone << "\n\n";
+                   return 1;
                }
             }
-            return 1;                  
+            cout << "USER NOT FOUND\n";
+            return 0;                  
         }
 
                                                              //traverse tree to find group
@@ -111,7 +114,8 @@ int BinarySearchTree::DisplayUserInfo(GroupNodePtr& treePtr, char* suppliedName,
         DisplayUserInfo(treePtr->rightPtr, suppliedName, userName);
     }
 
-    return 1;
+    cout << "GROUP NOT FOUND\n";
+    return 0;
 }
 
 
