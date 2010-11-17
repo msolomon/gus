@@ -37,19 +37,20 @@ class BinarySearchTree
             };
             User* userPtr;          //pointer to list of users in group
             GroupNode* leftPtr;     //pointers to other groups
-            GroupNode* rigtPtr;
+            GroupNode* rightPtr;
         };
         typedef struct GroupNode* GroupNodePtr;
 
-
     public:
-        Group();                   //constructor
+        BinarySearchTree()                   //constructor
         {
             rootPtr = '\0';
         }
 
 
-                     //function prototypes
+        GroupNode* rootPtr;
+
+                             //function prototypes
         int DisplayAdvisorInfo(GroupNodePtr& treePtr, char* suppliedName);       
         int DisplayUserInfo(GroupNodePtr& treePtr, char* suppliedName, char* userName);
 };
@@ -64,9 +65,9 @@ int BinarySearchTree::DisplayAdvisorInfo(GroupNodePtr& treePtr, char* suppliedNa
     {
         if(! strcmp(treePtr->groupID, suppliedName) )             //if group is a match
         {
-            cout << "\nAdvisor: " << treePtr->Advisor.name << endl;
-            cout << "Email: " << treePtr->Advisor.email << endl;
-            cout << "Phone: " << treePtr->Advisor.phone << "\n\n";
+            cout << "\nAdvisor: " << treePtr->Advisor->name << endl;
+            cout << "Email: " << treePtr->Advisor->email << endl;
+            cout << "Phone: " << treePtr->Advisor->phone << "\n\n";
             return 1;
         }
 
@@ -82,7 +83,8 @@ int BinarySearchTree::DisplayAdvisorInfo(GroupNodePtr& treePtr, char* suppliedNa
 /******************************************************************************************
 *                     Print User Info of a given group and given user                     *
 ******************************************************************************************/
-int BinarySearchTree::DisplayUserInfo(GroupNodePtr& treePtr, char* groupName, char* userName)
+int BinarySearchTree::DisplayUserInfo(GroupNodePtr& treePtr, char* suppliedName, 
+                                                                            char* userName)
 {
     if(treePtr != NULL)
     {
@@ -91,7 +93,7 @@ int BinarySearchTree::DisplayUserInfo(GroupNodePtr& treePtr, char* groupName, ch
             UserNodePtr tmpPtr = treePtr->userPtr;      //point to first user of group
             while(tmpPtr != '\0')
             {
-               if(! strcmp(tmpPtr->groupID, userName) )         //if user is a match
+               if(! strcmp(tmpPtr->name, userName) )         //if user is a match
                {
                    cout << "\nUser: " << userName << endl;
                    cout << "Email: " << tmpPtr->email << endl;
@@ -102,8 +104,8 @@ int BinarySearchTree::DisplayUserInfo(GroupNodePtr& treePtr, char* groupName, ch
         }
 
                                                              //traverse tree to find group
-        DisplayUserInfo(treePtr->leftPtr, suppliedName);        
-        DisplayUserInfo(treePtr->rightPtr, suppliedName);
+        DisplayUserInfo(treePtr->leftPtr, suppliedName, userName);        
+        DisplayUserInfo(treePtr->rightPtr, suppliedName, userName);
     }
 
     return 1;
