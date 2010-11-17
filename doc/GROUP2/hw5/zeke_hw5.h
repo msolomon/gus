@@ -26,17 +26,20 @@ class BinarySearchTree
         };
         typedef struct User* UserNodePtr;
 
+        struct Advisor         //advisor is unique to each group
+        {
+            char name[30];
+            char email[30];
+            char phone[15];
+        };
+        typedef struct Advisor* AdvisorNodePtr;
+
         struct GroupNode
         {
             char groupID[80];
-            struct Advisor         //advisor is unique to each group
-            {
-                char name[30];
-                char email[30];
-                char phone[15];
-            };
-            User* userPtr;          //pointer to list of users in group
-            GroupNode* leftPtr;     //pointers to other groups
+            AdvisorNodePtr AdvisorPtr;    //points to advisor
+            UserNodePtr userPtr;          //pointer to list of users in group
+            GroupNode* leftPtr;           //pointers to other groups
             GroupNode* rightPtr;
         };
         typedef struct GroupNode* GroupNodePtr;
@@ -65,9 +68,9 @@ int BinarySearchTree::DisplayAdvisorInfo(GroupNodePtr& treePtr, char* suppliedNa
     {
         if(! strcmp(treePtr->groupID, suppliedName) )             //if group is a match
         {
-            cout << "\nAdvisor: " << treePtr->Advisor->name << endl;
-            cout << "Email: " << treePtr->Advisor->email << endl;
-            cout << "Phone: " << treePtr->Advisor->phone << "\n\n";
+            cout << "\nAdvisor: " << treePtr->AdvisorPtr->name << endl;
+            cout << "Email: " << treePtr->AdvisorPtr->email << endl;
+            cout << "Phone: " << treePtr->AdvisorPtr->phone << "\n\n";
             return 1;
         }
 
