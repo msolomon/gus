@@ -37,7 +37,17 @@ def index(request,leftovers):
      	else:
 		rform = register_form()
 		lform = login_form()
-    	return render_to_response('index_joran.html',{'lform':lform,'rform':rform},context_instance=RequestContext(request))
+	import subprocess
+	_proc = subprocess.Popen('git log --no-color -n 1 --date=iso',shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	try:
+    		GIT_REVISION_DATE =[x.split('Date:')[1].split('+')[0].strip() 
+		for x in _proc.communicate()[0].splitlines() 
+			if x.startswith('Date:')][0]
+	except IndexError:
+    		GIT_REVISION_DATE = 'unknown'
+
+    	return 
+render_to_response('index_joran.html',{'lform':lform,'rform':rform,'revision':GIT_REVISION_DATE},context_instance=RequestContext(request))
 	
 def thanks(request):
 	return render_to_response('feedback_recieved.html',{'msg':'Please Wait For Approval'})
