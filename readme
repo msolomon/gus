@@ -2,22 +2,20 @@ This is the root directory of the Gus group management tool.
 
 Manifest:
 	guspy/  Python Implementation
-	doc/	Documentation for this project
-        http/	Web Documents 
+		guspy/docs/	Documentation for this project
+        	guspy/http/	Web Documents 
+	php/  php Implementation
+		php/docs/	Documentation for this project
+        	php/http/	Web Documents 
 Authors:
-	Colby Blair
-	Timothy Bianchetti
-	Jacob Flynn
-	Lee VanGundy
-	Max Stillwell
-        Cynthia Rempel
-	Brett Hitchcock
-	Alex Nilson
-	Scott Beddall
-	Mike Solomon
-        Joran Beasley
-        Leah Wegner
-	Sasha Kopriva
-	Zeke Long
-	Chaylo Laurino
-	Nathan Mazur
+PHP						Python
+--------------------				--------------------
+Colby Blair					Jacob Flynn
+Timothy Bianchetti				Lee VanGundy
+Cynthia Rempel					Max Stillwell
+Brett Hitchcock					Mike Solomon
+Alex Nilson				        Joran Beasley
+Scott Beddall					Sasha Kopriva
+Leah Wegner					Nathan Mazur
+Zeke Long					
+Chaylo Laurino
