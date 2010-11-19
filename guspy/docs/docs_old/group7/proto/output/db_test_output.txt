@@ -1,0 +1,101 @@
+********************Test Database Functionality**************
+--------------MEMBER ADD TESTS START---------------
+ADDED Joran1
+ADDED Joran2
+Username Or Email In Use
+Username Or Email In Use
+Invalid Email Address
+--------------MEMBER ADD TESTS DONE---------------
+--------------GROUP ADD TESTS START---------------
+Created Group :J Group1
+Created Group :J Group2
+--------------GROUP ADD TESTS DONE---------------
+--------------GROUP ASSOC TESTS START---------------
+--------------MEMBER ADD TESTS START---------------
+ADDED Joran5
+ADDED Joran6
+ADDED Joran7
+ADDED Joran8
+ADDED goodemail
+--------------MEMBER ADD TESTS DONE---------------
+Associated USER(5) with GROUP(2) having ROLE(1)
+Associated USER(4) with GROUP(1) having ROLE(2)
+Associated USER(6) with GROUP(1) having ROLE(3)
+Associated USER(6) with GROUP(1) having ROLE(4)
+Associated USER(2) with GROUP(2) having ROLE(5)
+Associated USER(5) with GROUP(1) having ROLE(6)
+Associated USER(6) with GROUP(2) having ROLE(7)
+Associated USER(1) with GROUP(2) having ROLE(8)
+Associated USER(7) with GROUP(1) having ROLE(9)
+--------------GROUP ASSOC TESTS DONE---------------
+--------------GROUP RETRIEVAL TESTS START---------------
+  -- Members of (1) --
+Joran1
+Joran6
+Joran7
+Joran8
+goodemail
+  -- Members of (2) --
+Joran1
+Joran2
+Joran7
+Joran8
+--------------GROUP RETRIEVAL TESTS END---------------
+--------------GROUP RETRIEVAL TESTS START---------------
+  -- Groups of USER(1) --
+J Group1
+J Group2
+  -- Groups of USER(2) --
+J Group2
+  -- Groups of USER(3) --
+  -- Groups of USER(4) --
+J Group1
+  -- Groups of USER(5) --
+J Group1
+J Group2
+  -- Groups of USER(6) --
+J Group1
+J Group2
+  -- Groups of USER(7) --
+J Group1
+--------------GROUP RETRIEVAL TESTS END---------------
+--------------GROUP DELETE TESTS START---------------
+DELETING 1
+  DELETED GROUP 1
+DELETING 2
+  DELETED GROUP 2
+DELETING 3
+  ERROR NOTHING DELETED
+--------------GROUP RETRIEVAL TESTS START---------------
+  -- Members of (1) --
+  -- Members of (2) --
+--------------GROUP RETRIEVAL TESTS END---------------
+--------------GROUP RETRIEVAL TESTS START---------------
+  -- Groups of USER(1) --
+  -- Groups of USER(2) --
+  -- Groups of USER(3) --
+  -- Groups of USER(4) --
+  -- Groups of USER(5) --
+  -- Groups of USER(6) --
+  -- Groups of USER(7) --
+--------------GROUP RETRIEVAL TESTS END---------------
+--------------GROUP RETRIEVAL TESTS END---------------
+--------------MEMBER DELETE TESTS START---------------
+DELETING USER 1
+  DELETED USER 1
+DELETING USER 2
+  DELETED USER 2
+DELETING USER 3
+  DELETED USER 3
+DELETING USER 4
+  DELETED USER 4
+DELETING USER 5
+  DELETED USER 5
+DELETING USER 6
+  DELETED USER 6
+DELETING USER 7
+  DELETED USER 7
+DELETING USER 8
+  ERROR NO USER DELETED
+--------------MEMBER RETRIEVAL TESTS END---------------
+--------------TRUNCATE ALL TABLES ALL TESTS DONE!---------------

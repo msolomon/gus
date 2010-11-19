@@ -1,0 +1,149 @@
+[18:53] == Sverk [4cb2a75b@gateway/web/freenode/ip.76.178.167.91] has joined #uidaho_cs383
+[18:53] == mode/#uidaho_cs383 [+ns] by bear.freenode.net
+[19:02] == RevanTal [4b57ff00@gateway/web/freenode/ip.75.87.255.0] has joined #uidaho_cs383
+[19:02] <RevanTal> well...
+[19:02] <@Sverk> lol, yep
+[19:07] == joran [d862ed29@gateway/web/freenode/ip.216.98.237.41] has joined #uidaho_cs383
+[19:07] <joran> im here
+[19:07] <joran> lol
+[19:07] <@Sverk> lol
+[19:07] <joran> did everyone else already leave?
+[19:07] <@Sverk> no
+[19:08] <joran> lol alrighty then
+[19:14] <joran> now that i got django all installed and working with the database which was a pain in the ass to do
+[19:14] <joran> but now that its all done ... it is kinda nice
+[19:14] <joran> the way it does models and stuff is actually really nice
+[19:16] <@Sverk> guess so
+[19:17] <@Sverk> k
+[19:32] <joran> hows yer guys unit test things commin
+[19:33] <@Sverk> good, mine works
+[19:33] <RevanTal> pretty good, i'm going to upload mine to git this evening
+[19:33] <@Sverk> like most things about python so far except the lack of {} around functions
+[19:34] <RevanTal> well... guess i'm going to email my file to max...
+[19:34] <joran> did you guys install mysql and the mysqldb thing?
+[19:34] <RevanTal> i don't have ssh, i'll get it from you on friday
+[19:34] <joran> i can post it somewhere now if u want
+[19:34] <@Sverk> you sure you want me to upload it to git? last time i did it never actually happened
+[19:35] <joran> ssh i mean
+[19:35] <joran> or your file to git
+[19:36] <@Sverk> i'm gonna try to upload mine really quick to see if it actually works this time
+[19:36] <joran> I dunno i like python but im concerned about some people in the class not being able to get it installed properly (esp w/ django or mysql support)
+[19:36] <joran> you want me to post ssh secure shell package?
+[19:37] <@Sverk> i have ssh, jacob doesn't
+[19:37] <RevanTal> sure
+[19:40] <joran> almost uploaded
+[19:40] <RevanTal> shiny, thanks
+[19:40] <RevanTal> not sure why UofI stoped hosting it...
+[19:40] <joran> http://hotfile.com/dl/81801259/94a760f/SSH_Secure_Shell.zip.html
+[19:41] <joran> yeh its because they sell it as a comercial product now
+[19:41] <joran> so they dont want the free version distributed
+[19:41] <joran> not u of i but the ppl who made ssh
+[19:41] <joran> shell thing
+[19:42] <joran> so ill put up some class diagrams too i guess at some point tonight
+[19:42] <@Sverk> :(
+[19:42] <@Sverk> To wormulon.cs.uidaho.edu:/net/classes/cs383_git_f10/gus  ! [rejected]        master -> master (non-fast forward) error: failed to push some refs to 'wormulon.cs.uidaho.edu:/net/classes/cs383_git_f10/gus'
+[19:42] <joran> what?
+[19:43] <@Sverk> error in wormulon
+[19:43] <RevanTal> whow
+[19:43] <@Sverk> when i tried to push
+[19:43] <joran> i have to upload my stuff to wormulon
+[19:43] <joran> then its step by step
+[19:43] <joran> git add .
+[19:44] <joran> git commit -m "blah"
+[19:44] <joran> git push
+[19:44] <@Sverk> yep did all that
+[19:44] <joran> well first i git pull
+[19:44] <@Sverk> did that too
+[19:44] <joran> whats non-fast forward error i wonder
+[19:44] <@Sverk> no idea
+[19:46] <RevanTal> what folder?
+[19:46] <@Sverk> doc/group7/proto   is where is was putting it
+[19:46] <RevanTal> uh oh...
+[19:46] <@Sverk> i*
+[19:46] <RevanTal> guess i'm going to try deleteing my gus folder
+[19:47] <joran> yeh and just reclone
+[19:48] <RevanTal> what was the clone command?
+[19:48] <RevanTal> nvm go tit
+[19:48] <RevanTal> got it*
+[19:49] <joran> lol
+[19:49] <RevanTal> :P
+[19:51] <joran> im trying to cram my code into a django app
+[19:51] <joran> i think itll be pretty easy
+[19:51] <joran> lol this minutes is gonna be lame :P
+[19:52] <@Sverk> copy paste the clone for meh, after much work i finally got my git repository to die
+[19:52] <joran> rm gus -rf
+[19:52] <joran> should do it w/ one line :P
+[19:52] <@Sverk> i went looking for that, my best friend now
+[19:52] <joran> clone /net/classes/cs383_git_f10/gus gus
+[19:53] <joran> i think
+[19:53] <RevanTal> git clone
+[19:53] <@Sverk> k
+[19:53] <RevanTal> what was that import command?
+[19:54] <@Sverk> hmm there are two versions of group 7...
+[19:54] <RevanTal> got it
+[19:54] <@Sverk> hmm, which to use
+[19:55] <@Sverk> more of our stuff is in group7 version it seems
+[19:55] <RevanTal> yeah
+[19:58] <@Sverk> git hates me....
+[19:58] <@Sverk> doc/group7/proto/CreateGroupTest.py:37:#END -bash-3.2$ git push Everything up-to-date
+[19:59] <joran> what there is 2?
+[19:59] <@Sverk> where i put the file?
+[20:01] <@Sverk> jacob you still in ssh? if so do a git log for me
+[20:01] <joran> yeh put it in group7
+[20:02] <RevanTal> mmk
+[20:02] <RevanTal> last thing i see is sasha adding remove member
+[20:03] <@Sverk> hmm... and my CreateGroupTest's not there?
+[20:04] <RevanTal> don't think so... but hang on
+[20:06] <@Sverk> hmm... now can't push again get that non-fast forward thing
+[20:07] <joran> lol
+[20:07] <joran> re cloneit
+[20:07] <joran> i think that mean that somethings changed since you last pulled
+[20:07] <joran> i deleted group3+4=7 .... again
+[20:07] <RevanTal> uh...
+[20:08] <RevanTal> " You have some suspicious patch lines:"
+[20:08] <joran> oh
+[20:08] <joran> thats easy to fix i think -ignore
+[20:09] <joran> its cause of windows newlines i think
+[20:09] <joran> or maybe weird spaces
+[20:09] <RevanTal> hmm... doesn't look like -ignore
+[20:09] <RevanTal> 'unknown switch 'g' '
+[20:09] <joran> --no-verify .
+[20:09] <joran> thats it :P
+[20:10] <joran> just dont put group3+4=7 back in >:P
+[20:11] <RevanTal> well, that didnt' work
+[20:11] <RevanTal> To wormulon.cs.uidaho.edu:/net/classes/cs383_git_f10/gus  ! [rejected]        master -> master (non-fast forward) error: failed to push some refs to 'wormulon.cs.uidaho.edu:/net/classes/cs383_git_f10/gus'
+[20:11] <RevanTal> i don't think i like git very much
+[20:12] <@Sverk> i agree... gave me: Everything up-to-date
+[20:12] <@Sverk> ...again
+[20:12] <RevanTal> dang
+[20:13] <@Sverk> changed nothing...ran it again and it seems to have worked. is it there for you now?
+[20:14] <RevanTal> what it is called?
+[20:14] <@Sverk> CreateGroupTest
+[20:14] <RevanTal> yeah
+[20:14] <RevanTal> don't forget output though :(
+[20:14] <@Sverk> finally.....
+[20:15] <joran> yeh im not sure what happened to my output file ... it was there
+[20:16] <joran> ill re add it
+[20:16] <RevanTal> might want to pull first
+[20:16] <RevanTal> i just got mine to work
+[20:16] <joran> yeh i will
+[20:16] <joran> later
+[20:17] <joran> in a few hrs prolly
+[20:17] <joran> I think thats it for me
+[20:17] <RevanTal> me too
+[20:17] <@Sverk> yep
+[20:17] <joran> one of u turn this into some semblence of minutes
+[20:17] <@Sverk> k
+[20:17] <joran> and email it to me if u cant get it added
+[20:17] <RevanTal> mmk
+[20:17] <joran> add the link in the index.html too
+[20:17] <joran> :P
+[20:18] <joran> unless u cant get it to add and need me to in which case ill just add the link
+[20:18] <@Sverk> k
+[20:18] <joran> but im outta here :)
+[20:18] <RevanTal> bye
+[20:18] == RevanTal [4b57ff00@gateway/web/freenode/ip.75.87.255.0] has quit [Quit: Page closed]
+[20:18] <@Sverk> cya
+[20:18] <joran> see ya guys tomorrow... ill add some of our class diagrams from before
+[20:19] <joran> maybe even modify them
+[20:19] == joran [d862ed29@gateway/web/freenode/ip.216.98.237.41] has quit [Quit: Page closed]
