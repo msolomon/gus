@@ -46,8 +46,7 @@ def index(request,leftovers):
 	except IndexError:
     		GIT_REVISION_DATE = 'unknown'
 
-    	return 
-render_to_response('index_joran.html',{'lform':lform,'rform':rform,'revision':GIT_REVISION_DATE},context_instance=RequestContext(request))
+    	return render_to_response('index_joran.html',{'lform':lform,'rform':rform,'revision':GIT_REVISION_DATE},context_instance=RequestContext(request))
 	
 def thanks(request):
 	return render_to_response('feedback_recieved.html',{'msg':'Please Wait For Approval'})
