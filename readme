@@ -1,7 +1,7 @@
 This is the root directory of the Gus group management tool.
 
 Manifest:
-
+	guspy/  Python Implementation
 	doc/	Documentation for this project
         http/	Web Documents 
 Authors:
