@@ -1,6 +1,7 @@
 <?php
 
 include("main.php");
+include("mysql.php");
 
 echo "GUS: Install starting...<br />\n";
 
@@ -17,21 +18,14 @@ switch(DBMODE) {
 		mysql_select_db(DBNAME,$ds) or die( "MYSQL: could not select database "
 							. DBNAME);
 		#create and initialize gus attribute table
-		mysql_query("CREATE TABLE attr (
-				vt VARCHAR(100)
-				)",$ds) 
-			or die(" MYSQL: Could not create table attr, ERROR:<br />\n"
-				. mysql_error($ds));
-		echo " MYSQL: created table attr.<br />\n";
-		mysql_query("CREATE TABLE page (
-				name VARCHAR(100),
-				content TEXT
-				)",$ds) 
-			or die(" MYSQL: Could not create table page, ERROR:<br />\n"
-				. mysql_error($ds));
-		echo " MYSQL: created table page.<br />\n";
+		$ds = new mysql(DBHOST,DBADMIN,DBPW);
+		$ds->create_table("attr", array("vt" =>"VARCHAR(100)"));
+		$ds->create_table("page", array("name" =>"VARCHAR(100)",
+						"content" => "TEXT"
+						)
+				) or $ds->error(" MYSQL: Could not create page table.\n<br />");
 		mysql_query("INSERT INTO attr (vt) VALUES ('default')") 
-			or die(" MYSQL: Could not populate table $table, ERROR:<br />\n"
+			or die(" MYSQL: Could not populate table attr, ERROR:<br />\n"
 				. mysql_error($ds));
 		echo " MYSQL: table attr populated.<br />\n";	
 		mysql_query("INSERT INTO page (name,content) VALUES ('home','This is the default page')") 

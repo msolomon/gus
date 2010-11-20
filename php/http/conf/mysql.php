@@ -21,6 +21,17 @@ class mysql {
 		mysql_close($this->ds);
 	}
 
+	public function error() {
+		//optional message arg
+		$msg = "";
+		if(func_num_args() > 0) $msg = func_get_arg(0) . ",";
+		die("$msg ERROR: " . mysql_error($this->ds));
+	}
+
+	public function save() {
+
+	}
+
 	public function select($who, $table) {
 		$result = mysql_query("SELECT $who from $table");
 		if(!$result) {
@@ -41,6 +52,17 @@ class mysql {
 		return($result); //returns the first value in case of > 1
 	}
 
+	public function create_table($table, $fields) {
+		$query = "CREATE TABLE $table (\n";
+		$nfields = 0;
+		foreach($fields as $key =>$val) {
+			if($nfields > 0) $query .= ",\n";
+			$query .= "$key $val";
+			$nfields++;
+		}
+		$query .= ")";
+		return(mysql_query($query, $this->ds));
+	}
 }
 
 ?>
