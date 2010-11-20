@@ -27,8 +27,8 @@ class gus {
 	}
 	
 	private function init_data() {
-		$this->vt = $this->ds->select("vt","attr");
-		$this->vt = $this->vt[0]; //set to fir val in result, ignores multi matches
+		$this->vt = $this->ds->select_cond("name,content","attr","name='vt'");
+		$this->vt = $this->vt[0]['content']; //set to first val in result, ignores multi matches
 		if(!empty($_GET["vt"])) {$this->vt = $_GET["vt"];} //override if html arg
 		return($this->vt);
 	}

@@ -28,28 +28,46 @@ class mysql {
 		die("$msg ERROR: " . mysql_error($this->ds));
 	}
 
-	public function save() {
+	public function save($table, $names, $values) {
+		//need conditional for if values already exist
+		/*$nfields = 0;
+		$names = "";
+		$values = "";
+		foreach($names as $key) {
+			if($nfields > 0) {$names .= ", ";
+			$names .= "$key";
+			$nfields++;
+		}
+		foreach($values as $key =>) {
+			if($nfields > 0) {$names .= ", ";
+			$names .= "$key";
+			$nfields++;
+		}
 
+		$query = "INSERT INTO $table ($names) VALUES ($values)";
+		echo $query;
+		exit(1);
+		*/
 	}
 
 	public function select($who, $table) {
+		$result_arr = array();
 		$result = mysql_query("SELECT $who from $table");
-		if(!$result) {
-			echo "warning: " . mysql_error($this->ds) . "<br />\n";
-			return($result);
+		if(!$result) $this->error("mysql->select");
+		while($row = mysql_fetch_array($result)) {
+			array_push($result_arr, $row);
 		}
-		$result = mysql_fetch_array($result);
-		return($result); //returns the first value in case of > 1
+		return($result_arr);
 	}
 
 	public function select_cond($who, $table, $cond) {
+		$result_arr = array();
 		$result = mysql_query("SELECT $who from $table where $cond");
-		if(!$result) {
-			echo "warning: " . mysql_error($this->ds) . "<br />\n";
-			return($result);
+		if(!$result) $this->error("mysql->select_cond");
+		while($row = mysql_fetch_array($result)) {
+			array_push($result_arr, $row);
 		}
-		$result = mysql_fetch_array($result);
-		return($result); //returns the first value in case of > 1
+		return($result_arr);
 	}
 
 	public function create_table($table, $fields) {

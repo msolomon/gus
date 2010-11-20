@@ -19,18 +19,26 @@ switch(DBMODE) {
 							. DBNAME);
 		#create and initialize gus attribute table
 		$ds = new mysql(DBHOST,DBADMIN,DBPW);
-		$ds->create_table("attr", array("vt" =>"VARCHAR(100)"));
+		$ds->create_table("attr", array("name" => "VARCHAR(100)",
+						"content" => "VARCHAR(100)"
+						)
+				);
 		$ds->create_table("page", array("name" =>"VARCHAR(100)",
 						"content" => "TEXT"
 						)
 				) or $ds->error(" MYSQL: Could not create page table.\n<br />");
-		mysql_query("INSERT INTO attr (vt) VALUES ('default')") 
+		//$ds->save("attr", array("vt" => 'default'));
+		//$ds->save("page", array("name",'content'), ?);
+		//
+		mysql_query("INSERT INTO attr (name,content) VALUES ('vt','default')") 
 			or die(" MYSQL: Could not populate table attr, ERROR:<br />\n"
 				. mysql_error($ds));
 		echo " MYSQL: table attr populated.<br />\n";	
 		mysql_query("INSERT INTO page (name,content) VALUES ('home','This is the default page')") 
 			or die(" MYSQL: Could not populate table page, ERROR:<br />\n"
 				. mysql_error($ds));
+		//
+		print_r($ds->select("name,content", "page"));
 		echo " MYSQL: table page populated.<br />\n";	
 		#mysql done
 		echo " MYSQL: Install complete<br />\n";
