@@ -1,4 +1,8 @@
 <?php
+///////////////////////////////////////////////////////////////////////////////
+//GUS - Groups in a University Setting
+//Author: Colby Blair
+///////////////////////////////////////////////////////////////////////////////
 
 include("main.php");
 include("mysql.php");
@@ -26,20 +30,30 @@ switch(DBMODE) {
 		$ds->create_table("page", array("name" =>"VARCHAR(100)",
 						"content" => "TEXT"
 						)
-				) or $ds->error(" MYSQL: Could not create page table.\n<br />");
-		//$ds->save("attr", array("vt" => 'default'));
-		//$ds->save("page", array("name",'content'), ?);
-		//
-		mysql_query("INSERT INTO attr (name,content) VALUES ('vt','default')") 
-			or die(" MYSQL: Could not populate table attr, ERROR:<br />\n"
-				. mysql_error($ds));
+				);
+		$ds->create_table("ggroup", array("name" =>"VARCHAR(100)",
+						"description" => "TEXT"
+						)
+				);
+		$ds->save("attr", array(array("name" => 'vt','content' => 'default')
+					), 
+			array("name")
+			);
 		echo " MYSQL: table attr populated.<br />\n";	
-		mysql_query("INSERT INTO page (name,content) VALUES ('home','This is the default page')") 
-			or die(" MYSQL: Could not populate table page, ERROR:<br />\n"
-				. mysql_error($ds));
-		//
-		print_r($ds->select("name,content", "page"));
+		$ds->save("page", array(array("name" => 'home',
+						"content" => "This is the default page."
+						)
+					),
+			array("name")
+			);
 		echo " MYSQL: table page populated.<br />\n";	
+		$ds->save("ggroup", array(array("name" => 'default',
+						"description" => "This is the default gus group."
+						)
+					),
+			array("name")
+			);
+		echo " MYSQL: table group populated.<br />\n";	
 		#mysql done
 		echo " MYSQL: Install complete<br />\n";
 		break;

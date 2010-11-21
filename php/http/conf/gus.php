@@ -1,4 +1,8 @@
 <?php
+///////////////////////////////////////////////////////////////////////////////
+//GUS - Groups in a University Setting
+//Author: Colby Blair
+///////////////////////////////////////////////////////////////////////////////
 
 include("main.php");
 include(DBMODE . ".php");
@@ -37,9 +41,10 @@ class gus {
 		require_once(TMPLDIR . "/" . $this->vt . "/main.php");
 		if(empty($_GET['page'])) $_GET['page'] = 'home';
 		$content = $this->ds->select_cond('content', 'page', "name='" . $_GET['page'] . "'");
-		$content = $content[0]; //take the first with multi matches
+		if(empty($content)) $content = "This page does not exist<br />";
+		else $content = $content[0]['content']; //takes the first if multi matches
 		return(page_header() . $content . page_footer());
 	}
-};
+}
 
 ?>

@@ -1,12 +1,24 @@
 <?php
+
 ///////////////////////////////////////////////////////////////////////////////
 //GUS - Groups in a University Setting
 //Author: Colby Blair
 ///////////////////////////////////////////////////////////////////////////////
 
-include("conf/gus.php");
-$gus_main = new gus;
+class form {
+	private $content;
 
-echo $gus_main->page_content();
+	public function __construct() {
+
+	}
+
+	public function __destroy(){
+
+	}
+
+	public function add_textfield($name) {
+		$this->content .= "<input type=\"text\" name=\"$name\" />\n";
+	}
+}
 
 ?>

@@ -1,4 +1,8 @@
 <?php
+///////////////////////////////////////////////////////////////////////////////
+//GUS - Groups in a University Setting
+//Author: Colby Blair
+///////////////////////////////////////////////////////////////////////////////
 
 class mysql {
 	var $ds; //database connection
@@ -127,7 +131,9 @@ class mysql {
 			$nfields++;
 		}
 		$query .= ")";
-		return(mysql_query($query, $this->ds));
+		$result = mysql_query($query, $this->ds);
+		if(!$result) $this->error("mysql->create_table query: $query");
+		return(true);
 	}
 }
 
