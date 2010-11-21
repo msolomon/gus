@@ -4,8 +4,8 @@ include("main.php");
 include(DBMODE . ".php");
 
 class gus {
-	var $vt; //visual template
-	var $ds; //database connection
+	private $vt; //visual template
+	private $ds; //database connection
 
 	function __construct() {
 		if(!$this->init_db()) {
