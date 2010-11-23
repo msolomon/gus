@@ -12,9 +12,11 @@ admin.site.unregister(Group)
 
 
 admin.site.register(gus_roles)
-
-
-
+class UserModelChoiceField(ModelChoiceField):
+    def label_from_instance(self, obj):
+        # Return a string of the format: "firstname lastname (username)"
+        return "%s (%s)"%(obj.get_full_name(), obj.username)
+	
 class Rform(forms.ModelForm):
 	class Meta:
 		model = gus_roles

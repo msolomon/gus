@@ -1,7 +1,6 @@
-jQuery(function($) {
+django.jQuery(function($) {
     // Only for stacked inlines
-    $('div.inline-group 
-div.inline-related:not(.tabular)').each(function() {
+    $('div.inline-group div.inline-related:not(.tabular)').each(function() {
         fs = $(this).find('fieldset')
         h3 = $(this).find('h3:first')
 
@@ -12,19 +11,18 @@ div.inline-related:not(.tabular)').each(function() {
             fs.addClass('stacked_collapse collapsed');
         
         // Add toggle link
-        h3.prepend('<a class="stacked_collapse-toggle" href="#">(' + 
-gettext('Show') + ')</a> ');
+        h3.prepend('<a class="stacked_collapse-toggle" href="#">(' + ('Show') + ')</a> ');
         h3.find('a.stacked_collapse-toggle').bind("click", function(){
             fs = $(this).parent('h3').next('fieldset');
             if (!fs.hasClass('collapsed'))
             {
                 fs.addClass('collapsed');
-                $(this).html('(' + gettext('Show') + ')');
+                $(this).html('(' + ('Show') + ')');
             }
             else
             {
                 fs.removeClass('collapsed');
-                $(this).html('(' + gettext('Hide') + ')');
+                $(this).html('(' + ('Hide') + ')');
             }
         }).removeAttr('href').css('cursor', 'pointer');
     });

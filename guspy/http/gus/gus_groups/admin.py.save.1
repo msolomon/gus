@@ -12,8 +12,15 @@ admin.site.unregister(Group)
 
 
 admin.site.register(gus_roles)
+class gCharField(forms.CharField):
+	def label_from_instance(self, obj):
+        # Return a string of the format: "firstname lastname (username)"
+        return "%s (%s)"%(obj.get_full_name(), obj.username)
 
-
+class Gform(forms.ModelForm):
+	_group=  gCharField();	
+	class Meta:
+		model=gus_group
 
 class Rform(forms.ModelForm):
 	class Meta:
@@ -28,6 +35,7 @@ class Roles_Inline(admin.StackedInline):
 
 
 class Gus_Group_Admin(admin.ModelAdmin):
+	form=Gform
 	class Media:
 		js=('js/collapsed_stacked_inlines.js',)
 	inlines=[Roles_Inline]
