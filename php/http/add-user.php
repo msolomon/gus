@@ -10,13 +10,13 @@ include("conf/form.php");
 $gus_main = new gus;
 echo $gus_main->page_content();
 
-$form1 = new form("add-page","add-page.php");
+$form1 = new form("add-user","add-user.php");
 if($form1->input_data()) {
-	$form1->process_input_data("page",array("name")); //table_name, unique fields
+	$form1->process_input_data("guser",array("name")); //table_name, unique fields
 }
 else {
-	$form1->add_textfield("Page Name:","name");
-	$form1->add_textfield("Initial Page Content:","content");
+	$form1->add_textfield("User Name:","name");
+	$form1->add_textfield("User Description:","description");
 	$form1->add_submit("Submit");
 	echo $form1->get_content();
 }

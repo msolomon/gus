@@ -13,6 +13,9 @@ return("
 <ul>
  <li><a href=\"index.php?page=home\">Home</a></li>
  <li><a href=\"index.php?page=about\">About</a></li>
+ <li><a href=\"add-page.php?page=add-page.php\">Add A Page</a></li>
+ <li><a href=\"add-user.php?page=add-user.php\">Add A User</a></li>
+ <li><a href=\"add-group.php?page=add-group.php\">Add A Group</a></li>
  <li>Login</li>
  <li>Register</li>
 </ul>
