@@ -39,9 +39,13 @@ class gus {
 
 	public function page_content() {
 		require_once(TMPLDIR . "/" . $this->vt . "/main.php");
-		if(empty($_GET['page'])) $_GET['page'] = 'home';
+		if(empty($_GET['page'])) {
+			if($_SERVER["SCRIPT_NAME"] === "index.php") {
+				$_GET['page'] = 'home';}
+			else {$_GET['page'] = $_SERVER["SCRIPT_NAME"];}
+		}
 		$content = $this->ds->select_cond('content', 'page', "name='" . $_GET['page'] . "'");
-		if(empty($content)) $content = "This page does not exist<br />";
+		if(empty($content)) $content = "This page's content does not exist<br />";
 		else $content = $content[0]['content']; //takes the first if multi matches
 		return(page_header() . $content . page_footer());
 	}

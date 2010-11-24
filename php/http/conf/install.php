@@ -31,8 +31,13 @@ switch(DBMODE) {
 						"content" => "TEXT"
 						)
 				);
-		$ds->create_table("ggroup", array("name" =>"VARCHAR(100)",
+		$ds->create_table("guser", array("name" =>"VARCHAR(100)",
 						"description" => "TEXT"
+						)
+				);
+		$ds->create_table("ggroup", array("name" =>"VARCHAR(100)",
+						"description" => "TEXT",
+						"member" => "VARCHAR(100)"
 						)
 				);
 		$ds->save("attr", array(array("name" => 'vt','content' => 'default')

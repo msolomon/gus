@@ -22,7 +22,8 @@ class mysql {
 	}
 
 	private function disconnect() {
-		mysql_close($this->ds);
+		//need to find out why ds is no longer a valid mysql conn
+		@mysql_close($this->ds); 
 	}
 
 	private function names_and_values($table, $data, &$names, &$values) {
