@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     (r'^thanks/$','gus.views.thanks'),
     # Uncomment the admin/doc line below to enable admin documentation:
     (r'^gus/', include('gus.gus_groups.urls')),
+    (r'^forums/', include('gus.gus_talk.urls')),
     (r'^admin/doc/?', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:

@@ -1,0 +1,25 @@
+<head>
+<title>Thread View</title>
+</head>
+<style type="text/css">
+.even_row{
+	background-color:EEEEFE;
+}
+</style>
+<!-- Forums  -->
+<div id="list">
+<table border="0" cellpadding="4" width="100%">
+    {% for msg in messages %}
+    <tr {% if forloop.counter|divisibleby:2 %}class="even_row"{% endif %}>
+        <td {% if forloop.last %}class="last"{% endif %}>
+        <div class="title"> <a href="{#% url gus_talk.views.forum forum.pk %#}">{{ msg.short }}</a>
+            </div></td>
+        <td {% if forloop.last %}class="last"{% endif %}>{{ msg.message }}</td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            <a class="button" href="{#% url forum.views.forum forum.pk %#}">VIEW</a>
+        </td>
+    </tr>
+
+    {% endfor %}
+</div>
+

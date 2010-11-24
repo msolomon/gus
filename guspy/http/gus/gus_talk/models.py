@@ -9,12 +9,28 @@ class gus_forum(models.Model):
 	_group = models.ForeignKey(gus_group)
 	def __unicode__(self):
 		return self._title
+	def title(self):return self._title
+	def num_posts(self): return sum([t.num_posts() for t in self.gus_thread_set.all()])
+	def last_post(self):
+	        if self.gus_thread_set.count():
+         	   	last = None
+            		for t in self.gus_thread_set.all():
+                		l = t.last_post()
+                		if l:
+                    			if not last: last = l
+                    			elif l.created > last.created: last = l
+            	return last
 
 class gus_thread(models.Model):
 	_forum = models.ForeignKey(gus_forum)
 	_title = models.CharField(max_length=50)
 	created = models.DateTimeField(auto_now_add=True)
     	creator = models.ForeignKey(User, blank=True, null=True)
+	def num_posts(self):return self.gus_message_set.count()
+	def title(self): return self._title
+	def last_post(self):
+		if self.gus_message_set.count():
+			return self.gus_message_set.order_by("-created")[0]
 	def __unicode__(self):
 		return unicode(self.creator)+" - "+self._title
 
@@ -24,6 +40,7 @@ class gus_message(models.Model):
 	_thread = models.ForeignKey(gus_thread)
 	created = models.DateTimeField(auto_now_add=True)
     	creator = models.ForeignKey(User, blank=True, null=True)
+	def message(self): return self._body
 	def __unicode__(self):
 		return u"%s - %s - %s" % (self.creator,self._thread,self._title)
 	def short(self):

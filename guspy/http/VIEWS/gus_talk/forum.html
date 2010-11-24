@@ -1,0 +1,33 @@
+<head>
+<title>Forum Listing</title>
+</head>
+<style type="text/css">
+.even_row{
+	background-color:EEEEFE;
+}
+</style>
+<!-- Forums  -->
+<div id="list">
+<table border="0" cellpadding="4" width="100%">
+    <tr>
+        <td>Threads</td>
+        <td>Posts</td>
+        <td>Last post</td>
+        <td></td>
+    </tr>
+    {% for thread in threads %}
+    <tr {% if forloop.counter|divisibleby:2 %}class="even_row"{% endif %}>
+        <td {% if forloop.last %}class="last"{% endif %}>
+        <div class="title"> <a href="{#% url gus_talk.views.forum forum.pk %#}">{{ thread.title }}</a>
+            </div></td>
+        <td {% if forloop.last %}class="last"{% endif %}>{{ thread.gus_message_set.count }}</td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            {{ thread.last_post.short|linebreaksbr }}</td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            <a class="button" href="{#% url forum.views.forum forum.pk %#}">VIEW</a>
+        </td>
+    </tr>
+
+    {% endfor %}
+</div>
+
