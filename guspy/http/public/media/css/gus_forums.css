@@ -1,0 +1,15 @@
+.title{
+	background:#EFEFFA;
+	border:#AAF thin solid;
+}
+.message{
+	border:#AAF thin solid;
+	padding:15px;
+}
+.even_row{
+	background:#DFDFFA;
+	border:#AAF thin solid;
+}
+#new_message_form{
+	display:none;
+}

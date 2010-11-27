@@ -1,25 +1,39 @@
-<head>
-<title>Thread View</title>
-</head>
-<style type="text/css">
-.even_row{
-	background-color:EEEEFE;
-}
-</style>
-<!-- Forums  -->
+{% extends "base.html" %}
+{% block title %}Gus Forums {% endblock %}
+{% block site_content %}
+<a href="{% url gus_talk.views.forum thread.forumid %}">Back To Forum</a>
 <div id="list">
-<table border="0" cellpadding="4" width="100%">
     {% for msg in messages %}
-    <tr {% if forloop.counter|divisibleby:2 %}class="even_row"{% endif %}>
-        <td {% if forloop.last %}class="last"{% endif %}>
-        <div class="title"> <a href="{#% url gus_talk.views.forum forum.pk %#}">{{ msg.short }}</a>
-            </div></td>
-        <td {% if forloop.last %}class="last"{% endif %}>{{ msg.message }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
-            <a class="button" href="{#% url forum.views.forum forum.pk %#}">VIEW</a>
-        </td>
-    </tr>
+        <div class="title">{{ msg.title }}  {{ msg.pub_date }}</div>
+        <div class="message{% if forloop.counter|divisibleby:2 %} even_row{% endif %}">{{ msg.message }}</div>
+    {% endfor %} 
 
-    {% endfor %}
+
+    <div id="new_message_form">
+	<form method="post"> 
+		<textarea name="message" cols="40" rows="10" ></textarea><br />
+		<input type="hidden" name="tid" value="{{ tid }}" />
+		<input type="hidden" name="uid" value="{{user.user.id}}" />
+		<input id="newmsg_btn" type="submit" value="Post Reply" />
+		<input id="canx_btn" type="button" value="Cancel" />
+		{% csrf_token %}
+	</form>
+    </div>
+    <input id="rply_btn" type="button" value="New Reply" />
+
+
 </div>
 
+
+<script type="text/javascript" >
+//Leet Javascripts
+$('#rply_btn').click(function(){ // manage clicking of the reply button
+	$('#new_message_form').show()	
+	$(this).hide()
+})
+$('#canx_btn').click(function(){ //manage clickin of cancel reply button
+	$('#new_message_form').hide()	
+	$('#rply_btn').show()
+})
+</script>
+{% endblock %}
