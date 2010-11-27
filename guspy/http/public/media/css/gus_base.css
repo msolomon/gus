@@ -1,0 +1,15 @@
+.left{
+	float:left;
+}
+.header{
+	font-weight:900px;
+}
+.medium{
+	font-size:25px;
+}
+.vspace_small{
+	margin-top:5px;
+}
+.hpad_small{
+	padding-left:10px;
+}

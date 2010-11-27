@@ -28,6 +28,7 @@ class gus_thread(models.Model):
     	creator = models.ForeignKey(User, blank=True, null=True)
 	def num_posts(self):return self.gus_message_set.count()
 	def title(self): return self._title
+	def forumid(self):return self._forum.id
 	def last_post(self):
 		if self.gus_message_set.count():
 			return self.gus_message_set.order_by("-created")[0]
@@ -40,11 +41,16 @@ class gus_message(models.Model):
 	_thread = models.ForeignKey(gus_thread)
 	created = models.DateTimeField(auto_now_add=True)
     	creator = models.ForeignKey(User, blank=True, null=True)
+	def tid(self):return self._thread.id
+	def title(self):return self._title
 	def message(self): return self._body
+	def pub_date(self,formatstring="%b %d, %I:%M %p"):
+		return self.created.strftime(formatstring)
+
 	def __unicode__(self):
 		return u"%s - %s - %s" % (self.creator,self._thread,self._title)
 	def short(self):
-		return u"%s - %s\n%s" % (self.creator,self._title,self.created.strftime("%b %d, %I:%M %p"))
+		return u"%s - %s\n%s" % (self.creator,self._title,self.pub_date())
 	short.allow_tags=True
 
 	

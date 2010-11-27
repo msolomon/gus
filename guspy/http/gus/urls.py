@@ -22,6 +22,7 @@ urlpatterns = patterns('',
 
 ###(joran) gus_groups application views (manage users/groups/logins/etc)
     (r'^gus/', include('gus.gus_groups.urls')),
+    (r'^group/', include('gus.gus_groups.urls')),
 
 ###(joran) gus_talk application views(forums)
     (r'^forums/', include('gus.gus_talk.urls')),

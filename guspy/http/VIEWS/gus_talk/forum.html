@@ -1,33 +1,44 @@
-<head>
-<title>Forum Listing</title>
-</head>
-<style type="text/css">
-.even_row{
-	background-color:EEEEFE;
-}
-</style>
-<!-- Forums  -->
+{% extends "base.html" %}
+{% block title %}Gus Forums {% endblock %}
+{% block site_content %}
 <div id="list">
-<table border="0" cellpadding="4" width="100%">
-    <tr>
-        <td>Threads</td>
-        <td>Posts</td>
-        <td>Last post</td>
-        <td></td>
-    </tr>
+<table border="0" width="100%">
     {% for thread in threads %}
-    <tr {% if forloop.counter|divisibleby:2 %}class="even_row"{% endif %}>
-        <td {% if forloop.last %}class="last"{% endif %}>
-        <div class="title"> <a href="{#% url gus_talk.views.forum forum.pk %#}">{{ thread.title }}</a>
-            </div></td>
-        <td {% if forloop.last %}class="last"{% endif %}>{{ thread.gus_message_set.count }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
-            {{ thread.last_post.short|linebreaksbr }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
-            <a class="button" href="{#% url forum.views.forum forum.pk %#}">VIEW</a>
-        </td>
-    </tr>
+        <tr class="title{% if forloop.counter|divisibleby:2 %} even_row{% endif %}" >
+		<td width="50%">{{ thread.title }}</td> 
+		<td>{{ thread.creator }}</td>
+		<td>{{ thread.created }}</td>
+		<td><a href="{% url gus_talk.views.thread thread.id %}">View</a></td>
+	</tr>
+    {% endfor %} 
+</table>
 
-    {% endfor %}
+    <div id="new_message_form">
+	<form method="post"> 
+		<strong>Thread Title:</strong><input type="text" name="thread_title" size="38"><br/>
+		<textarea name="message" cols="40" rows="10" ></textarea><br />
+		<input type="hidden" name="fid" value="{{fid}}" />
+		<input type="hidden" name="uid" value="{{user.user.id}}" />
+		<input id="newmsg_btn" type="submit" value="Create Thread" />
+		<input id="canx_btn" type="button" value="Cancel" />
+		{% csrf_token %}
+	</form>
+    </div>
+    <input id="rply_btn" type="button" value="New Thread" />
+
+
 </div>
 
+
+<script type="text/javascript" >
+//Leet Javascripts
+$('#rply_btn').click(function(){ // manage clicking of the reply button
+	$('#new_message_form').show()	
+	$(this).hide()
+})
+$('#canx_btn').click(function(){ //manage clickin of cancel reply button
+	$('#new_message_form').hide()	
+	$('#rply_btn').show()
+})
+</script>
+{% endblock %}

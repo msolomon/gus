@@ -21,6 +21,10 @@ def super_group_manager(request):
 class new_group_form(forms.Form):
 	group_name = forms.CharField(max_length=50)
 	ownerid = forms.IntegerField()
+def view_group(request,gid):
+	group=gus_group.objects.get(id=gid)
+	members = gus_roles.objects.filter(gid=group)
+	return render_to_response('gus_groups/group_view.html',{'users':members,'group':group},context_instance=RequestContext(request))
 	
 def create_group(request):
 	usr = userauthenticated(request)
@@ -43,8 +47,8 @@ def create_group(request):
 	
 def profile(request):
 	usr = userauthenticated(request)
-	return render_to_response('gus_groups/user_profile.html',{'user':usr},context_instance=RequestContext(request))
-	return HttpResponse("View User Detail For User "+usr.__unicode__())
+	groups = gus_roles.objects.filter(uid=usr)
+	return render_to_response('gus_groups/user_profile.html',{'user':usr,'groups':groups},context_instance=RequestContext(request))
 	
 def user_detail_view(request,user_id):
 	usr=gus_roles.objects.get(uid=user_id)
