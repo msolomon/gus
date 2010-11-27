@@ -31,14 +31,29 @@ switch(DBMODE) {
 						"content" => "TEXT"
 						)
 				);
-		$ds->create_table("guser", array("name" =>"VARCHAR(100)",
-						"description" => "TEXT"
-						)
-				);
-		$ds->create_table("ggroup", array("name" =>"VARCHAR(100)",
+		$ds->create_table("guser", 
+		 array("uid" => "TINYINT NOT NULL AUTO_INCREMENT UNIQUE",
+						"name" =>"VARCHAR(100)",
 						"description" => "TEXT",
-						"member" => "VARCHAR(100)"
-						)
+						"PRIMARY KEY" => "(uid)"
+						),
+						"ENGINE=INNODB"
+				);
+		$ds->create_table("ggroup", 
+		 array("gid" => "TINYINT NOT NULL AUTO_INCREMENT UNIQUE",
+						"name" =>"VARCHAR(100)",
+						"description" => "TEXT",
+						"PRIMARY KEY" => "(gid)"
+						),
+						"ENGINE=INNODB"
+				);
+		$ds->create_table("ggroup_member", 
+		 array("gid" => "TINYINT NOT NULL",
+			"uid" => "TINYINT NOT NULL",
+	      "FOREIGN KEY" => "(gid) REFERENCES ggroup(gid) ON DELETE CASCADE",
+	      "FOREIGN KEY" => "(uid) REFERENCES guser(uid) ON DELETE CASCADE",
+			),
+			"ENGINE=INNODB"
 				);
 		$ds->save("attr", array(array("name" => 'vt','content' => 'default')
 					), 

@@ -49,6 +49,18 @@ class gus {
 		else $content = $content[0]['content']; //takes the first if multi matches
 		return(page_header() . $content . page_footer());
 	}
+
+	public function get_uid($uname) {
+		$result = $this->ds->select_cond("uid","guser","name='$uname'");
+		return($result[0]['uid']);
+	}
+	
+	public function get_gid($gname) {
+		$result = $this->ds->select_cond("gid","ggroup","name='$gname'");
+		return($result[0]['gid']);
+
+	}
 }
+
 
 ?>

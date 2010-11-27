@@ -5,7 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 class mysql {
-	var $ds; //database connection
+	private $ds; //database connection
 
 	public function __construct($hostname,$un,$pw) {
 		return( ($this->ds = $this->connect($hostname,$un,$pw)) 
@@ -84,7 +84,6 @@ class mysql {
 	}
 
 	public function save($table, $data,$use_fields) {
-		//need conditional for if values already exist
 		foreach($data as $row) {
 			$names = $values = $where = $set = "";
 			$this->names_and_values($table, $row, $names, $values);
@@ -124,6 +123,9 @@ class mysql {
 	}
 
 	public function create_table($table, $fields) {
+		#opt args
+		$tattrs = ""; //table attributes
+		if(func_num_args() === 3) $tattrs = func_get_arg(2);
 		$query = "CREATE TABLE $table (\n";
 		$nfields = 0;
 		foreach($fields as $key =>$val) {
@@ -131,7 +133,7 @@ class mysql {
 			$query .= "$key $val";
 			$nfields++;
 		}
-		$query .= ")";
+		$query .= ") $tattrs";
 		$result = mysql_query($query, $this->ds);
 		if(!$result) $this->error("mysql->create_table query: $query");
 		return(true);

@@ -27,10 +27,10 @@ class form {
 		return(!empty($_POST));
 	}
 
-	public function process_input_data($where,$use_fields) {
-		$this->ds->save($where,array($_POST),$use_fields);
-		//no need to check if successful, db class should handled errors
-		echo "Form data submission successful<br />";
+	public function process_input_data($table,$use_fields) {
+		$this->ds->save($table,array($_POST),$use_fields);
+		//no need to check if successful, db class should handle errors
+		echo "Form data submission successful<br />\n";
 	}
 
 	public function add_textfield($text,$name) {
