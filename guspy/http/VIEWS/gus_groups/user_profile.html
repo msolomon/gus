@@ -9,7 +9,8 @@
 <hr>
 <table>
 {% for group in  groups %}
-<tr><td><a href="">{{ group.gid }}</a></td><td>{{group.role_name}}</td></tr>
+<tr><td><a href="{% url gus_groups.views.view_group group.gid.id %}">
+{{ group.gid }}</a></td><td>{{group.role_name}}</td></tr>
 {% endfor %}
 </table>
 {% endblock %}

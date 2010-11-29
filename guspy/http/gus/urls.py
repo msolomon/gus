@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     #login existing user
     (r'^login.html$','gus.gus_groups.views.login'),
     (r'^login/$','gus.gus_groups.views.login'),
+    (r'^logout.html$','gus.gus_groups.views.logout'),
+    (r'^logout/$','gus.gus_groups.views.logout'),
 
 
 ###(joran) gus_groups application views (manage users/groups/logins/etc)

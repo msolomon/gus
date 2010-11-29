@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.shortcuts import render_to_response
 from django.template import Context, loader, RequestContext
 from django.http import HttpResponse , HttpResponseRedirect
+from django.core.urlresolvers import url
 from django import forms
 from gus.gus_groups.models import *
 from django.contrib import messages
@@ -55,6 +56,12 @@ def user_detail_view(request,user_id):
 	return HttpResponse("View User Detail For User "+usr.uid.all()[0]._user.username)
 	
 
+def logout(request):
+	try:
+		del request.session['user']
+	except:
+		1
+	return HttpResponseRedirect(url('gus_groups.views.login'))	
 
 class login_form(forms.Form):
 	username=forms.CharField(max_length=50)

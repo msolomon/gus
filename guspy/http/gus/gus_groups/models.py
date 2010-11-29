@@ -6,9 +6,9 @@ class gus_user(models.Model):
 	_token=models.CharField(max_length=50)
 	def user(self):
 		return self._user
-	
 	def __unicode__(self):
 		return self._user.username
+
 class gus_group(models.Model):
 	group_name=models.CharField(unique=True,max_length=100)
 	is_public = models.BooleanField(blank=True)
@@ -33,7 +33,6 @@ class gus_roles(models.Model):
 	role_name=models.CharField(max_length=100)
 	def save(self):
 		super(gus_roles,self).save() #call real save
-
 	def __unicode__(self):
 		if(self.id):return self.role_name+"  ("+str(self.uid.count())+")"
 		return ""
