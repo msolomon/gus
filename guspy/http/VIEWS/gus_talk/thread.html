@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Gus Forums {% endblock %}
 {% block site_content %}
+{{ userbar user }}
 <a href="{% url gus_talk.views.forum thread.forumid %}">Back To Forum</a>
 <div id="list">
     {% for msg in messages %}

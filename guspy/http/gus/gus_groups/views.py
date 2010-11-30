@@ -3,7 +3,6 @@ from django.db import IntegrityError
 from django.shortcuts import render_to_response
 from django.template import Context, loader, RequestContext
 from django.http import HttpResponse , HttpResponseRedirect
-from django.core.urlresolvers import url
 from django import forms
 from gus.gus_groups.models import *
 from django.contrib import messages
@@ -61,7 +60,7 @@ def logout(request):
 		del request.session['user']
 	except:
 		1
-	return HttpResponseRedirect(url('gus_groups.views.login'))	
+	return HttpResponseRedirect('/login/')
 
 class login_form(forms.Form):
 	username=forms.CharField(max_length=50)
