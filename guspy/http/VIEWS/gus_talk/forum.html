@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Gus Forums {% endblock %}
 {% block site_content %}
+{% load user_extras %}
 <div id="list">
+{% userbar user.user %}
 <table border="0" width="100%">
     {% for thread in threads %}
         <tr class="title{% if forloop.counter|divisibleby:2 %} even_row{% endif %}" >

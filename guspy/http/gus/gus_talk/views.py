@@ -1,5 +1,5 @@
 # Create your views here.
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response , redirect
 from django.template import Context, loader, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
@@ -9,8 +9,10 @@ from django.core.urlresolvers import reverse
 
 def main(request):
     """Main listing."""
+    user = userauthenticated(request)   
     forums = gus_forum.objects.all()
-    return render_to_response("gus_talk/home.html", dict(forums=forums, user=request.user))
+    return render_to_response("gus_talk/home.html", dict(forums=forums,
+							 user=user))
 
 
 class new_thread_form(forms.Form):
@@ -25,6 +27,7 @@ class new_thread_form(forms.Form):
 def forum(request,id):
     """Main listing."""
     user = userauthenticated(request)
+    if not user : return redirect('/login/')
     if request.method == 'POST': # If the form has been submitted...
         nmf = new_thread_form(request.POST) # A form bound to the POST data
         if nmf.is_valid(): # All validation rules pass
