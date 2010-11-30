@@ -26,7 +26,7 @@ class mysql {
 		@mysql_close($this->ds); 
 	}
 
-	private function names_and_values($table, $data, &$names, &$values) {
+	private function names_and_values($data, &$names, &$values) {
 		$nfields = 0;
 		$names = $values = "";
 		foreach($data as $key => $val) {
@@ -40,7 +40,7 @@ class mysql {
 		}
 	}
 
-	private function where($table,$data,&$where,$use_fields) {
+	private function where($data,&$where,$use_fields) {
 		$nfields = 0;
 		$where = "";
 		foreach($data as $key => $val) {
@@ -55,7 +55,7 @@ class mysql {
 		}
 	}
 
-	private function set($table, $data, &$set) {
+	private function set($data, &$set) {
 		$nfields = 0;
 		$set = "";
 		foreach($data as $key => $val) {
@@ -70,8 +70,8 @@ class mysql {
 
 	private function exists($table,$data,$use_field) {
 		$names = $values = $where = "";
-		$this->names_and_values($table, $data, $names, $values);
-		$this->where($table,$data,$where,$use_field);
+		$this->names_and_values($data, $names, $values);
+		$this->where($data,$where,$use_field);
 		$test_arr = $this->select_cond($names, $table, $where);
 		return(!empty($test_arr));
 	}
@@ -86,9 +86,9 @@ class mysql {
 	public function save($table, $data,$use_fields) {
 		foreach($data as $row) {
 			$names = $values = $where = $set = "";
-			$this->names_and_values($table, $row, $names, $values);
-			$this->where($table,$row,$where,$use_fields);
-			$this->set($table,$row,$set);
+			$this->names_and_values($row, $names, $values);
+			$this->where($row,$where,$use_fields);
+			$this->set($row,$set);
 			if($this->exists($table,$row,$use_fields)) {
 				$query = "UPDATE $table SET $set WHERE $where";
 			}
