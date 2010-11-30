@@ -1,0 +1,148 @@
+*Groups*
+
+Group membership
+-Join group
+-Leave group
+-Request an add to a private group
+
+Group and member management
+-Create Group
+-Edit Group
+-Delete Group
+-Add user to group
+-Add leader to group
+-Promote user to moderator
+-Demote group leader
+-Demote group moderator
+-Promote group moderator to leader
+-Add moderator to group
+-Add note to user (group specific)
+-Edit note
+-Remove note
+
+Linking
+-Link user
+-Link leader
+-Link moderator
+-Un-link user
+-Un-link leader
+-Un-link moderator
+
+
+*Server Functionality*
+
+Account Creation/Deletion/Management
+-Create account
+ ~Colby
+-Delete account
+-Deactivate account
+-Update Account
+-Update Personal Page (myspace style)
+
+Login
+-Log in
+-Log out
+-Time out user (server function)
+
+Setup and server/administrative functions
+-Create/Name gus server
+-Ping gus server
+-Un-install gus server
+-Set-up initial group
+-Sync date/time (to local time on server box)
+-Change date/time
+-Check disk space
+-Display remaining disk space
+-Email low disk space warning to administrators
+-Edit .mailman. settings
+-Sync with server
+
+Logging
+-Log user actions
+-View user action log
+-Log error
+-View error log
+-Report error
+-Report user
+
+
+*Member Interaction*
+
+Finding users/groups
+-Search users
+-Search groups
+-Browse groups
+-Display group tree (with highlighting for paths to your groups. if not logged in, no highlighting)
+-Display group member list
+-Display group mod list
+-Display group leader list
+-Display leader/s of parent group (if original group, display administrated)
+
+E-mail
+-Send email to group
+-Send email to user
+
+
+*Group Features*
+
+Documents
+-Upload document to group
+-View document (only for text, pdf, or image)
+-Download document
+-Check-out document
+-Check-in document
+-Update document (provides a diff)
+-Copy document
+-Delete document
+
+Web pages
+-Create web page (provides a limited dreamweaver-esque gui)
+-Edit web page
+
+Calendar and Events
+-RSVP to event (waitlisted if .full.)
+-Remove RSVP to event
+-Set RSVP limit for event (*edits event*)
+-Notify user when added to an event (server use-case)
+-Update expected event turn-out (server function)
+-Compare calendar
+-Share event
+-Invite to event
+
+Forums
+-Add forum
+-Edit forum
+-Delete forum
+-Add post to thread
+-Edit post
+-Hide post
+-Delete post
+-Add thread
+-Edit thread
+-Delete thread
+
+Wiki
+-Add wiki to group
+-Edit wiki
+-Delete wiki
+
+Blogs
+-Add blog
+-Edit blog
+-Delete blog
+-Add blog post
+-Edit blog post
+-Delete blog post
+-Comment on blog post
+-Edit comment
+-Hide comment
+-Delete comment
+
+Symbols and formulae
+-Insert symbol to webpage
+-Insert symbol to thread
+-Insert symbol to blog post
+-Insert symbol to forum post
+-Insert symbol to comment
+-Create Formula (MATH)
+-Edit Formula (MATH)

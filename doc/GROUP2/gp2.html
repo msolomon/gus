@@ -1,0 +1,135 @@
+<body>
+<H1> CS 383 HW#3 Graduate/Professional/Career </H1>
+
+<H3> Group Members </H3>
+<ul>
+    <li> *Chandler Abraham
+    <li> Zeke Long
+    <li> Scott Beddall
+    <li> Lee VanGundy
+</ul>
+
+<p>
+
+<b>Lee's Class Diagram</b><br>
+
+<img src="lee_class.png">
+
+<br>
+Groups: Can have multiple subgroups
+<p>
+User List: Contains information about users who are a member of a group. This
+could either be one user list or multiple for any sub-groups.
+<p>
+User: Any member of the group. They can lookup who is in the group and send
+emails to the group.
+<p>
+Group Owner: Owner of the group. Can perform administrative tasks such as
+adding or removing a user from a group's user list
+<p>
+Officer: Special type of group owner that can view any private data from the
+user list along with anything that a group owner and User to do.
+<p>
+Advisor: Faculty member to the organization who has the same abilities as a
+user.
+<p>
+
+Requirements that I found from the ACM: The ACM's major requirement is in
+regards to book keeping. Being able to have a mechanism to keep track of
+members information such as a user list. More specifically there will need to be able
+to add different entries to this rather than being constrained to a certain
+set of values. Likely entries include, but should not be limited to: Name,
+Email address, Membership status, and UserID.
+<p>
+
+I pulled information from my own experience as an ACM officer (VP) as well as from fellow and past officers .
+<br>
+
+<p>
+<b>Scott Beddall's Class Diagram:</b><br>
+
+<img src="scott_class.png">
+<br>
+<p>
+  <i>User_Info</i>: Contains general information about a given user, including bio information  
+<p>
+  <i>User</i>: Basic user class. Sends and receives messages.
+<p>
+  <i>Advisor</i>: A faculty member with the same privileges as an Officer.
+<p>
+  <i>Officer</i>: Extended user class. Can edit anything within a group; including user privileges, Calendar entries, and Task List entries.
+<p>
+  <i>Group</i>: Aggregation of users and groups. Maintains zero or more Task Lists and one Calander.
+<p>
+  <i>Task List</i>: Object with its own self contained functions that will be called upon to fulfill functions based on input from Users, Advisors, and Officers.
+<p>
+  <i>Calendar</i>: A unified calendar specific to events pertaining to the group.
+<br>
+<p>
+This class diagram was derived from an interview with VAST Launch Director Sean Wagoner. Most of the features were "make or break." By this, I mean that he wanted either all of these or none at all. Any piece of software without these features will be useless to him and his club. Specifically, Sean requested that we at least include private/public messaging, user Bios, Group Task Lists, and a Group Calander.
+<br>
+<p>
+The users each have their own information class. These "info" classes are made up of public and private components that can all be viewed by an officer (but are only partially visible to regular users). An Officer is merely a user with access to private functions, so it will inherit functions like send_message() and broadcast() from it parent class. All user's can view the Task List and Calendar, while only officers and advisors are able to change them. Groups can hold users or be made up of aggregate groups.
+
+<br>
+<br>
+<br>
+
+
+<b> Zeke's Class Diagram </b>
+<p>
+<img src="zeke_class.png">
+<br>
+<br>
+<i>Group</i>: There is at least one user per group, and zero or more advisors. 
+<p>
+<i>User</i>: Contains information about users who are a member of a group. This information includes the user name,
+whether the user is an officer (and what their title is) and contact information.
+<p>
+<i>Message</i>: Each member of the group can have zero or more messages, and depending on the urgency of the
+message, the user may or may not be sent an e-mail or phone text message.
+<p>
+<i>Expense</i>: Whenever the group has an expense, an officer of the group can send expense notifications to 
+all members that the expense applies to.
+<p>
+<i>Calendar</i>: Each member of the group has one calendar, and the group advisor has the choice whether or not
+to have a calendar.
+<p>
+<i>Advisor</i>: Faculty member to the organization who has the same abilities as a user.
+<p>
+
+Background information regarding TALuS: <br>
+The name stands for "Trio Alumni Society".  It is a group of 
+first-generation graduates from low-income families.
+<p> 
+Requirements that I found from TALuS: <br>
+Their major requirement is the need for urgent messages to be sent effectively. They currently communicate 
+through text messages and Facebook, and the VP (Teara Lyons) noted that having text message notifications 
+and possibly automated Facebook notifications would be extremely helpful. 
+<p>
+
+My information came from an interview with Teara Lyons, the VP of TALuS.
+<br>
+
+<p>
+
+<b> Chandlers Class Diagram </b>
+<p>
+<img src="chandler_class.png">
+<br>
+<br>
+<i>Group</i>: Groups have at least one administrator and one calender 
+<p>
+<i>User</i>: can be officers and/or administrators. Has contact information.
+<p>
+<i>Message</i>: Messages can be triggered by users or by the calendar. Messages can be sent to different members on the user list according to filters.
+<p>
+<p>
+<i>Calendar</i>: The group has one calendar, the calendar can by edited by any user and can trigger automatic emails.
+<p>
+<i>Advisor</i>: Faculty advisor to the organization who has the same abilities as group administrator.
+<p>
+
+<br>
+
+</body>

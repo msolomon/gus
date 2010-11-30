@@ -1,0 +1,11 @@
+from django.conf.urls.defaults import *
+
+# Uncomment the next two lines to enable the admin:
+from django.contrib import admin
+admin.autodiscover()
+
+urlpatterns = patterns('',
+    # Example:
+    # (r'^gus/', include('gus.foo.urls')),
+    (r'^(index.html)?$','gus.views.index'),
+)

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Gus Forums {% endblock %}
+{% block site_content %}
+<a href="{% url gus_talk.views.forum thread.forumid %}">Back To Forum</a>
+<div id="list">
+    {% for msg in messages %}
+        <div class="title">{{ msg.title }}  {{ msg.pub_date }}</div>
+        <div class="message{% if forloop.counter|divisibleby:2 %} even_row{% endif %}">{{ msg.message }}</div>
+    {% endfor %} 
+
+
+    <div id="new_message_form">
+	<form method="post"> 
+		<textarea name="message" cols="40" rows="10" ></textarea><br />
+		<input type="hidden" name="tid" value="{{ tid }}" />
+		<input type="hidden" name="uid" value="{{user.user.id}}" />
+		<input id="newmsg_btn" type="submit" value="Post Reply" />
+		<input id="canx_btn" type="button" value="Cancel" />
+		{% csrf_token %}
+	</form>
+    </div>
+    <input id="rply_btn" type="button" value="New Reply" />
+
+
+</div>
+
+
+<script type="text/javascript" >
+//Leet Javascripts
+$('#rply_btn').click(function(){ // manage clicking of the reply button
+	$('#new_message_form').show()	
+	$(this).hide()
+})
+$('#canx_btn').click(function(){ //manage clickin of cancel reply button
+	$('#new_message_form').hide()	
+	$('#rply_btn').show()
+})
+</script>
+{% endblock %}

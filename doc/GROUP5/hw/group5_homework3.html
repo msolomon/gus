@@ -1,0 +1,1129 @@
+<html>
+<body>
+<img src="images/Alexclasses.png"><br>
+<h3>Add Wiki to Group</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>Group owner, server
+
+<p><b>Goals: </b>Add a group wiki for collaboration, communication, etc. within the group
+
+<p><b>Preconditions: </b>Group owner owns a group, group does not yet have a wiki, group owner is logged into gus.
+
+<p><b>Summary: </b>A wiki can be added to a group for collaboration, documentation, communication, entertainment, or anything else the group wants.  Users that are members of the group will be able to edit the wiki freely and other members will be able to view the changes.
+
+<p><b>Related use cases: </b>Edit wiki, delete wiki
+
+<p><b>Steps:</b>
+<ol>
+<li>Group owner opens the group management menu.
+<li>Group owner checks the box to enable a group wiki and adjusts permissions for the wiki.
+<li>Group owner saves changes.
+<li>Server adds a pre-generated "main" page to the wiki and adds a link to the group page.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>During group creation, group owner can start at step 2 and continue as normal.
+<li>At step 3, group owner can choose not to save changes and the process stops.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to add the wiki again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.
+
+
+
+<h3>Edit Wiki</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>User, server
+
+<p><b>Goals: </b>Edit the content of the group wiki
+
+<p><b>Preconditions: </b>Group has a wiki, user is a member of that group, user has permission to edit the wiki, user is logged in.
+
+<p><b>Summary: </b>If the user wants to add content to the wiki, they can edit wiki pages or add new pages to the wiki.
+
+<p><b>Related use cases: </b>Add wiki to group, delete wiki
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds the page of the wiki they want to edit.
+<li>User clicks the "edit" button on the page.
+<li>User uses the built in editor to adjust the contents of the page.
+<li>User saves changes.
+<li>Server updates contents of the page to match the user's edits and takes the user back to the edited page.
+</ol>
+
+
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 1, user can choose to create a new page in the wiki instead of editing an existing one.
+<li>At step 4, user can choose to preview changes before they're made to the wiki.
+<li>At step 4, user can choose to cancel making changes.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to edit the wiki again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to edit the wiki, the server will let them know and prevent them from editing the wiki.
+
+
+
+<h3>Delete Wiki</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>Group owner, server
+
+<p><b>Goals: </b>Remove a wiki and its contents from a group.
+
+<p><b>Preconditions: </b>Group has a wiki, group owner is logged into gus
+
+<p><b>Summary: </b>The group owner wants to remove the group's wiki for some reason.  Perhaps users aren't using it or it's being abused.
+
+<p><b>Related use cases: </b>Add wiki to group, edit wiki
+
+<p><b>Steps:</b>
+<ol>
+<li>Group owner opens the group mamangement menu.
+<li>Group owner unchecks the box that enables a group wiki.
+<li>Group owner saves changes.
+<li>Server deletes the entire contents of the wiki.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to save changes and process stops.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the wiki again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.
+
+
+
+<h3>Add Forum</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>Group owner, server
+
+<p><b>Goals: </b>Add a forum to the group for communication within the group
+
+<p><b>Preconditions: </b>Group owner owns a group, group does not yet have a forum, group owner is logged into gus.
+
+<p><b>Summary: </b>A forum can be added to group to facilitate communication amongst its members.
+
+<p><b>Related use cases: </b>Edit forum, delete forum, add post to thread, edit post, hide post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>Group owner opens the group management menu.
+<li>Group owner checks the box to enable a group forum and adjusts permissions for the forum.
+<li>Group owner saves changes.
+<li>Server creates a new forum for the group.
+<li>Group owner does the initial setup for the forum.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>During group creation, group owner can start at step 2 and continue as normal.
+<li>At step 3, group owner can choose not to save changes and the process stops.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to add the forum again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.
+
+
+
+<h3>Edit Forum</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>Group owner, group moderator, group leader, server
+
+<p><b>Goals: </b>Edit the settings for the the group forum
+
+<p><b>Preconditions: </b>User has sufficient permissions to edit the forum, user is a member of the group, user is logged in.
+
+<p><b>Summary: </b>A group owner, moderator, or leader can edit the forum settings depending on their privileges within the group.
+
+<p><b>Related use cases: </b>Add forum, delete forum, add post to thread, edit post, hide post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User opens the forum management menu.
+<li>User adjusts forum settings.
+<li>User saves changes.
+<li>Server updates the settings on the forum.
+</ol>
+
+
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to save and changes to the forum are discarded
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to edit the forum again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If user does not have sufficient permissions they will be unable to edit the forum.
+
+
+<h3>Delete Forum</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>Group owner, server
+
+<p><b>Goals: </b>Delete the group's forum.
+
+<p><b>Preconditions: </b>Group owner owns a group, group has a forum, group owner is logged into gus.
+
+<p><b>Summary: </b>The group owner wants to remove teh group's forum.
+
+<p><b>Related use cases: </b>Edit forum, addforum, add post to thread, edit post, hide post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>Group owner opens the group management menu.
+<li>Group owner unchecks the box to enable a group forum.
+<li>Group owner saves changes.
+<li>Server deletes the group's forum.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, group owner can choose not to save changes and the process stops.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the forum again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.
+
+
+<h3>Add post to thread</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>user, server
+
+<p><b>Goals: </b>Post a response in a discussion thread in the group's forum.
+
+<p><b>Preconditions: </b>User is a member of a group, group has a forum, forum has at least one thread, user has permission to post to the forum, user is logged in.
+
+<p><b>Summary: </b>Posting to a thread allows users to communicate with one another.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, edit post, hide post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds the thread on the forum they want to post to.
+<li>User clicks the "reply" button on the forum.
+<li>User types their post into a text box and clicks the "post" button.
+<li>Server posts the post to the thread and takes the user back to the thread.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to post by clicking their browser's "back" button or clicking the "cancel" button on the web interface.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to post to the thread again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to post, they won't have a "reply" button available.
+
+
+
+
+<h3>Edit post</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>user, server
+
+<p><b>Goals: </b>User wants to edit their own post on a forum
+
+<p><b>Preconditions: </b>User is a member of a group, group has a forum, forum has at least one thread, user has permission to post to the forum, user is logged in, user has a post on the forum.
+
+<p><b>Summary: </b>Users can choose to edit their posts to fix mistakes or retract statements. Moderators, leaders, and owners in the group can have the ability to edit other user's posts.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, add post to thread, hide post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds the post they want to edit.
+<li>User clicks the "edit" button on the post.
+<li>User edits their post in a text box and clicks the "post" button.
+<li>Server updates the post in the thread and takes the user back to the thread.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to post by clicking their browser's "back" button or clicking the "cancel" button on the web interface.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to post to the thread again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to edit the post, they won't have an "edit" button available.
+
+
+<h3>Hide post</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>group owner, moderator, group leader, server
+
+<p><b>Goals: </b>Hide a post from public view.
+
+<p><b>Preconditions: </b>User is a member of a group, group has a forum, forum has at least one thread, user is logged in, user has permission to moderate forums.
+
+<p><b>Summary: </b>If a user posts inappropriate content to the forum, a user with appropriate permissions can choose to hide the content from public view.  Other users with sufficient permissions can view the post and determine how they should respond.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, add post to thread, edit post, delete post, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds the post they want to hide.
+<li>User clicks the "hide" button on the post.
+<li>User gives a reason why they are hiding the post.
+<li>Server updates the thread by hiding the post and takes the user back to the thread.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to hide a post by clicking their browser's "back" button or clicking the "cancel" button on the web interface.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to hide the post again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to hide posts, they won't have a "hide" button available.
+
+<h3>Delete post</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>group owner, moderator, group leader, user, server
+
+<p><b>Goals: </b>Delete a post from a thread on the forum.
+
+<p><b>Preconditions: </b>User is a member of a group, group has a forum, forum has at least one thread, user is logged in, user has a post in a thread on the forum.
+
+<p><b>Summary: </b>If a user wants to delete a post they made, they can do so. Moderators for the forum will still be able to see the post, but other users will not.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, add post to thread, edit post, hidepost, add thread, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds the post they want to delete.
+<li>User clicks the "edit" button on the post.
+<li>User checks the checkbox for "delete post"
+<li>User saves changes to the post.
+<li>Server updates the thread by hiding the post from all users except moderators and takes the user back to the thread.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, user chooses not to delete the post by clicking their browser's "back" button or clicking the "cancel" button on the web interface.
+<li>At step 3, user has the option to give a reason why they are deleting the post.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the post again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to edit the post, they won't have an "edit" button available.
+
+
+<h3>Add Thread</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>User, server
+
+<p><b>Goals: </b>Start a new discussion thread on the group forum.
+
+<p><b>Preconditions: </b>User is a member of the group, group has a forum, user is logged in, user has permission to post new threads
+
+<p><b>Summary: </b>Users can start a new discussion thread to help keep coversation topics separate.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, add post to thread, edit post, hide post, delete post, edit thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>User clicks the "new thread" button.
+<li>User creates an initial post in a text box.
+<li>User clicks the "post" button to post the thread.
+<li>Server updates the forums with the new thread and post.  Server takes the user to the new thread.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 2, the user can stop the process by clicking their browser's "back" button or clicking the cancel button.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to post the thread again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to post a new thread, they won't have an "new thread" button available.
+
+
+<h3>Edit Thread</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>group owner, moderator, group leader, server
+
+<p><b>Goals: </b>Make adjustments to a thread: lock threads, rename threads, other thread management.
+
+<p><b>Preconditions: </b>User is a member of the group, group has a forum, user is logged in, user has permission to edit threads, group forum has a thread posted to it.
+
+<p><b>Summary: </b>Forum moderators may need to manage threads: renaming threads, locking unruly threads, moving threads, etc.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, add post to thread, edit post, hide post, delete post, add thread, delete thread
+
+<p><b>Steps:</b>
+<ol>
+<li>Moderator finds the thread they want to edit.
+<li>Moderator clicks the "edit thread" button.
+<li>Moderator edits the thread to their liking.
+<li>Moderator saves changes to the thread.
+<li>Server updates the thread with the new settings.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, the user can stop the process by clicking their browser's "back" button or clicking the cancel button.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to edit the thread again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to edit threads, they won't have an "edit thread" button available.
+
+
+
+<h3>Delete Thread</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>group owner, moderator, group leader, server
+
+<p><b>Goals: </b>Delete a thread on the group forum.
+
+<p><b>Preconditions: </b>User is a member of the group, group has a forum, user is logged in, user has permission to edit threads, group forum has a thread posted to it.
+
+<p><b>Summary: </b>Forum moderators may decide that some threads are not worth having and delete them outright rather than locking them.  Moderators can delete threads, making them invisible to normal users. When they delete the threads, they must give a reason to justify the deletion.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, add post to thread, edit post, hide post, delete post, add thread, edit thread
+
+<p><b>Steps:</b>
+<ol>
+<li>Moderator finds the thread they want to delete.
+<li>Moderator clicks the "edit thread" button.
+<li>Moderator checks the box for "delete thread" and gives a reason.
+<li>Moderator saves changes to the thread.
+<li>Server updates the thread with the new settings.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, the user can stop the process by clicking their browser's "back" button or clicking the cancel button.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the thread again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to edit threads, they won't have an "edit thread" button available.  If the user doesn't supply a reason for deletion, the system will remind them to do so.
+
+
+
+<h3>Delete Thread</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>group owner, moderator, group leader, server
+
+<p><b>Goals: </b>Delete a thread on the group forum.
+
+<p><b>Preconditions: </b>User is a member of the group, group has a forum, user is logged in, user has permission to edit threads, group forum has a thread posted to it.
+
+<p><b>Summary: </b>Forum moderators may decide that some threads are not worth having and delete them outright rather than locking them.  Moderators can delete threads, making them invisible to normal users. When they delete the threads, they must give a reason to justify the deletion.
+
+<p><b>Related use cases: </b>Add forum, edit forum, delete forum, add post to thread, edit post, hide post, delete post, add thread, edit thread
+
+<p><b>Steps:</b>
+<ol>
+<li>Moderator finds the thread they want to delete.
+<li>Moderator clicks the "edit thread" button.
+<li>Moderator checks the box for "delete thread" and gives a reason.
+<li>Moderator saves changes to the thread.
+<li>Server updates the thread with the new settings.
+</ol>
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, the user can stop the process by clicking their browser's "back" button or clicking the cancel button.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the thread again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't have permission to edit threads, they won't have an "edit thread" button available.  If the user doesn't supply a reason for deletion, the system will remind them to do so.
+
+
+
+<h3>Add blog</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>User, server
+
+<p><b>Goals: </b>User would like to add a blog to their profile or their owned group
+
+<p><b>Preconditions: </b>User does not have a blog for their profile/group, user is logged in, user has permission to add a blog
+
+<p><b>Summary: </b>If a user wants to add a blog to their profile or group, they can do so.  Their blog can be used to post updates about themselves or their group.
+
+<p><b>Related use cases: </b>edit blog, delete blog, add blog post, edit blog post, delete blog post, comment on blog post, edit comment, hide comment, delete comment
+
+<p><b>Steps:</b>
+<ol>
+<li>User opens their user control panel.
+<li>User checks the box to include a blog on their profile.
+<li>User saves their settings.
+<li>Server updates their profile to include a blog.
+</ol>
+
+
+
+<p><b>Alternative: </b>
+<ul>
+<li>User can also choose to add a blog during initial account setup.
+<li>User can add a blog to their group by using the group management menu and following similar steps.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to add the blog again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't own the group or have sufficient privileges, they won't be able to access the group management menu.
+
+
+<h3>Edit blog</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>User, server
+
+<p><b>Goals: </b>User would like to edit their blog or the blog for their owned group
+
+<p><b>Preconditions: </b>User has a blog for their profile/group, user is logged in, user has permission to edit the blog
+
+<p><b>Summary: </b>If the user wants to edit who can read their blog, who can comment on blog posts, etc. they can edit the blog settings.
+
+<p><b>Related use cases: </b>add blog, delete blog, add blog post, edit blog post, delete blog post, comment on blog post, edit comment, hide comment, delete comment
+
+<p><b>Steps:</b>
+<ol>
+<li>User finds their blog.
+<li>User opens the blog control panel.
+<li>User adjusts settings on their blog.
+<li>User saves their settings.
+<li>Server updates their blog with the new settings.
+</ol>
+
+
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 3, the user can stop the process by clicking their browser's "back" button or clicking the cancel button.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to edit blog again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't own the blog or have sufficient privileges, they won't be able to access the blog control panel.
+
+
+<h3>Delete blog</h3>
+<i>Alex Nilson</i>
+
+<p><b>Actors: </b>User, server
+
+<p><b>Goals: </b>User would like to delete their blog or the blog for their owned group
+
+<p><b>Preconditions: </b>User has a blog for their profile/group, user is logged in, user has permission to edit the blog
+
+<p><b>Summary: </b>User has decied that they no longer want a blog.  They choose to delete it.
+
+<p><b>Related use cases: </b>add blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, edit comment, hide comment, delete comment
+
+<p><b>Steps:</b>
+<ol>
+<li>User opens their user control panel.
+<li>User unchecks the box to include a blog on their profile.
+<li>User saves their settings.
+<li>Server updates their profile and deletes the blog.
+</ol>
+
+
+
+<p><b>Alternative: </b>
+<ul>
+<li>At step 2, the user can stop the process by clicking their browser's "back" button or clicking the cancel button.
+<li>User can remove a blog from their group by using the group management menu and following similar steps.
+</ul>
+
+<p><b>Fail: </b>If connection times out the user will be informed by their browser and will have to try to delete the blog again.  If an error occurs on the server side, the user will receive a message indicating what went wrong and whether they should try again or alert the system administrator.  If the user doesn't own the group or have sufficient privileges, they won't be able to access the group management menu.
+
+
+
+<h3>Add blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to add a post to their blog</p>
+<p><b>Preconditions:</b> User has a blog for their profile/group, user is logged in, user has permission to post to blog</p>
+<p><b>Summary: </b>A user has a blog and wishes to add a post to it</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, edit blog post, delete blog post, comment on blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User finds their blog</li>
+<li>User opens the form to add a post</li>
+<li>User enters the post</li>
+<li>User submits the post</li>
+<li>Server updates their blog with the new post</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+<p>
+<p><b>Fail: </b> User enters content that is not allowed, and is sent back to the add form</p>
+
+<img src="images/blogs.png"><br>
+<h3>Edit blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors:</b> User, server</p>
+<p><b>Goals: </b>User would like to edit a post on their blog</p>
+<p><b>Preconditions:</b> User has a blog for their profile/group, user is logged in, user has permission to edit posts on blog, blog has posts that are editable</p>
+<p><b>Summary: </b>A user has a blog and wishes to edit the content of a post on it</p>
+<p><b>Related use cases: </b>add blog, delete blog, edit blog, add blog post, delete blog post, comment on blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User finds their blog</li>
+<li>User clicks on Edit Blog Posts link</li>
+<li>User selects blog post to edit</li>
+<li>User modifies the content of the blog post</li>
+<li>User submits edit</li>
+<li>Server updates the post on the blog</li>
+</ol>
+<p><b>Alternative:</b>
+<ul>
+<li>User cancels the process and is returned to the Edit Blog Posts page</li>
+</ul>
+<p>
+<p><b>Fail: </b>If the user does not select any posts to edit, they will be returned to the Edit Blog Posts page. If the user does not have permission to edit the post, they will be notified that they do not have sufficient privileges.</p>
+
+<h3>Delete blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors:</b> User, server</p>
+<p><b>Goals: </b>User would like to remove a post from their blog</p>
+<p><b>Preconditions:</b> User has a blog for their profile/group, user is logged in, user has permission to remove posts from blog, blog has posts that are removable</p>
+<p><b>Summary: </b>A user has a blog and wishes to remove posts from it</p>
+<p><b>Related use cases: </b>add blog, delete blog, edit blog, add blog post, edit blog post, comment on blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User finds their blog</li>
+<li>User clicks on Edit Blog Posts link</li>
+<li>User selects blog post for deletion</li>
+<li>User confirms post deletion</li>
+<li>Server removes the post from the blog</li>
+</ol>
+<p><b>Alternative:</b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+<p>
+<p><b>Fail:</b> If the user does not select any posts to delete, they will be returned to the Edit Blog Posts page. If the user does not have permission to delete the post, they will be notified that they do not have sufficient privileges.</p>
+
+<h3>Comment on blog post</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to comment on the blog</p>
+<p><b>Summary: </b>A user wants to leave a comment on an existing blog post</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, edit comment, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing a blog post</li>
+<li>User clicks the Comment on Blog Post button</li>
+<li>User enters their comment</li>
+<li>User submits the comment</li>
+<li>Server adds the comment and updates the blog post with the new comment</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+<p>
+<p><b>Fail: </b> User enters content that is not allowed, and is sent back to the add comment page. If the user does not have sufficient privileges to view or comment on a blog post, they will be denied access to the post comment page</p>
+
+<h3>Edit comment</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to edit a comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to edit the comment</p>
+<p><b>Summary: </b>A user wants to edit a previously made comment</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, hide comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing their blog's control panel</li>
+<li>User opens a tab containing a list of comments they have made</li>
+<li>User selects the Edit Comment button next to the comment they would like to edit</li>
+<li>User edits the contents of the comment</li>
+<li>User submits the edited comment</li>
+<li>Server updates the comment and updates the blog post with the changed comment</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User is viewing a blog post containing a comment they have made</li>
+<li>User selects the Edit Comment button next to the comment they would like to edit</li>
+<li>User edits the contents of the comment</li>
+<li>User submits the edited comment</li>
+<li>Server updates the comment and updates the blog post with the changed comment</li>
+</ul>
+</p>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process</li>
+</ul>
+</p>
+<p><b>Fail: </b> User enters content that is not allowed, and is sent back to the edit comment page. If the user does not have sufficient privileges to edit the comment, they will be denied access to the edit comment page</p>
+
+<h3>Hide comment</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to hide a comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to hide the comment</p>
+<p><b>Summary: </b>A user wants to hide a a comment that has been made on their blog post</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, edit comment, delete comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing a comment on one of their blog posts</li>
+<li>User clicks the Hide Comment button next to the comment they would like to hide</li>
+<li>User confirms they would like to hide the comment</li>
+<li>Server updates the comment and hides it from view on the blog post</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process when asked to confirm the action</li>
+</ul>
+</p>
+<p><b>Fail: </b> If the user does not have sufficient privileges to hide the comment, they will be denied access to hide the comment</p>
+
+<h3>Delete comment</h3>
+<i>Timothy Bianchetti</i>
+<p><b>Actors: </b>User, server</p>
+<p><b>Goals: </b>User would like to delete a comment on a blog post</p>
+<p><b>Preconditions:</b> User is logged in, user has permission to delete the comment</p>
+<p><b>Summary: </b>A user wants to delete a comment on their blog post, or the user wants to delete a comment they have made on another blog post</p>
+<p><b>Related use cases:</b> add blog, delete blog, edit blog, add blog post, edit blog post, delete blog post, comment on blog post, edit comment, hide comment</p>
+<p><b>Steps:</b>
+<ol>
+<li>User is viewing a comment on one of their blog posts</li>
+<li>User clicks the Delete Comment button next to the comment they would like to delete</li>
+<li>User confirms they would like to delete the comment</li>
+<li>Server removes the comment from the blog post</li>
+</ol>
+<p><b>Alternative: </b>
+<ul>
+<li>User is viewing a blog post containing a comment they have made</li>
+<li>User selects the Delete Comment button next to the comment they would like to delete</li>
+<li>User confirms they would like to delete the comment</li>
+<li>Server removes the comment from the blog post</li>
+</ul>
+</p>
+<p><b>Alternative: </b>
+<ul>
+<li>User cancels the process when asked to confirm the action</li>
+</ul>
+</p>
+<p><b>Fail: </b> If the user does not have sufficient privileges to delete the comment, they will be denied access to delete the comment</p>
+<img src="images/update_personal_page.png"><br>
+<h3>Update Personal Page</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors:</b> User, GUS Core / server, GUS database
+
+<p><b>Goals:</b> Update content on the user's profile page
+
+<p><b>Preconditions:</b> User must have GUS account
+
+<p><b>Summary: </b>User wants to change the content on their profile page, and enters an edit session. Once editing is finished, the user submits the new content to GUS.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logins into account
+<li>User clicks on Edit Personal Page link
+<li>Server populates form page with available fields and current values
+<li>User changes/adds values to forms
+<li>User clicks submit
+<li>GUS core recieves new data and updates in the database
+</ol>
+
+<p><b>Postconditions: </b> User's page content is changed in the GUS database
+
+<p><b>Alternative: </b> User cancels edit process or a state is reached that makes edit submission unacceptable.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> User enters content (certain/all html) that is not allowed, and is resent back to the edit page.
+
+
+<img src="images/upload_document_to_group.png"><br>
+<h3>Upload Document to Group</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> Group web page, User
+
+<p><b>Goals: </b> Upload a document to GUS and convert into GUS doc format if possible.
+
+<p><b>Preconditions: </b> User must have an account, must meet specific group criteria to be allowed to upload to group.
+
+<p><b>Summary: </b> User has a document they want to upload to GUS to circulate and collaborate.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logs in
+<li>User visits group document website
+<li>User clicks Upload Document link
+<li>Browser interface window pops up
+<li>User selects document for upload
+<li>Upload of file completes
+</ol>
+
+<p><b>Postconditions: </b> Group document link is listed in group document page.
+
+<p><b>Alternative: </b> User uploads another file instead of a document
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> Document cannot be uploaded in raw format because it doesn't meet safe file specifications, document cannot be converted because of convert failure, user cancels before selecting document for upload
+<img src="images/update_document.png"><br>
+<h3>Update Document</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> Editing user, group web page, other group users
+
+<p><b>Goals: </b> User makes change document, possibly with many users at one time
+
+<p><b>Preconditions: </b> User must me logged in, user must meet group criteria for updating document.
+
+<p><b>Summary: </b> User wants to edit a GUS document, and clicks the document link on the group's document section of their website to view and edit the document
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User navigates to document section of group web page
+<li>User clicks on document link
+<li>Group web page displays document content
+<li>User types to make document changes
+	<ul>
+	<li>If user is in an online mode with low enough latency, changes are made live and saved as user types.
+	<li>If not, file is locked in the database in case it is shared. Other users can communicate in document chat, and can view document.
+	</ul>
+<li>User is done with editing and closes document.
+<li>Document is saved and any locks are freed.
+</ol>
+
+<p><b>Postconditions: </b> Document may have changed name or content.
+
+<p><b>Alternative: </b> User deletes document, user locks file but doesn't save changes.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> User opens document, but loses internet connection. Upon reconnection, user can try to save document, or merge if changes have been made in the mean time. If conflicts arise, a diff can be displayed and user can choose which changes to keep.
+
+<img src="images/compare_calendar.png"><br>
+<h3>Compare Calendar</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> User or group owning calendar, other users/groups
+
+<p><b>Goals: </b> Display 2 or more calendars simultaniously for comparison
+<p><b>Preconditions: </b> User must be logged in
+
+<p><b>Summary: </b> User wishes to compare 2 or more calendars, commonly to find available times for all parties.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User navigates to their own user/group calendar
+<li>User clicks on Add Calendar
+<li>User browses or searches through available calendar in GUS directory.
+<li>User checks boxes for all calendars they want to add
+<li>Calendar page displays events color codes for each entity.
+<li>User can toggle each entity on/off
+</ol>
+
+<p><b>Postconditions: </b> Calendar page shows multiple calendars on one page.
+
+<p><b>Alternative: </b> User click on searched calendars individually.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> Some/all calendars requested for comparison are not available to to permission issues.
+
+<img src="images/view_error_log.png"><br>
+<h3>View Error Log</h3>
+<i>Colby Blair</i>
+
+<p><b>Actors: </b> GUS Admin
+
+<p><b>Goals: </b> View events in error log
+
+<p><b>Preconditions: </b> User must be a GUS administrator
+
+<p><b>Summary: </b> User logs into GUS core and view error logs. Logs can be parsed as GUS format or as raw logs for help in addressing issues and troubleshooting.
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>User logs into GUS core
+<li>User navigates to Error Logging section
+<li>User clicks on View Error logs
+<li>User is presented with GUS parsing or raw file display
+	<ul>
+	<li>If GUS parsing enabled (default), any special linking to other log files / extra formatting is displayed
+	<li>Otherwise, raw log content is displayed
+	</ul>
+<li>User can navigate to actions described in error log file and reproduce issues
+<li>User can potential resolved error issues
+</ol>
+
+<p><b>Postconditions: </b> User can add notes to logs
+
+<p><b>Alternative: </b> User can link sections in log to support ticketing system for quick acces by other admins. User can click on log links and see other user / group logs for more information.
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b> User does not have adequate credentials to log into GUS core and edit logs
+
+
+<br><img src="images/gr5leah.png"><br>
+<h3>Sync with server</h3>
+<i>Leah Wegner</i>
+
+<p><b>Actors: </b>(Admin, Group Leader, or Group Moderator) and server
+
+<p><b>Goals:</b> Syncs the user's program which they used to edit somthing in one of their groups on their own computer with the server's version of the group. Also invoked immediately after something has been changed in the online interface.
+
+<p><b>Preconditions: </b>The Actor possesses a version of gus installed on their current computer. They have a connection to the server. The server is available.
+
+<p><b>Summary: </b>
+Syncs the user's program which they used to edit somthing in one of their groups on their own computer with the server's version of the group. Also invoked immediately after something has been changed in the online interface.
+
+<p><b>Related use cases: all the user-interface use-cases that will eventually connect to the server. For example: Add Blog, Add User, and Upload Document.</b>
+<p><b>Postconditions: </b>The server has been updated to reflect the changes.
+<p><b>Steps</b>
+<ol>
+<li>User pushes a button on the interface to connect to the server.
+<li>gus program connects to the server.
+<li>gus program uploads changed content.
+<li>Server confirms the upload, and returns a message to the user showing what was changed.
+</ol>
+<p><b>Alternatives:</b>
+<ol>
+<li>Throughout step 2 and 3, the user may cancle the connection, resulting in the server reverting to the state it was in prior to any changes that had started to be made.
+</ol>
+<p><b>Fail:</b>At step 2, the connection could fail, and no changes will be made to the server. An error message will inform the user of the problems.
+
+<h3>Add user note</h3>
+<i>Leah Wegner</i>
+
+<p><b>Actors: </b>(Group Leader, or Group Moderator) and server
+
+<p><b>Goals:</b> Create a group-specific note about a user.
+
+<p><b>Preconditions: </b>The Actor has at least "Moderator" level permissions within the group they are affecting, and the user to attach a note to is a member of the group.
+
+<p><b>Summary: </b>This function is used when a group leader or moderator would like to keep track of some information about a specific user. For example, whether or not they have paid their dues, or when they can meet. This note is only visible to group leaders and group moderators.
+
+<p><b>Related use cases:</b> Edit user note, Remove user note, Sync with server
+<p><b>Postconditions: </b>A note is created and attached to the account within the scope of the group.
+<p><b>Steps</b>
+<ol>
+<li>Actor pushes a button on the interface to add a note to a user.
+<li>Actor selects a user from a list, or types in the user's name.
+<li>gus program creates a note and links it to the user.
+<li>gus program calls Sync with server.
+<li>gus program calls Edit user note.
+</ol>
+<p><b>Alternatives:</b>
+<ol>
+<li>The Actor may cancel during step 2, 4 or 5.
+</ol>
+<p><b>Fail:</b>At step 4 or 5, the connection with the server could fail, and no changes will be made. An error message will inform the user of the problems.
+
+<h3>Edit user note</h3>
+<i>Leah Wegner</i>
+
+<p><b>Actors: </b>(Group Leader, or Group Moderator) and server
+
+<p><b>Goals:</b> Edit a group-specific note about a user.
+
+<p><b>Preconditions: </b>The Actor has at least "Moderator" level permissions within the group.
+
+<p><b>Summary: </b>This function is used when a group leader or moderator would like to keep track of some information about a specific user. For example, whether or not they have paid their dues, or when they can meet. This note is only visible to group leaders and group moderators. It edits the note on the user.
+
+<p><b>Related use cases:</b> Add user note, Remove user note, Sync with server
+<p><b>Postconditions: </b>A note, that was previously created gets edited.
+<p><b>Steps</b>
+<ol>
+<li>Actor clicks on the note attached to the user.
+<li>gus program brings up a text entry field filled with the current note.
+<li>Actor types the new note.
+<li>Actor hits ok.
+<li>gus program calls Sync with server.
+</ol>
+<p><b>Alternatives:</b>
+<ol>
+<li>The Actor may cancel at step 4.
+<li>If called by an internal function, skip step 1.
+</ol>
+<p><b>Fail:</b>At step 5 the connection with the server could fail, and no changes will be made. An error message will inform the user of the problems.
+
+<h3>Remove user note</h3>
+<i>Leah Wegner</i>
+
+<p><b>Actors: </b>(Group Leader, or Group Moderator) and server
+
+<p><b>Goals:</b> Removes a group-specific note about a user.
+
+<p><b>Preconditions: </b>The Actor has at least "Moderator" level permissions within the group. There must be a note attached to the user for the group being affected.
+
+<p><b>Summary: </b>This function is used when a group leader or moderator would like to delete a note used to keep track of some information about a specific user.
+
+<p><b>Related use cases:</b> Add user note, Edit user note, Sync with server
+<p><b>Postconditions: </b>A note, that was previously created gets deleted.
+<p><b>Steps</b>
+<ol>
+<li>Actor clicks on the note attached to the user.
+<li>Actor clicks on the "delete note" button.
+<li>gus program removes the note.
+<li>gus program calls Sync with server.
+</ol>
+<p><b>Alternatives:</b>
+<ol>
+<li>The Actor may cancel at step 2.
+<li>If called by an internal function, skip step 1 and 2.
+</ol>
+<p><b>Fail:</b>At step 4 the connection with the server could fail, and no changes will be made. An error message will inform the user of the problems.
+
+<h3>Set RSVP limit for event</h3>
+<i>Leah Wegner</i>
+
+<p><b>Actors: </b>(Group Leader, or Group Moderator) and server
+
+<p><b>Goals:</b> Set the number of people who are allowed to RSVP to an event before the waitlist system must be envoked.
+
+<p><b>Preconditions: </b>The event must exist, and be in the future.
+
+<p><b>Summary: </b>This function is used to set how many people are allowed to attend an event that has limited space such as a formal lunch. If this function is not called, there will be no limit.
+
+<p><b>Related use cases:</b> Add event, Change event, Remove event, RSVP to event, Remove RSVP to event, Sync with server.
+<p><b>Postconditions: </b>An RSVP limit is set.
+<p><b>Steps</b>
+<ol>
+<li>Actor clicks on the event to be edited.
+<li>Actor clicks on "Set RSVP Limit"
+<li>gus program brings up a text entry field filled with the current RSVP limit (if any)
+<li>Actor types the new limit. (numerals only)
+<li>Actor hits ok.
+<li>gus program edits the event.
+<li>gus program calls Sync with server.
+</ol>
+<p><b>Alternatives:</b>
+<ol>
+<li>The Actor may cancel at step 1 or 5.
+<li>If called by an internal function, skip step 1.
+</ol>
+<p><b>Fail:</b>At step 7 the connection with the server could fail, and no changes will be made. An error message will inform the user of the problems.
+
+<h3>RSVP to event</h3>
+<i>Leah Wegner</i>
+
+<p><b>Actors: </b>(Group Leader, Group Moderator, or User(with account)) and server
+
+<p><b>Goals:</b> RSVP to an event.
+
+<p><b>Preconditions: </b>The event must exist, and be in the future. The actor must not have already RSVP'd to the event.
+
+<p><b>Summary: </b>This function checks the conditions of the event and will either add the user to the RSVP list for the event, or add the user to the waitlist for the event.
+
+<p><b>Related use cases:</b> Remove RSVP to event, Sync with server.
+<p><b>Postconditions: </b>Actor is added to either the RSVP list or the waitlist.
+<p><b>Steps</b>
+<ol>
+<li>Actor clicks on the event to RSVP to.
+<li>Actor clicks on "RSVP"
+<li>gus program edits the RSVP list.
+<li>gus program calls Sync with server.
+</ol>
+<p><b>Alternatives:</b>
+<ol>
+<li>The Actor may cancel at step 2.
+</ol>
+<p><b>Fail:</b>At step 4 the connection with the server could fail, and no changes will be made. At step 3 the gus program can find that the user has already RSVP'd to an event in that time-slot. An error message will inform the user of the problems.
+
+<h3>Remove RSVP to event</h3>
+<i>Leah Wegner</i>
+
+<p><b>Actors: </b>(Group Leader, Group Moderator, or User(with account)) and server
+
+<p><b>Goals:</b> Remove RSVP to an event.
+
+<p><b>Preconditions: </b>The event must exist, and be in the future. The actor must have already RSVP'd to the event.
+
+<p><b>Summary: </b>This function checks the conditions of the event and will either add the user to the RSVP list for the event, or add the user to the waitlist for the event.
+
+<p><b>Related use cases:</b> RSVP to event, Sync with server.
+<p><b>Postconditions: </b>Actor is removed from the RSVP list and the waitlist.
+<p><b>Steps</b>
+<ol>
+<li>Actor clicks on the event to remove the RSVP from.
+<li>Actor clicks on "Remove RSVP"
+<li>gus program edits the RSVP list.
+<li>gus program calls Sync with server.
+</ol>
+<p><b>Alternatives:</b>
+<ol>
+<li>The Actor may cancel at step 2.
+</ol>
+<p><b>Fail:</b>At step 4 the connection with the server could fail, and no changes will be made. At step 3 the gus program can find that the user has not RSVP'd to that event. An error message will inform the user of the problems.
+
+
+
+	<h3>Log in</h3>
+	<i>Timothy Bianchetti</i>
+	<p><b>Actors: </b>User, server</p>
+	<p><b>Goals: </b>User would like to log into their account</p>
+	<p><b>Preconditions:</b> User has an internet connection, user has an account</p>
+	<p><b>Summary: </b>A user wants to log into their gus account to access all the functionality of gus that requires an account</p>
+	<p><b>Related use cases:</b> log out</p>
+	<p><b>Steps:</b>
+	<ol>
+	<li>User is viewing a page with a login form</li>
+	<li>User enters their username and password</li>
+	<li>User clicks the Log In button</li>
+	<li>Server verifies the credentials of the user</li>
+	<li>Server creates a session for the user</li>
+	</ol>
+	<p><b>Alternative: </b>
+	<ul>
+	<li>User cancels the process</li>
+	</ul>
+	<p>
+	<p><b>Fail: </b> If the user enters a username and password that do not match, they will be redirected to a base login page with an error message.</p>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+<h3>Name</h3>
+
+
+<p><b>Actors: </b>
+
+<p><b>Goals: </b>
+
+<p><b>Preconditions: </b>
+
+<p><b>Summary: </b>
+
+<p><b>Related use cases: </b>
+
+<p><b>Steps:</b>
+<ol>
+<li>
+</ol>
+
+
+
+<p><b>Postconditions: </b>
+
+<p><b>Alternative: </b>
+<ul>
+<li>
+</ul>
+
+<p><b>Fail: </b>

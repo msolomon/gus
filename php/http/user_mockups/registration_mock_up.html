@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Register for Gus!</title>
+<!-- Cynthia Rempel -->
+<script type="text/javascript">
+	<!-- Hide from older browsers
+		reg_exp_for_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+		function valid_password(pass_form)
+		{
+			if(pass_form.pass_word1.value == "")
+			{
+				alert("please enter a password")
+				pass_form.password1.focus()
+				return false
+			}
+			if(pass_form.pass_word1.value != pass_form.pass_word2.value)
+			{
+				alert("the passwords you entered did not match, please try again")
+				pass_form.pass_word1.focus()
+				pass_form.pass_word1.select()
+				return false
+			}
+			return true
+		}
+		function valid_email(email_form)
+		{
+			if(reg_exp_for_email.test(email_form.email.value))
+			{
+				return true
+			}
+			alert("I didn't quite understand your email address... could you please retype it?")
+			email_form.email.focus()
+			email_form.email.select()
+			return false
+		}
+	// End hiding script -->
+</script>
+</head>
+<body>
+	<h1>Gus Registration Screen</h1>
+	<p> Please fill out the following form to register for GUS </p>
+	<!-- don't forget to include action="cgi-bin/registration.php" -->
+	<form onsubmit="return valid_passform(this)&&valid_email(this)" name="registration">
+		<p> user name <input type="text" name="user_name" size="60" value="please type your user name" maxlength=30 /></p>
+		<p> email <input type="text" name="email" size="60" value="please type your email" maxlength=60 /></p>
+		<p> phone number <input type="text" name="phone_number" size="60" value="please type your phone number" maxlength=20 /></p>
+		<p> major <input type="text" name="major" size="60" value="please type your major" maxlength=30 /></p>
+		<p> web site <input type="text" name="personal_page" size="60" value="if you already have a web page, please type the URL here" maxlength=100 /> </p>
+		<p> password <input type="password" name="pass_word1" size="30" maxlength=30 /></p>
+		<p> password <input type="password" name="pass_word2" size="30" maxlength=30 /></p>
+		<p> <input type="submit" value="Submit" />&nbsp; <input type="reset" /></p>
+	</form>
+</body>
+</html>

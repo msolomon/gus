@@ -1,0 +1,12 @@
+from django.shortcuts import render_to_response
+from django.template import Context, loader, RequestContext
+from django.http import HttpResponse
+from django import forms
+
+
+def index(request,leftovers):
+	return HttpResponse("Gus Home??")
+#	return render_to_response('index_joran.html',{'lform':lform,'rform':rform},context_instance=RequestContext(request))
+	
+def thanks(request):
+	return render_to_response('feedback_recieved.html',{'msg':'Please Wait For Approval'})

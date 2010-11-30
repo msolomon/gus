@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\begin{document}
+\title{CS383 - Homework 5}
+\author{Scott Beddall}
+\maketitle
+
+\section{Introduction}
+\subsection{The Goal}
+The goal of this assignment is to define a specific test case in isolation from GUS itself. To this end, I wrote a short java program to parse different usernames and passwords from a file and validate their content.
+\subsection{The Method}
+It is known login verification is a much needed security measure when dealing with any secure system. Because this is the case, I structured my test cases around whhat most standard login pages will accept. \\\\
+It is much easier to define acceptable usernames and passwords than it is to define what ISN'T acceptable. To this end, I believe that the two inputs must follow these validation rules.
+
+\begin{itemize}
+\item Username Verification
+  \begin{itemize}
+    \item At least 6 characters long
+    \item At most 20 characters long
+    \item Accepts input of the set [a-z,A-Z,',-], rejects everything else
+  \end{itemize}
+\item Password Verification
+  \begin{itemize}
+    \item At least 5 characters long
+    \item At most 20 characters long
+    \item Accepts any input except for white space (tabs,spaces, etc)
+  \end{itemize}
+\end{itemize}
+
+\section{Test Case}
+The test case for login verification has two inputs: Username and Password. If both of these are validated successfully then a test is successful.\\\\
+I will be using the test-driven-development model that Dr. J has suggested to the class.
+\subsection{Name}
+Login Verification
+\subsection{Location of Files}
+(From GUS main directory)\\
+/doc/GROUP2/hw5/test.java\\
+/doc/GROUP2/hw5/functions.java\\
+/doc/GROUP2/hw5/test.dat\\
+/doc/GROUP2/hw5/output.txt
+\subsection{Input}
+The input will be coming from a file named "test.dat". This file is made up usernames and passwords seperated by line of the form:\\
+\emph{username}\\
+\emph{password}\\
+\emph{username}\\
+\emph{password}\\
+\emph{...}
+\subsection{Oracle}
+As the input file is parsed, each username and password is verified by functions present in "functions.java". As lines are scanned in, they are verified by the
+associated functions. (isUserValid(),isPassValid())\\
+If the functions find an issue with the input, they will output that specific problem, and output "Failed". If all tests are passed, "Successful" will be sent to standard output.
+This process is shown in "output.txt".
+\subsection{Log}
+The predicted output is present in the file "output.txt" present in the folder in \emph{/doc/GROUP2/hw5/.}
+\end{document}

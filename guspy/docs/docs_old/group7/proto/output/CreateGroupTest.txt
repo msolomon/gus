@@ -1,0 +1,25 @@
+Expected Output:
+0's Group:
+ Owner: 0
+1's Group:
+ Owner: 1
+2's Group:
+ Owner: 2
+3's Group:
+ Owner: 3
+4's Group:
+ Owner: 4
+
+Actual Output:
+0's Group:
+ Owner: 0
+1's Group:
+ Owner: 1
+2's Group:
+ Owner: 2
+3's Group:
+ Owner: 3
+4's Group:
+ Owner: 4
+
+Pass
