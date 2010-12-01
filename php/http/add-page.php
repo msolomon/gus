@@ -12,6 +12,7 @@ echo $gus_main->page_content();
 
 $form1 = new form("add-page","add-page.php");
 if($form1->input_data()) {
+	$form1->set_required(array("name","content");
 	$form1->process_input_data("page",array("name")); //table_name, unique fields
 }
 else {
