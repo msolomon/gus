@@ -29,9 +29,9 @@ class form {
 	}
 
 	public function input_data() {
-		foreach($this->required as $key) {
-			if(!in_array($key,$_POST)) return(false);
-		}
+		#foreach($this->required as $key) {
+		#	if(!in_array($key,$_POST)) return(false);
+		#}
 		return(!empty($_POST));
 	}
 
