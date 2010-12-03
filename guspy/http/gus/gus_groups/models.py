@@ -3,6 +3,8 @@ from django import template
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User,Group,Permission
+import backends 
+
 register = template.Library()
 
 class gus_user(models.Model):
@@ -10,6 +12,9 @@ class gus_user(models.Model):
 	_token=models.CharField(max_length=50)
 	def user(self):
 		return self._user
+	def get_all_permissions(self):
+		be=gus_custom_backend()
+		be.get_grouprole_permissions(self)
 	def __unicode__(self):
 		return self._user.username
 
