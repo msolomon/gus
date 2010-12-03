@@ -3,18 +3,36 @@
 <head>
 <LINK REL=StyleSheet HREF="template.css" TYPE="text/css" MEDIA=screen>
 <title>Gus Layout Template</title>
-
 </head>
+
+<!-- Body is automargined + 1024px in width -->
+
 <body>
+
+<!-- Changed up a little bit, the Body being the container didn't work out well -->
+
+<div id="container">
+
+
+<!-- This is the Element that will contain the GUS Logo + Current User Info; spans 100% of the width -->
 	<h1 id="header_element">	
 		Table with User Info should go here.	
 	</h1>
+
+
+<!-- This section contains links, spans the 100% of the width -->
 	<div id="links">
 		Links to other stuff goes here! Preferably in a nav bar that isn't ugly as sin.
 	</div>
+
+
+<!-- Padding the links element causes the background to stretch as well, I wanted whitespace. This div provides that-->
 	<div id="spreader">
 	&nbsp
 	</div>
+
+
+<!-- This div is where any content for a given page will be imported; it is floated right and spans 78% of the width of the 1024px-->
 	<div id="content" style="content">	
 	<p> I've forgotten how much time it takes to get these damn things right<br><br> 
 	These colors are present for reference area only. The palette is still being selected
@@ -30,6 +48,9 @@ In that same year, Dickens and his family toured Italy, and were much abroad, in
 In 1847, in Switzerland, Dickens began Dombey and Son, which ran until April 1848. The Battle of Life appeared in December of that year. In 1848 Dickens also wrote an autobiographical fragment, directed and acted in a number of amateur theatricals, and published what would be his last Christmas book, The Haunted Man, in December<br><br>
 	</p>
 	</div>
+
+
+<!-- This element is my groups-at-a-glance column. Spans 18% of the width and is floated left-->
 	<div id="group_column">	
 		Groups at a Glance
 		<p class="groups">
@@ -42,6 +63,17 @@ In 1847, in Switzerland, Dickens began Dombey and Son, which ran until April 184
 			<a href="">Group 3</a>
 		</p>
 	</div>
+
+
+<!-- Padding the links element causes the background to stretch as well, I wanted whitespace. This div provides that-->
+	<div id="spreader">
+	&nbsp
+	</div>
+
+<!-- The footer spans 100% of the width of the page, floated center -->
 	<div id="footer">This project and all its associated content is property of the GUS PHP CS383 Team.<div>
+
+
+</div>
 </body>
 </html>
