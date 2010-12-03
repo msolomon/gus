@@ -51,12 +51,6 @@ body {
 	height: auto;
 }
 
-#links li {
-	display: inline;
-	list-style-type: none;
-	padding-right: 20px;
-}
-
 #spreader{
 	width: 100%;
 	float: center;
