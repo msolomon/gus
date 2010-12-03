@@ -9,10 +9,15 @@ from django.contrib import messages
 
 def index(request):
 	return HttpResponse("Gus Home")
-#	return render_to_response('index_joran.html',{'lform':lform,'rform':rform},context_instance=RequestContext(request))
+
+class role_form(forms.Form):
+	users = forms.CharField(max_length=100)
 	
-def super_manager(request):
-	return HttpResponse("Super Manager!!!!")
+def groupadmin(request,gid):
+	rf=role_form()		
+	return render_to_response('gus_groups/group_admin.html'		
+		,{'role_form':rf,'role':1}
+		,context_instance=RequestContext(request))
 def super_user_manager(request):
 	return HttpResponse("Super UManager!!!!")
 def super_group_manager(request):
@@ -121,43 +126,4 @@ def do_login(username,password):
         		return user
     		else: 
 			return -1
-
-def authenticate(username,password):
-	try:
-		user = User.objects.get(username=username)
-	except User.DoesNotExist:
-		return None
-	if user.check_password(password):return user	
-	return None
-
-def setup_and_save_tokens(request,user):
-	try:
-		u2=gus_user.objects.get(_user=user)
-	except gus_user.DoesNotExist:
-		return None
-	u2._token =generate_token(user)	
-	u2.save()
-	try:
-		CToken = user_token.objects.get(_user=u2)
-	except user_token.DoesNotExist:
-		CToken = user_token()
-		CToken._user=u2
-	CToken._token=u2._token
-	CToken._username = user.username
-	CToken.save()	
-	request.session['user'] = CToken._token
-	request.session.save()
-
-def userauthenticated(request):
-	key = request.session['user']
-	u=gus_user.objects.get(_token=key)
-	return u
-
-	
-def generate_token(user):
-	import time
-	from datetime import datetime
-	import hashlib
-	base=str(datetime.now())+user.password+user.username
-	return  hashlib.sha1(base).hexdigest();
 	

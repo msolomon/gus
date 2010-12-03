@@ -2,6 +2,7 @@
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+sys.path.append('./agenda')
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -94,6 +95,7 @@ INSTALLED_APPS = (
     'gus.gus_groups',
     'gus.Jauth',
     'gus.gus_talk',
+    'agenda', # Mike
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

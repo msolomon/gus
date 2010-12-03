@@ -14,5 +14,6 @@ urlpatterns = patterns('gus.gus_groups.views',
     (r'^user/test_manager.html?$','super_user_manager'),
     (r'^user/(\d+)/view/?$','user_detail_view'),
     (r'^group/(\d+)/view/?$','view_group'),
+    (r'^group/(\d+)/administer/?$','groupadmin'),
 #    (r'^group/test_manager.html?$','super_group_manager'),
 )

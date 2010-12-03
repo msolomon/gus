@@ -86,7 +86,10 @@ def userauthenticated(request):
 	        key = request.session['user']
 	except KeyError:
 		return
-        u=gus_user.objects.get(_token=key)
+	try:
+	        u=gus_user.objects.get(_token=key)
+	except gus_user.DoesNotExist:
+		return
         return u
 
 
