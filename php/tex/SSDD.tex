@@ -61,7 +61,7 @@
 \setlength\headsep{0.461in}
 % Footnote rule
 \setlength{\skip\footins}{0.0469in}
-\renewcommand\footnoterule{\vspace*{-0.0071in}\setlength\leftskip{0pt}\setlength\rightskip{0pt plus 1fil}\noindent\textcolor{black}{\rule{0.25\columnwidth}{0.0071in}}\vspace*{0.0398in}}
+\renewcommand\footnoterule{\vspace*{-0.0071in}\setlength\leftskip{0pt}\setlength\rightskip{0pt plus 1fil}\noindent{\rule{0.25\columnwidth}{0.0071in}}\vspace*{0.0398in}}
 % Pages styles
 \makeatletter
 \newcommand\ps@Standard{
@@ -74,13 +74,11 @@
 \makeatother
 \setlength\tabcolsep{1mm}
 \renewcommand\arraystretch{1.3}
-\title{SYSTEM AND SOFTWARE ARCHITECTURAL AND DETAILED DESIGN DESCRIPTI}
+\title{SYSTEM AND SOFTWARE ARCHITECTURAL AND DETAILED DESIGN DESCRIPTION}
 \author{Paul Oman}
 \date{2008-10-27}
 \begin{document}
-
-\liststyleWWviiiNumiii
-{\centering\bfseries
+\begin{center}
 SYSTEM AND SOFTWARE DESIGN DESCRIPTION (SSDD): Incorporating Architectural Views and Detailed Design Criteria \\
 FOR \\
 Groups in a University Setting
@@ -94,18 +92,10 @@ The PHP Gus Development Group \\
 University of Idaho \\
 Moscow, ID  83844-1010 \\
 CS383 SSDD
-\par}
+\end{center}
 \pagebreak
-\begin{landscape}
-{
-RECORD OF CHANGES (Change History)
-}
-[ put program /system name here ]
-
-\end{landscape}
-\pagebreak
-
 \tableofcontents
+\liststyleWWviiiNumiii
 
 \section{Introduction}
 	\subsection{Identification}
@@ -140,7 +130,7 @@ The indended users of the system are the student groups of the University of
 Idaho and University of Idaho students.
 	\subsection{Definitions, Acronyms, and Abbreviations}
 
-\begin{flushleft}
+
 \tablehead{\hline
 \textbf{Term or Acronym}
 &\textbf{Definition}
@@ -228,12 +218,9 @@ enclosed software, and their relationship and interfaces.\\\hline
 individual, team, or organization (or classes thereof) with interests
 in, or concerns, relative to, a system ISO/IEC
 42010:2007 (§3.8).}\\\hline
- &
-\\\hline
- &
-\\\hline
+
 \end{supertabular}
-\end{flushleft}
+
 \subsection[DOCUMENT
 REFERENCES]{\bfseries DOCUMENT
 REFERENCES}
@@ -499,6 +486,40 @@ likely to attend but didn't sign up,
 but everyone who RSVPed to include John (who's just taking the class and is not in club), followed up by an email, and finally the president
 prints out a roster of the likely attenders who only have a land-line with no internet to call manually.
 John later decides to join the Tech club, and the treasurer uses GUS to add him to the Tech club.\\
+\begin{wrapfigure}{r}{300px}
+  \begin{center}
+\includegraphics{../http/user_mockups/enter_fees_mockup.png}
+  \end{center}
+\end{wrapfigure}
+\paragraph{Officer Module}
+\subparagraph{Use case: enter fee information}
+\textbf{Actor:} officer \\
+\textbf{Goal:} expense information is recorded into gus \\
+\textbf{Precondtitions:} Officer is logged on and at the group's officer page\\
+\textbf{Related use cases:} \\
+\textbf{Steps:}\\
+1. Click 'enter fee information'\\
+2. Type in fee amount\\
+3. Select due date from a calendar\\
+4. Click 'save' \\
+\textbf{Alternatives:} \\
+\textbf{Postconditions:} the dues information is saved in the database \\
+
+
+
+\subparagraph{Use case: notify members concerning dues/fees} from Mike's use cases.
+
+\textbf{Actor:} group leader \\
+\textbf{Goal:} notify members of outstanding expenses \\
+\textbf{Precondtitions:} expense information is already entered into GUS\\
+\textbf{Related use cases:} enter fee information, send message, notify members to fill out waivers\\
+\textbf{Steps:}\\
+1. Click 'money'\\
+2. Click 'send notifications'\\
+3. Write a reminder message or use the default dues reminder message \\
+4. Choose the users who need to be reminded (perhaps GUS could be used to store who has paid dues and ) \\
+\textbf{Alternatives:} \\
+\textbf{Postconditions:} a notification is emailed to each applicable member \\
 
 \begin{wrapfigure}{r}{200px}
   \begin{center}
