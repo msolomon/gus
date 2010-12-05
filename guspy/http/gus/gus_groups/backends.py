@@ -33,3 +33,10 @@ class gus_custom_backend(ModelBackend):
                 	return True
         	return False
 
+	def group_role(self,user_obj,group_obj):
+		"""returns gus_role of user for this group"""
+		from gus.gus_groups.models import gus_roles
+		try:
+			return gus_roles.objects.get(uid=user_obj,gid=group_obj)
+		except gus_roles.DoesNotExist:
+			return None

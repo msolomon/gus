@@ -9,6 +9,8 @@ class gus_forum(models.Model):
 	_group = models.ForeignKey(gus_group)
 	def __unicode__(self):
 		return self._title
+	def group(self):
+		return self._group.group_name
 	def title(self):return self._title
 	def num_posts(self): return sum([t.num_posts() for t in self.gus_thread_set.all()])
 	def last_post(self):
@@ -29,6 +31,7 @@ class gus_thread(models.Model):
 	def num_posts(self):return self.gus_message_set.count()
 	def title(self): return self._title
 	def forumid(self):return self._forum.id
+	def group(self):return self._forum.group()
 	def last_post(self):
 		if self.gus_message_set.count():
 			return self.gus_message_set.order_by("-created")[0]
@@ -44,6 +47,8 @@ class gus_message(models.Model):
 	def tid(self):return self._thread.id
 	def title(self):return self._title
 	def message(self): return self._body
+	def group(self):
+		return self._thread._forum.group()
 	def pub_date(self,formatstring="%b %d, %I:%M %p"):
 		return self.created.strftime(formatstring)
 

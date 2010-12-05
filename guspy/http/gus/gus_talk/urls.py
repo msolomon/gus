@@ -7,6 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('gus.gus_talk.views',
     # Example:
     (r'^$','main'),
+    (r'^(\d+)$','main'),
     (r'^forum/(\d+)/$','forum'),
     (r'^thread/(\d+)/$','thread'),
     # Uncomment the admin/doc line below to enable admin documentation:

@@ -1,3 +1,13 @@
+###
+# Joran Beasle
+# View Controller for Gus Python Team
+# CS383  Fall2010
+#    This collection of functions manages the views that are associated with gus users
+#  	It is dependent on gus_groups  models  (gus_user,gus_group,gus_roles)
+#	It is also dependent on gus_groups forms which contains the form definitions for various views
+#	It also utilizes some helper functions (found in file)
+###
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError 
 from django.shortcuts import render_to_response
@@ -5,6 +15,7 @@ from django.template import Context, loader, RequestContext
 from django.http import HttpResponse , HttpResponseRedirect
 from django import forms
 from gus.gus_groups.models import *
+from gus.gus_groups.forms import *
 from django.contrib import messages
 
 def index(request):
@@ -67,9 +78,6 @@ def logout(request):
 		1
 	return HttpResponseRedirect('/login/')
 
-class login_form(forms.Form):
-	username=forms.CharField(max_length=50)
-	password=forms.CharField(widget=forms.PasswordInput , max_length=50,min_length=6)
 def login(request):
 	if request.method == 'POST': # If the form has been submitted...
 		lform = login_form(request.POST)
@@ -86,11 +94,6 @@ def login(request):
 	return render_to_response('gus_groups/user_login.html',{'lform':lform},context_instance=RequestContext(request))
 
 
-class reg_form(forms.Form):
-	real_name=forms.CharField(max_length=50)
-	email=forms.EmailField()
-	username=forms.CharField(max_length=50)
-	password=forms.CharField(widget=forms.PasswordInput , max_length=50,min_length=6)
 	
 def register(request):
 	if request.method == 'POST': # If the form has been submitted...
@@ -127,3 +130,13 @@ def do_login(username,password):
     		else: 
 			return -1
 	
+
+
+
+def group_module(request,group_slug,module_slug):
+	return HttpResponse("Viewing "+module_slug+" For <b>"+group_slug)
+
+
+
+def import_users(request):
+	return HttpResponse("Import Users")	
