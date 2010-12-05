@@ -362,7 +362,7 @@ Concerns with respect to the maintainability and
 \end{supertabular}
 \end{flushleft}
 \end{landscape}
-
+\pagebreak
 \section{System and Software Architecture}
 The basic architecture of GUS is a database driven, client-server web application.
 The components of GUS are: graphical user interfaces (websites), web-interfaces to a database, and a database.
@@ -372,7 +372,6 @@ The web-interfaces take the input from the GUIs and ensures the data is valid an
 or it takes information from that database, and ensures it goes to the appropriate users.
 
 \subsection{Developers Architecural View}
-
 
 \subsection{Users Architectural View}
 GUS is a website with different roles for users, officers, and administrators,
@@ -384,14 +383,17 @@ groups she administrates.
 The purpose of the users view is to enable users to connect with groups, and groups to track members.
 The major components of this architecture are: a user module, an officer module, an administrative module, and a forums module.
 
-\subsubsection{User{\textquoteright}s View Representation and Description}
-
-\begin{wrapfigure}{r}{200px}
+\begin{wrapfigure}[12]{r}{2in}
   \begin{center}
     \includegraphics{../pdf_png/email_use_cases.png}
   \end{center}
+  \caption{Replace with screenshot of email mock-up}
 \end{wrapfigure}
+
+
+\subsubsection{User{\textquoteright}s View Representation and Description}
 \paragraph{Text-Email Module}
+
 \subparagraph{}User-view class diagram which this entry is based on was designed by Brett Hitchcock,
 this entry was written by Cynthia Rempel.
 
@@ -401,17 +403,20 @@ The texting feature enables users or groups to communicate about events at the l
 Instead of each user manually updating their email lists when people leave the group,
 GUS tracks the members for each group. For example: the president of the Business Professionals of America
 might want to invite the Information Systems club to a meeting about their information systems competitive events.
-Another example: the president of the Tech club cancels a meeting at the last minute because Prof.
-Kerr (the advisor) is ill, and he texts all of the Tech club members.
-\subparagraph{}{A user can access her email and text features through her email page,
-she can only text people (or groups) that have given her permission to.}\\
+{Another example: the president of the Tech club cancels a meeting at the last minute because Prof.
+Kerr (the advisor) is ill, and he texts all of the Tech club members.}\\
+\subparagraph{}A user can access her email and text features through her email page,
+she can only text people (or groups) that have given her permission to.\\
+
+
 \pagebreak
 
 \paragraph{Forums Module}
-\begin{wrapfigure}{l}{280px}
+\begin{wrapfigure}[17]{l}{2in}
   \begin{center}
     \includegraphics{../pdf_png/forums_use_cases.png}
   \end{center}
+  \caption{replace with screen-shots of forums mock-ups}
 \end{wrapfigure}
 \subparagraph{}--- diagram which this entry is based on was designed by ---, this entry was written by Cynthia Rempel.
 \subparagraph{} The forums module is designed to enable groups to collaborate on group decisions and consolidate member input.
@@ -427,7 +432,12 @@ modify other members posts, remove own post, and remove other members posts;
 there should be some minimal guidance on the security aspects of giving users permissions right on the forums page,
 perhaps a \textbf{permissions wizard} }\\
 
-
+\begin{wrapfigure}[17]{r}{2in}
+  \begin{center}
+    \includegraphics{../pdf_png/profile_use_cases.png}
+  \end{center}
+  \caption{replace with screen-shot of profile mock-up}
+\end{wrapfigure}
 \paragraph{Profile Module}
 
 \subparagraph{} The user-view class diagram which this entry is based on was designed by Brett Hitchcock,
@@ -441,11 +451,7 @@ because BPA displays their video animation competive event for which they want t
 and participants at the college-level. Also, the Lutheran Campus Ministry might want to attract music majors,
 because of their proximity to the Music building. Another example of a profile feature might be an incoming freshmen might be
 really interested in video games, and the video game club is looking for members.\\
-\begin{wrapfigure}{r}{200px}
-  \begin{center}
-    \includegraphics{../pdf_png/profile_use_cases.png}
-  \end{center}
-\end{wrapfigure}
+
 \subparagraph{}
 Users may want the amount of information shared limited to only a subset of groups they are members of.  For example: Joan2833 may want to
 share her schedule with members of the National Youth Accreditation Association (NYACC), but not with ASUI.\\
@@ -453,15 +459,13 @@ share her schedule with members of the National Youth Accreditation Association 
 to contact the Tech club president for last minute changes for the awards to be engraved (the underdog pulled through at the last minute)
 and so his name is to be engraved now.  Another example would be, every fall the ASUI emails all the student groups with the times for
 mandatory officer orientation, and up-to-date emails facilitate this process.\\
-\subparagraph{} Filling up space to frame the picture nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn
-nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn
-nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn.nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn
-nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn. {nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn.}\\
 
-\begin{wrapfigure}{l}{200px}
+
+\begin{wrapfigure}[15]{l}{200px}
   \begin{center}
     \includegraphics{../pdf_png/event_use_cases.png}
   \end{center}
+  \caption{Replace with mock-up of a page inviting the user to join a group and/or an event}
 \end{wrapfigure}
 \paragraph{Event Group Module}
 \subparagraph{} The user-view class diagram which this entry is based on was designed by Brett Hitchcock,
@@ -474,19 +478,13 @@ an application to go to seminary.
 A marketing major may want to sign up to judge at a DECA event that Business Professionals of America is hosting to
 encourage high-schoolers to learn business skills.}\\
 
-\subparagraph{} Filling up space to frame the picture nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn
-nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn
-nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn.nnnnn nnnnnnnnnn nnnnn nnnnn nnnnn nnnnn nnnnn
-nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn. { nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn nnnnn.}\\
-
-\begin{wrapfigure}{r}{300px}
+\begin{wrapfigure}[19]{r}{2in}
   \begin{center}
 \includegraphics{../pdf_png/officer_use_cases.png}
   \end{center}
+  \caption{Replace with screenshot of officer panel}
 \end{wrapfigure}
 \paragraph{Officer Module}
-
-
 \subparagraph{} The purpose of the officer module is to enable officers to manage the group events, membership, and website.
 For example, the president of the UI Tech club could post a plaque engraving event for 2:30 PM, and after 10 people signed up, there could be a snowstorm
 (2 ft in one hour!) at 12:30 he cancels the event, so he decides to send a group text (which includes not only UI Tech club members
@@ -494,17 +492,20 @@ likely to attend but didn't sign up,
 but everyone who RSVPed to include John (who's just taking the class and is not in club), followed up by an email, and finally the president
 prints out a roster of the likely attenders who only have a land-line with no internet to call manually.
 John later decides to join the Tech club, and the treasurer uses GUS to add him to the Tech club.\\
-\begin{wrapfigure}{r}{300px}
+\begin{figure}
+\begin{wrapfigure}[13]{l}{3in}
   \begin{center}
 \includegraphics{../http/user_mockups/enter_fees_mockup.png}
   \end{center}
+  \caption{Enter Fees Mockup by Cindy}
 \end{wrapfigure}
-\paragraph{Officer Module}
-\subparagraph{Use case: enter fee information}
+\end{figure}
+
+\subparagraph{}Use case: enter fee information\\
 \textbf{Actor:} officer \\
-\textbf{Goal:} expense information is recorded into gus \\
+\textbf{Goal:} Store group dues in GUS databse \\
 \textbf{Precondtitions:} Officer is logged on and at the group's officer page\\
-\textbf{Related use cases:} \\
+\textbf{Related use cases:} Remind users to pay dues, enter membership criteria \\
 \textbf{Steps:}\\
 1. Click 'enter fee information'\\
 2. Type in fee amount\\
@@ -512,8 +513,14 @@ John later decides to join the Tech club, and the treasurer uses GUS to add him 
 4. Click 'save' \\
 \textbf{Alternatives:} \\
 \textbf{Postconditions:} the dues information is saved in the database \\
-
-
+This use-case can be expanded by using the same screen for an officer to specify
+all the membership criteria: waivers, dues, service project, class standing, GPA, major, etc.\\
+\begin{wrapfigure}[24]{l}{3in}
+  \begin{center}
+\includegraphics{../http/user_mockups/notify_concerning_fees_mockup.png}
+  \end{center}
+  \caption{Membership Reminders Mockup by Cindy}
+\end{wrapfigure}
 
 \subparagraph{Use case: notify members concerning dues/fees} from Mike's use cases.
 
@@ -525,8 +532,10 @@ John later decides to join the Tech club, and the treasurer uses GUS to add him 
 1. Click 'money'\\
 2. Click 'send notifications'\\
 3. Write a reminder message or use the default dues reminder message \\
-4. Choose the users who need to be reminded (perhaps GUS could be used to store who has paid dues and ) \\
-\textbf{Alternatives:} \\
+4. Choose the users who need to be reminded (perhaps GUS could be used to store who has paid dues and who hasn't) \\
+\textbf{Alternatives:} the officer cancells out of the usecase by clicking elsewhere, perhaps this use-case could be expanded to allow
+the officer to remind members about multiple membership criteria they need to meet, but personalized so members are only reminded of what
+they are deficient in.\\
 \textbf{Postconditions:} a notification is emailed to each applicable member \\
 
 \begin{wrapfigure}{r}{200px}
