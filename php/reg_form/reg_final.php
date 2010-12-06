@@ -1,5 +1,6 @@
 <!-- Abhay Patil - Registration form -->
-
+<!-- CSS done by Scott Bedall, linked by Cynthia Rempel -->
+<LINK REL=StyleSheet HREF="templates/default/template.css" TYPE="text/css" MEDIA=screen>
 <h2 align="center">User Registration Form</h2>
 
 <form name="registration_form" method="post" action="register.php" onsubmit="return Validate();">
