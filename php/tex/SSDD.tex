@@ -93,6 +93,7 @@ Groups in a University Setting
 \\
 Version 0.004 \\
 December 2, 2010 \\
+\includegraphics{../http/png/index.png}
 Prepared for: \\
 The Associated Students of the University of Idaho and Dr. Clinton Jeffery \\
 Prepared by: \\
@@ -459,8 +460,28 @@ share her schedule with members of the National Youth Accreditation Association 
 to contact the Tech club president for last minute changes for the awards to be engraved (the underdog pulled through at the last minute)
 and so his name is to be engraved now.  Another example would be, every fall the ASUI emails all the student groups with the times for
 mandatory officer orientation, and up-to-date emails facilitate this process.\\
-
-
+\begin{wrapfigure}[24]{r}{4in}
+	\begin{center}
+\includegraphics{../http/png/registration-form.png}
+	\end{center}
+	\caption{registration form by Abhay Patil}
+\end{wrapfigure}
+\subparagraph{} Use case: register for gus\\
+\textbf{Actor:} prospective user \\
+\textbf{Goal:} user will be registered for GUS\\
+\textbf{Preconditions:} user is at GUS registration page\\
+\textbf{Related Use Cases:} edit personal information\\
+\textbf{Steps:}\\
+1. User enters their name\\
+2. User enters their email\\
+3. User enters their user name\\
+4. User enters their password\\
+5. User enters their password again\\
+6. User enters their phone number\\
+7. User clicks submit\\
+\textbf{Alternatives:} user navigates away from page, officer or administrator may desire to add a user who is less technically literate\\
+\textbf{Post Conditions:} The user's name, email, user name, password,
+and phone number are validated, and then sent to GUS to be put in the database\\
 \begin{wrapfigure}[15]{l}{200px}
   \begin{center}
     \includegraphics{../pdf_png/event_use_cases.png}
@@ -473,16 +494,16 @@ this entry was written by Cynthia Rempel. \\
 
 \subparagraph{} The purpose of the event group module is to enable users to join groups and events.
 Users can use GUS to look for groups that interest them, or they might want to join events that interest them.
-{For example: a softmore interested in becoming a Methodist minister may decide joining Religion and Ethics may look really good on
+For example: a softmore interested in becoming a Methodist minister may decide joining Religion and Ethics may look really good on
 an application to go to seminary.
 A marketing major may want to sign up to judge at a DECA event that Business Professionals of America is hosting to
-encourage high-schoolers to learn business skills.}\\
-
-\begin{wrapfigure}[19]{r}{2in}
+encourage high-schoolers to learn business skills.
+\pagebreak
+\begin{wrapfigure}[23]{r}{4in}
   \begin{center}
-\includegraphics{../pdf_png/officer_use_cases.png}
+\includegraphics{../http/png/officer_control.png}
   \end{center}
-  \caption{Replace with screenshot of officer panel}
+  \caption{Officer Panel Mockup by Leah Wegner}
 \end{wrapfigure}
 \paragraph{Officer Module}
 \subparagraph{} The purpose of the officer module is to enable officers to manage the group events, membership, and website.
@@ -492,15 +513,14 @@ likely to attend but didn't sign up,
 but everyone who RSVPed to include John (who's just taking the class and is not in club), followed up by an email, and finally the president
 prints out a roster of the likely attenders who only have a land-line with no internet to call manually.
 John later decides to join the Tech club, and the treasurer uses GUS to add him to the Tech club.\\
-\begin{figure}
-\begin{wrapfigure}[13]{l}{3in}
+\subparagraph{} An officer may want to change the contents of a group's web page.  For example: this year Idaho's Business
+Professionals of America State Leadership Conference is holding a C++ event, and BPA may want to add that back to their group page.\\
+\begin{wrapfigure}[19]{l}{3in}
   \begin{center}
 \includegraphics{../http/user_mockups/enter_fees_mockup.png}
   \end{center}
   \caption{Enter Fees Mockup by Cindy}
 \end{wrapfigure}
-\end{figure}
-
 \subparagraph{}Use case: enter fee information\\
 \textbf{Actor:} officer \\
 \textbf{Goal:} Store group dues in GUS databse \\
@@ -515,6 +535,7 @@ John later decides to join the Tech club, and the treasurer uses GUS to add him 
 \textbf{Postconditions:} the dues information is saved in the database \\
 This use-case can be expanded by using the same screen for an officer to specify
 all the membership criteria: waivers, dues, service project, class standing, GPA, major, etc.\\
+\pagebreak
 \begin{wrapfigure}[24]{l}{3in}
   \begin{center}
 \includegraphics{../http/user_mockups/notify_concerning_fees_mockup.png}
@@ -538,19 +559,30 @@ the officer to remind members about multiple membership criteria they need to me
 they are deficient in.\\
 \textbf{Postconditions:} a notification is emailed to each applicable member \\
 
-\begin{wrapfigure}{r}{200px}
-  \begin{center}
-    \includegraphics{../pdf_png/admin_use_cases.png}
-  \end{center}
-\end{wrapfigure}
-\paragraph{Administrative Module}
-\subparagraph{} The purpose of the administrative module
-\subsection{Developer{\textquoteright}s View Identification}{}
+%\begin{wrapfigure}{r}{200px}
+%  \begin{center}
+%    \includegraphics{../pdf_png/admin_use_cases.png}
+%  \end{center}
+%\end{wrapfigure}
+%\paragraph{Administrative Module}
+%\subparagraph{} The purpose of the administrative module
 
-
-\subsubsection[Developer{\textquoteright}s View Representation and
-Description ]{Developer{\textquoteright}s View Representation and
-Description }
+\subsubsection{Developer{\textquoteright}s View Representation and
+Description}
+\paragraph{} GUS is made of three basic systems, the user interface (forms class),
+the interface between the user interface and the database (GUS class),
+and the calls to the database (MySql class).
+The forms class collects data from users, then hands the data to GUS, which in turn,
+transmits the data to the database. When a user makes a request for data, GUS queries the database,
+prepares the information to be displayed, and the forms class displays the information.
+The forms class can be extended to have additional text fields for user input.
+The GUS class establishes a connection to the database for the transfer of data,
+and uses that data to set up page content for the user. The MySql class connects and disconnects from GUS,
+implements the database design, queries the database, and enables GUS to make changes to the database.
+\begin{figure}[ht]
+    \includegraphics{../doc/proto_framework_associations.png}
+	\caption{Prototype Framwork Associations by Colby Blair}
+\end{figure}
 
 
 \subsubsection{Developer{\textquoteright}s Architectural Rationale}
@@ -580,9 +612,6 @@ components or processes of the architecture.}
 
 \subsubsection{[ insert name of viewpoint ]{\textquoteright}s View
 Representation and Description }
-{\itshape
-Provide a diagram of the developer{\textquoteright}s view of the
-architecture.}
 
 {
 [Insert diagram and descriptions here.]}
@@ -613,21 +642,7 @@ viewpoints.}
 
 \subsection{Developers Viewpoint Detailed Software Design}
 
-\begin{tabular}{m{3in} m{3in}}
-%% row 1
-GUS is made of three basic systems, the user interface (forms class),
-the interface between the user interface and the database (GUS class),
-and the calls to the database (MySql class).
-The forms class collects data from users, then hands the data to GUS, which in turn,
-transmits the data to the database. When a user makes a request for data, GUS queries the database,
-prepares the information to be displayed, and the forms class displays the information.
-The forms class can be extended to have additional text fields for user input.
-The GUS class establishes a connection to the database for the transfer of data,
-and uses that data to set up page content for the user. The MySql class connects and disconnects from GUS,
-implements the database design, queries the database, and enables GUS to make changes to the database.
-&
-\includegraphics[width=240px,height=243px]{../pdf_png/php_class.png}
-\end{tabular}
+
 
 
 \begin{landscape}
@@ -670,6 +685,8 @@ MySql
 \end{landscape}
 
 \subsection{Component Detailed Design}
+\subsection{Developer{\textquoteright}s View Identification}{}
+
 	\subsubsection{Detailed Design for Component: Forms}
 	The forms.php was written by Colby Blair, the section was reverse-engineered by Cynthia Rempel
 	\paragraph{Introduction to Forms}
@@ -692,13 +709,16 @@ a forum organized by topic and then chronologically, or an organization chart fo
 
 \paragraph{Forms Process to Convert Input to Output}
 Forms collects user input by using \textbf{text-fields}, into an attribute called \textbf{content},
-which is then collected by GUS.  Forms also takes \textbf{content} from GUS and displays it to users through \textbf{text-field}s.
+which is then collected by GUS.  Forms also takes \textbf{content} from GUS and displays it to users through \textbf{text-field}s.\\
 
 \paragraph{Design constraints and performance requirements for Forms}
 Forms must encrypt passwords, and only transmit sensitive data through secure protocols.
 Forms must collect the minimum amount of data about a user to meet the mission of
 student group organization and recruitment to minimize the desirability of GUS as a target for maliciousness.
-
+\begin{figure}[ht]
+    \includegraphics{../doc/form-data-submission-statechart.png}
+	\caption{Form Submission Statechart by Colby Blair, transition descriptions by Cynthia Rempel}
+\end{figure}
 \subsubsection{Detailed Design for Component: GUS}
 	The gus.php was written by Colby Blair, the section was reverse-engineered by Cynthia Rempel
 \paragraph{Introduction to GUS}
