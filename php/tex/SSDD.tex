@@ -279,11 +279,11 @@ Piscataway, NJ 08854, USA.}}
 This section of the document describes the system and software constraints
 imposed by the operational environment, system requirements and user
 characteristics, and then identifies the system stakeholders and lists
-describes their concerns and mitigations to those concerns.
+and describes their concerns and mitigations to those concerns.
 	\subsubsection{Section 3}
 This section of the document describes the system and software architecture from several
 viewpoints, including, but not limited to,the developer{\textquoteright}s view and the
- user{\textquoteright}s view.
+user{\textquoteright}s view.
 	\subsubsection{Section 4}
 This section of the document provides detailed design descriptions for every component defined in the
 architectural view(s).
@@ -297,25 +297,29 @@ Section 6 and beyond are appendices including original
 information and communications used to create this document.
 
 \subsection{Document Restrictions}
-This document is for LIMITED RELEASE ONLY to UI CS personnel working on
-the project
+This document is for LIMITED RELEASE ONLY to University of Idaho CS personnel
+working on the project and Dr. Jeffery.
+
 \section{Constraints and Stakeholder Concerns}
 	\subsection{Constraints}
 		\subsubsection{Environmental Constraints}
-GUS must meet the privacy requirements as they apply to both the
-University of Idaho and social networking sites.  It should be
-maintained in a secure office, away from prying eyes, flooding, and be
-able to withstand frequent power outages in the case of wind storms.
+GUS must be maintained in a secure office to prevent unauthorized
+physical access to the server.  The office should be located
+in an area that is unlikely to suffer from natural disasters, such as
+flooding, earthquakes, etc.  The system should also be able to withstand
+frequent power outages in case of wind storms.
 		\subsubsection{System Requirement Constraints.}
-GUS needs to be able to interface with any data source it needs
-information from, which could be databases, web authentication servers,
-and users.  It should be reliable with little maintainance, and keep
-information on it secure.
+Since users will access GUS through the Internet, GUS needs to be able to
+maintain a constant connection to the Internet.  GUS will also need to
+be able to interface with any data source it needs information from, such as
+databases, web authentication servers, and users.  It will also need to keep
+this information secure and confidential when appropriate.
 		\subsubsection{User Characteristic Constraints.}
-GUS should be easy for any user to understand with a brief explanation
-and intuitive enough for an uninitiated user to figure out by looking
-through the options.  Basic computer use skills and a simple conceptual
-explanantion should be enough for everyday usage.
+GUS will be easy for any user to understand after a brief explanation.
+Even without an explanation, users will be able to determine the usage
+and functionality of the system by looking through the options.
+Basic computer skills and a simple conceptual explanantion
+should be enough for everyday usage.
 \begin{landscape}
 	\subsection{Stakeholder Concerns}
 \begin{flushleft}
@@ -338,30 +342,30 @@ Mitigation Mechanism or Design Criteria Reference Number
 
 \multicolumn{1}{|m{1.2in}|}{Appropriateness of the system and}
  & Acquirer
- & Will this project develop the students software engineering skills required to work in industry?
+ & Will this project develop the software engineering skills required to work in the industry?
  & Limit the size of the teams, require developers to use server-side scripting and extensive development documentation
  \\\hhline{~---}
  software in fulfilling its mission
  & User
- & Will this be user friendly enough so a computer illiterate person can use it?
- & Provide visual and textual cues to make it easy for non technical people to use
+ & Will this system be user friendly enough that a computer illiterate person can use it?
+ & Provide visual and textual cues to make it easy for non-technical users to understand
 \\\hline
 \multicolumn{1}{|m{1.2in}|}{
 Feasibility of constructing, testing, }
  & Developer
  & Will this project be interesting and completable within one semester?
- & Encourage members to work on parts of the project they are interested in, and share the workload.
+ & Encourage members to work on the parts of the project they are interested in, and share the workload.
 \\\hhline{~---}
 verifying and deploying the
 system and software.
  & Tester
  & Will the testing utilities be user-friendly enough to learn without spending too much time?
- & Collectively identify appropriate testing utilities for each platform the testers may be using, and identify helpful tutorials
+ & Collectively identify appropriate testing utilities for each platform the testers will be using, and identify helpful tutorials
 \\\hline
 Risks of constructing, deploying, and
- & Aquirer
+ & Acquirer
  & Will this system make the University of Idaho legally liable if the system is hacked?
- & Educate users of the risks of posting private information on the Internet, limit what information GUS tracks
+ & Educate users of the risks of posting private information on the Internet, and limit the information GUS tracks
 \\\hhline{~---}
 \multicolumn{1}{|m{1.2in}|}{using the system and software object of this SSDD.}
  & User
@@ -370,38 +374,47 @@ Risks of constructing, deploying, and
  and using modular \textbf{mutually suspicious programming}
 \\\hline
 Concerns with respect to the maintainability and
- & Aquirer
+ & Acquirer
  & Will there be a maintainer?
- & Include Dr. Jefferey in every step of the design process, and try to make maintaining GUS worth someones while
+ & Include Dr. Jefferey in every step of the design process, and try to fill an important niche for the University of Idaho
 \\\hhline{~---}
 \multicolumn{1}{|m{1.2in}|}{evolvability of the system and software.}
  & Maintainer
  & Will GUS be easy to port to another system that would maintain it?
- & Keep all aspects of GUS extremely simple
+ & Keep all aspects of GUS extremely simple and practice good coding to enable portability
 \\\hline
 \end{supertabular}
 \end{flushleft}
 \end{landscape}
 \pagebreak
 \section{System and Software Architecture}
+
+\subsection{Developer{\textquoteright}s Architectural View}
 The basic architecture of GUS is a database driven, client-server web application.
 The components of GUS are: graphical user interfaces (websites), web-interfaces to a database, and a database.
-The graphical user interfaces take input from users and deliver output for the web-interface to take to the database,
-it also takes input from the database and displays it to the users.
-The web-interfaces take the input from the GUIs and ensures the data is valid and safe to put in the database,
-or it takes information from that database, and ensures it goes to the appropriate users.
+The graphical user interfaces are the only part the user directly sees and manipulates.  They allow users to input
+and view information in the database and they communicate with the web-interfaces to access the database
+and present the data in a human-readable form.  The web interfaces ensure that the input from
+the users is valid and safe to put in the database, and they also ensure that data pulled from
+the database is sent to the appropriate users.
 
-\subsection{Developers Architecural View}
+\subsection{User{\textquoteright}s Architectural View}
+GUS is a website with different levels of privelege for users, officers, and administrators.
+When logged into GUS, a user will have member-level access to groups that they are a member of,
+officer-level access for groups they are an officer in, and administrative privileges for
+groups they own.
 
-\subsection{Users Architectural View}
-GUS is a website with different roles for users, officers, and administrators,
-by logging into GUS a user will have member access to groups that she is a member of
-officer access to groups she is an officer for, and administrative privileges for
-groups she administrates.
+\subsubsection{User{\textquoteright}s View Identification}
+From the user{\textquoteright}s point of view, GUS is a tool that enables users to connect
+with one another through groups.  As such, communication between users is a very important component
+and is fulfilled by several different modules including e-mail and forums.  One of the major
+distinctions between users in a group is their level of privilege, and there are specific modules
+for each of the three levels of privelege.
 
-\subsubsection{Users View Identification}
-The purpose of the users view is to enable users to connect with groups, and groups to track members.
-The major components of this architecture are: a user module, an officer module, an administrative module, and a forums module.
+%I think the figures and use cases need to be moved/reworked/reogranized
+%Replace User's View Representation and Description with module name?
+%Rather than 3.2.2.1.1 etc. should be 3.2.2.1 or something.
+%Better yet, use real paragraphs rather than subsections?
 
 \begin{wrapfigure}[12]{r}{2in}
   \begin{center}
@@ -414,10 +427,10 @@ The major components of this architecture are: a user module, an officer module,
 \subsubsection{User{\textquoteright}s View Representation and Description}
 \paragraph{Text-Email Module}
 
-\subparagraph{}User-view class diagram which this entry is based on was designed by Brett Hitchcock,
+\\User-view class diagram which this entry is based on was designed by Brett Hitchcock,
 this entry was written by Cynthia Rempel.
 
-\subparagraph{}The purpose of the email module is to enable users to send emails to groups and other users.
+\\The purpose of the email module is to enable users to send emails to groups and other users.
 Two advantages of using GUS to communcate are: texting, and predefined social newtworks.
 The texting feature enables users or groups to communicate about events at the last minute.
 Instead of each user manually updating their email lists when people leave the group,
@@ -425,7 +438,8 @@ GUS tracks the members for each group. For example: the president of the Busines
 might want to invite the Information Systems club to a meeting about their information systems competitive events.
 {Another example: the president of the Tech club cancels a meeting at the last minute because Prof.
 Kerr (the advisor) is ill, and he texts all of the Tech club members.}\\
-\subparagraph{}A user can access her email and text features through her email page,
+
+\\A user can access her email and text features through her email page,
 she can only text people (or groups) that have given her permission to.\\
 
 
