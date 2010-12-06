@@ -37,7 +37,7 @@ class gus {
 		return($this->vt);
 	}
 
-	public function page_content() {
+	public function page_content($extra_content) {
 		require_once(TMPLDIR . "/" . $this->vt . "/main.php");
 		if(empty($_GET['page'])) {
 			if($_SERVER["SCRIPT_NAME"] === "index.php") {
@@ -47,7 +47,7 @@ class gus {
 		$content = $this->ds->select_cond('content', 'page', "name='" . $_GET['page'] . "'");
 		if(empty($content)) $content = "This page's content does not exist<br />";
 		else $content = $content[0]['content']; //takes the first if multi matches
-		return(page_header() . $content . page_footer());
+		return(page_header($this->vt) . $content . page_footer($extra_content));
 	}
 
 	public function get_uid($uname) {
@@ -59,6 +59,10 @@ class gus {
 		$result = $this->ds->select_cond("gid","ggroup","name='$gname'");
 		return($result[0]['gid']);
 
+	}
+
+	public function get_vt() {
+		return($this->vt);
 	}
 }
 

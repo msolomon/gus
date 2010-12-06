@@ -1,0 +1,118 @@
+<style type="text/css">
+
+#informationbar{
+position: fixed;
+left: 0;
+width: 100%;
+text-indent: 5px;
+padding: 5px 0;
+background-color: lightyellow;
+border-bottom: 1px solid black;
+font: bold 12px Verdana;
+}
+#informationshowbar{
+position:absolute;
+background:url({{MEDIA_URL}}img/downbar.gif) no-repeat center;
+left: 0;
+top: 0;
+width: 100%;
+height:5px;
+padding: 0;
+background-color: #d5bd92;               
+}     
+* html #informationbar{ /*IE6 hack*/
+position: absolute;
+width: expression(document.compatMode=="CSS1Compat"? 
+document.documentElement.clientWidth+"px" : body.clientWidth+"px");
+}
+
+</style>
+
+<script type="text/javascript">
+
+/***********************************************
+
+* Animated Information Bar- by JavaScript Kit (www.javascriptkit.com)
+* This notice must stay intact for usage
+* Visit JavaScript Kit at http://www.javascriptkit.com/ for this script 
+and 100s more
+
+***********************************************/
+
+function informationbar(){
+	this.oldTop="0"
+	this.displayfreq="always"
+	this.content='<a href="javascript:informationbar.close()"><img src="{{ MEDIA_URL }}img/close.gif" style="width: 14px; height: 14px; float: right; border: 0; margin-right: 5px" /></a>'
+}
+informationbar.prototype.refreshContent=function(data){
+	this.content='<a href="javascript:informationbar.close()"><img src="{{ MEDIA_URL }}img/close.gif" style="width: 14px; height: 14px; float: right; border: 0; margin-right: 5px" /></a>'
+	this.content+=data;
+	document.getElementById('informationbar').innerHTML = this.content
+}
+informationbar.prototype.setContent=function(data){
+	this.content=this.content+data
+	ib=document.getElementById('informationbar')
+	if(ib){
+		ib.innerHTML = (this.content)	
+	}else{
+		document.write('<div id="informationbar" style="top: -500px">'+this.content+'</div>')
+	}
+}
+
+informationbar.prototype.animatetoview=function(){
+	var barinstance=this
+	if (parseInt(this.barref.style.top)<0){
+		
+this.barref.style.top=parseInt(this.barref.style.top)+5+"px"
+		setTimeout(function(){barinstance.animatetoview()}, 50)
+	}
+	else{
+		if (document.all && !window.XMLHttpRequest)
+		this.barref.style.setExpression("top", 'document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px" : body.scrollTop+"px"')
+	else
+		this.barref.style.top=0
+	}
+}
+
+informationbar.close=function(){
+	document.getElementById('informationshowbar').style.display="block";
+	document.getElementById("informationbar").style.display="none"
+	if(!this.oldTop)this.oldTop=0
+	document.body.style.marginTop=this.oldTop+5+"px"
+	if (this.displayfreq=="session")
+		document.cookie="infobarshown=1;path=/"
+}
+
+informationbar.prototype.setfrequency=function(type){
+	this.displayfreq=type
+}
+
+informationbar.prototype.initialize=function(){
+	document.getElementById('informationshowbar').style.display="none";
+	if (this.displayfreq=="session" && document.cookie.indexOf("infobarshown")==-1 || this.displayfreq=="always"){
+		this.barref=document.getElementById("informationbar")
+		this.barheight=parseInt(this.barref.offsetHeight)
+		this.barref.style.top=this.barheight*(-1)+"px"
+		this.barref.style.display="block"
+		this.animatetoview()
+		this.oldTop=parseInt(document.body.style.marginTop)
+		if(!this.oldTop)this.oldTop="0"
+		document.body.style.marginTop="30px"
+	}
+}
+
+window.onunload=function(){
+	this.barref=null
+}
+
+</script>
+
+
+<script type="text/javascript">
+<!--Invocation code-->
+
+var infobar=new informationbar()
+infobar.setContent("{{ content|safe }}")
+</script>
+
+<div id="informationshowbar" onclick="infobar.initialize()"></div>

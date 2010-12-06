@@ -9,6 +9,7 @@ require_once("conf/main.php");
 class form {
 	private $content;
 	private $ds; //database connection
+	private $required; //required fields
 
 	public function __construct($name,$action) {
 		require_once("conf/" . DBMODE . ".php");
@@ -23,7 +24,14 @@ class form {
 
 	}
 
+	public function set_required($fields) {
+		$this->required = $fields;
+	}
+
 	public function input_data() {
+		#foreach($this->required as $key) {
+		#	if(!in_array($key,$_POST)) return(false);
+		#}
 		return(!empty($_POST));
 	}
 

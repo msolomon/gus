@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Gus Forums {% endblock %}
 {% block site_content %}
+{% load user_extras %}
+{% userbar user.user group ".thread" %}
 <a href="{% url gus_talk.views.forum thread.forumid %}">Back To Forum</a>
 <div id="list">
     {% for msg in messages %}

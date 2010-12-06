@@ -1,0 +1,132 @@
+/*http://www.pmob.co.uk/temp/dropdown-vertical3.htm*/
+
+
+html {
+	/*Fall Back Option*/
+	background: white;
+
+	/* gecko based browsers */
+	background: -moz-linear-gradient(top, #fffeed, #b18e5f);
+
+	/*fff495*/	
+
+	/* webkit based browsers */
+	background: -webkit-gradient(linear, left top, left bottom, from(#fffeed), to(#b18e5f));
+	height: auto;
+}
+
+
+body{
+	width: 1120px;
+	margin: auto;
+	background: #436188;
+
+}
+
+#container{
+	width: 1024px;
+	margin: auto;
+	padding: 2px;
+	font-family: "Arial";
+	font-size: 11pt;
+	height: 100%;
+	background-image:url('content_background.png'); 
+}
+
+
+.groups{
+	text-align: left;
+	padding-left: 10px;
+	font-family: Verdana;
+	font-size: 11pt;
+}
+
+#header_element{
+	background-image:url('gus_banner.png');
+	background-position: left top;
+	background-repeat: no-repeat;
+	text-align:right;
+	font-size: 14pt;
+	height: 140px;	
+	padding-left:255px;
+}
+
+#user_header{
+	
+}
+
+#links{
+	width: 100%;
+	float: center;
+	clear: both;
+	text-align: center;
+	vertical-align:text-top; 
+	padding-bottom: 20px;
+	border-top: 1px dashed #436188;
+	padding-top: 2px
+	/*Fall Back Option*/
+	background: black;
+	/* gecko based browsers */	
+	background: -moz-linear-gradient(top, #fffeed, #fff9ca);
+	/* webkit based browsers */
+	background: -webkit-gradient(linear, left top, left bottom, from(#fffeed), to(#fff9ca));
+
+	background-image:url('content_background.png'); 
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+}
+
+#spreader{
+	width: 100%;
+	float: center;
+	clear: both;
+	height: 20px;
+}
+
+#content{	
+ 	float: right; 
+	width:	78%;  
+	border-top: 1px dashed #436188;
+	padding: 10px;
+	background-position: right bottom;
+	background-repeat: no-repeat;
+	background-image:url('uistar.png'); 
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+}
+
+#group_column{
+	float: left top; 
+	width: 18%;
+	border-top: 1px dashed #436188;
+	text-align: center;
+	font-family: "Times New Roman";
+	font-size: 14pt;
+	padding-bottom: 10px;
+	background: #fff9ca;
+	background-image:url('content_background.png');
+	border-left: 1px solid white;
+	border-right: 1px solid white; 
+}
+
+/*
+border-top: 2px solid #436188;
+
+
+*/
+
+#footer{
+	width: 100%;
+	clear: both;
+	float: center;
+	text-align: center;
+	height: 30px;
+	font-size: 9px;
+	font-color: #666;
+	background-color:#f5f5f0;
+	padding-top: 20px;
+	border-top: 1px dashed #bcbcbc;
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+}
+

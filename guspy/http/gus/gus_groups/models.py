@@ -1,11 +1,20 @@
 from django.db import models
+from django import template
+from django.shortcuts import redirect
+from django.template.loader import render_to_string
 from django.contrib.auth.models import User,Group,Permission
+import backends 
+
+register = template.Library()
 
 class gus_user(models.Model):
 	_user=models.OneToOneField(User)
 	_token=models.CharField(max_length=50)
 	def user(self):
 		return self._user
+	def get_all_permissions(self):
+		be=gus_custom_backend()
+		be.get_grouprole_permissions(self)
 	def __unicode__(self):
 		return self._user.username
 
@@ -78,8 +87,14 @@ def setup_and_save_tokens(request,user):
         request.session.save()
 
 def userauthenticated(request):
-        key = request.session['user']
-        u=gus_user.objects.get(_token=key)
+	try:
+	        key = request.session['user']
+	except KeyError:
+		return
+	try:
+	        u=gus_user.objects.get(_token=key)
+	except gus_user.DoesNotExist:
+		return
         return u
 
 
@@ -89,4 +104,5 @@ def generate_token(user):
         import hashlib
         base=str(datetime.now())+user.password+user.username
         return  hashlib.sha1(base).hexdigest();
+
 

@@ -94,6 +94,7 @@ INSTALLED_APPS = (
     'gus.gus_groups',
     'gus.Jauth',
     'gus.gus_talk',
+    'gus.agenda', # Mike
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
