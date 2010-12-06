@@ -1,4 +1,10 @@
+/*http://www.pmob.co.uk/temp/dropdown-vertical3.htm*/
+
+
 html {
+	/*Fall Back Option*/
+	background: white;
+
 	/* gecko based browsers */
 	background: -moz-linear-gradient(top, #fffeed, #b18e5f);
 
@@ -41,7 +47,7 @@ body{
 	background-repeat: no-repeat;
 	text-align:right;
 	font-size: 14pt;
-	height: 200px;	
+	height: 140px;	
 	padding-left:255px;
 }
 
@@ -108,7 +114,6 @@ border-top: 2px solid #436188;
 
 
 */
-
 
 #footer{
 	width: 100%;
