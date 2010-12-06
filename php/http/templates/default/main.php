@@ -23,7 +23,7 @@ return("
  <li><a href=\"add-group.php?page=add-group.php\">Add A Group</a></li>
  <li><a href=\"add-group-member.php?page=add-group-member.php\">Add A Group Member</a></li>
  <li>Login</li>
- <li>Register</li>
+ <li><a href=\"registration.php?page=registration.php\">Register</a></li>
 </ul>
 
 <div id=\"content\">
