@@ -106,39 +106,50 @@ CS383 SSDD
 \tableofcontents
 \liststyleWWviiiNumiii
 
+\clearpage\setcounter{page}{1}\pagestyle{Convertiv}
+
 \section{Introduction}
 	\subsection{Identification}
-The software being considered for development is referred to as Groups in a
+The software under development is referred to as Groups in a
 University Setting (GUS).  The customers providing specifications for the PHP
-team are the student groups at the University of Idaho.  The ultimate customers
-or end users will be the students and student groups at the University of Idaho.
+team are the student groups at the University of Idaho.  The  end users will be
+of GUS will be the students and student groups at the University of Idaho.
 This is a new product effort, so the version under development is version 0.004.
 	\subsection{Document Purpose, Scope, and Intended Audience}
 		\subsubsection{Document Purpose}
-This document is intended to be used to help design and document GUS.
+The purpose of this document is to describe the design of GUS.  This document
+will serve as a guide for the PHP team as they move forward in development.
+After the product is completed, this document will serve as a reference in
+maintaining and updating the product.
 		\subsubsection{Document Scope}
-This document includes the documentation necessary to program GUS -- including
-UML diagrams, use-case descriptions, and a data dictionary.
+This document aims to contain the documentation needed to develop GUS.
+It will include UML diagrams, use case descriptions and other important
+details with regards to the design of the product.
 		\subsubsection{Intended Audience for Document}
-This document is intended for the developers (the PHP team), the team leader
-(Dr. J), and any personnel performing maintenance on and updating GUS.  While the system will be used by university personnel, this document is
+This document is intended to be read by the development team, the team's sponsor Dr.
+Jeffery, and any personnel responisble for performing maintenance on or updating GUS.
+While the system will be used by university personnel, this document is
 intended to be read and understood by UICS software designers and coders.
 This document will also be approved by Dr. Clinton Jeffery.
+
 	\subsection{System Software Purpose, Scope, and Intended Users}
 		\subsubsection{System and Software Purpose}
-The purpose of the system under development is to provide a tool for the easy
-administration and tracking of university-style groups including, but not
-limited to clubs and sports teams, the system will also be designed to increase
-student involvement by connecting and recognizing the involvement of users.
+The purpose of the system under development is to provide a utility to groups
+at the University of Idaho for administration and communication purposes.  GUS will
+allow students to connect with groups that will meet their involement needs.
+The system will be used by clubs, sports teams, and other university groups to
+increase student involvement by connecting and recognizing the involvement of members.
 		\subsubsection{System and Software Scope/or Context}
-GUS is a tool to connect students with groups that will meet their involvement
-needs.  It is also a tool to help recruit and manage members of university
-groups.
+The finished product will run on University of Idaho servers and will be accessible
+from any computer with a web browser and Internet access.  A user will be able to
+log in and receive updates and communications from their groups anytime it is
+convenient for the user.
 		\subsubsection{Intended Users for the System and Software}
-The indended users of the system are the student groups of the University of
-Idaho and University of Idaho students.
+The intended users of the system are students and student groups at the
+University of Idaho.
 	\subsection{Definitions, Acronyms, and Abbreviations}
 
+\begin{flushleft}
 
 \tablehead{\hline
 \textbf{Term or Acronym}
@@ -230,6 +241,8 @@ in, or concerns, relative to, a system ISO/IEC
 
 \end{supertabular}
 
+\end{flushleft}
+
 \subsection[DOCUMENT
 REFERENCES]{\bfseries DOCUMENT
 REFERENCES}
@@ -262,20 +275,26 @@ Institute of Electrical and Electronics Engineers, Inc., (IEEE), 445 Hoes Lane,
 Piscataway, NJ 08854, USA.}}
 \end{enumerate}
 	\subsection{Document Overview}
-		\subsubsection{Section 2} of this document describes the system and software constraints
+		\subsubsection{Section 2}
+This section of the document describes the system and software constraints
 imposed by the operational environment, system requirements and user
 characteristics, and then identifies the system stakeholders and lists
 describes their concerns and mitigations to those concerns.
-	\subsubsection{Section 3} of this document describes the system and software architecture from several
-viewpoints, including, but not limited to,
-the developers view and the users view.
-	\subsubsection{Section 4} provides detailed design descriptions for every component defined in the
+	\subsubsection{Section 3}
+This section of the document describes the system and software architecture from several
+viewpoints, including, but not limited to,the developer{\textquoteright}s view and the
+ user{\textquoteright}s view.
+	\subsubsection{Section 4}
+This section of the document provides detailed design descriptions for every component defined in the
 architectural view(s).
-	\subsubsection{Sections 5} provides traceability
+	\subsubsection{Sections 5}
+This section of the document provides traceability
 information connecting the original specifications (referenced above)
 to the architectural components and design entities identified in this
 document.
-	\subsubsection{Section 6} and beyond are appendices including original information and communications used to create this document.
+	\subsubsection{Section 6}
+Section 6 and beyond are appendices including original
+information and communications used to create this document.
 
 \subsection{Document Restrictions}
 This document is for LIMITED RELEASE ONLY to UI CS personnel working on
