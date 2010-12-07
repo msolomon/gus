@@ -1,0 +1,18 @@
+Zeke Long
+CVE report
+12/6/2010
+
+My experience with CVE was mostly good.  I like the fact that 
+you can use the virtual world to interact and collaborate with
+other people on software projects.  Being able to chat with 
+team members while writing code, and easily working on code 
+together in real time is something that can boost productivity 
+big time.  As Hani and Jafar pointed out, there are still some 
+improvements needed with chat, but it is already functional and 
+effective as it is.  When writing code, I like how CVE numbers 
+each line as you go.  Another thing I like about CVE is how it 
+lists your projects, groups, etc. neatly on the side of the 
+screen for quick access.  One thing I don't like is the fact 
+that it is too easy to accidently log out (like when I select 
+the make option from the menu and it says press any key to 
+continue).     
