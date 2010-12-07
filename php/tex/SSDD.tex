@@ -93,7 +93,9 @@ Groups in a University Setting
 \\
 Version 0.004 \\
 December 2, 2010 \\
-\includegraphics{../http/png/index.png}
+
+\includegraphics{'../http/png/index.png'}
+
 Prepared for: \\
 The Associated Students of the University of Idaho and Dr. Clinton Jeffery \\
 Prepared by: \\
@@ -147,6 +149,8 @@ convenient for the user.
 		\subsubsection{Intended Users for the System and Software}
 The intended users of the system are students and student groups at the
 University of Idaho.
+
+\newpage
 	\subsection{Definitions, Acronyms, and Abbreviations}
 
 \begin{flushleft}
@@ -242,7 +246,7 @@ in, or concerns, relative to, a system ISO/IEC
 \end{supertabular}
 
 \end{flushleft}
-
+\newpage
 \subsection[DOCUMENT
 REFERENCES]{\bfseries DOCUMENT
 REFERENCES}
@@ -396,7 +400,7 @@ The graphical user interfaces are the only part the user directly sees and manip
 and view information in the database and they communicate with the web-interfaces to access the database
 and present the data in a human-readable form.  The web interfaces ensure that the input from
 the users is valid and safe to put in the database, and they also ensure that data pulled from
-the database is sent to the appropriate users.
+the database is sent only to the appropriate users.
 
 \subsection{User{\textquoteright}s Architectural View}
 GUS is a website with different levels of privelege for users, officers, and administrators.
@@ -418,29 +422,29 @@ for each of the three levels of privelege.
 
 \begin{wrapfigure}[12]{r}{2in}
   \begin{center}
-    \includegraphics{../pdf_png/email_use_cases.png}
+    \includegraphics{'../pdf_png/email_use_cases.png'}
   \end{center}
   \caption{Replace with screenshot of email mock-up}
 \end{wrapfigure}
 
 
 \subsubsection{User{\textquoteright}s View Representation and Description}
-\paragraph{Text-Email Module}
+
+\\{\bf Text and E-mail Module}
 
 \\User-view class diagram which this entry is based on was designed by Brett Hitchcock,
 this entry was written by Cynthia Rempel.
 
-\\The purpose of the email module is to enable users to send emails to groups and other users.
-Two advantages of using GUS to communcate are: texting, and predefined social newtworks.
-The texting feature enables users or groups to communicate about events at the last minute.
-Instead of each user manually updating their email lists when people leave the group,
+\\The purpose of the e-mail module is to enable users to send e-mails to groups and other users.
+Two advantages of using GUS to communcate are: texting and predefined social networks.
+The texting feature enables users or groups to communicate about events at the last minute via SMS
+text messages.  Instead of each user manually updating their e-mail lists when people leave the group,
 GUS tracks the members for each group. For example: the president of the Business Professionals of America
 might want to invite the Information Systems club to a meeting about their information systems competitive events.
-{Another example: the president of the Tech club cancels a meeting at the last minute because Prof.
-Kerr (the advisor) is ill, and he texts all of the Tech club members.}\\
-
-\\A user can access her email and text features through her email page,
-she can only text people (or groups) that have given her permission to.\\
+Another example: the president of the Tech club cancels a meeting at the last minute because
+the advisor is ill, and he texts all of the Tech club members.
+A user can access their e-mail and text features through their e-mail page, and
+they can only text people (or groups) that have  permission to e-mail or text.
 
 
 \pagebreak
@@ -448,7 +452,7 @@ she can only text people (or groups) that have given her permission to.\\
 \paragraph{Forums Module}
 \begin{wrapfigure}[17]{l}{2in}
   \begin{center}
-    \includegraphics{../pdf_png/forums_use_cases.png}
+    \includegraphics{'../pdf_png/forums_use_cases.png'}
   \end{center}
   \caption{replace with screen-shots of forums mock-ups}
 \end{wrapfigure}
@@ -468,7 +472,7 @@ perhaps a \textbf{permissions wizard} }\\
 
 \begin{wrapfigure}[17]{r}{2in}
   \begin{center}
-    \includegraphics{../pdf_png/profile_use_cases.png}
+    \includegraphics{'../pdf_png/profile_use_cases.png'}
   \end{center}
   \caption{replace with screen-shot of profile mock-up}
 \end{wrapfigure}
@@ -495,7 +499,7 @@ and so his name is to be engraved now.  Another example would be, every fall the
 mandatory officer orientation, and up-to-date emails facilitate this process.\\
 \begin{wrapfigure}[24]{r}{4in}
 	\begin{center}
-\includegraphics{../http/png/registration-form.png}
+\includegraphics{'../http/png/registration-form.png'}
 	\end{center}
 	\caption{registration form by Abhay Patil}
 \end{wrapfigure}
@@ -517,7 +521,7 @@ mandatory officer orientation, and up-to-date emails facilitate this process.\\
 and phone number are validated, and then sent to GUS to be put in the database\\
 \begin{wrapfigure}[15]{l}{200px}
   \begin{center}
-    \includegraphics{../pdf_png/event_use_cases.png}
+    \includegraphics{'../pdf_png/event_use_cases.png'}
   \end{center}
   \caption{Replace with mock-up of a page inviting the user to join a group and/or an event}
 \end{wrapfigure}
@@ -534,7 +538,7 @@ encourage high-schoolers to learn business skills.
 \pagebreak
 \begin{wrapfigure}[23]{r}{4in}
   \begin{center}
-\includegraphics{../http/png/officer_control.png}
+\includegraphics{'../http/png/officer_control.png'}
   \end{center}
   \caption{Officer Panel Mockup by Leah Wegner}
 \end{wrapfigure}
@@ -550,7 +554,7 @@ John later decides to join the Tech club, and the treasurer uses GUS to add him 
 Professionals of America State Leadership Conference is holding a C++ event, and BPA may want to add that back to their group page.\\
 \begin{wrapfigure}[19]{l}{3in}
   \begin{center}
-\includegraphics{../http/user_mockups/enter_fees_mockup.png}
+\includegraphics{'../http/user_mockups/enter_fees_mockup.png'}
   \end{center}
   \caption{Enter Fees Mockup by Cindy}
 \end{wrapfigure}
@@ -571,7 +575,7 @@ all the membership criteria: waivers, dues, service project, class standing, GPA
 \pagebreak
 \begin{wrapfigure}[24]{l}{3in}
   \begin{center}
-\includegraphics{../http/user_mockups/notify_concerning_fees_mockup.png}
+\includegraphics{'../http/user_mockups/notify_concerning_fees_mockup.png'}
   \end{center}
   \caption{Membership Reminders Mockup by Cindy}
 \end{wrapfigure}
@@ -594,7 +598,7 @@ they are deficient in.\\
 
 %\begin{wrapfigure}{r}{200px}
 %  \begin{center}
-%    \includegraphics{../pdf_png/admin_use_cases.png}
+%    \includegraphics{'../pdf_png/admin_use_cases.png'}
 %  \end{center}
 %\end{wrapfigure}
 %\paragraph{Administrative Module}
@@ -613,7 +617,7 @@ The GUS class establishes a connection to the database for the transfer of data,
 and uses that data to set up page content for the user. The MySql class connects and disconnects from GUS,
 implements the database design, queries the database, and enables GUS to make changes to the database.
 \begin{figure}[ht]
-    \includegraphics{../doc/proto_framework_associations.png}
+    \includegraphics{'../doc/proto_framework_associations.png'}
 	\caption{Prototype Framwork Associations by Colby Blair}
 \end{figure}
 
@@ -749,7 +753,7 @@ Forms must encrypt passwords, and only transmit sensitive data through secure pr
 Forms must collect the minimum amount of data about a user to meet the mission of
 student group organization and recruitment to minimize the desirability of GUS as a target for maliciousness.
 \begin{figure}[ht]
-    \includegraphics{../doc/form-data-submission-statechart.png}
+    \includegraphics{'../doc/form-data-submission-statechart.png'}
 	\caption{Form Submission Statechart by Colby Blair, transition descriptions by Cynthia Rempel}
 \end{figure}
 \subsubsection{Detailed Design for Component: GUS}
@@ -904,7 +908,7 @@ Access to this feature should be very limited -- one command can remove an entir
 
 \begin{wrapfigure}{r}{375px}
   \begin{center}
-    \includegraphics{../pdf_png/membership_statechart.png}
+    \includegraphics{'../pdf_png/membership_statechart.png'}
   \end{center}
 \end{wrapfigure}
 \subsubsection{Detailed Design for Entity: Membership Status}
