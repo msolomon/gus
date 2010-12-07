@@ -17,6 +17,7 @@ def regform():
 register.simple_tag(regform)    
 register.simple_tag(loginform)    
 
+
 class role_form(forms.Form):
         users = forms.CharField(max_length=100)
 
@@ -25,9 +26,26 @@ def assign_group_form(role):
 	return render_to_string('gus_groups/blocks/roles.html',{'role_form':rf})
 register.simple_tag(assign_group_form)    
 
+def require_permission(user,group,perm=""):
+	p= user.has_perm(group,perm)
+	if not p:
+		return jsredirect("/login/")
+	return ''
+register.simple_tag(require_permission)    
+
+def has_permission(user,group,perm=""):
+	return user.has_perm(group,perm)
+
+register.simple_tag(has_permission)    
+
 
 def generate_user_string(user,group,subcontext=""):
 	str= "Hello "+ user.username + ", "
 	str+="<a href='/logout/'>Logout</a>"
-	str+="<span style='float:right;margin-right:10px'><b>["+group+subcontext+"]</b>:<a href='/profile/'>View Profile</a></span>"
+	str+="<span style='float:right;margin-right:10px'><b>["+group.group_name+subcontext+"]</b>:<a href='/profile/'>View Profile</a></span>"
 	return str
+
+def jsredirect(url):
+	return "<script type=\"text/javascript\">window.location=\""+url+"\"</script>"
+
+register.simple_tag(jsredirect)
