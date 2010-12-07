@@ -10,7 +10,7 @@ class gus_forum(models.Model):
 	def __unicode__(self):
 		return self._title
 	def group(self):
-		return self._group.group_name
+		return self._group
 	def title(self):return self._title
 	def num_posts(self): return sum([t.num_posts() for t in self.gus_thread_set.all()])
 	def last_post(self):

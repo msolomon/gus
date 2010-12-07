@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Gus Forums {% endblock %}
-{% block site_content %}
-{% load user_extras %}
+{% block site_content %} 
+{% load user_extras %}{# IMPORT CUSTOM USER HELPER FUNCTIONS FROM gus_groups/templatetags/user_extras.py #}
+{#One of the user extras is require_permission  which will require the user have the correct permissions
+  Or will redirect to the login screen  #}
+{% require_permission  user forum.group  'gus_talk.add_gus_message' %}
+
 <div id="list">
 {% userbar user.user forum.group %}
 <table border="0" width="100%">
