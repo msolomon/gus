@@ -1,0 +1,6 @@
+Timothy Bianchetti
+CVE Report
+
+Getting CVE to work was a challenge. I was unable to get CVE to work on my Linux machine - the client would crash when I would attempt to create an account. I was able to create an account on my windows machine, but was unable to connect to a server for quite some time.
+
+I was finally able to login on my Linux machine after creating an account on my windows machine. The controls were very jerky but otherwise everything seemed to work fine. Trying to create a project, however, froze up the client for a while. Text editing worked okay, but trying to save anything would cause a crash. The interface seems good but the crashes need to be fixed.
