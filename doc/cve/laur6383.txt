@@ -1,0 +1,17 @@
+Chaylo Laurino
+CVE report
+
+After a single failure when I first tired to install and run CVE I was 
+able to get it working without issue on my winXP machine.  I created and 
+account, logged in and walked around a bit.
+
+The second time I logged in again and walked around some more, openned 
+some doors and snooped in the virtual offices of professors.  Then I 
+created a c++ project and attempted to load and compile a very old 
+assignment from and early class.  CVE then crashed and I called it good.
+
+I love the concept and kind of wish our project was in a langauge that 
+CVE supported so I would need to get better with it, maybe even help 
+improve it.  I also very much like the idea of "quests" that teach.  I 
+recall video games growing up that involved learned rather than just 
+mindless violence.
