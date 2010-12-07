@@ -1,0 +1,6 @@
+Brett Hitchcock
+CVE Report
+
+I managed to get the CVE working after a long sequence of trying to create an account and trying to boot in both Linux and Windows. For some reason, I was unable to get beyond the login screen in Windows without having my account created, which did work in Linux (via Wine), but trying to run the CVE in Linux resulted in nothing but crashes, whereas it worked in Windows.
+
+Once I got it working, I was able to walk around in the world, but the movement controls felt very unresponsive. I was able to interact with some objects (doors), but unable to interact with other things without the program crashing. I also did not get much time to test out the code collaboration as nobody else had gotten it to work.
