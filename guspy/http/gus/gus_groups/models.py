@@ -3,7 +3,7 @@ from django import template
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User,Group,Permission
-import backends 
+from backends import *
 
 register = template.Library()
 
@@ -12,9 +12,16 @@ class gus_user(models.Model):
 	_token=models.CharField(max_length=50)
 	def user(self):
 		return self._user
-	def get_all_permissions(self):
+
+	def get_group_role(self,group):
+		return usergrouprole(self,group)
+	
+	def get_all_permissions(self,group):
 		be=gus_custom_backend()
-		be.get_grouprole_permissions(self)
+		return be.get_grouprole_permissions(self,group)
+	def has_perm(self,group,perm):
+		be=gus_custom_backend()
+		return be.has_perm(self,group,perm)
 	def __unicode__(self):
 		return self._user.username
 
@@ -28,7 +35,8 @@ class gus_group(models.Model):
 		r.save();
 		r=gus_roles(role_name='Member',gid=self);
 		r.save()
-
+	def get_user_role(self,user):
+		return usergrouprole(user,self)
 	def get_users(self):
 		return "users comming soon"
 
@@ -59,6 +67,11 @@ class user_token(models.Model):
 				return "xyz"
 
 
+def usergrouprole(user,group):
+	try:
+		return gus_roles.objects.filter(gid=group,uid=user)[0]
+	except IndexError:
+		return None
 
 def authenticate(username,password):
         try:

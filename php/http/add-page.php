@@ -9,6 +9,8 @@ include("conf/form.php");
 
 $gus_main = new gus;
 
+print_r($_POST);
+
 $content = "";
 $form1 = new form("add-page","add-page.php");
 if($form1->input_data()) {
