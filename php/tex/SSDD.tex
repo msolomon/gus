@@ -94,7 +94,7 @@ Groups in a University Setting
 Version 0.004 \\
 December 2, 2010 \\
 
-\includegraphics{'../http/png/index.png'}
+\includegraphics{../http/png/index.png}
 
 Prepared for: \\
 The Associated Students of the University of Idaho and Dr. Clinton Jeffery \\
@@ -105,12 +105,11 @@ Moscow, ID  83844-1010 \\
 CS383 SSDD
 \end{center}
 \pagebreak
-\tableofcontents
+
 \liststyleWWviiiNumiii
-
-\clearpage\setcounter{page}{1}\pagestyle{Convertiv}
-
+\tableofcontents
 \section{Introduction}
+%This section was written by original GUS team, copied and clarified by Cindy, and further clarified by Alex
 	\subsection{Identification}
 The software under development is referred to as Groups in a
 University Setting (GUS).  The customers providing specifications for the PHP
@@ -246,7 +245,6 @@ in, or concerns, relative to, a system ISO/IEC
 \end{supertabular}
 
 \end{flushleft}
-\newpage
 \subsection[DOCUMENT
 REFERENCES]{\bfseries DOCUMENT
 REFERENCES}
@@ -414,151 +412,60 @@ with one another through groups.  As such, communication between users is a very
 and is fulfilled by several different modules including e-mail and forums.  One of the major
 distinctions between users in a group is their level of privilege, and there are specific modules
 for each of the three levels of privelege.
-
-%I think the figures and use cases need to be moved/reworked/reogranized
+%Alex: I think the figures and use cases need to be moved/reworked/reogranized
 %Replace User's View Representation and Description with module name?
 %Rather than 3.2.2.1.1 etc. should be 3.2.2.1 or something.
 %Better yet, use real paragraphs rather than subsections?
 
-\begin{wrapfigure}[12]{r}{2in}
-  \begin{center}
-    \includegraphics{'../pdf_png/email_use_cases.png'}
-  \end{center}
-  \caption{Replace with screenshot of email mock-up}
-\end{wrapfigure}
+%Cindy: I agree the use cases need to be reorganized, but I suspect that it would be easier to
+%maintain traceability if we at least kept one \paragraph or \subsubsubsection per use-case.
+%I agree though text is prettier than numbers, so I will make the changes.  Is there a way to
+%get an extra line break between paragraphs?
+
 
 
 \subsubsection{User{\textquoteright}s View Representation and Description}
-
-\\{\bf Text and E-mail Module}
-
-\\User-view class diagram which this entry is based on was designed by Brett Hitchcock,
-this entry was written by Cynthia Rempel.
-
-\\The purpose of the e-mail module is to enable users to send e-mails to groups and other users.
-Two advantages of using GUS to communcate are: texting and predefined social networks.
-The texting feature enables users or groups to communicate about events at the last minute via SMS
-text messages.  Instead of each user manually updating their e-mail lists when people leave the group,
-GUS tracks the members for each group. For example: the president of the Business Professionals of America
-might want to invite the Information Systems club to a meeting about their information systems competitive events.
-Another example: the president of the Tech club cancels a meeting at the last minute because
-the advisor is ill, and he texts all of the Tech club members.
-A user can access their e-mail and text features through their e-mail page, and
-they can only text people (or groups) that have  permission to e-mail or text.
-
-
-\pagebreak
-
-\paragraph{Forums Module}
-\begin{wrapfigure}[17]{l}{2in}
+\paragraph{Group Administrator Use Cases}
+\paragraph{Add Officer}
+\paragraph{Modify Officer Access}
+\paragraph{Remove Officer}
+\begin{wrapfigure}[26]{r}{4in}
   \begin{center}
-    \includegraphics{'../pdf_png/forums_use_cases.png'}
-  \end{center}
-  \caption{replace with screen-shots of forums mock-ups}
-\end{wrapfigure}
-\subparagraph{}--- diagram which this entry is based on was designed by ---, this entry was written by Cynthia Rempel.
-\subparagraph{} The forums module is designed to enable groups to collaborate on group decisions and consolidate member input.
-For example: the president of the tech-club may start a forum on brainstorming and developing informal business plans to raise money.
-From there, the vice president might post a topic of using the club to start computer repair shop, the secretary may line out possible services,
-the treasurer may suggest a fee schedule, and members may volunteer what services, and how much time they could commit to the idea.
-
-\subparagraph{} To post on the forums page a user would have to be granted permissions by the groups administrator,
-and the user would have to be on the groups forum page.  Types of permissions a user would expect to see are: add post, modify own post,
-modify other members posts, remove own post, and remove other members posts;
-{there would be a similar (but possibly more restrictive) set of permissions for topics.}\\
-\subparagraph{} {For the administrator to modify privaledges, she should be on the forums page of the group, ideally,
-there should be some minimal guidance on the security aspects of giving users permissions right on the forums page,
-perhaps a \textbf{permissions wizard} }\\
-
-\begin{wrapfigure}[17]{r}{2in}
-  \begin{center}
-    \includegraphics{'../pdf_png/profile_use_cases.png'}
-  \end{center}
-  \caption{replace with screen-shot of profile mock-up}
-\end{wrapfigure}
-\paragraph{Profile Module}
-
-\subparagraph{} The user-view class diagram which this entry is based on was designed by Brett Hitchcock,
-this entry was written by Cynthia Rempel.\\
-
-\subparagraph{} The purpose of a profile is to enable the user or group to present a picture of who she or they are,
-so other users or groups can make an informed decision of whether to associate with her or them.
-
-For example: the Business Professionals of America (BPA) club might appeal to the Virtual Technology and Design (VTD) majors,
-because BPA displays their video animation competive event for which they want to recuit judges at the local high-school level
-and participants at the college-level. Also, the Lutheran Campus Ministry might want to attract music majors,
-because of their proximity to the Music building. Another example of a profile feature might be an incoming freshmen might be
-really interested in video games, and the video game club is looking for members.\\
-
-\subparagraph{}
-Users may want the amount of information shared limited to only a subset of groups they are members of.  For example: Joan2833 may want to
-share her schedule with members of the National Youth Accreditation Association (NYACC), but not with ASUI.\\
-\subparagraph{} The personal profile is also a way for users to keep their information up-to-date.  For example: if the head coach needs
-to contact the Tech club president for last minute changes for the awards to be engraved (the underdog pulled through at the last minute)
-and so his name is to be engraved now.  Another example would be, every fall the ASUI emails all the student groups with the times for
-mandatory officer orientation, and up-to-date emails facilitate this process.\\
-\begin{wrapfigure}[24]{r}{4in}
-	\begin{center}
-\includegraphics{'../http/png/registration-form.png'}
-	\end{center}
-	\caption{registration form by Abhay Patil}
-\end{wrapfigure}
-\subparagraph{} Use case: register for gus\\
-\textbf{Actor:} prospective user \\
-\textbf{Goal:} user will be registered for GUS\\
-\textbf{Preconditions:} user is at GUS registration page\\
-\textbf{Related Use Cases:} edit personal information\\
-\textbf{Steps:}\\
-1. User enters their name\\
-2. User enters their email\\
-3. User enters their user name\\
-4. User enters their password\\
-5. User enters their password again\\
-6. User enters their phone number\\
-7. User clicks submit\\
-\textbf{Alternatives:} user navigates away from page, officer or administrator may desire to add a user who is less technically literate\\
-\textbf{Post Conditions:} The user's name, email, user name, password,
-and phone number are validated, and then sent to GUS to be put in the database\\
-\begin{wrapfigure}[15]{l}{200px}
-  \begin{center}
-    \includegraphics{'../pdf_png/event_use_cases.png'}
-  \end{center}
-  \caption{Replace with mock-up of a page inviting the user to join a group and/or an event}
-\end{wrapfigure}
-\paragraph{Event Group Module}
-\subparagraph{} The user-view class diagram which this entry is based on was designed by Brett Hitchcock,
-this entry was written by Cynthia Rempel. \\
-
-\subparagraph{} The purpose of the event group module is to enable users to join groups and events.
-Users can use GUS to look for groups that interest them, or they might want to join events that interest them.
-For example: a softmore interested in becoming a Methodist minister may decide joining Religion and Ethics may look really good on
-an application to go to seminary.
-A marketing major may want to sign up to judge at a DECA event that Business Professionals of America is hosting to
-encourage high-schoolers to learn business skills.
-\pagebreak
-\begin{wrapfigure}[23]{r}{4in}
-  \begin{center}
-\includegraphics{'../http/png/officer_control.png'}
+\includegraphics{../http/png/officer_control.png}
   \end{center}
   \caption{Officer Panel Mockup by Leah Wegner}
 \end{wrapfigure}
-\paragraph{Officer Module}
-\subparagraph{} The purpose of the officer module is to enable officers to manage the group events, membership, and website.
+\paragraph{Officer Use Cases}
+The purpose of the officer module is to enable officers to manage the group events, membership, and website.
+Officers can: add, modify, or remove events; add, modify, or remove group websites, and add or remove members.
+Because officers can just be a member of a different group, the officer's available actions would be listed in a pop-out menu
+connected to the group's site.  To improve useability, the pop-out menu should look like an extention of the user menu.
+For example: the officer navigates to the group website, his user menu becomes longer, he hovers over ``events'', the pop-out
+would display ``add event, modify event, and remove event'', the officer would then select an option, such as,
+``remove event'' and the remove event page would be displayed.
 For example, the president of the UI Tech club could post a plaque engraving event for 2:30 PM, and after 10 people signed up, there could be a snowstorm
 (2 ft in one hour!) at 12:30 he cancels the event, so he decides to send a group text (which includes not only UI Tech club members
-likely to attend but didn't sign up,
-but everyone who RSVPed to include John (who's just taking the class and is not in club), followed up by an email, and finally the president
+likely to attend but didn't sign up, but everyone who RSVPed to include John (who's just taking the class and is not in club),
+followed up by an email, and finally the president
 prints out a roster of the likely attenders who only have a land-line with no internet to call manually.
 John later decides to join the Tech club, and the treasurer uses GUS to add him to the Tech club.\\
-\subparagraph{} An officer may want to change the contents of a group's web page.  For example: this year Idaho's Business
+An officer may want to change the contents of a group's web page.  For example: this year Idaho's Business
 Professionals of America State Leadership Conference is holding a C++ event, and BPA may want to add that back to their group page.\\
+
+
+
+\paragraph{Add Activity}
+\paragraph{Add User}
+\paragraph{Add Website}
+\pagebreak
+\paragraph{Enter Fee Information}
 \begin{wrapfigure}[19]{l}{3in}
   \begin{center}
-\includegraphics{'../http/user_mockups/enter_fees_mockup.png'}
+\includegraphics{../http/user_mockups/enter_fees_mockup.png}
   \end{center}
   \caption{Enter Fees Mockup by Cindy}
 \end{wrapfigure}
-\subparagraph{}Use case: enter fee information\\
+
 \textbf{Actor:} officer \\
 \textbf{Goal:} Store group dues in GUS databse \\
 \textbf{Precondtitions:} Officer is logged on and at the group's officer page\\
@@ -572,15 +479,17 @@ Professionals of America State Leadership Conference is holding a C++ event, and
 \textbf{Postconditions:} the dues information is saved in the database \\
 This use-case can be expanded by using the same screen for an officer to specify
 all the membership criteria: waivers, dues, service project, class standing, GPA, major, etc.\\
-\pagebreak
+
+\paragraph{Modify Activity}
+\paragraph{Modify Website}
 \begin{wrapfigure}[24]{l}{3in}
   \begin{center}
-\includegraphics{'../http/user_mockups/notify_concerning_fees_mockup.png'}
+\includegraphics{../http/user_mockups/notify_concerning_fees_mockup.png}
   \end{center}
   \caption{Membership Reminders Mockup by Cindy}
 \end{wrapfigure}
 
-\subparagraph{Use case: notify members concerning dues/fees} from Mike's use cases.
+\paragraph{Use case: notify members concerning dues/fees} from Mike's use cases.
 
 \textbf{Actor:} group leader \\
 \textbf{Goal:} notify members of outstanding expenses \\
@@ -596,13 +505,150 @@ the officer to remind members about multiple membership criteria they need to me
 they are deficient in.\\
 \textbf{Postconditions:} a notification is emailed to each applicable member \\
 
-%\begin{wrapfigure}{r}{200px}
-%  \begin{center}
-%    \includegraphics{'../pdf_png/admin_use_cases.png'}
-%  \end{center}
-%\end{wrapfigure}
-%\paragraph{Administrative Module}
-%\subparagraph{} The purpose of the administrative module
+\paragraph{Remove Activity}
+\paragraph{Remove User}
+\paragraph{Remove Website}
+\paragraph{Text and E-mail Module}
+
+\begin{wrapfigure}[16]{r}{2in}
+  \begin{center}
+    \includegraphics{../pdf_png/email_use_cases.png}
+  \end{center}
+  \caption{Replace with screenshot of email mock-up}
+\end{wrapfigure}
+User-view class diagram which this entry is based on was designed by Brett Hitchcock,
+this entry was written by Cynthia Rempel.\\
+
+The purpose of the e-mail module is to enable users to send e-mails to groups and other users.
+Two advantages of using GUS to communcate are: texting and predefined social networks.
+The texting feature enables users or groups to communicate about events at the last minute via SMS
+text messages.  Instead of each user manually updating their e-mail lists when people leave the group,
+GUS tracks the members for each group. For example: the president of the Business Professionals of America
+might want to invite the Information Systems club to a meeting about their information systems competitive events.
+Another example: the president of the Tech club cancels a meeting at the last minute because
+the advisor is ill, and he texts all of the Tech club members.
+A user can access their e-mail and text features through their e-mail page, and
+they can only text people (or groups) that have  permission to e-mail or text.
+
+\paragraph{Send Group Email}
+
+\paragraph{Send Text}
+\paragraph{User Use Cases}
+\paragraph{Create Email}
+\paragraph{Edit Email}
+
+
+\begin{wrapfigure}[20]{r}{2in}
+  \begin{center}
+    \includegraphics{../pdf_png/profile_use_cases.png}
+  \end{center}
+  \caption{replace with screen-shot of profile mock-up}
+\end{wrapfigure}
+\paragraph{Edit Personal Page}
+The user-view class diagram which this entry is based on was designed by Brett Hitchcock,
+this entry was written by Cynthia Rempel.\\
+
+The purpose of a profile is to enable the user or group to present a picture of who she or they are,
+so other users or groups can make an informed decision of whether to associate with her or them.\\
+
+For example: the Business Professionals of America (BPA) club might appeal to the Virtual Technology and Design (VTD) majors,
+because BPA displays their video animation competive event for which they want to recuit judges at the local high-school level
+and participants at the college-level. Also, the Lutheran Campus Ministry might want to attract music majors,
+because of their proximity to the Music building. Another example of a profile feature might be an incoming freshmen might be
+really interested in video games, and the video game club is looking for members.\\
+
+Users may want the amount of information shared limited to only a subset of groups they are members of.  For example: Joan2833 may want to
+share her schedule with members of the National Youth Accreditation Association (NYACC), but not with ASUI.\\
+
+The personal profile is also a way for users to keep their information up-to-date.  For example: if the head coach needs
+to contact the Tech club president for last minute changes for the awards to be engraved (the underdog pulled through at the last minute)
+and so his name is to be engraved now.  Another example would be, every fall the ASUI emails all the student groups with the times for
+mandatory officer orientation, and up-to-date emails facilitate this process.\\
+
+
+\begin{wrapfigure}[20]{l}{170px}
+  \begin{center}
+    \includegraphics{../pdf_png/event_use_cases.png}
+  \end{center}
+  \caption{Replace with mock-up of a page inviting the user to join a group and/or an event}
+\end{wrapfigure}
+\paragraph{Event Group Module}
+The user-view class diagram which this entry is based on was designed by Brett Hitchcock,
+this entry was written by Cynthia Rempel. \\
+The purpose of the event group module is to enable users to join groups and events.
+Users can use GUS to look for groups that interest them, or they might want to join events that interest them.
+For example: a softmore interested in becoming a Methodist minister may decide joining Religion and Ethics may look really good on
+an application to go to seminary. A marketing major may want to sign up to judge at a DECA event that Business Professionals of
+America is hosting to encourage high-schoolers to learn business skills.\\
+When a user makes a request to join a group or event, their request is checked against the database as to whether they meet the
+criteria to perform the add group or event action.  If the user is qualified, then the change is made in the database, and a confirmation is
+displayed on the screen and sent to the user's email, otherwise, the user is notified they do not meet the criteria.\\
+Some groups and events are open to any GUS user, but other groups and events may not be open to the public, so there are three levels of
+approval to be built in: open, auto-approved if the criteria is met, and approved by officers only.\\
+
+\paragraph{Join Activity}
+\paragraph{Join Group}
+\paragraph{Leave Group}
+\paragraph{Send Email}
+\paragraph{Sign Up}
+%Cindy: Abhay wanted something on his JavaScript regular expressions -- could we make sure this happens in this chapter or the next?
+\pagebreak
+\begin{wrapfigure}[30]{r}{4in}
+	\begin{center}
+\includegraphics{../http/png/registration-form.png}
+	\end{center}
+	\caption{registration form validated with regular expressions by Abhay Patil}
+\end{wrapfigure}
+\paragraph{} Use case: register for gus\\
+\textbf{Actor:} prospective user \\
+\textbf{Goal:} user will be registered for GUS\\
+\textbf{Preconditions:} user is at GUS registration page\\
+\textbf{Related Use Cases:} edit personal information\\
+\textbf{Steps:}\\
+1. User enters their name\\
+2. User enters their email\\
+3. User enters their user name\\
+4. User enters their password\\
+5. User enters their password again\\
+6. User enters their phone number\\
+7. User clicks submit\\
+\textbf{Alternatives:} user navigates away from page, officer or administrator may desire to add a user who is less technically literate\\
+\textbf{Post Conditions:} The user's name, email, user name, password,
+and phone number are validated, and then sent to GUS to be put in the database\\
+Once the user submits the registration form, a javascript is executed, which then checks the user's input against regular expressions.
+Finally, once the form is validated it is checked again by GUS for valid information, then finally the information is sent to the database,
+then a series of confirmations are sent, and the user is then given a confirmation message that displays the information added to the database.
+
+\paragraph{Forums Use Cases}
+
+%Cindy: John, what type of diagram was your forums module?
+%Cindy: Need more text on forums
+\paragraph{Forums Module}
+\begin{wrapfigure}[21]{l}{2in}
+  \begin{center}
+    \includegraphics{../pdf_png/forums_use_cases.png}
+  \end{center}
+  \caption{replace with screen-shots of forums mock-ups}
+\end{wrapfigure}
+--- diagram which this entry is based on was designed by John Sandmeyer, this entry was written by Cynthia Rempel.\\
+The forums module is designed to enable groups to collaborate on group decisions and consolidate member input.
+For example: the president of the tech-club may start a forum on brainstorming and developing informal business plans to raise money.
+From there, the vice president might post a topic of using the club to start computer repair shop, the secretary may line out possible services,
+the treasurer may suggest a fee schedule, and members may volunteer what services, and how much time they could commit to the idea.\\
+To post on the forums page a user would have to be granted permissions by the groups administrator,
+and the user would have to be on the groups forum page.  Types of permissions a user would expect to see are: add post, modify own post,
+modify other members posts, remove own post, and remove other members posts;
+there would be a similar (but possibly more restrictive) set of permissions for topics.\\
+For the administrator to modify privaledges, she should be on the forums page of the group, ideally,
+there should be some minimal guidance on the security aspects of giving users permissions right on the forums page,
+perhaps a \textbf{permissions wizard}\\
+\paragraph{Add Post}
+\paragraph{Add Topic}
+\paragraph{Edit Post}
+\paragraph{Edit Topic}
+\paragraph{Modify Privaledges}
+\paragraph{Remove Post}
+\paragraph{Remove Topic}
 
 \subsubsection{Developer{\textquoteright}s View Representation and
 Description}
@@ -616,8 +662,51 @@ The forms class can be extended to have additional text fields for user input.
 The GUS class establishes a connection to the database for the transfer of data,
 and uses that data to set up page content for the user. The MySql class connects and disconnects from GUS,
 implements the database design, queries the database, and enables GUS to make changes to the database.
+\begin{figure}[h]
+    \includegraphics{../personal_images/Cynthia/SampleClass.png}
+	\caption{Sample Boundary Class Diagram by Cynthia}
+\end{figure}
+\paragraph{Add Officer}
+\begin{figure}[h]
+    \includegraphics{../personal_images/Zeke/add_officer_sequence}
+	\caption{Add Officer Sequence Diagram by Zeke, image linked by Cindy, textual description by ...}
+\end{figure}
+\paragraph{Modify Officer Access}
+\paragraph{Remove Officer}
+\paragraph{Change Group password -- implement access through roles} The level of access a person has to
+the group's website is implemented through the use of roles: when a user navigates to a group's website, the
+system checks with the database to see if the user is an officer, and if so, displays the additonal officer
+menu underneath or next to their user menu.
+\paragraph{Add User}
+\paragraph{Add Activity}\begin{figure}[h]
+    \includegraphics{../personal_images/Zeke/add_event_sequence.png}
+	\caption{Add Activity Sequence Diagram by Zeke, image linked by Cindy, textual description by ...}
+\end{figure}
+\paragraph{Add Website}
+\paragraph{Modify Real Life Event}
+\paragraph{Modify Website}
+\paragraph{Remove User}
+\paragraph{Remove Website}
+\paragraph{Remove Real Life Event}
+\paragraph{Send Group Email}
+\paragraph{Send Text}
+\paragraph{Create Email}
+\paragraph{Edit Email}
+\paragraph{Edit Personal Page}
+\paragraph{Join Real Life Event}
+\paragraph{Join Group}
+\paragraph{Leave Group}
+\paragraph{Send Email}
+\paragraph{Sign Up}
+\paragraph{Add Post}
+\paragraph{Add Topic}
+\paragraph{Edit Post}
+\paragraph{Edit Topic}
+\paragraph{Remove Post}
+\paragraph{Remove Topic}
+\paragraph{Modify Privaledges}
 \begin{figure}[ht]
-    \includegraphics{'../doc/proto_framework_associations.png'}
+    \includegraphics{../doc/proto_framework_associations2.png}
 	\caption{Prototype Framwork Associations by Colby Blair}
 \end{figure}
 
@@ -753,7 +842,7 @@ Forms must encrypt passwords, and only transmit sensitive data through secure pr
 Forms must collect the minimum amount of data about a user to meet the mission of
 student group organization and recruitment to minimize the desirability of GUS as a target for maliciousness.
 \begin{figure}[ht]
-    \includegraphics{'../doc/form-data-submission-statechart.png'}
+    \includegraphics{../doc/form-data-submission-statechart2.png}
 	\caption{Form Submission Statechart by Colby Blair, transition descriptions by Cynthia Rempel}
 \end{figure}
 \subsubsection{Detailed Design for Component: GUS}
@@ -908,7 +997,7 @@ Access to this feature should be very limited -- one command can remove an entir
 
 \begin{wrapfigure}{r}{375px}
   \begin{center}
-    \includegraphics{'../pdf_png/membership_statechart.png'}
+    \includegraphics{../pdf_png/membership_statechart.png}
   \end{center}
 \end{wrapfigure}
 \subsubsection{Detailed Design for Entity: Membership Status}
@@ -1061,35 +1150,8 @@ Description &
 \centering \bfseries Test Case(s) &
 \centering \bfseries Test Res. &
 \centering \bfseries Test Case(s) &
-\bfseries Test
-Res.\\\hhline{~~~~~------}}
-
+\bfseries Test Res.\\\hhline{~~~~~------}}
 \end{flushleft}
 {
 Priorities are: \textbf{M}andatory, \textbf{L}ow, \textbf{H}igh}
-
-{
-SDD link is version and page number or function name.}
-
-{
-Test cases and results are file names and \textbf{P}ass/\textbf{F}ail or
-\% passing.}
-
-\section[APPENDIX A. \ [insert name
-here{]}]{\bfseries APPENDIX A.
-[insert name here]}
-{\itshape
-Include copies of specifications, mockups, prototypes, etc. supplied or
-derived from the customer.  Appendices are labeled A, B, {\dots}n.
-Reference each appendix as appropriate in the text of the document. }
-
-{
- [ insert appendix A here ]}
-
-\section[APPENDIX B. \ [insert name
-here{]}]{\bfseries APPENDIX B.
-[insert name here]}
-{
-[ insert appendix B here ]}
-
 \end{document}
