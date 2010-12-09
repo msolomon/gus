@@ -1,0 +1,6 @@
+Lee VanGundy
+CVE
+
+CVE installed and ran for me just fine the second time around with the latest release at the time. However, moving in the environment presented some trouble both from lack of shaders and rendering issues. The rendering issues came when moving between floors; a couple of times I think that I ended up underneath the floor.
+
+As for the IDE, I attempted it, but after creating a project it was not intuitive how to get a program to run like "Hello, World!"
