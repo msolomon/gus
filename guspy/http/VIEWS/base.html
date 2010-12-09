@@ -1,15 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link href="/favicon.ico" rel="icon" type="image/x-icon">
-<link REL="SHORTCUT ICON" HREF="/favicon.ico"> 
-<title>{% block title %}Web Title {% endblock %}</title>
-<link href="{{ MEDIA_URL }}css/gus_base.css" type="text/css" media="all" rel="stylesheet" />
-
-{% block head_includes %}
+	<link href="/favicon.ico" rel="icon" type="image/x-icon">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>{% block site_title %}GUS{% endblock %}</title>
+	<meta name="description" content="Web Application" />
+	<meta name="keywords" content="web, application" />
+	<link href="{{ MEDIA_URL }}css/mainsite.css" rel="stylesheet" type="text/css" />
+	<link href="{{ MEDIA_URL }}css/gus_base.css" type="text/css" media="all" rel="stylesheet" />
+	{% block head_includes %}
 	{{ scripts }}
-{% endblock %}
+	{% endblock %}
+
 </head>
 <body>
-{% block site_header %}<div class="myheader" ></div>  {% endblock %}
-{% block site_content %}  {% endblock %}
-{% block site_footer %}  {% endblock %}
+	{% block header_block %}
+	<div id="header">
+		<h1>{% block header_title %}<a href="#">Gus:Group Management</a>{% endblock %}</h1>
+		{% block header_menu %}
+		<ul id="menu">
+			<li class="active"><a href="#">about gus</a></li>
+			<li><a href="/register/">register</a></li>
+			<li><a href="#">demo</a></li>
+			<li><a href="#">help</a></li>
+			<li><a href="#">contact</a></li>
+		</ul>
+		{% endblock %}
+	</div>
+        {% endblock %}
+	<div id="teaser">{% block teaser_content %}
+		<div class="wrap">
+			<div id="image"></div>
+			<div class="box">
+				{% block teaser_text %}
+				<h3>Welcome to <em title="Sharing, Data Management and Collaboration">GUS : </em> <em title="Sharing, Data Management and 
+Collaboration">Groups In A University Setting</em></h3>
+<p>This is an effort of the University of Idaho CS 385 Gus Python Team, to implement Gus a group management web application.  The goal of GUS is to facilitate the 
+disemination of information to members as well as act as a rectuitment tool.</p>
+				{% endblock %}
+			</div>
+		</div>{% endblock %}
+	</div>
+
+	<div id="bar">
+		<div class="wrap">
+			{% block stepbar %}
+			<span class="step"><a>1</a> sharing</span>
+			<span class="step"><a>2</a> data management</span>
+			<span class="step"><a>3</a> collaboration</span>
+			{% endblock %}
+		</div>
+	</div>
+	{% block site_content %}
+	<div class="wrap">
+		<div class="col">
+			<h3>What's <span class="red">New?</span></h3>
+			<p><strong><code>12/9/2010</code></strong> Version 0.001 Released for demo in CS 383 </p>
+		</div>
+		<div class="col">
+			<h3>User <span class="red">Statistics</span></h3>
+			<p>Current Members : 9</p>
+		</div>
+		<div class="col last">
+			<h3>Login<span class="red"></span></h3>
+           		 <form>
+			<p><input type="text" class="last" name="login"/>
+			  Login<br /><input type="password" class="last" name="password"/>Pass</p></form>
+			<div class="info" onclick="submit_login();return false;" style="text-align:center">Login</div>
+		</div>
+	</div>
+	{% endblock %}	
+	<div id="footer">
+		{% block site_footer %}
+		<p>&copy; Copyright 2010 <a href="#">gusPy team @ cs383 fall 2010</a> &middot; All Rights Reserved</p>
+		{% endblock %}
+	</div>
 </body>
+</html>
+
+

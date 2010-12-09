@@ -14,6 +14,7 @@ class gus_forum(models.Model):
 	def title(self):return self._title
 	def num_posts(self): return sum([t.num_posts() for t in self.gus_thread_set.all()])
 	def last_post(self):
+		last = None
 	        if self.gus_thread_set.count():
          	   	last = None
             		for t in self.gus_thread_set.all():

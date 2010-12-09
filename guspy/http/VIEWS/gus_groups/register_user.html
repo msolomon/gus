@@ -1,16 +1,26 @@
-<head>
-<title>New User Registration</title>
-<script type="text/javascript"  src="{{ MEDIA_URL }}js/jquery.js" ></script>
+{% extends "base.html" %}
+{% block header_title %}<a href="#">Gus: Registration</a>{% endblock %}          
+{% block header_menu %}
+                <ul id="menu">
+                        <li><a href="/">about gus</a></li>               
+                        <li class="active"><a href="#">register</a></li>
+                        <li><a href="#">demo</a></li>
+                        <li><a href="#">help</a></li>
+                        <li><a href="#">contact</a></li>
+                </ul>
+{% endblock %}                
 
+{% block site_title %}GUS Register{% endblock %}
+
+{% block site_content %}
 <style type="text/css">
 .login_holder{
         border:#000 solid thin;
         width:260px;
-        text-align:center;
 };
 </style>
-</head>
-<div class="login_holder">
+<div class="wrap">
+<div class="login_holder col">
 <h3>Register User</h3><hr>
 <form method="post">
 <table style="text-align:right;" valign="bottom">
@@ -22,6 +32,5 @@
 </form>
 <div style="clear:both" />
 </div>
-<script type="text/javascript">
-jQuery('tr').attr('valign','bottom')
-</script>
+</div>
+{% endblock %}

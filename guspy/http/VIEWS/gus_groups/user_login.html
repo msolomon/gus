@@ -1,14 +1,24 @@
-<head>
-{% load user_extras %}
-<title>Login</title>
+{% extends "base.html" %}
+{% block header_title %}<a href="#">Gus: Login</a>{% endblock %}
+{% block header_menu %}
+                <ul id="menu">
+                        <li><a href="/">about gus</a></li>
+                        <li class="active"><a href="#">Login</a></li>
+                        <li><a href="#">demo</a></li>
+                        <li><a href="#">help</a></li>
+                        <li><a href="#">contact</a></li>
+                </ul>
+{% endblock %}
+
+{% block site_title %}GUS Login{% endblock %}
+{% block site_content %}
 <style type="text/css">
 .login_holder{
-	border:#000 solid thin;
-	width:250px;
-	text-align:center;
+        border:#000 solid thin;
+        width:260px;
 };
 </style>
-</head>
+<div class="wrap">
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -16,15 +26,22 @@
     {% endfor %}
 </ul>
 {% endif %}
-<div class="login_holder">
+
+<div class="login_holder col">
 <h3>Login</h3><hr>
-<form method="post">{% csrf_token %}
-<table>
+<form method="post" action="/login/">
+<table style="text-align:right;" valign="bottom">
+{% csrf_token %}
 {{ lform.as_table }}
-<tr><td><input type="submit" value="Login" /></td><td><a href="{% url gus.gus_groups.views.register %}">register</a></td></tr>
 </table>
-</div>
+
+<input type="submit" value="Login" style="float:left;margin:5px" >  <a href="{% url gus.gus_groups.views.register %}" style="float:right;margin-right:20px">Register</a>
 </form>
+<div style="clear:both" />
+</div>
+</div>
+{% endblock %}
+
 
 
 
