@@ -28,7 +28,7 @@ class gus_user(models.Model):
 class gus_group(models.Model):
 	group_name=models.CharField(unique=True,max_length=100) #a string... must be unique...
 	is_public = models.BooleanField(blank=True)  #open recruitement
-#	parent	=   models.ForeignKey('gus_group')  #self aggregation
+	parent	=   models.ForeignKey('self')  #self aggregation
 	def save(self):
 		super(gus_group,self).save() #call real save
 		r=gus_roles(role_name='Admin',gid=self)
