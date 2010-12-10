@@ -6,8 +6,9 @@
 <a href="{% url gus_talk.views.forum thread.forumid %}">Back To Forum</a>
 <div id="list">
     {% for msg in messages %}
-        <div class="title">{{ msg.title }}  {{ msg.pub_date }}</div>
-        <div class="message{% if forloop.counter|divisibleby:2 %} even_row{% endif %}">{{ msg.message }}</div>
+        <div class="title">{{ msg.title }}  {{ msg.pub_date }} - {{ msg.creator }}</div>
+        <div class="message{% if forloop.counter|divisibleby:2 %} 
+even_row{% endif %}">{{ msg.message|linebreaks }}</div>
     {% endfor %} 
 
 

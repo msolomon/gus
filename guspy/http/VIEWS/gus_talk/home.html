@@ -1,6 +1,9 @@
-<head>
-<title>Forum Listing</title>
-</head>
+{% extends "base.html" %}
+
+
+{% block site_title %}Gus Forum Listing{%endblock%}
+
+{% block site_content %}
 <style type="text/css">
 .even_row{
 	background-color:EEEEFE;
@@ -18,17 +21,18 @@
     </tr>
     {% for forum in forums %}
     <tr {% if forloop.counter|divisibleby:2 %}class="even_row"{% endif %}>
-        <td {% if forloop.last %}class="last"{% endif %}>
+        <td {% if forloop.last %}class="last1"{% endif %}>
         <div class="title"> <a href="{% url gus_talk.views.forum forum.pk %}">{{ forum.title }}</a>
             </div></td>
-        <td {% if forloop.last %}class="last"{% endif %}>{{ forum.num_posts }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
+        <td {% if forloop.last %}class="last1"{% endif %}>{{ forum.num_posts }}</td>
+        <td {% if forloop.last %}class="last1"{% endif %}>
             {{ forum.last_post.short|linebreaksbr }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
-            <a class="button" href="{% url gus_talk.views.forum forum.pk 
-%}">VIEW</a>
+        <td {% if forloop.last %}class="last1"{% endif %}>
+            <a class="button" href="{% url gus_talk.views.forum forum.pk %}">VIEW</a>
         </td>
     </tr>
     {% endfor %}
+</table>
 </div>
+{% endblock %}
 
