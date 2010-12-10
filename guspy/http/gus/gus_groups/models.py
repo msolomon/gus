@@ -2,21 +2,18 @@ from django.db import models
 from django import template
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
-from django.contrib.auth.models import User,Group,Permission
+from django.contrib.auth.models import User,Group,Permission,UserManager
 from backends import *
 
 register = template.Library()
-
-class gus_user(models.Model):
-	_user=models.OneToOneField(User)
+#extending django's user lets us use all the perks of well ... django users :)
+class gus_user(User):
 	_token=models.CharField(max_length=50)
 	def user(self):
-		return self._user
-
-	def get_group_role(self,group):
-		return usergrouprole(self,group)
-	
-	def get_all_permissions(self,group):
+		return self
+	def get_group_role(self,group):	1
+		#let backend handle actual permission fetches ... since we just override the backend
+ 	def get_all_permissions(self,group):
 		be=gus_custom_backend()
 		return be.get_grouprole_permissions(self,group)
 	def has_perm(self,group,perm):
@@ -24,29 +21,38 @@ class gus_user(models.Model):
 		return be.has_perm(self,group,perm)
 	def __unicode__(self):
 		return self._user.username
+	objects = UserManager() #get the usermanager functions
 
+
+#django's built in groups are more like our roles in that they limit the "permissions" a user has
+#so we will build our group from scratch.
 class gus_group(models.Model):
 	group_name=models.CharField(unique=True,max_length=100) #a string... must be unique...
 	is_public = models.BooleanField(blank=True)  #open recruitement
 	parent	=   models.ForeignKey('self')  #self aggregation
 	def save(self):
 		super(gus_group,self).save() #call real save
-		r=gus_roles(role_name='Admin',gid=self)
-		r.save();
-		r=gus_roles(role_name='Member',gid=self);
-		r.save()
-	def get_user_role(self,user):
-		return usergrouprole(user,self)
+		#when we save we want to create 2 new roles (only if we have no roles)
+		if(len(gus_roles.objects.filter(gid=self))==0):
+			r=gus_roles(role_name='Admin',gid=self)
+			r.save();
+			r=gus_roles(role_name='Member',gid=self);
+			r.save()
+
+	def get_user_role(self,user):1
+#		return usergrouprole(user,self)
 	def get_users(self):
 		return "users comming soon"
 
 	def __unicode__(self):
 		return self.group_name
 	
-class gus_roles(models.Model):
+# by extending django's built in group class we have access to all its cool stuff
+class gus_roles(Group):
 	gid=models.ForeignKey(gus_group)
-	uid=models.ManyToManyField(gus_user,blank=True,null=True)
-	permissions=models.ManyToManyField(Permission)
+#####These are done in django's group###
+#	uid=models.ManyToManyField(gus_user,blank=True,null=True)
+#	permissions=models.ManyToManyField(Permission)
 	role_name=models.CharField(max_length=100)
 	def save(self):
 		super(gus_roles,self).save() #call real save
