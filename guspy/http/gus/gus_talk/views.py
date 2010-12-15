@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 from gus.gus_talk.models import *
 from django.core.urlresolvers import reverse
-#from settings import MEDIA_ROOT, MEDIA_URL
+from gus.settings import MEDIA_ROOT, MEDIA_URL
 
 def main(request,group_id = -1):
     """Main listing."""
@@ -18,7 +18,7 @@ def main(request,group_id = -1):
     except gus_group.DoesNotExist:
 	return HttpResponse("Sorry There was an internal error") 
     forums = gus_forum.objects.filter(_group=grp)
-    return render_to_response("gus_talk/home.html", {'forums':forums,'user':user,'group':grp})
+    return render_to_response("gus_talk/home.html", {'MEDIA_URL':MEDIA_URL,'forums':forums,'user':user,'group':grp},context_instance=RequestContext(request))
 
 def my_forums(request):
     user = userauthenticated(request)   

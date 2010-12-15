@@ -2,6 +2,28 @@ from django.contrib.auth.backends import *
 from django.contrib.auth.models import *
 
 class gus_custom_backend(ModelBackend):
+	def authenticate(self,username=None,password=None):
+		try:
+			user=self.user_class.objects.get(username=username)
+			if user.check_password(password):
+				return user
+		except self.user_class.DoesNotExist:
+			return None;
+
+	def get_user(self,userid):
+		try:
+			return self.user_class.objects.get(pk=userid)
+		except self.user_class.DoesNotExist:
+			return None
+
+	@property
+	def user_class(self):
+		if not hasattr(self,'_userclass'):
+			self.user_class=get_model(*settings.CUSTOM_USER_MODEL.split('.',2))
+			if not self.user_class:
+				raise ImproperlyConfigured('could not get CUSTOM_USER_MODEL')
+		return self._userclass
+
 	def get_grouprole_permissions(self, user_obj,group):
         	"""
         	Returns a set of permission strings that this user has 

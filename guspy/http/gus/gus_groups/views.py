@@ -21,6 +21,11 @@ from django.contrib import messages
 def index(request):
 	return HttpResponse("Gus Home")
 
+def dummy_setup(request,file=None):
+	if not file return HttpResponse('No File Supplied')
+	resp = "Created User <%s>"%"Joran"
+	return HttpResponse(resp)	
+
 class role_form(forms.Form):
 	users = forms.CharField(max_length=100)
 	

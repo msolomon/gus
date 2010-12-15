@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block site_content %}
+        <div class="wrap">
+                <div class="col">
+                        <h3>What's <span class="red">New?</span></h3>
+                        <p><strong><code>12/9/2010</code></strong> Version 0.001 Released for demo in CS 383 </p>
+                </div>
+                <div class="col">
+                        <h3>User <span class="red">Statistics</span></h3>
+                        <p>Current Members : 9</p>
+                </div>
+                <div class="col last">
+                        <h3>Login<span class="red"></span></h3>
+                         <form method="post" action="/login/?back_to=/">
+                        <p><input type="text" class="last" name="username"/>
+                          Login<br /><input type="password" class="last" name="password"/>Password</p>{% csrf_token %}</form> 
+                        <a class="info" onclick="submit_login();return false;" style="display:block;text-align:center">Login</a>
+                </div>
+        </div>
+<script type="text/javascript">
+function submit_login(){
+	document.forms[0].submit()
+}
+</script>
+{% endblock %}
+
