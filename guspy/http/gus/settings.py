@@ -66,10 +66,7 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
-AUTHENTICATION_BACKENDS = (
-    'gus.gus_groups.backends.gus_custom_backend',
-)
-CUSTOM_USER_MODEL = 'gus.gus_groups.models.gus_user'
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

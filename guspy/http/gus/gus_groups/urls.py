@@ -7,7 +7,6 @@ admin.autodiscover()
 urlpatterns = patterns('gus.gus_groups.views',
     # Example:
     # (r'^gus/', include('gus.foo.urls')),
-    (r'^installdummies/([a-zA-Z0-9])/',dummy_setup)
     (r'^index.html?$','index'),
     (r'^$','index'),
     (r'import^$','import_users'),

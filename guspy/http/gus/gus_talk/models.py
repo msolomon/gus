@@ -47,7 +47,7 @@ class gus_message(models.Model):
     	creator = models.ForeignKey(User, blank=True, null=True)
 	def tid(self):return self._thread.id
 	def title(self):return self._title
-	def message(self): return self._body.replace('\n','<br>')
+	def message(self): return self._body
 	def group(self):
 		return self._thread._forum.group()
 	def pub_date(self,formatstring="%b %d, %I:%M %p"):

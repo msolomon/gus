@@ -1,8 +1,0 @@
-CVE Took a while for me to get installed (10 mins to install and then a 
-couple hours trouble shooting).  It wouldnt get past the login screen , 
-later found out this was due to the login screen not being run under 
-admin so it could not spawn the main program.  Finally got that working 
-with a little help from jaffar.   however with my video card(nvidia 
-GE-Force GO 7300) it was pretty much un-useable getting on average 1 fps.
-so i tried to install it on my unbuntu partition , but i was missing 
-open GL drivers so i gave up.
