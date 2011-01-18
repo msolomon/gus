@@ -1,0 +1,26 @@
+<h3>Welcome To The Gus User Test Suite</h3>
+<h3>Groups</h3>
+{% for group in groups %}
+{{ group }}  
+         [ <a href="{% url gus2.gusTestSuite.views.editGroup group.id %}">
+              Edit
+           </a> 
+         | 
+           <a href="{% url gus2.gusTestSuite.views.deleteGroup group.id %}">
+              Delete
+           </a>
+         ]<br/>
+{% endfor %}
+<h3>Users</h3>
+{% for user in users %}
+{{user}} [ <a href="{% url gus2.gusTestSuite.views.editUser user.id %}">
+              Edit
+           </a> 
+         | 
+           <a href="{% url gus2.gusTestSuite.views.deleteUser user.id %}">
+              Delete
+           </a>
+         ]<br/>
+{% endfor %}
+<a href="{% url gus2.gusTestSuite.views.addGroup %}">Add A New Group</a><br/>
+<a href="{% url gus2.gusTestSuite.views.addUser %}">Add A New User</a>
