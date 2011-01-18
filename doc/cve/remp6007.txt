@@ -1,3 +1,0 @@
-I clicked on some stuff, it wanted me to register, but it wouldn't let
-me log in. . . looked at the readme, but it didn't tell me how to get up
-and running :(
