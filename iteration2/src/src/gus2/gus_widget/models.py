@@ -1,4 +1,5 @@
 from django.db import models
+from gus2.gus_groups.models import gus_group
 
 class Widget(models.Model):
     """
@@ -13,7 +14,11 @@ class Widget(models.Model):
     
     # as i understand, a primary key will be set up automatically
     # which should suffice for the ID
+    group = models.ForeignKey(gus_group)
     name = models.CharField(max_length=32)
+    # is the widget enabled in the current group?
+    enabled = models.BooleanField()
+    
     
     # the permissions class doesn't exist, but it should
     #permissions = models.ForeignKey(permissions)
