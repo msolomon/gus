@@ -36,9 +36,9 @@ class bill():
 #        self.ammount = ammount
 
 
-"""
-the following retur their respective variables
-"""
+    """
+    the following retur their respective variables
+    """
     def get_id(self):
         """
         @rtype: int
@@ -98,6 +98,4 @@ the following retur their respective variables
         Example:
             >>>???
         """
-#        self.ammount = ammount
-
-    def 
+#        self.ammount = ammount 

@@ -17,4 +17,5 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
+    (r'^gallery/', include('gus2.gus_gallery.urls')),
 )
