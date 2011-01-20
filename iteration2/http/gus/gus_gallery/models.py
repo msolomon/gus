@@ -17,6 +17,15 @@ class gus_gallery(models.Model):
     name = models.CharField(500)
     user = models.ForeignKey(gus_users)
 
+    def __unicode__(self):
+        """
+        When referencing the gallery object, return its name
+        
+        @rtype: string
+        @return: The name of the gallery
+        """
+        return self.name;
+
     def delete(self):
         """
         Deletes the gallery and all the images associated with it
@@ -32,14 +41,24 @@ class gus_gallery(models.Model):
         img.gallery = self
         img.save()
 
+
 class gus_image(models.Model):
     """
     A single image belonging to a gus_gallery
     """
     date_created = models.DateTimeField(auto_now_add=True)
     gallery = models.ForeignKey(gus_gallery)
-    image = models.ImageField(upload_to="images/%Y/%m")
+    image_path = models.CharField(500)
     user = models.ForeignKey(gus_users)
+
+    def __unicode__(self):
+        """
+        When referencing the image object, return its URL path
+
+        @rtype: string
+        @return: The path to the image file on the server
+        """
+        return self.image_path
 
     def delete(self):
         """
