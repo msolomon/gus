@@ -1,3 +1,4 @@
 # add patterns to ignore here
 *.pyc
 *~
+gus.db
