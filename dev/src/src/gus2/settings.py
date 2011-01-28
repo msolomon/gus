@@ -90,9 +90,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'gus2.gus_users',
+    'gus2.gus_gallery',
     'gus2.gus_groups',
     'gus2.gus_roles',
+    'gus2.gus_users',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
