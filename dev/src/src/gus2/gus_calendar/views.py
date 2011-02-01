@@ -20,7 +20,7 @@ def main(request, year=None):
     for m in [year, year+1]: # calendar goes out 2 years
         month_list = []
         for n, month in enumerate(month_names):
-            if Calendar_item:
+            if Event:
                 item = True # there is an event listed
             if m == current_year and  n+1 == current_month:
                 current = True
