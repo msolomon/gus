@@ -1,6 +1,6 @@
 from django.db import models
-from src.gus2.gus_widget.models import Widget
-from src.gus2.gus_users.models import gus_user
+from gus_widget.models import Widget #ok
+from gus_users.models import gus_user #ok ignore aptana
 
 class Calendar(Widget):
     """
@@ -18,9 +18,11 @@ class Event(models.Model):
     Calendar (using a ForeignKey)
     """
     # use foreign key for Calendar to show many-to-one relationship
+    
+    
     calendar = models.ForeignKey(Calendar)
     
-    id = models.IntegerField()
+    event_id = models.IntegerField()
     group_id = models.IntegerField()
     
     
