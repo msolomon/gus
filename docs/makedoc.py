@@ -1,4 +1,4 @@
-#! python
+#! /usr/bin/python
 import os
 prefix = '../dev/src/src/'
 line_prefix = '.. automodule:: '
@@ -81,4 +81,4 @@ f.write(default % out)
 f.close()
 
 
-print "Done. Run 'make' to build Sphinx documentation."
+print "Done. Run 'make html' to build Sphinx documentation."
