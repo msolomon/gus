@@ -1,23 +1,78 @@
+# Gus Gallery Model Tests
+# Part of the GUSPY effort
+# Stephen Fischer
+# January 2011
+#
+# TODO: Wait for whoever is dealing with gus_groups and gus_users to fix them? My tests fail because those can't init properly... unless I'm doing this wrong somewhere...
 """
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
-
-Replace these with more appropriate tests for your application.
+This file contains the unit tests for the gus_gallery model
 """
 
 from django.test import TestCase
+from gus2.gus_gallery.models import *
+from gus2.gus_groups.models import *
+from gus2.gus_users.models import *
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+class gus_gallery_test(TestCase):
+    def test_init(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Tests the gus_gallery object to see if it can be initiated
         """
-        self.failUnlessEqual(1 + 1, 2)
+        # Prepare a testing user/group
+        the_user = gus_user(username="testuser", email="no@no.com", password="password")
+        the_user.save()
+        the_group = gus_group(groupname="Test Group")
+        the_group.save()
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
+        # If either the user or the group isn't set, then fail
+        self.failIfEqual(the_user, None)
+        self.failIfEqual(the_group, None)
 
->>> 1 + 1 == 2
-True
-"""}
+        # Prepare a testing gallery
+        the_gallery = gus_gallery(group=the_group, user=the_user, name="Test Gallery")
+        the_gallery.save()
 
+        # If the gallery doesn't exist, then fail
+        self.failIfEqual(the_gallery, None)
+        print("\ngus_gallery - init passed")
+
+    def test_delete(self):
+        """
+        Tests the gus_gallery.delete() method
+        """
+        # Prepare a testing user/group
+        the_user = gus_user(username="testuser", email="no@no.com", password="password")
+        the_user.save()
+        the_group = gus_group(groupname="Test Group")
+        the_group.save()
+
+        # If either the user or the group isn't set, then fail
+        self.failIfEqual(the_user, None)
+        self.failIfEqual(the_group, None)
+
+        # Prepare a testing gallery
+        the_gallery = gus_gallery(group=the_group, user=the_user, name="Test Delete Gallery")
+        the_gallery.save()
+        
+        # If the gallery doesn't exist, then fail
+        self.failIfEqual(the_gallery, None)
+
+        # If the gallery existed, then we want to delete it and check again
+        the_gallery.delete();
+
+        self.failUnlessEqual(the_gallery, None)
+        print("\ngus_gallery - delete passed")
+
+
+    def test_add_image(self):
+        """
+        Tests the gus_gallery.add_image() method
+        """
+        # TODO: Implement the test
+
+
+    def test_get_images(self):
+        """
+        Tests the gus_gallery.get_images() method
+        """
+        # TODO: Implement the test
