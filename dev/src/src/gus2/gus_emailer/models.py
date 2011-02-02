@@ -5,13 +5,12 @@ class emailer():
 	Enables Calender and User to trigger an email to another user or list of users.
 	"""
 
-	def send_message(self, message):
+    def send_message(self, message):
         """
         @rtype: int
         @return: self.id
         """
-		
-		raise Exception("In development", "This function does not work yet")
+        raise Exception("In development", "This function does not work yet")
         
 	def archive_message(self, message):
 		""" 
