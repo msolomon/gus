@@ -97,10 +97,10 @@ INSTALLED_APPS = (
     'gus2.gus_calendar',
     'gus2.gus_widget',
     #'gus2.gus_permissions',
-    #'gus2.gus_forum',
+    'gus2.gus_forum',
     #'gus2.gus_forum_post',
     #'gus2.gus_forum_thread',
-    #'gus2.gus_emailer',
+    'gus2.gus_emailer',
     #'gus2.gus_bill',
 
     
