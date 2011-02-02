@@ -5,6 +5,7 @@
 #
 # TODO: Figure out where to actually save image files, update the gus_image class to reflect that
 # TODO: See if I'm doing the gus_image queries right in gus_gallery.get_images and gus_gallery.delete. It builds, but that doesn't mean it works!
+# TODO: Overwrite the __init__ methods to do some basic validation
 
 from django.db import models
 from gus2.gus_groups.models import *
@@ -32,8 +33,11 @@ class gus_gallery(models.Model):
         """
         Deletes the gallery and all the images associated with it.
         """
-        for i in self.gus_image_set:
-            i.delete()
+        images = self.get_images()
+        if images != None:
+            for i in images:
+                i.delete()
+        
         super(gus_gallery, self).delete()
 
     def add_image(self, img):
@@ -51,7 +55,7 @@ class gus_gallery(models.Model):
         @return: An array of images in the gallery.
         """
         try:
-            return self.gus_image_set.filter(galery_id=self)
+            return gus_image.objects.filter(gallery_id=self)
         except:
             return None
 
