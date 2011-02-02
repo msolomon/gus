@@ -3,11 +3,9 @@ from gus_widget.models import Widget
 
 class forum_post(forum_thread):
     """
-    class forum_post is the basic level class in our forums, aggregating to forum thread
+    class forum_post is our model of a forum post.
     """
     
-    #All following fields are initialized upon creation, and cannot be modified by this class
-    #ID of parent thread; cant be modified by this class
     thread_id = models.ForeignKey(forum_thread)
     post_id = models.IntegerField() 
     user_id = models.ForeignKey(user)
@@ -21,13 +19,18 @@ class forum_post(forum_thread):
         Allows a user to edit the text of a post if they have the proper user_id, giving direct access to post_content
         """
 		
-        raise Exception("In development", "This function does not work yet")
+		#if #valid user permissions
+			raise Exception("In development", "This function does not work yet")
+		#End
+		#else
+		#	raise Exception("In development", "This function does not work yet")
+		#End
     #End
 #End
 
 class forum_thread(forum):
 	"""
-	class forum_thread is our model of a thread.
+	class forum_thread is our model of a forum thread.
 	?
 	"""
 	
@@ -44,11 +47,11 @@ class forum_thread(forum):
 		?
 		"""
 	
-		if #valid user permissions
+		#if #valid user permissions
 			#Create post, set it's user_id & text...
-			raise Exception("In Dev", "This Is Unfinished")
+		#	raise Exception("In Dev", "This Is Unfinished")
 		#End
-		else
+		#else
 			raise Exception("Wrong Permissions", "User does not have permission to do this.")
 		#End
 	#End
@@ -59,11 +62,11 @@ class forum_thread(forum):
 		?
 		"""
 		
-		if #valid user permissions
+		#if #valid user permissions
 			#Find post, nuke it...
-			raise Exception("In Dev", "This Is Unfinished")
+		#	raise Exception("In Dev", "This Is Unfinished")
 		#End
-		else
+		#else
 			raise Exception("In Dev", "This Is Unfinished")
 		#End
 	#End
@@ -81,30 +84,16 @@ class forum(Widget):
 	forum_description = models.TextField() #The forum's description.
 	forum_threads = models.ManyToOneField() #A list of forum_threads
 	
-	def EditForumName(self,name,user_id):
-		"""
-		This allows the forum's name to be changed as long as the user has the proper permissions.
-		?
-		"""
-		
-		if #valid user permissions
-			self.forum_name = name
-		#End
-		else
-			raise Exception("Wrong Permissions", "User does not have permission to do this.")
-		#End
-	#End
-	
 	def EditForumDescription(self,description):
 		"""
 		This allows the forum's description to be changed as long as the user has the proper permissions.
 		?
 		"""
 		
-		if #valid user permissions
-			self.forum_description = description
+		#if #valid user permissions
+		#	self.forum_description = description
 		#End
-		else
+		#else
 			raise Exception("Wrong Permissions", "User does not have permission to do this.")
 		#End
 	#End
@@ -115,12 +104,12 @@ class forum(Widget):
 		?
 		"""
 		
-		if #valid user permissions
+		#if #valid user permissions
 			#Create the thread, set it's stuff, add it to forum's thread list...
-			forum_thread temp()
-			raise Exception("In Dev", "This Is Unfinished")
+		#	forum_thread temp()
+		#	raise Exception("In Dev", "This Is Unfinished")
 		#End
-		else
+		#else
 			raise Exception("In Dev", "This Is Unfinished")
 		#End
 	#End
@@ -131,11 +120,11 @@ class forum(Widget):
 		?
 		"""
 	
-		if #valid user permissions
+		#if #valid user permissions
 			#Find thread, nuke it...
-			raise Exception("In Dev", "This Is Unfinished")
+		#	raise Exception("In Dev", "This Is Unfinished")
 		#End
-		else
+		#else
 			raise Exception("In Dev", "This Is Unfinished")
 		#End
 	#End
