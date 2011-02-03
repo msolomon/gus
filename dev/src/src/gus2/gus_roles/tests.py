@@ -6,6 +6,7 @@ Replace these with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+from gus2.gus_roles.models import gus_role
 
 class SimpleTest(TestCase):
     def test_basic_addition(self):
