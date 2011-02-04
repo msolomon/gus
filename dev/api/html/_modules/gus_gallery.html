@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gus_gallery &mdash; gus v0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="gus v0.1 documentation" href="../index.html" />
+    <link rel="next" title="gus_groups" href="gus_groups.html" />
+    <link rel="prev" title="gus_forum" href="gus_forum.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gus_groups.html" title="gus_groups"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gus_forum.html" title="gus_forum"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">gus v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gus-gallery">
+<h1>gus_gallery<a class="headerlink" href="#gus-gallery" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-gus2.gus_gallery.__init__">
+<span id="init"></span><h2>__init__<a class="headerlink" href="#module-gus2.gus_gallery.__init__" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gus2.gus_gallery.models">
+<span id="models"></span><h2>models<a class="headerlink" href="#module-gus2.gus_gallery.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gus2.gus_gallery.models.gus_gallery">
+<em class="property">class </em><tt class="descclassname">gus2.gus_gallery.models.</tt><tt class="descname">gus_gallery</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="gus2/gus_gallery/models.html#gus_gallery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image gallery belonging to a gus_group.</p>
+<dl class="exception">
+<dt id="gus2.gus_gallery.models.gus_gallery.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="gus2.gus_gallery.models.gus_gallery.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">gus_gallery.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.models.gus_gallery.add_image">
+<tt class="descclassname">gus_gallery.</tt><tt class="descname">add_image</tt><big>(</big><em>img</em><big>)</big><a class="reference internal" href="gus2/gus_gallery/models.html#gus_gallery.add_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.add_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a given image to the gallery.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.models.gus_gallery.delete">
+<tt class="descclassname">gus_gallery.</tt><tt class="descname">delete</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_gallery/models.html#gus_gallery.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the gallery and all the images associated with it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.models.gus_gallery.get_images">
+<tt class="descclassname">gus_gallery.</tt><tt class="descname">get_images</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_gallery/models.html#gus_gallery.get_images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.get_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets an array of images that belong to the gallery.</p>
+<p>&#64;rtype: gus_image[]
+&#64;return: An array of images in the gallery.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.models.gus_gallery.get_next_by_date_created">
+<tt class="descclassname">gus_gallery.</tt><tt class="descname">get_next_by_date_created</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.get_next_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.models.gus_gallery.get_previous_by_date_created">
+<tt class="descclassname">gus_gallery.</tt><tt class="descname">get_previous_by_date_created</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.get_previous_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_gallery.models.gus_gallery.group">
+<tt class="descclassname">gus_gallery.</tt><tt class="descname">group</tt><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_gallery.models.gus_gallery.gus_image_set">
+<tt class="descclassname">gus_gallery.</tt><tt class="descname">gus_image_set</tt><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.gus_image_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.models.gus_gallery.num_images">
+<tt class="descclassname">gus_gallery.</tt><tt class="descname">num_images</tt><big>(</big><big>)</big><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.num_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of images in the gallery</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_gallery.models.gus_gallery.user">
+<tt class="descclassname">gus_gallery.</tt><tt class="descname">user</tt><a class="headerlink" href="#gus2.gus_gallery.models.gus_gallery.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gus2.gus_gallery.models.gus_image">
+<em class="property">class </em><tt class="descclassname">gus2.gus_gallery.models.</tt><tt class="descname">gus_image</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="gus2/gus_gallery/models.html#gus_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.models.gus_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>A single image belonging to a gus_gallery.</p>
+<dl class="exception">
+<dt id="gus2.gus_gallery.models.gus_image.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#gus2.gus_gallery.models.gus_image.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="gus2.gus_gallery.models.gus_image.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">gus_image.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#gus2.gus_gallery.models.gus_image.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.models.gus_image.delete">
+<tt class="descclassname">gus_image.</tt><tt class="descname">delete</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_gallery/models.html#gus_image.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.models.gus_image.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the image in the database and from the file system.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_gallery.models.gus_image.gallery">
+<tt class="descclassname">gus_image.</tt><tt class="descname">gallery</tt><a class="headerlink" href="#gus2.gus_gallery.models.gus_image.gallery" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.models.gus_image.get_next_by_date_created">
+<tt class="descclassname">gus_image.</tt><tt class="descname">get_next_by_date_created</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_gallery.models.gus_image.get_next_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.models.gus_image.get_previous_by_date_created">
+<tt class="descclassname">gus_image.</tt><tt class="descname">get_previous_by_date_created</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_gallery.models.gus_image.get_previous_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_gallery.models.gus_image.user">
+<tt class="descclassname">gus_image.</tt><tt class="descname">user</tt><a class="headerlink" href="#gus2.gus_gallery.models.gus_image.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gus2.gus_gallery.tests">
+<span id="tests"></span><h2>tests<a class="headerlink" href="#module-gus2.gus_gallery.tests" title="Permalink to this headline">¶</a></h2>
+<p>This file contains the unit tests for the gus_gallery model</p>
+<dl class="class">
+<dt id="gus2.gus_gallery.tests.gus_gallery_test">
+<em class="property">class </em><tt class="descclassname">gus2.gus_gallery.tests.</tt><tt class="descname">gus_gallery_test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="gus2/gus_gallery/tests.html#gus_gallery_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.tests.gus_gallery_test" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gus2.gus_gallery.tests.gus_gallery_test.test_add_image">
+<tt class="descname">test_add_image</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_gallery/tests.html#gus_gallery_test.test_add_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.tests.gus_gallery_test.test_add_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the gus_gallery.add_image() method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.tests.gus_gallery_test.test_delete">
+<tt class="descname">test_delete</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_gallery/tests.html#gus_gallery_test.test_delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.tests.gus_gallery_test.test_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the gus_gallery.delete() method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.tests.gus_gallery_test.test_get_images">
+<tt class="descname">test_get_images</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_gallery/tests.html#gus_gallery_test.test_get_images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.tests.gus_gallery_test.test_get_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the gus_gallery.get_images() method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.tests.gus_gallery_test.test_init">
+<tt class="descname">test_init</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_gallery/tests.html#gus_gallery_test.test_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.tests.gus_gallery_test.test_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the gus_gallery object to see if it can be initiated</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_gallery.tests.gus_gallery_test.test_num_images">
+<tt class="descname">test_num_images</tt><big>(</big><big>)</big><a class="headerlink" href="#gus2.gus_gallery.tests.gus_gallery_test.test_num_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the gus_gallery.num_images() method</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gus2.gus_gallery.urls">
+<span id="urls"></span><h2>urls<a class="headerlink" href="#module-gus2.gus_gallery.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gus2.gus_gallery.views">
+<span id="views"></span><h2>views<a class="headerlink" href="#module-gus2.gus_gallery.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="gus2.gus_gallery.views.index">
+<tt class="descclassname">gus2.gus_gallery.views.</tt><tt class="descname">index</tt><big>(</big><em>urlRequest</em><big>)</big><a class="reference internal" href="gus2/gus_gallery/views.html#index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_gallery.views.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gus_gallery</a><ul>
+<li><a class="reference internal" href="#module-gus2.gus_gallery.__init__">__init__</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_gallery.models">models</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_gallery.tests">tests</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_gallery.urls">urls</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_gallery.views">views</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gus_forum.html"
+                        title="previous chapter">gus_forum</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gus_groups.html"
+                        title="next chapter">gus_groups</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/_modules/gus_gallery.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gus_groups.html" title="gus_groups"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gus_forum.html" title="gus_forum"
+             >previous</a> |</li>
+        <li><a href="../index.html">gus v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The guspy Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

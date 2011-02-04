@@ -1,0 +1,26 @@
+gus_forum
+===========
+
+__init__
+----------
+.. automodule:: gus2.gus_forum.__init__
+	:members:
+	:undoc-members:
+
+models
+--------
+.. automodule:: gus2.gus_forum.models
+	:members:
+	:undoc-members:
+
+tests
+-------
+.. automodule:: gus2.gus_forum.tests
+	:members:
+	:undoc-members:
+
+views
+-------
+.. automodule:: gus2.gus_forum.views
+	:members:
+	:undoc-members:

@@ -1,0 +1,26 @@
+gus_emailer
+=============
+
+__init__
+----------
+.. automodule:: gus2.gus_emailer.__init__
+	:members:
+	:undoc-members:
+
+models
+--------
+.. automodule:: gus2.gus_emailer.models
+	:members:
+	:undoc-members:
+
+tests
+-------
+.. automodule:: gus2.gus_emailer.tests
+	:members:
+	:undoc-members:
+
+views
+-------
+.. automodule:: gus2.gus_emailer.views
+	:members:
+	:undoc-members:
