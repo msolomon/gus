@@ -17,14 +17,14 @@ def main(request, year=None):
     current_year, current_month = time.localtime()[:2]
     list = []
     
-    for m in [year, year+1]: # calendar goes out 2 years
+    for m in [year, year + 1]: # calendar goes out 2 years
         month_list = []
         for n, month in enumerate(month_names):
             if Event:
                 item = True # there is an event listed
-            if m == current_year and  n+1 == current_month:
+            if m == current_year and  n + 1 == current_month:
                 current = True
-            month_list.append(dict(n=n+1, name=month, event_name = item, current = current))
+            month_list.append(dict(n=n + 1, name=month, event_name=item, current=current))
         list.append((m, month_list))
         
         

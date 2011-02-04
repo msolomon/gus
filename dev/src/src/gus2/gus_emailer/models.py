@@ -25,7 +25,7 @@ class message(emailer):
 	"""	
 	#message_id
 	
-	def __init__ (self, recipients, body, attachments, BCC, CC ):
+	def __init__ (self, recipients, body, attachments, BCC, CC):
 		""" initiatlize a message object """
 		raise Exception("In Development", "This function does not work, yet.")
         

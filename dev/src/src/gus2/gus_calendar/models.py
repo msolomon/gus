@@ -1,6 +1,6 @@
 from django.db import models
-from gus_widget.models import Widget #ok
-from gus_users.models import gus_user #ok ignore aptana
+from gus2.gus_widget.models import Widget #ok
+from gus2.gus_users.models import gus_user #ok ignore aptana
 
 class Calendar(Widget):
     """
@@ -38,4 +38,4 @@ class Event(models.Model):
         if self.event_name:
             return unicode(self.event_name) + " : " + self.creator
         else:
-            return unicode(self.creator) +  " : " + self.description[:40]
+            return unicode(self.creator) + " : " + self.description[:40]

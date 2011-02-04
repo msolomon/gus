@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class UserManager(models.Manager):
-    def create_user(self,username,email,password):
+    def create_user(self, username, email, password):
         """
         this will create a new user and insert it into the table
         
@@ -17,14 +17,15 @@ class UserManager(models.Manager):
         @rtype:gus_roles.models.gus_user
         @return: the newly created user
         
-        Example
+        
+                   
             >>>gus_user.objects.create_user('username','email','password')
             (<gus_user object>)
         """
         usr = User.objects.create_user(username, email, password);
         
         return super(UserManager, self).get_query_set().create(
-            _user=usr,bio='',
+            _user=usr, bio='',
             )
         
 # Create your models here.
@@ -71,10 +72,10 @@ class gus_user(models.Model):
     def get_full_name(self):
         return self._user.get_full_name()
     
-    def set_password(self,raw_password):
+    def set_password(self, raw_password):
         return self._user.set_password(raw_password)
     
-    def check_password(self,raw_password):
+    def check_password(self, raw_password):
         return self._user.check_password(raw_password) 
     
     def set_unusable_password(self):
@@ -86,10 +87,10 @@ class gus_user(models.Model):
     def has_perm(self, perm, obj=None):
         return self._user.has_perm(perm, obj)
     
-    def has_perms(self,perm_list, obj=None):
+    def has_perms(self, perm_list, obj=None):
         return self._user.has_perms(perm_list, obj)
     
-    def has_module_perms(self,package_name):
+    def has_module_perms(self, package_name):
         return self._user.has_module_perms(package_name)  
     
     def get_and_delete_messages(self):
@@ -131,7 +132,7 @@ class gus_user(models.Model):
     #  a setter for , with the first letter capitalized
     
     #setter for our user
-    def setUser(self,user):
+    def setUser(self, user):
         """
         Set our user
         
@@ -139,24 +140,24 @@ class gus_user(models.Model):
         @param user: the user to parent to this instance
         @rtype: none 
         """
-        self._user=user
+        self._user = user
         
     #setter for our username
-    def setUsername(self,value):
+    def setUsername(self, value):
         """
         Set our user.username
         
-        @type  m: string
-        @param m: the new username.
-        @rtype: none
+        @type  value: string
+        @param value: the new username.
+        @rtype: None
         """
-        self._user.username=value
+        self._user.username = value
         
     def setID(self):
         """
         setter hook for ID to disallow changing
         """
-        raise Exception('UserPerimissionError','This Attribute is READ-ONLY')
+        raise Exception('UserPerimissionError', 'This Attribute is READ-ONLY')
     #Define our getters , syntax is:def getProperty(self): ... 
     #    s.t. Property is the name of the property you wish to use
     #  a getter for, with the first letter capitalized
@@ -190,7 +191,7 @@ class gus_user(models.Model):
     # A Hack to make variables use setter
     
     #user hook
-    user = property(getUser,setUser)
-    id   = property(getID,setID)
+    user = property(getUser, setUser)
+    id = property(getID, setID)
     #username hook
-    username = property(getUsername,setUsername)
+    username = property(getUsername, setUsername)

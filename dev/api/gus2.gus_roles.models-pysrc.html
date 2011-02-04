@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>gus2.gus_roles.models</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >GUSPY</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;gus2 ::
+        Package&nbsp;gus_roles ::
+        Module&nbsp;models
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="gus2.gus_roles.models-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="gus2.gus_roles.models-module.html">Module gus2.gus_roles.models</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module gus2.gus_calendar.models=gus2.gus_calendar.models-module.html,Module gus2.gus_forum.models=gus2.gus_forum.models-module.html,Module gus2.gus_gallery.models=gus2.gus_gallery.models-module.html,Module gus2.gus_groups.models=gus2.gus_groups.models-module.html,Module gus2.gus_roles.models=gus2.gus_roles.models-module.html,Module gus2.gus_users.models=gus2.gus_users.models-module.html,Module gus2.gus_widget.models=gus2.gus_widget.models-module.html"><a title="gus2.gus_calendar.models
+gus2.gus_forum.models
+gus2.gus_gallery.models
+gus2.gus_groups.models
+gus2.gus_roles.models
+gus2.gus_users.models
+gus2.gus_widget.models" class="py-name" href="#" onclick="return doclink('link-0', 'models', 'link-0');">models</a></tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt><tt class="py-op">.</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name"><a title="gus2.gus_calendar.models
+gus2.gus_forum.models
+gus2.gus_gallery.models
+gus2.gus_groups.models
+gus2.gus_roles.models
+gus2.gus_users.models
+gus2.gus_widget.models" class="py-name" href="#" onclick="return doclink('link-1', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">Group</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">gus2</tt><tt class="py-op">.</tt><tt class="py-name">gus_groups</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name"><a title="gus2.gus_calendar.models
+gus2.gus_forum.models
+gus2.gus_gallery.models
+gus2.gus_groups.models
+gus2.gus_roles.models
+gus2.gus_users.models
+gus2.gus_widget.models" class="py-name" href="#" onclick="return doclink('link-2', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Class gus2.gus_groups.models.gus_group=gus2.gus_groups.models.gus_group-class.html"><a title="gus2.gus_groups.models.gus_group" class="py-name" href="#" onclick="return doclink('link-3', 'gus_group', 'link-3');">gus_group</a></tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">gus2</tt><tt class="py-op">.</tt><tt class="py-name">gus_users</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="gus2.gus_calendar.models
+gus2.gus_forum.models
+gus2.gus_gallery.models
+gus2.gus_groups.models
+gus2.gus_roles.models
+gus2.gus_users.models
+gus2.gus_widget.models" class="py-name" href="#" onclick="return doclink('link-4', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Class gus2.gus_users.models.gus_user=gus2.gus_users.models.gus_user-class.html"><a title="gus2.gus_users.models.gus_user" class="py-name" href="#" onclick="return doclink('link-5', 'gus_user', 'link-5');">gus_user</a></tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># Create your models here.</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"> </tt>
+<a name="RoleManager"></a><div id="RoleManager-def"><a name="L7"></a><tt class="py-lineno">  7</tt> <a class="py-toggle" href="#" id="RoleManager-toggle" onclick="return toggle('RoleManager');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="gus2.gus_roles.models.RoleManager-class.html">RoleManager</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Manager</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RoleManager-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="RoleManager-expanded"><a name="RoleManager.create_role"></a><div id="RoleManager.create_role-def"><a name="L8"></a><tt class="py-lineno">  8</tt> <a class="py-toggle" href="#" id="RoleManager.create_role-toggle" onclick="return toggle('RoleManager.create_role');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.RoleManager-class.html#create_role">create_role</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">group</tt><tt class="py-op">,</tt> <tt class="py-param">role_name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RoleManager.create_role-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="RoleManager.create_role-expanded"><a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">        this will create a new role and insert it into the table</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">        @type group:gus_groups.models.gus_group</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring">        @param group: the group to associate with the role</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:gus_roles.models.gus_role</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring">        @return: the newly created role</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-docstring">            &gt;&gt;&gt;gus_roles.objects.create_role(&lt;gus_group object&gt;,'group_name')</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-docstring">            (&lt;gus_role object&gt;)</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line">        <tt class="py-name">django_grp</tt> <tt class="py-op">=</tt> <tt class="py-name">Group</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method gus2.gus_calendar.models.Calendar.objects()=gus2.gus_calendar.models.Calendar-class.html#objects,Method gus2.gus_calendar.models.Event.objects()=gus2.gus_calendar.models.Event-class.html#objects,Method gus2.gus_forum.models.forum.objects()=gus2.gus_forum.models.forum-class.html#objects,Method gus2.gus_forum.models.forum_post.objects()=gus2.gus_forum.models.forum_post-class.html#objects,Method gus2.gus_forum.models.forum_thread.objects()=gus2.gus_forum.models.forum_thread-class.html#objects,Method gus2.gus_gallery.models.gus_gallery.objects()=gus2.gus_gallery.models.gus_gallery-class.html#objects,Method gus2.gus_gallery.models.gus_image.objects()=gus2.gus_gallery.models.gus_image-class.html#objects,Method gus2.gus_groups.models.gus_group.objects()=gus2.gus_groups.models.gus_group-class.html#objects,Method gus2.gus_roles.models.gus_role.objects()=gus2.gus_roles.models.gus_role-class.html#objects,Method gus2.gus_users.models.gus_user.objects()=gus2.gus_users.models.gus_user-class.html#objects,Method gus2.gus_widget.models.Widget.objects()=gus2.gus_widget.models.Widget-class.html#objects"><a title="gus2.gus_calendar.models.Calendar.objects
+gus2.gus_calendar.models.Event.objects
+gus2.gus_forum.models.forum.objects
+gus2.gus_forum.models.forum_post.objects
+gus2.gus_forum.models.forum_thread.objects
+gus2.gus_gallery.models.gus_gallery.objects
+gus2.gus_gallery.models.gus_image.objects
+gus2.gus_groups.models.gus_group.objects
+gus2.gus_roles.models.gus_role.objects
+gus2.gus_users.models.gus_user.objects
+gus2.gus_widget.models.Widget.objects" class="py-name" href="#" onclick="return doclink('link-6', 'objects', 'link-6');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">create</tt><tt class="py-op">(</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">                <tt class="py-name">name</tt><tt class="py-op">=</tt><tt class="py-string">"%s.%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt id="link-7" class="py-name" targets="Variable gus2.gus_gallery.models.gus_gallery.group=gus2.gus_gallery.models.gus_gallery-class.html#group,Variable gus2.gus_roles.models.gus_role.group=gus2.gus_roles.models.gus_role-class.html#group,Variable gus2.gus_widget.models.Widget.group=gus2.gus_widget.models.Widget-class.html#group"><a title="gus2.gus_gallery.models.gus_gallery.group
+gus2.gus_roles.models.gus_role.group
+gus2.gus_widget.models.Widget.group" class="py-name" href="#" onclick="return doclink('link-7', 'group', 'link-7');">group</a></tt><tt class="py-op">.</tt><tt class="py-name">group_name</tt><tt class="py-op">,</tt> <tt class="py-name">role_name</tt><tt class="py-op">)</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">                <tt class="py-op">)</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">        <tt class="py-name">newrole</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name" targets="Class gus2.gus_roles.models.gus_role=gus2.gus_roles.models.gus_role-class.html"><a title="gus2.gus_roles.models.gus_role" class="py-name" href="#" onclick="return doclink('link-8', 'gus_role', 'link-8');">gus_role</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="gus2.gus_calendar.models.Calendar.objects
+gus2.gus_calendar.models.Event.objects
+gus2.gus_forum.models.forum.objects
+gus2.gus_forum.models.forum_post.objects
+gus2.gus_forum.models.forum_thread.objects
+gus2.gus_gallery.models.gus_gallery.objects
+gus2.gus_gallery.models.gus_image.objects
+gus2.gus_groups.models.gus_group.objects
+gus2.gus_roles.models.gus_role.objects
+gus2.gus_users.models.gus_user.objects
+gus2.gus_widget.models.Widget.objects" class="py-name" href="#" onclick="return doclink('link-9', 'objects', 'link-6');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">create</tt><tt class="py-op">(</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">            <tt id="link-10" class="py-name" targets="Variable gus2.gus_roles.models.gus_role._role_permissions=gus2.gus_roles.models.gus_role-class.html#_role_permissions"><a title="gus2.gus_roles.models.gus_role._role_permissions" class="py-name" href="#" onclick="return doclink('link-10', '_role_permissions', 'link-10');">_role_permissions</a></tt><tt class="py-op">=</tt><tt class="py-name">django_grp</tt><tt class="py-op">,</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">            <tt id="link-11" class="py-name" targets="Variable gus2.gus_roles.models.gus_role._role_group=gus2.gus_roles.models.gus_role-class.html#_role_group"><a title="gus2.gus_roles.models.gus_role._role_group" class="py-name" href="#" onclick="return doclink('link-11', '_role_group', 'link-11');">_role_group</a></tt><tt class="py-op">=</tt><tt id="link-12" class="py-name"><a title="gus2.gus_gallery.models.gus_gallery.group
+gus2.gus_roles.models.gus_role.group
+gus2.gus_widget.models.Widget.group" class="py-name" href="#" onclick="return doclink('link-12', 'group', 'link-7');">group</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">            <tt class="py-name">_role_name</tt><tt class="py-op">=</tt><tt class="py-name">role_name</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">            <tt class="py-op">)</tt>                                                             </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">         </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">newrole</tt> </tt>
+</div><a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">         </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">     </tt>
+<a name="RoleManager.with_user_in_group"></a><div id="RoleManager.with_user_in_group-def"><a name="L33"></a><tt class="py-lineno"> 33</tt> <a class="py-toggle" href="#" id="RoleManager.with_user_in_group-toggle" onclick="return toggle('RoleManager.with_user_in_group');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.RoleManager-class.html#with_user_in_group">with_user_in_group</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">group</tt><tt class="py-op">,</tt> <tt class="py-param">user</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RoleManager.with_user_in_group-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="RoleManager.with_user_in_group-expanded"><a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">        will return 1 role or false depending on if the given user </tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">        has a role in the given group</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">        @type group:gus_groups.models.gus_group</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-docstring">        @param group: the group in question</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring">        @type user:gus_groups.models.gus_user</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">        @param user: the user in question</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-13" class="py-name" targets="Class gus2.gus_roles.models.RoleManager=gus2.gus_roles.models.RoleManager-class.html"><a title="gus2.gus_roles.models.RoleManager" class="py-name" href="#" onclick="return doclink('link-13', 'RoleManager', 'link-13');">RoleManager</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">get_query_set</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">filter</tt><tt class="py-op">(</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">                <tt id="link-14" class="py-name" targets="Variable gus2.gus_roles.models.gus_role._role_users=gus2.gus_roles.models.gus_role-class.html#_role_users"><a title="gus2.gus_roles.models.gus_role._role_users" class="py-name" href="#" onclick="return doclink('link-14', '_role_users', 'link-14');">_role_users</a></tt><tt class="py-op">=</tt><tt id="link-15" class="py-name" targets="Variable gus2.gus_gallery.models.gus_gallery.user=gus2.gus_gallery.models.gus_gallery-class.html#user,Variable gus2.gus_gallery.models.gus_image.user=gus2.gus_gallery.models.gus_image-class.html#user,Variable gus2.gus_users.models.gus_user.user=gus2.gus_users.models.gus_user-class.html#user"><a title="gus2.gus_gallery.models.gus_gallery.user
+gus2.gus_gallery.models.gus_image.user
+gus2.gus_users.models.gus_user.user" class="py-name" href="#" onclick="return doclink('link-15', 'user', 'link-15');">user</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">                <tt id="link-16" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_group" class="py-name" href="#" onclick="return doclink('link-16', '_role_group', 'link-11');">_role_group</a></tt><tt class="py-op">=</tt><tt id="link-17" class="py-name"><a title="gus2.gus_gallery.models.gus_gallery.group
+gus2.gus_roles.models.gus_role.group
+gus2.gus_widget.models.Widget.group" class="py-name" href="#" onclick="return doclink('link-17', 'group', 'link-7');">group</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-op">)</tt> </tt>
+</div><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">     </tt>
+<a name="RoleManager.with_user"></a><div id="RoleManager.with_user-def"><a name="L48"></a><tt class="py-lineno"> 48</tt> <a class="py-toggle" href="#" id="RoleManager.with_user-toggle" onclick="return toggle('RoleManager.with_user');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.RoleManager-class.html#with_user">with_user</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">user</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RoleManager.with_user-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="RoleManager.with_user-expanded"><a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">        will return all roles of a given user</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">        @param user: The user to find the groups for</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring">        @type user: L{gus_user&lt;gus2.gus_users.models.gus_user&gt;}</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: List</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-docstring">        @return: a set of all groups that a given user belongs to </tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-18" class="py-name"><a title="gus2.gus_roles.models.RoleManager" class="py-name" href="#" onclick="return doclink('link-18', 'RoleManager', 'link-13');">RoleManager</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">get_query_set</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">filter</tt><tt class="py-op">(</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">                <tt id="link-19" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_users" class="py-name" href="#" onclick="return doclink('link-19', '_role_users', 'link-14');">_role_users</a></tt><tt class="py-op">=</tt><tt id="link-20" class="py-name"><a title="gus2.gus_gallery.models.gus_gallery.user
+gus2.gus_gallery.models.gus_image.user
+gus2.gus_users.models.gus_user.user" class="py-name" href="#" onclick="return doclink('link-20', 'user', 'link-15');">user</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-op">)</tt> </tt>
+</div><a name="RoleManager.users_without_group"></a><div id="RoleManager.users_without_group-def"><a name="L59"></a><tt class="py-lineno"> 59</tt> <a class="py-toggle" href="#" id="RoleManager.users_without_group-toggle" onclick="return toggle('RoleManager.users_without_group');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.RoleManager-class.html#users_without_group">users_without_group</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">group</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RoleManager.users_without_group-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="RoleManager.users_without_group-expanded"><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-comment">#roles_in_group</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-name">roleswgrp</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method gus2.gus_roles.models.RoleManager.with_group()=gus2.gus_roles.models.RoleManager-class.html#with_group"><a title="gus2.gus_roles.models.RoleManager.with_group" class="py-name" href="#" onclick="return doclink('link-21', 'with_group', 'link-21');">with_group</a></tt><tt class="py-op">(</tt><tt id="link-22" class="py-name"><a title="gus2.gus_gallery.models.gus_gallery.group
+gus2.gus_roles.models.gus_role.group
+gus2.gus_widget.models.Widget.group" class="py-name" href="#" onclick="return doclink('link-22', 'group', 'link-7');">group</a></tt><tt class="py-op">)</tt><tt class="py-op">;</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-name">id_list</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">role</tt> <tt class="py-keyword">in</tt> <tt class="py-name">roleswgrp</tt><tt class="py-op">:</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">            <tt class="py-name">id_list</tt><tt class="py-op">.</tt><tt class="py-name">extend</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Variable gus2.gus_users.models.gus_user.id=gus2.gus_users.models.gus_user-class.html#id"><a title="gus2.gus_users.models.gus_user.id" class="py-name" href="#" onclick="return doclink('link-23', 'id', 'link-23');">id</a></tt> <tt class="py-op">,</tt> <tt class="py-name">role</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Variable gus2.gus_roles.models.gus_role.users=gus2.gus_roles.models.gus_role-class.html#users"><a title="gus2.gus_roles.models.gus_role.users" class="py-name" href="#" onclick="return doclink('link-24', 'users', 'link-24');">users</a></tt><tt class="py-op">.</tt><tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-25" class="py-name"><a title="gus2.gus_users.models.gus_user" class="py-name" href="#" onclick="return doclink('link-25', 'gus_user', 'link-5');">gus_user</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="gus2.gus_calendar.models.Calendar.objects
+gus2.gus_calendar.models.Event.objects
+gus2.gus_forum.models.forum.objects
+gus2.gus_forum.models.forum_post.objects
+gus2.gus_forum.models.forum_thread.objects
+gus2.gus_gallery.models.gus_gallery.objects
+gus2.gus_gallery.models.gus_image.objects
+gus2.gus_groups.models.gus_group.objects
+gus2.gus_roles.models.gus_role.objects
+gus2.gus_users.models.gus_user.objects
+gus2.gus_widget.models.Widget.objects" class="py-name" href="#" onclick="return doclink('link-26', 'objects', 'link-6');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">exclude</tt><tt class="py-op">(</tt><tt class="py-name">_user__in</tt><tt class="py-op">=</tt><tt class="py-name">id_list</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">         </tt>
+<a name="RoleManager.users_with_group"></a><div id="RoleManager.users_with_group-def"><a name="L67"></a><tt class="py-lineno"> 67</tt> <a class="py-toggle" href="#" id="RoleManager.users_with_group-toggle" onclick="return toggle('RoleManager.users_with_group');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.RoleManager-class.html#users_with_group">users_with_group</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">group</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RoleManager.users_with_group-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="RoleManager.users_with_group-expanded"><a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-docstring">        will return all users of a given gus_group</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-docstring">        @param group: The group to find the users for</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-docstring">        @type group: L{gus_group&lt;gus2.gus_groups.models.gus_group&gt;}</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: List</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-docstring">        @return: a set of all users that a given group has</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-docstring">            Ex.</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-docstring">            &gt;&gt;&gt;gus_role.objects.users_with_group(group1)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-docstring">            (&lt;user1&gt;,&lt;user2&gt;,...,&lt;userN&gt;)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-name">roleswgrp</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="gus2.gus_roles.models.RoleManager.with_group" class="py-name" href="#" onclick="return doclink('link-27', 'with_group', 'link-21');">with_group</a></tt><tt class="py-op">(</tt><tt id="link-28" class="py-name"><a title="gus2.gus_gallery.models.gus_gallery.group
+gus2.gus_roles.models.gus_role.group
+gus2.gus_widget.models.Widget.group" class="py-name" href="#" onclick="return doclink('link-28', 'group', 'link-7');">group</a></tt><tt class="py-op">)</tt><tt class="py-op">;</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-name">id_list</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">role</tt> <tt class="py-keyword">in</tt> <tt class="py-name">roleswgrp</tt><tt class="py-op">:</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">            <tt class="py-name">id_list</tt><tt class="py-op">.</tt><tt class="py-name">extend</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="gus2.gus_users.models.gus_user.id" class="py-name" href="#" onclick="return doclink('link-29', 'id', 'link-23');">id</a></tt> <tt class="py-op">,</tt> <tt class="py-name">role</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="gus2.gus_roles.models.gus_role.users" class="py-name" href="#" onclick="return doclink('link-30', 'users', 'link-24');">users</a></tt><tt class="py-op">.</tt><tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-31" class="py-name"><a title="gus2.gus_users.models.gus_user" class="py-name" href="#" onclick="return doclink('link-31', 'gus_user', 'link-5');">gus_user</a></tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="gus2.gus_calendar.models.Calendar.objects
+gus2.gus_calendar.models.Event.objects
+gus2.gus_forum.models.forum.objects
+gus2.gus_forum.models.forum_post.objects
+gus2.gus_forum.models.forum_thread.objects
+gus2.gus_gallery.models.gus_gallery.objects
+gus2.gus_gallery.models.gus_image.objects
+gus2.gus_groups.models.gus_group.objects
+gus2.gus_roles.models.gus_role.objects
+gus2.gus_users.models.gus_user.objects
+gus2.gus_widget.models.Widget.objects" class="py-name" href="#" onclick="return doclink('link-32', 'objects', 'link-6');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">filter</tt><tt class="py-op">(</tt><tt class="py-name">_user__in</tt><tt class="py-op">=</tt><tt class="py-name">id_list</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">         </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">             </tt>
+<a name="RoleManager.with_group"></a><div id="RoleManager.with_group-def"><a name="L85"></a><tt class="py-lineno"> 85</tt> <a class="py-toggle" href="#" id="RoleManager.with_group-toggle" onclick="return toggle('RoleManager.with_group');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.RoleManager-class.html#with_group">with_group</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">group</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RoleManager.with_group-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="RoleManager.with_group-expanded"><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-docstring">        will return all roles of a given group</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-33" class="py-name"><a title="gus2.gus_roles.models.RoleManager" class="py-name" href="#" onclick="return doclink('link-33', 'RoleManager', 'link-13');">RoleManager</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">get_query_set</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">filter</tt><tt class="py-op">(</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                <tt id="link-34" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_group" class="py-name" href="#" onclick="return doclink('link-34', '_role_group', 'link-11');">_role_group</a></tt><tt class="py-op">=</tt><tt id="link-35" class="py-name"><a title="gus2.gus_gallery.models.gus_gallery.group
+gus2.gus_roles.models.gus_role.group
+gus2.gus_widget.models.Widget.group" class="py-name" href="#" onclick="return doclink('link-35', 'group', 'link-7');">group</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-op">)</tt> </tt>
+</div></div><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">     </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">     </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">     </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">         </tt>
+<a name="gus_role"></a><div id="gus_role-def"><a name="L97"></a><tt class="py-lineno"> 97</tt> <a class="py-toggle" href="#" id="gus_role-toggle" onclick="return toggle('gus_role');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="gus2.gus_roles.models.gus_role-class.html">gus_role</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="gus_role-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="gus_role-expanded"><a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-docstring">    class gus_role  is our model of a groupRole</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-docstring">    it shall encompass both the data and discreet functionality of groupRoles</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-docstring">    GroupRoles are used to tie users and groups together </tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"><tt class="py-docstring">    and to provide permissions within a group context    </tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">     </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">     </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-comment">###############################################</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt class="py-comment">####   Model Fields ###########################</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">    <tt class="py-comment">###############################################</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">     </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-comment"># double underscore is essentially a private variable</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt id="link-36" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_users" class="py-name" href="#" onclick="return doclink('link-36', '_role_users', 'link-14');">_role_users</a></tt> <tt class="py-op">=</tt> <tt id="link-37" class="py-name"><a title="gus2.gus_calendar.models
+gus2.gus_forum.models
+gus2.gus_gallery.models
+gus2.gus_groups.models
+gus2.gus_roles.models
+gus2.gus_users.models
+gus2.gus_widget.models" class="py-name" href="#" onclick="return doclink('link-37', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ManyToManyField</tt><tt class="py-op">(</tt><tt id="link-38" class="py-name"><a title="gus2.gus_users.models.gus_user" class="py-name" href="#" onclick="return doclink('link-38', 'gus_user', 'link-5');">gus_user</a></tt><tt class="py-op">)</tt> <tt class="py-comment">#ManyToMany relationship....</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">     </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt class="py-comment">#since django's built in groups are simillar to our roles we will</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">     </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt class="py-comment">#simply make our permissions an instance of traditional group permisions</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt id="link-39" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_permissions" class="py-name" href="#" onclick="return doclink('link-39', '_role_permissions', 'link-10');">_role_permissions</a></tt> <tt class="py-op">=</tt> <tt id="link-40" class="py-name"><a title="gus2.gus_calendar.models
+gus2.gus_forum.models
+gus2.gus_gallery.models
+gus2.gus_groups.models
+gus2.gus_roles.models
+gus2.gus_users.models
+gus2.gus_widget.models" class="py-name" href="#" onclick="return doclink('link-40', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">OneToOneField</tt><tt class="py-op">(</tt><tt class="py-name">Group</tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">     </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-comment">#essentially ManyToOne Relationship</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">    <tt id="link-41" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_group" class="py-name" href="#" onclick="return doclink('link-41', '_role_group', 'link-11');">_role_group</a></tt> <tt class="py-op">=</tt> <tt id="link-42" class="py-name"><a title="gus2.gus_calendar.models
+gus2.gus_forum.models
+gus2.gus_gallery.models
+gus2.gus_groups.models
+gus2.gus_roles.models
+gus2.gus_users.models
+gus2.gus_widget.models" class="py-name" href="#" onclick="return doclink('link-42', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-43" class="py-name"><a title="gus2.gus_groups.models.gus_group" class="py-name" href="#" onclick="return doclink('link-43', 'gus_group', 'link-3');">gus_group</a></tt><tt class="py-op">)</tt>  </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">     </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">    <tt class="py-comment">#textual name of the role (ie:Admin,User,etc)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">    <tt class="py-name">_role_name</tt> <tt class="py-op">=</tt> <tt id="link-44" class="py-name"><a title="gus2.gus_calendar.models
+gus2.gus_forum.models
+gus2.gus_gallery.models
+gus2.gus_groups.models
+gus2.gus_roles.models
+gus2.gus_users.models
+gus2.gus_widget.models" class="py-name" href="#" onclick="return doclink('link-44', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">100</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">     </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt class="py-comment">#we can use this for special flags</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">    <tt class="py-name">_role_permission_level</tt> <tt class="py-op">=</tt> <tt id="link-45" class="py-name"><a title="gus2.gus_calendar.models
+gus2.gus_forum.models
+gus2.gus_gallery.models
+gus2.gus_groups.models
+gus2.gus_roles.models
+gus2.gus_users.models
+gus2.gus_widget.models" class="py-name" href="#" onclick="return doclink('link-45', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">IntegerField</tt><tt class="py-op">(</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">     </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt class="py-comment">#################################################</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">    <tt class="py-comment">#### Gus Roles Specific Functions       #########</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">    <tt class="py-comment">#################################################</tt> </tt>
+<a name="gus_role.addUser"></a><div id="gus_role.addUser-def"><a name="L130"></a><tt class="py-lineno">130</tt> <a class="py-toggle" href="#" id="gus_role.addUser-toggle" onclick="return toggle('gus_role.addUser');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.gus_role-class.html#addUser">addUser</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">user</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="gus_role.addUser-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="gus_role.addUser-expanded"><a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"><tt class="py-docstring">        this will add a user to a role</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-docstring">        @type user:gus_users.models.gus_user</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"><tt class="py-docstring">        @param user:the user to add to the role</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: gus_roles.models.gus_role</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-docstring">        @return: the role , with the new user added to the list  </tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_users" class="py-name" href="#" onclick="return doclink('link-46', '_role_users', 'link-14');">_role_users</a></tt><tt class="py-op">.</tt><tt class="py-name">add</tt><tt class="py-op">(</tt><tt id="link-47" class="py-name"><a title="gus2.gus_gallery.models.gus_gallery.user
+gus2.gus_gallery.models.gus_image.user
+gus2.gus_users.models.gus_user.user" class="py-name" href="#" onclick="return doclink('link-47', 'user', 'link-15');">user</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="gus_role.removeUser"></a><div id="gus_role.removeUser-def"><a name="L139"></a><tt class="py-lineno">139</tt> <a class="py-toggle" href="#" id="gus_role.removeUser-toggle" onclick="return toggle('gus_role.removeUser');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.gus_role-class.html#removeUser">removeUser</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">user</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="gus_role.removeUser-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="gus_role.removeUser-expanded"><a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"><tt class="py-docstring">        this will remove a user from a role</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"><tt class="py-docstring">        @type user:gus_users.models.gus_user</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"><tt class="py-docstring">        @param user:the user to add to the role</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: gus_roles.models.gus_role</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"><tt class="py-docstring">        @return: the role , with the user removed from the list  </tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_users" class="py-name" href="#" onclick="return doclink('link-48', '_role_users', 'link-14');">_role_users</a></tt><tt class="py-op">.</tt><tt class="py-name">remove</tt><tt class="py-op">(</tt><tt id="link-49" class="py-name"><a title="gus2.gus_gallery.models.gus_gallery.user
+gus2.gus_gallery.models.gus_image.user
+gus2.gus_users.models.gus_user.user" class="py-name" href="#" onclick="return doclink('link-49', 'user', 'link-15');">user</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">     </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">    <tt class="py-comment">#################################################</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">    <tt class="py-comment">####  Python Magic Functions       ##############</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">    <tt class="py-comment">#################################################</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">     </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">    <tt id="link-50" class="py-name"><a title="gus2.gus_calendar.models.Calendar.objects
+gus2.gus_calendar.models.Event.objects
+gus2.gus_forum.models.forum.objects
+gus2.gus_forum.models.forum_post.objects
+gus2.gus_forum.models.forum_thread.objects
+gus2.gus_gallery.models.gus_gallery.objects
+gus2.gus_gallery.models.gus_image.objects
+gus2.gus_groups.models.gus_group.objects
+gus2.gus_roles.models.gus_role.objects
+gus2.gus_users.models.gus_user.objects
+gus2.gus_widget.models.Widget.objects" class="py-name" href="#" onclick="return doclink('link-50', 'objects', 'link-6');">objects</a></tt> <tt class="py-op">=</tt> <tt id="link-51" class="py-name"><a title="gus2.gus_roles.models.RoleManager" class="py-name" href="#" onclick="return doclink('link-51', 'RoleManager', 'link-13');">RoleManager</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-comment">#defines custom associations                                            </tt> </tt>
+<a name="gus_role.permString"></a><div id="gus_role.permString-def"><a name="L154"></a><tt class="py-lineno">154</tt> <a class="py-toggle" href="#" id="gus_role.permString-toggle" onclick="return toggle('gus_role.permString');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.gus_role-class.html#permString">permString</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="gus_role.permString-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="gus_role.permString-expanded"><a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"><tt class="py-docstring">        return a list of permissions associated with this role</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-name">perms</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_permissions" class="py-name" href="#" onclick="return doclink('link-52', '_role_permissions', 'link-10');">_role_permissions</a></tt><tt class="py-op">.</tt><tt class="py-name">permissions</tt><tt class="py-op">.</tt><tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">perms</tt><tt class="py-op">.</tt><tt class="py-name">count</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-string">""</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-name">permList</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt>  </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">perm</tt> <tt class="py-keyword">in</tt> <tt class="py-name">perms</tt><tt class="py-op">:</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">            <tt class="py-name">permList</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">perm</tt><tt class="py-op">)</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">" '%s'"</tt> <tt class="py-op">%</tt> <tt class="py-string">"', '"</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">permList</tt><tt class="py-op">)</tt><tt class="py-op">;</tt> </tt>
+</div><a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">     </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">    <tt class="py-comment">#define how to display our object in the html</tt> </tt>
+<a name="gus_role.__unicode__"></a><div id="gus_role.__unicode__-def"><a name="L166"></a><tt class="py-lineno">166</tt> <a class="py-toggle" href="#" id="gus_role.__unicode__-toggle" onclick="return toggle('gus_role.__unicode__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.gus_role-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="gus_role.__unicode__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="gus_role.__unicode__-expanded"><a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"><tt class="py-docstring">        This defines the default display of a role</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"><tt class="py-docstring">        for now we will just return the default django.User display</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   string</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  the default string for built in django.User.</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">         </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">'Role :[%s] %s '</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_group" class="py-name" href="#" onclick="return doclink('link-53', '_role_group', 'link-11');">_role_group</a></tt><tt class="py-op">.</tt><tt class="py-name">group_name</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_role_name</tt><tt class="py-op">)</tt>  </tt>
+</div><a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">     </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">     </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">    <tt class="py-comment">################################################</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">    <tt class="py-comment">###   Getters And Setters ######################</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">    <tt class="py-comment">################################################</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">    <tt class="py-comment">#Define our setters , syntax is:def setProperty(self): ... </tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">    <tt class="py-comment">#    s.t. Property is the name of the property you wish to use </tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">    <tt class="py-comment">#  a setter for , with the first letter capitalized</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">     </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">    <tt class="py-comment">#setter for our user</tt> </tt>
+<a name="gus_role.setUsers"></a><div id="gus_role.setUsers-def"><a name="L186"></a><tt class="py-lineno">186</tt> <a class="py-toggle" href="#" id="gus_role.setUsers-toggle" onclick="return toggle('gus_role.setUsers');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.gus_role-class.html#setUsers">setUsers</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">user</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="gus_role.setUsers-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="gus_role.setUsers-expanded"><a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"><tt class="py-docstring">        return an error about being read only</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">Exception</tt><tt class="py-op">,</tt> <tt class="py-string">"RoleUsersPermisionError: This Property is read Only"</tt> </tt>
+</div><a name="gus_role.setGroup"></a><div id="gus_role.setGroup-def"><a name="L191"></a><tt class="py-lineno">191</tt> <a class="py-toggle" href="#" id="gus_role.setGroup-toggle" onclick="return toggle('gus_role.setGroup');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.gus_role-class.html#setGroup">setGroup</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="gus_role.setGroup-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="gus_role.setGroup-expanded"><a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"><tt class="py-docstring">        return an error about being read only</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">Exception</tt><tt class="py-op">,</tt> <tt class="py-string">"RoleUsersPermisionError: This Property is read Only"</tt> </tt>
+</div><a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">    <tt class="py-comment">#Define our getters , syntax is:def getProperty(self): ... </tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">    <tt class="py-comment">#    s.t. Property is the name of the property you wish to use</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">    <tt class="py-comment">#  a getter for, with the first letter capitalized</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">     </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">     </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">     </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">    <tt class="py-comment">#getter for our users</tt> </tt>
+<a name="gus_role.getUsers"></a><div id="gus_role.getUsers-def"><a name="L203"></a><tt class="py-lineno">203</tt> <a class="py-toggle" href="#" id="gus_role.getUsers-toggle" onclick="return toggle('gus_role.getUsers');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.gus_role-class.html#getUsers">getUsers</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="gus_role.getUsers-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="gus_role.getUsers-expanded"><a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line"><tt class="py-docstring">        Return our users</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: django.contrib.auth.models.User</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"><tt class="py-docstring">        @return: the value of our parent user</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-54" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_users" class="py-name" href="#" onclick="return doclink('link-54', '_role_users', 'link-14');">_role_users</a></tt> </tt>
+</div><a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">    <tt class="py-comment">#getter for our user</tt> </tt>
+<a name="gus_role.getGroup"></a><div id="gus_role.getGroup-def"><a name="L212"></a><tt class="py-lineno">212</tt> <a class="py-toggle" href="#" id="gus_role.getGroup-toggle" onclick="return toggle('gus_role.getGroup');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="gus2.gus_roles.models.gus_role-class.html#getGroup">getGroup</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="gus_role.getGroup-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="gus_role.getGroup-expanded"><a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line"><tt class="py-docstring">        Return our group</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: django.contrib.auth.models.User</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"><tt class="py-docstring">        @return: the value of our parent user</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-55" class="py-name"><a title="gus2.gus_roles.models.gus_role._role_group" class="py-name" href="#" onclick="return doclink('link-55', '_role_group', 'link-11');">_role_group</a></tt> </tt>
+</div><a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">     </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">    <tt class="py-comment">#GETTER/SETTER enabled ... hackish</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">    <tt class="py-comment">#GETTERS AND SETTERS WILL BE USED (!Include simillar code in all classes)</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">    <tt class="py-comment">#getter and setter hooks , these must be setup if you wish to </tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">    <tt class="py-comment">#use gus_user.&lt;property&gt; = &lt;blah&gt;  or print gus_user.&lt;property&gt;</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">    <tt class="py-comment"># A Hack to make variables use setter</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">     </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">    <tt class="py-comment">#users hook</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">    <tt id="link-56" class="py-name"><a title="gus2.gus_roles.models.gus_role.users" class="py-name" href="#" onclick="return doclink('link-56', 'users', 'link-24');">users</a></tt> <tt class="py-op">=</tt> <tt class="py-name">property</tt><tt class="py-op">(</tt><tt id="link-57" class="py-name" targets="Method gus2.gus_roles.models.gus_role.getUsers()=gus2.gus_roles.models.gus_role-class.html#getUsers"><a title="gus2.gus_roles.models.gus_role.getUsers" class="py-name" href="#" onclick="return doclink('link-57', 'getUsers', 'link-57');">getUsers</a></tt><tt class="py-op">,</tt> <tt id="link-58" class="py-name" targets="Method gus2.gus_roles.models.gus_role.setUsers()=gus2.gus_roles.models.gus_role-class.html#setUsers"><a title="gus2.gus_roles.models.gus_role.setUsers" class="py-name" href="#" onclick="return doclink('link-58', 'setUsers', 'link-58');">setUsers</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">    <tt id="link-59" class="py-name"><a title="gus2.gus_gallery.models.gus_gallery.group
+gus2.gus_roles.models.gus_role.group
+gus2.gus_widget.models.Widget.group" class="py-name" href="#" onclick="return doclink('link-59', 'group', 'link-7');">group</a></tt> <tt class="py-op">=</tt> <tt class="py-name">property</tt><tt class="py-op">(</tt><tt id="link-60" class="py-name" targets="Method gus2.gus_roles.models.gus_role.getGroup()=gus2.gus_roles.models.gus_role-class.html#getGroup"><a title="gus2.gus_roles.models.gus_role.getGroup" class="py-name" href="#" onclick="return doclink('link-60', 'getGroup', 'link-60');">getGroup</a></tt><tt class="py-op">,</tt> <tt id="link-61" class="py-name" targets="Method gus2.gus_roles.models.gus_role.setGroup()=gus2.gus_roles.models.gus_role-class.html#setGroup"><a title="gus2.gus_roles.models.gus_role.setGroup" class="py-name" href="#" onclick="return doclink('link-61', 'setGroup', 'link-61');">setGroup</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >GUSPY</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Feb 04 02:45:28 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

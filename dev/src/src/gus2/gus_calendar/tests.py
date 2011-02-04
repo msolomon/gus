@@ -7,8 +7,8 @@ Replace these with more appropriate tests for your application.
 
 from django.test import TestCase
 import unittest
-from gus_calendar.models import Calendar #ok ignore aptana
-from gus_calendar.models import Event #ok ignore aptana
+from gus2.gus_calendar.models import Calendar #ok ignore aptana
+from gus2.gus_calendar.models import Event #ok ignore aptana
 
 class Calendar_test(unittest.TestCase):
     def basic_test(self):

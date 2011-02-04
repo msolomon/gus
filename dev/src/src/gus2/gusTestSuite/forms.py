@@ -12,25 +12,25 @@ class SimpleUserAddForm(forms.Form):
     """
     username = forms.CharField(max_length=100)
     password = forms.CharField(max_length=100)
-    email    = forms.EmailField()
+    email = forms.EmailField()
 
 class SimpleAddUserToGroup(forms.Form):
     """
     A form to add a user to a group
     """
-    group       = forms.CharField(widget=forms.HiddenInput)
-    new_member  = forms.ModelChoiceField(
+    group = forms.CharField(widget=forms.HiddenInput)
+    new_member = forms.ModelChoiceField(
                             queryset=[],
                             empty_label="Select Member"
                             )
-    role = forms.ModelChoiceField(queryset=[],empty_label="Select Role")
-    def __init__(self,group,data=None):
+    role = forms.ModelChoiceField(queryset=[], empty_label="Select Role")
+    def __init__(self, group, data=None):
         super(SimpleAddUserToGroup, self).__init__()
         self.fields[
             'new_member'
             ].queryset = gus_role.objects.users_without_group(group)
-        self.fields['group'].initial  = group.id
-        self.fields['role'].queryset  = gus_role.objects.filter(_role_group = group)
+        self.fields['group'].initial = group.id
+        self.fields['role'].queryset = gus_role.objects.filter(_role_group=group)
                             
                     
 class SimpleGroupAddForm(forms.Form):
@@ -41,10 +41,10 @@ class SimpleGroupAddForm(forms.Form):
     
     @return: this return blah
     """
-    group_name        = forms.CharField(max_length=100)
-    group_description = forms.CharField(widget=forms.Textarea,required=False)
-    group_image       = forms.FileField(required=False)
-    group_owner       = forms.ModelChoiceField(
+    group_name = forms.CharField(max_length=100)
+    group_description = forms.CharField(widget=forms.Textarea, required=False)
+    group_image = forms.FileField(required=False)
+    group_owner = forms.ModelChoiceField(
                             queryset=gus_user.objects,
                             empty_label="Select Owner"
                             )

@@ -1,7 +1,7 @@
 from django.db import models
-from gus_widget.models import Widget
-from gus_users.models import User
-from gus_groups.models import gus_group
+from gus2.gus_widget.models import Widget
+from gus2.gus_users.models import User
+from gus2.gus_groups.models import gus_group
 
 class forum(Widget):
   """
@@ -15,7 +15,7 @@ class forum(Widget):
   forum_description = models.TextField() #The forum's description.
   #forum_threads = models.ForeignKey(forum_thread) #A list of forum_threads
   
-  def EditForumDescription(self,description):
+  def EditForumDescription(self, description):
     """
     This allows the forum's description to be changed as long as the user has the proper permissions.
     ?
@@ -29,7 +29,7 @@ class forum(Widget):
     #End
   #End
   
-  def CreateThread(self,thread_name,user_id):
+  def CreateThread(self, thread_name, user_id):
     """
     Creates a thread for this forum as long as the user has the proper permissions.
     ?
@@ -44,7 +44,7 @@ class forum(Widget):
     #End
   #End
   
-  def DeleteThread(self,thread_id):
+  def DeleteThread(self, thread_id):
     """
     Allows for the deletion of a thread in this forum as long as the user has admin permissions.
     ?
@@ -72,7 +72,7 @@ class forum_post(models.Model):
     #Post text; not sure if we need a max post length. This is the only field that can be modified within this class
     post_content = models.CharField(max_length=5000)
     
-    def EditPost(self,user_id):
+    def EditPost(self, user_id):
         """
         Allows a user to edit the text of a post if they have the proper user_id, giving direct access to post_content
         """
@@ -99,7 +99,7 @@ class forum_thread(models.Model):
 	thread_name = models.CharField(max_length=25) #Thread's name.
 	#thread_posts = models.OneToManyField() #A list of forum_posts
 	
-	def CreatePost(self,user_id,text):
+	def CreatePost(self, user_id, text):
 		"""
 		Creates a post in this thread as long as the user has the proper permissions.
 		?
@@ -115,7 +115,7 @@ class forum_thread(models.Model):
 		#End
 	#End
 	
-	def DeletePost(self,post_id):
+	def DeletePost(self, post_id):
 		"""
 		Allows for the deletion of a post in this thread as long s the user has admin permissions.
 		?

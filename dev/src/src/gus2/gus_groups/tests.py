@@ -21,11 +21,11 @@ class SimpleTest(TestCase):
         tests functionality of L{gus_group.create_group<gus2.gus_groups.models.GroupManager.create_group>}
         """
         print "Test Create Group %s" % self.testGroupName        
-        gus_group.objects.create_group(self.testGroupName, 'unit test created','')
+        gus_group.objects.create_group(self.testGroupName, 'unit test created', '')
         grp = gus_group.objects.filter(group_name=self.testGroupName)
         self.failUnlessEqual(grp[0].group_name, self.testGroupName)
         
-        print "Test Delete Group %s" %self.testGroupName
+        print "Test Delete Group %s" % self.testGroupName
         grp.delete()
         self.failUnlessEqual(len(gus_group.objects.filter(group_name=self.testGroupName)), 0, 'failed to delete test group')
         
@@ -45,7 +45,7 @@ class SimpleTest(TestCase):
             return
         #If we get here, we created two groups with the same name, which is bad
         #We should have exited by now by getting an integrity error above
-        self.failUnlessEqual(1,2,'Created two identical User Group Names')
+        self.failUnlessEqual(1, 2, 'Created two identical User Group Names')
         
         
     def test_edit_group(self):
@@ -57,7 +57,7 @@ class SimpleTest(TestCase):
         grp = gus_group.objects.filter(group_name=self.testGroupName)
         
         self.failUnlessEqual(len(grp) > 0, True, 'Unable to create group')
-        grp[0].group_description="Altered Description"
+        grp[0].group_description = "Altered Description"
         grp[0].save()
         grp = gus_group.objects.filter(group_name=self.testGroupName)
         self.failUnlessEqual("Altered Description", grp[0].group_description, 'Unable to edit group description')

@@ -11,6 +11,6 @@
 <value>gus2.settings</value>
 </pydev_variables_property>
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
-<path>/src</path>
+<path>/gus/src/</path>
 </pydev_pathproperty>
 </pydev_project>

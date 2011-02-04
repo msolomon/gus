@@ -24,14 +24,14 @@ class SimpleTest(TestCase):
         print "Test Create Group %s" % self.testGroupName        
         
         #Create a test group to hang all of our tests on
-        gus_group.objects.create_group(self.testGroupName, 'unit test created','')
+        gus_group.objects.create_group(self.testGroupName, 'unit test created', '')
         grp = gus_group.objects.filter(group_name=self.testGroupName)
         #simple test to make sure group created properly; do we need since this is tested elsewhere?
         self.failUnlessEqual(grp[0].group_name, self.testGroupName)
         
         
         #Create a test role and make sure that initializes properly
-        gus_role.objects.create_role(grp[0],self.testRoleName)
+        gus_role.objects.create_role(grp[0], self.testRoleName)
         role = gus_role.objects.filter(_role_name=self.testRoleName)
         #Test to make sure the role was created
         self.failUnlessEqual(role[0]._role_name, self.testRoleName, 'Failed to create role')
@@ -53,7 +53,7 @@ class SimpleTest(TestCase):
         
         #Now we see if a user can be added to more than one role
         #This necessitates creating a second role
-        gus_role.objects.create_role(grp[0],self.testRoleName2)
+        gus_role.objects.create_role(grp[0], self.testRoleName2)
         role2 = gus_role.objects.filter(_role_name=self.testRoleName2)
         #Test to make sure a second role adds to the group as easily as the first
         self.failUnlessEqual(len(gus_role.objects.with_group(grp)), 2, 'Group failed to recognize role')
