@@ -101,6 +101,7 @@ INSTALLED_APPS = (
     #'gus2.gus_forum_thread',
     'gus2.gus_emailer',
     'gus2.gus_bill',
+    'gus2.gusTestSuite'
 
     
     # Uncomment the next line to enable the admin:
