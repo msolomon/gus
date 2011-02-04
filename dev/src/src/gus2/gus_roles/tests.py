@@ -40,12 +40,17 @@ class SimpleTest(TestCase):
     	"""
         print "Test Create Role test_roles"  
         group_object = gus_group.objects.create_group('test_roles', 'test', '')
+        #Test Creation
         gus_role.objects.create_role(group_object, 'test_role')
         role = gus_role.objects.get(_role_name='test_role')
         self.failUnlessEqual(role._role_name, 'test_role','RoleCreationError:Could Not Create Role')
+        #test Deletion
+        role.delete()
+        roles = gus_role.objects.filter(_role_name='test_role')
+        self.assertEqual(len(roles),0,"RoleDeletionError:Unable to Delete Role")
+    
+
         
-
-
 
 
 
