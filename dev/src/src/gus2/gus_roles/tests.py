@@ -24,7 +24,8 @@ class SimpleTest(TestCase):
 	group_object = gus_group.objects.create_group('test_roles','test','')
 	gus_role.objects.create_role(group_object,'test_role')
 	role = gus_role.objects.get(_role_name='test_role')
-	print role._role_name
+	self.failUnlessEqual(role._role_name, 'test_role')
+	print "Test successful"
 
 __test__ = {"doctest": """
 Another way to test that 1 + 1 is equal to 2.
