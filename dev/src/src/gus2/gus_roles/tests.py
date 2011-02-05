@@ -48,6 +48,21 @@ class SimpleTest(TestCase):
         role.delete()
         roles = gus_role.objects.filter(_role_name='test_role')
         self.assertEqual(len(roles),0,"RoleDeletionError:Unable to Delete Role")
+    def test_addDeleteUser_roles(self):
+	"""
+	@summary: test adding and removing users from a roles
+
+	@precondition: L{setUp}
+
+	tests L{gus_role.addUser<gus2.gus_roles.models.gus_role.addUser>}
+	tests L{gus_role.removeUser<gus2.gus_roles.models.gus_role.removeUser>}
+	"""
+
+        gus_role.objects.create_role(self.testGroup, self.testRole)
+        role = gus_role.objects.get(_role_name=self.testRole)
+	role.addUser(self.testUser1)
+	self.failUnless(role.user.all()[0] == self.testUser,'Unable to add user to role')
+	
     
 
         

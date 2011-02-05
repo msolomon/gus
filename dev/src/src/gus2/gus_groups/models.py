@@ -46,8 +46,8 @@ class gus_group(models.Model):
     
     #Our Fields
         #Django recommends using OneToOne Fields to extend built in models
-    group_name = models.CharField(max_length=100) #the group name
-    group_slug = models.CharField(max_length=100) #the url slug for lookup
+    group_name = models.CharField(max_length=100,unique=True) #the group name
+    group_slug = models.CharField(max_length=100,unique=True) #the url slug for lookup
     
     group_description = models.TextField()         #the group description
     group_image = models.CharField(max_length=50)
