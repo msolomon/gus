@@ -1,92 +1,50 @@
 from django.db import models
+#I'm pretty sure more should be here
 
 class bill():
     """
-    used to keep track of billing for groups.
-
-    @type id: int
-    @var id: the id number of this bill
-    @type group_id: int
-    @var group_id: the id number of the group associated with this bill
-    @type user_id: int
-    @var user_id: the id number of the user associated with this bill
-    @type name: string
-    @var name: the name of this bill
-    @type date_created: datetime
-    @var date_created: the time/day this bill was created
-    @type ammount: double
-    @var ammount: the ammount of currency this bill is
+    Used to keep track of billing for groups.
+    Does not make payments or handle money.
     """
-#    id
-#    group_id
-#    user_id
-#    name
-#    date_created
-#    ammount
 
-    def __init__(self, user, name, ammount):
-        raise Exception("In Development", "This function does not work, yet.")
-         #not sure how to get these values.
-#        id = ??
-#        group_id = ?
-#        user_id = ?
-#        self.date_created = ?
-
-#        self.name = name
-#        self.ammount = ammount
-
-
-    """
-    the following retur their respective variables
-    """
-    def get_id(self):
-        """
-        @rtype: int
-        @return: self.id
-        """
-#        return self.id
-
-    def get_group_id(self):
-        """
-        @rtype: int
-        @return: self.group_id
-        """
-#        return self.group_id
-        
-    def get_user_id(self):
-        """
-        @rtype: int
-        @return: self.user_id
-        """
-#        return self.user_id
-        
-    def get_name(self):
-        """
-        @rtype: string
-        @return: self.name
-        """
-#        return self.name
-        
-    def get_date_created(self):
-        """
-        @rtype: datetime
-        @return: self.date_created
-        """
-#        return self.date_created
-        
-    def get_ammount(self):
-        """
-        @rtype: double
-        @return: self.ammount
-        """
-#        return self.ammount
-
-
-    def modify_bill(self, ammount):
+    def create_bill(Bname, Bvalue, Ggroup, Guser):
         raise Exception("In Development", "This function does not work, yet.")
         """
-        this will change the ammout for this bill to the new ammount
+        This creates a new bill.  Associates it with the given
+        Ggroup, Guser, Bname; and gives it the specified Bvalue
+        @type Guser: gus_users.models.gus_user
+        @param Guser: Name of the user associated with the bill
+        @type Ggroup: gususers.modles.gus_group ??
+        @param Group: Name of the group associated with the bill 
+        @type Bname: string 
+        @param Bname: Name of the bill (to allow for more than 1 per user) 
+        @type Bvalue: int
+        @param Bvalue: Ammount the make the bill for
+        Example:
+            >>>create_bill(test, 11, g1, u1)
+        """
+        #return gus_bill.objects.create(user=Guser, group=Ggroup, name=Bname, value=Bvalue)
 
+    def get_bill(Bname, Ggroup, Guser):
+        raise Exception("In Development", "This function does not work, yet.")
+        """
+        Returns the bill associated with the Ggroup, Guser, and Bname
+        @type Guser: gus_users.models.gus_user
+        @param Guser: Name of the user associated with the bill
+        @type Ggroup: gususers.modles.gus_group ??
+        @param Group: Name of the group associated with the bill 
+        @type Bname: string 
+        @param Bname: Name of the bill (to allow for more than 1 per user) 
+        Example:
+            >>>get_bill(test, g1, u1)
+        """
+        #return gus_bill.objects.filter(user=Guser, group=Ggroup, name=Bname)
+
+    def modify_bill(Bname, Bvalue, Ggroup, Guser):
+        raise Exception("In Development", "This function does not work, yet.")
+        """
+        Changes the ammound of the bill associated with
+          the Ggroup, Guser, and Bname to the Bvalue
         @type user: gus_users.models.gus_user
         @param user: name of the user to create the bill for
         @type ammout: double
@@ -96,6 +54,9 @@ class bill():
         @return: none
 
         Example:
-            >>>???
+            >>>modify_bill(test, g1, u1, 12)
         """
-#        self.ammount = ammount 
+        #mod = get_bill(Bname, Ggroup, Guser)
+        #mod.value = Bvalue
+        #mod.save()
+        #return mod.value
