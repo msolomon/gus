@@ -8,6 +8,7 @@ class bill():
     """
 
     def create_bill(Bname, Bvalue, Ggroup, Guser):
+        raise Exception("In Development", "This function does not work, yet.")
         """
         This creates a new bill.  Associates it with the given
         Ggroup, Guser, Bname; and gives it the specified Bvalue
@@ -22,9 +23,10 @@ class bill():
         Example:
             >>>create_bill(test, 11, g1, u1)
         """
-        return gus_bill.objects.create(user=Guser, group=Ggroup, name=Bname, value=Bvalue)
+        #return gus_bill.objects.create(user=Guser, group=Ggroup, name=Bname, value=Bvalue)
 
     def get_bill(Bname, Ggroup, Guser):
+        raise Exception("In Development", "This function does not work, yet.")
         """
         Returns the bill associated with the Ggroup, Guser, and Bname
         @type Guser: gus_users.models.gus_user
@@ -36,7 +38,7 @@ class bill():
         Example:
             >>>get_bill(test, g1, u1)
         """
-        return gus_bill.objects.filter(user=Guser, group=Ggroup, name=Bname)
+        #return gus_bill.objects.filter(user=Guser, group=Ggroup, name=Bname)
 
     def modify_bill(Bname, Bvalue, Ggroup, Guser):
         raise Exception("In Development", "This function does not work, yet.")
@@ -54,7 +56,7 @@ class bill():
         Example:
             >>>modify_bill(test, g1, u1, 12)
         """
-        mod = get_bill(Bname, Ggroup, Guser)
-        mod.value = Bvalue
-        mod.save()
-        return mod.value
+        #mod = get_bill(Bname, Ggroup, Guser)
+        #mod.value = Bvalue
+        #mod.save()
+        #return mod.value
