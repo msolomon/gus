@@ -64,7 +64,7 @@ class gus_gallery(models.Model):
         Returns the number of images in the gallery
         """
         try:
-            return len(get_images)
+            return len(get_images())
         except:
             return 0
 
