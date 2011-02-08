@@ -39,14 +39,15 @@ class SimpleTest(TestCase):
     	and L{gus_role.create_role<gus2.gus_roles.models.RoleManager.create_role>} 
     	"""
         print "Test Create Role test_roles"  
-        group_object = gus_group.objects.create_group('test_roles', 'test', '')
+        group_object = gus_group.objects.create_group(self.testRole, 'test', '')
         #Test Creation
-        gus_role.objects.create_role(group_object, 'test_role')
-        role = gus_role.objects.get(_role_name='test_role')
-        self.failUnlessEqual(role._role_name, 'test_role','RoleCreationError:Could Not Create Role')
+        gus_role.objects.create_role(group_object, self.testRole)
+        role = gus_role.objects.get(_role_name=self.testRole)
+        self.failUnlessEqual(role._role_name, self.testRole,'RoleCreationError:Could Not Create Role')
         #test Deletion
+        print "Test Delete Role test_roles"  
         role.delete()
-        roles = gus_role.objects.filter(_role_name='test_role')
+        roles = gus_role.objects.filter(_role_name=self.testRole)
         self.assertEqual(len(roles),0,"RoleDeletionError:Unable to Delete Role")
     def test_addDeleteUser_roles(self):
 	"""
@@ -60,9 +61,14 @@ class SimpleTest(TestCase):
 
         gus_role.objects.create_role(self.testGroup, self.testRole)
         role = gus_role.objects.get(_role_name=self.testRole)
+	#Test Addition of user role
+        print "Test add Role user to role test_roles"  
 	role.addUser(self.testUser1)
 	self.failUnless(role.user.all()[0] == self.testUser,'Unable to add user to role')
-	
+	#Test Deletion of user from role
+        print "Test Delete user from Role test_roles"  
+	role.removeUser(self.testUser)
+	self.assertEqual(len(role.user.all()[0]),0,"Failed to remove user from role")
     
 
         
