@@ -1,50 +1,37 @@
 from django.db import models
-#I'm pretty sure more should be here
+from gus2.gus_users.models import gus_user
+from gus2.gus_groups.models import gus_group
+from django.db.models import Sum
 
-class bill():
+class payment(models.Model):
+    
+    mybill = models.ForeignKey("bill")
+    
+    amtpaid = models.FloatField()
+    datepaid = models.DateField(auto_now_add = True)
+
+class bill(models.Model):
     """
     Used to keep track of billing for groups.
     Does not make payments or handle money.
     """
+    user = models.ForeignKey(gus_user)
+    group = models.ForeignKey(gus_group)
+    name = models.CharField(max_length = 100)
+    value = models.FloatField()
+    datecreated = models.DateField(auto_now_add = True)
 
-    def create_bill(Bname, Bvalue, Ggroup, Guser):
-        raise Exception("In Development", "This function does not work, yet.")
-        """
-        This creates a new bill.  Associates it with the given
-        Ggroup, Guser, Bname; and gives it the specified Bvalue
-        @type Guser: gus_users.models.gus_user
-        @param Guser: Name of the user associated with the bill
-        @type Ggroup: gususers.modles.gus_group ??
-        @param Group: Name of the group associated with the bill 
-        @type Bname: string 
-        @param Bname: Name of the bill (to allow for more than 1 per user) 
-        @type Bvalue: int
-        @param Bvalue: Ammount the make the bill for
-        Example:
-            >>>create_bill(test, 11, g1, u1)
-        """
-        #return gus_bill.objects.create(user=Guser, group=Ggroup, name=Bname, value=Bvalue)
 
-    def get_bill(Bname, Ggroup, Guser):
-        raise Exception("In Development", "This function does not work, yet.")
-        """
-        Returns the bill associated with the Ggroup, Guser, and Bname
-        @type Guser: gus_users.models.gus_user
-        @param Guser: Name of the user associated with the bill
-        @type Ggroup: gususers.modles.gus_group ??
-        @param Group: Name of the group associated with the bill 
-        @type Bname: string 
-        @param Bname: Name of the bill (to allow for more than 1 per user) 
-        Example:
-            >>>get_bill(test, g1, u1)
-        """
-        #return gus_bill.objects.filter(user=Guser, group=Ggroup, name=Bname)
+#COMMENT THIS!
+    def paid_balance(self):
+        temp = payment.objects.filter(mybill = self).aggregate(Sum('amtpaid'))
+        return temp["amtpaid__sum"]
 
-    def modify_bill(Bname, Bvalue, Ggroup, Guser):
-        raise Exception("In Development", "This function does not work, yet.")
+    def make_payment(self, Bvalue):
         """
         Changes the ammound of the bill associated with
           the Ggroup, Guser, and Bname to the Bvalue
+          
         @type user: gus_users.models.gus_user
         @param user: name of the user to create the bill for
         @type ammout: double
@@ -56,7 +43,8 @@ class bill():
         Example:
             >>>modify_bill(test, g1, u1, 12)
         """
-        #mod = get_bill(Bname, Ggroup, Guser)
-        #mod.value = Bvalue
-        #mod.save()
-        #return mod.value
+        payment.objects.create(mybill = self, amtpaid = Bvalue)
+        return self.paid_balance()
+    
+    
+    
