@@ -1,9 +1,13 @@
-# add patterns to ignore here
+## global patterns
 *.pyc
 *~
+\#*#
+
+## global files
 gus.db
 guspy.db
 
+## specific files/directories
 # include only generated html
 docs/index.rst
 docs/_*/
