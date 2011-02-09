@@ -2,6 +2,7 @@
 *.pyc
 *~
 gus.db
+guspy.db
 
 # include only generated html
 docs/index.rst
