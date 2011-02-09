@@ -109,3 +109,16 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+#The first line of code sets a custom test runner, instead of the default one django uses. We need the custom one
+# in order to include the coverage library that will run our coverage tests.
+#The 'coverage.py' library can be obtained from the following site:
+#            http://pypi.python.org/pypi/coverage
+
+#The second line of code tells the coverage library what to cover. I've got all of our current modules here, 
+#but if we ever have more, we'll have to insert them
+
+
+#TEST_RUNNER='gus2.tests.test_runner_with_coverage'
+#COVERAGE_MODULES = ['gus2.gus_bill.models','gus2.gus_calendar.models','gus2.gus_emailer.models','gus2.gus_forum.models','gus2.gus_gallery.models','gus2.gus_groups.models','gus2.gus_users.models','gus2.gus_roles.models','gus2.gus_widget.models']
+
