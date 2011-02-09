@@ -5,7 +5,7 @@ from gus2.gus_users.models import gus_user
 # Create your models here.
 
 class RoleManager(models.Manager):
-    def create_role(self,group,role_name):
+    def create_role(self, group, role_name):
         """
         this will create a new role and insert it into the table
         
@@ -14,45 +14,49 @@ class RoleManager(models.Manager):
         @rtype:gus_roles.models.gus_role
         @return: the newly created role
         
-        Example
+        
             >>>gus_roles.objects.create_role(<gus_group object>,'group_name')
             (<gus_role object>)
         """
-        django_grp = Group.objects.create(    
-                name="%s.%s" % (group.group_name,role_name)
+        django_grp = Group.objects.create(
+                name="%s.%s" % (group.group_name, role_name)
                 )
-        newrole= gus_role.objects.create(
-            _role_permissions= django_grp,
+        newrole = gus_role.objects.create(
+            _role_permissions=django_grp,
             _role_group=group,
-            _role_name =role_name
+            _role_name=role_name
             )                                                            
         
         return newrole
         
     
-    def with_user_in_group(self,group,user):
+    def with_user_in_group(self, group, user):
         """
         will return 1 role or false depending on if the given user 
         has a role in the given group
         
         @type group:gus_groups.models.gus_group
         @param group: the group in question
-        @type group:gus_groups.models.gus_user
-        @param group: the user in question
+        @type user:gus_groups.models.gus_user
+        @param user: the user in question
         """
         return super(RoleManager, self).get_query_set().filter(
                 _role_users=user,
                 _role_group=group,
         )
     
-    def with_user(self,user):
+    def with_user(self, user):
         """
         will return all roles of a given user
+        @param user: The user to find the groups for
+        @type user: L{gus_user<gus2.gus_users.models.gus_user>}
+        @rtype: List
+        @return: a set of all groups that a given user belongs to 
         """
         return super(RoleManager, self).get_query_set().filter(
                 _role_users=user,
         )
-    def users_without_group(self,group):
+    def users_without_group(self, group):
         #roles_in_group
         roleswgrp = self.with_group(group);
         id_list = []
@@ -60,21 +64,25 @@ class RoleManager(models.Manager):
             id_list.extend(map(lambda x: x.id , role.users.all()))
         return gus_user.objects.exclude(_user__in=id_list)
         
-    def users_with_group(self,group):
+    def users_with_group(self, group):
         """
-        will return a list of users in a given group
+        will return all users of a given gus_group
+        @param group: The group to find the users for
+        @type group: L{gus_group<gus2.gus_groups.models.gus_group>}
+        @rtype: List
+        @return: a set of all users that a given group has
+            Ex.
+            >>>gus_role.objects.users_with_group(group1)
+            (<user1>,<user2>,...,<userN>)
         """
         roleswgrp = self.with_group(group);
         id_list = []
         for role in roleswgrp:
             id_list.extend(map(lambda x: x.id , role.users.all()))
         return gus_user.objects.filter(_user__in=id_list)
-        #usrs = []
-        #for role in roleswgrp :
-        #    usrs.extend(role.users.all()) 
-        #return usrs 
+        
             
-    def with_group(self,group):
+    def with_group(self, group):
         """
         will return all roles of a given group
         """
@@ -119,7 +127,7 @@ class gus_role(models.Model):
     #################################################
     #### Gus Roles Specific Functions       #########
     #################################################
-    def addUser(self,user):
+    def addUser(self, user):
         """
         this will add a user to a role
         @type user:gus_users.models.gus_user
@@ -128,7 +136,7 @@ class gus_role(models.Model):
         @return: the role , with the new user added to the list  
         """
         self._role_users.add(user)
-    def removeUser(self,user):
+    def removeUser(self, user):
         """
         this will remove a user from a role
         @type user:gus_users.models.gus_user
@@ -164,7 +172,7 @@ class gus_role(models.Model):
         @return:  the default string for built in django.User.
         """
         
-        return 'Role :[%s] %s '%(self._role_group.group_name,self._role_name) 
+        return 'Role :[%s] %s ' % (self._role_group.group_name, self._role_name) 
     
     
     ################################################
@@ -175,7 +183,7 @@ class gus_role(models.Model):
     #  a setter for , with the first letter capitalized
     
     #setter for our user
-    def setUsers(self,user):
+    def setUsers(self, user):
         """
         return an error about being read only
         """
@@ -217,5 +225,5 @@ class gus_role(models.Model):
     # A Hack to make variables use setter
     
     #users hook
-    users = property(getUsers,setUsers)
-    group = property(getGroup,setGroup)
+    users = property(getUsers, setUsers)
+    group = property(getGroup, setGroup)

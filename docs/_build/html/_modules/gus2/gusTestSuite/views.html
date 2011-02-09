@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gus2.gusTestSuite.views &mdash; gus v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="gus v0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">gus v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for gus2.gusTestSuite.views</h1><pre>
+###
+# Joran Beasle
+# View Controller for Gus Python Team
+# CS383  Fall2010
+#    This collection of functions manages the views that are associated with gus users
+#      It is dependent on gus_groups  models  (gus_user,gus_group,gus_roles)
+#    It is also dependent on gus_groups forms which contains the form definitions for various views
+#    It also utilizes some helper functions (found in file)
+###
+
+#from django.core.exceptions import ObjectDoesNotExist
+#from django.db import IntegrityError 
+from django.shortcuts import render_to_response
+from django.template import  RequestContext #,Context, loader
+from django.http import HttpResponseRedirect ,HttpResponse  
+from django.core.urlresolvers import reverse
+#from django import forms
+#from gus.gus_groups.models import *
+#from gus.gus_groups.forms import *
+#from django.contrib import messages
+from gus2.gus_users.models import gus_user
+from gus2.gus_groups.models import gus_group
+from gus2.gus_roles.models import gus_role
+
+
+<div class="viewcode-block" id="index"><a class="viewcode-back" href="../../gusTestSuite.html#gus2.gusTestSuite.views.index">[docs]</a>def index(urlRequest):
+    
+    #from django.contrib.auth.forms import UserCreationForm
+    #from gus2.gusTestSuite.forms import SimpleAddUserToGroup
+    #return HttpResponse(SimpleGroupAddForm().as_p())
+    return render_to_response('test/welcome.html',{
+         'users':gus_user.objects.all(),
+         'groups':gus_group.objects.all(),                                          
+         });
+                              </div>
+<div class="viewcode-block" id="addGroup"><a class="viewcode-back" href="../../gusTestSuite.html#gus2.gusTestSuite.views.addGroup">[docs]</a>def addGroup(urlRequest):
+    
+    from gus2.gus_groups.utils import createNewGroup
+    from gus2.gusTestSuite.forms import SimpleGroupAddForm
+    
+    #setup our form
+    if urlRequest.method == 'POST': # If the form has been submitted...
+        form = SimpleGroupAddForm(urlRequest.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            # Process the data in form.cleaned_data
+            # ...
+            createNewGroup(
+                    form.cleaned_data['group_owner'],
+                    form.cleaned_data['group_name'],
+                    form.cleaned_data['group_description'], 
+                    ""
+                    )
+            
+            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+    else:
+        form = SimpleGroupAddForm() # An unbound form
+
+    
+    return render_to_response('test/form.html',
+                                {
+                                 'submiturl':reverse('gus2.gusTestSuite.views.addGroup'),
+                                 'enctype':'multipart/form-data',
+                                 'form':form,
+                                 'title':'Add New Group',
+                                 'btnlabel':'Create Group',
+                                },
+                                context_instance=RequestContext(urlRequest)
+                              );
+</div>
+<div class="viewcode-block" id="editUser"><a class="viewcode-back" href="../../gusTestSuite.html#gus2.gusTestSuite.views.editUser">[docs]</a>def editUser(urlRequest,user_id):
+    user = gus_user.objects.get(pk=user_id)
+    return HttpResponse('Manage User : %s ' % user)
+</div>
+<div class="viewcode-block" id="editGroup"><a class="viewcode-back" href="../../gusTestSuite.html#gus2.gusTestSuite.views.editGroup">[docs]</a>def editGroup(urlRequest,group_id):
+    from gus2.gus_groups.utils import getGroupRoles
+    from gus2.gusTestSuite.forms import SimpleAddUserToGroup
+   
+    if urlRequest.method == 'POST':
+        usr = gus_user.objects.get(pk=int(urlRequest.POST['new_member']))
+        role = gus_role.objects.get(pk=int(urlRequest.POST['role']))
+        role.users.add(usr)
+        #return HttpResponse("New User ID : %s " % new_mem_id)
+    group = gus_group.objects.get(pk=group_id)
+    form_addUser = SimpleAddUserToGroup(group)    
+    return render_to_response('groups/manageGroup.html',
+        { 'group':group,'roles':getGroupRoles(group),
+          'formAddUser':form_addUser},
+          context_instance=RequestContext(urlRequest)
+          )
+    return HttpResponse('Manage Group : %s ' % group)
+</div>
+<div class="viewcode-block" id="deleteUser"><a class="viewcode-back" href="../../gusTestSuite.html#gus2.gusTestSuite.views.deleteUser">[docs]</a>def deleteUser(urlRequest,user_id):
+    user = gus_user.objects.get(pk=user_id)
+    return HttpResponse('Delete User : %s ' % user)</div>
+<div class="viewcode-block" id="deleteGroup"><a class="viewcode-back" href="../../gusTestSuite.html#gus2.gusTestSuite.views.deleteGroup">[docs]</a>def deleteGroup(urlRequest,group_id):
+    group = gus_group.objects.get(pk=group_id)
+    return HttpResponse('Delete Group : %s ' % group)
+</div>
+<div class="viewcode-block" id="removeUserFromRole"><a class="viewcode-back" href="../../gusTestSuite.html#gus2.gusTestSuite.views.removeUserFromRole">[docs]</a>def removeUserFromRole(urlRequest,user_id,role_id):
+    user = gus_user.objects.get(pk=user_id)
+    role = gus_role.objects.get(pk=role_id)
+    role.users.remove(user)
+    return HttpResponseRedirect(
+            reverse('gus2.gusTestSuite.views.editRole',args=[role_id])
+            )    </div>
+<div class="viewcode-block" id="editRole"><a class="viewcode-back" href="../../gusTestSuite.html#gus2.gusTestSuite.views.editRole">[docs]</a>def editRole(urlRequest,role_id):
+  
+    role = gus_role.objects.get(pk=role_id)
+   
+    
+    return render_to_response('groups/manageRole.html',
+                       {
+                         'role':role,
+                        
+                       }
+                       )
+
+</div>
+<div class="viewcode-block" id="addUser"><a class="viewcode-back" href="../../gusTestSuite.html#gus2.gusTestSuite.views.addUser">[docs]</a>def addUser(urlRequest):
+    from gus2.gusTestSuite.forms import SimpleUserAddForm
+    #setup our form
+    if urlRequest.method == 'POST': # If the form has been submitted...
+        form = SimpleUserAddForm(urlRequest.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            # Process the data in form.cleaned_data
+            # ...
+            gus_user.objects.create_user(
+                            form.cleaned_data['username'],
+                            form.cleaned_data['email'],
+                            form.cleaned_data['password'],
+                        )
+            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+    else:
+        form = SimpleUserAddForm() # An unbound form
+
+
+    return render_to_response('test/form.html',
+                                {
+                                 'submiturl':reverse('gus2.gusTestSuite.views.addUser'),
+                                 'encType':'multipart/form-data',
+                                 'form':form,
+                                 'title':'Add New User',
+                                 'btnlabel':'Create User',
+                                },
+                                context_instance=RequestContext(urlRequest)
+                              );
+                              </div>
+</pre>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">gus v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The guspy Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

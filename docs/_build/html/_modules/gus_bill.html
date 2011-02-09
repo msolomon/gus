@@ -1,0 +1,189 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gus_bill &mdash; gus v0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="gus v0.1 documentation" href="../index.html" />
+    <link rel="next" title="gus_calendar" href="gus_calendar.html" />
+    <link rel="prev" title="gusTestSuite" href="gusTestSuite.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gus_calendar.html" title="gus_calendar"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gusTestSuite.html" title="gusTestSuite"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">gus v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gus-bill">
+<h1>gus_bill<a class="headerlink" href="#gus-bill" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-gus2.gus_bill.__init__">
+<span id="init"></span><h2>__init__<a class="headerlink" href="#module-gus2.gus_bill.__init__" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gus2.gus_bill.models">
+<span id="models"></span><h2>models<a class="headerlink" href="#module-gus2.gus_bill.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gus2.gus_bill.models.bill">
+<em class="property">class </em><tt class="descclassname">gus2.gus_bill.models.</tt><tt class="descname">bill</tt><a class="reference internal" href="gus2/gus_bill/models.html#bill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_bill.models.bill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to keep track of billing for groups.
+Does not make payments or handle money.</p>
+<dl class="method">
+<dt id="gus2.gus_bill.models.bill.create_bill">
+<tt class="descname">create_bill</tt><big>(</big><em>Bname</em>, <em>Bvalue</em>, <em>Ggroup</em>, <em>Guser</em><big>)</big><a class="headerlink" href="#gus2.gus_bill.models.bill.create_bill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_bill.models.bill.get_bill">
+<tt class="descname">get_bill</tt><big>(</big><em>Bname</em>, <em>Ggroup</em>, <em>Guser</em><big>)</big><a class="headerlink" href="#gus2.gus_bill.models.bill.get_bill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_bill.models.bill.modify_bill">
+<tt class="descname">modify_bill</tt><big>(</big><em>Bname</em>, <em>Bvalue</em>, <em>Ggroup</em>, <em>Guser</em><big>)</big><a class="reference internal" href="gus2/gus_bill/models.html#bill.modify_bill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_bill.models.bill.modify_bill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gus2.gus_bill.tests">
+<span id="tests"></span><h2>tests<a class="headerlink" href="#module-gus2.gus_bill.tests" title="Permalink to this headline">¶</a></h2>
+<p>This file runs unit tests on the gus_bill/models.py file.</p>
+<dl class="class">
+<dt id="gus2.gus_bill.tests.SimpleTest">
+<em class="property">class </em><tt class="descclassname">gus2.gus_bill.tests.</tt><tt class="descname">SimpleTest</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="gus2/gus_bill/tests.html#SimpleTest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_bill.tests.SimpleTest" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gus2.gus_bill.tests.SimpleTest.test_create_bill">
+<tt class="descname">test_create_bill</tt><big>(</big><big>)</big><a class="headerlink" href="#gus2.gus_bill.tests.SimpleTest.test_create_bill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests that the bill was created.
+This bill will be named test
+The user will be u1
+The group will be g1
+The initial value will be 11</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_bill.tests.SimpleTest.test_get_bill">
+<tt class="descname">test_get_bill</tt><big>(</big><big>)</big><a class="headerlink" href="#gus2.gus_bill.tests.SimpleTest.test_get_bill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests that get_bill returns the right bill</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_bill.tests.SimpleTest.test_modify_bill">
+<tt class="descname">test_modify_bill</tt><big>(</big><big>)</big><a class="headerlink" href="#gus2.gus_bill.tests.SimpleTest.test_modify_bill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests that the bill from test_create_bill
+Can be modified</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gus2.gus_bill.views">
+<span id="views"></span><h2>views<a class="headerlink" href="#module-gus2.gus_bill.views" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gus_bill</a><ul>
+<li><a class="reference internal" href="#module-gus2.gus_bill.__init__">__init__</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_bill.models">models</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_bill.tests">tests</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_bill.views">views</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gusTestSuite.html"
+                        title="previous chapter">gusTestSuite</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gus_calendar.html"
+                        title="next chapter">gus_calendar</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/_modules/gus_bill.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gus_calendar.html" title="gus_calendar"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gusTestSuite.html" title="gusTestSuite"
+             >previous</a> |</li>
+        <li><a href="../index.html">gus v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The guspy Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

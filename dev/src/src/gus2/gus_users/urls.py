@@ -12,7 +12,7 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('',
     # Example:
     # (r'^gus2/', include('gus2.foo.urls')),
-    (r'^gus_test/',include('gus2.gus_groups.urls'))
+    (r'^gus_test/', include('gus2.gus_groups.urls'))
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

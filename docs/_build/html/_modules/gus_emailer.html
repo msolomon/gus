@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gus_emailer &mdash; gus v0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="gus v0.1 documentation" href="../index.html" />
+    <link rel="next" title="gus_forum" href="gus_forum.html" />
+    <link rel="prev" title="gus_calendar" href="gus_calendar.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gus_forum.html" title="gus_forum"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gus_calendar.html" title="gus_calendar"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">gus v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gus-emailer">
+<h1>gus_emailer<a class="headerlink" href="#gus-emailer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-gus2.gus_emailer.__init__">
+<span id="init"></span><h2>__init__<a class="headerlink" href="#module-gus2.gus_emailer.__init__" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gus2.gus_emailer.models">
+<span id="models"></span><h2>models<a class="headerlink" href="#module-gus2.gus_emailer.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gus2.gus_emailer.models.emailer">
+<em class="property">class </em><tt class="descclassname">gus2.gus_emailer.models.</tt><tt class="descname">emailer</tt><a class="reference internal" href="gus2/gus_emailer/models.html#emailer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_emailer.models.emailer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables Calender and User to trigger an email to another user or list of users.</p>
+<dl class="method">
+<dt id="gus2.gus_emailer.models.emailer.send_message">
+<tt class="descname">send_message</tt><big>(</big><em>message</em><big>)</big><a class="reference internal" href="gus2/gus_emailer/models.html#emailer.send_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_emailer.models.emailer.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#64;rtype: int
+&#64;return: self.id</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gus2.gus_emailer.models.message">
+<em class="property">class </em><tt class="descclassname">gus2.gus_emailer.models.</tt><tt class="descname">message</tt><big>(</big><em>recipients</em>, <em>body</em>, <em>attachments</em>, <em>BCC</em>, <em>CC</em><big>)</big><a class="reference internal" href="gus2/gus_emailer/models.html#message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_emailer.models.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>An individual message to be sent out throught the emailer</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gus2.gus_emailer.models.message_history">
+<em class="property">class </em><tt class="descclassname">gus2.gus_emailer.models.</tt><tt class="descname">message_history</tt><a class="reference internal" href="gus2/gus_emailer/models.html#message_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_emailer.models.message_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>used to store a list of messages sent through the emailer</p>
+<dl class="method">
+<dt id="gus2.gus_emailer.models.message_history.add_message">
+<tt class="descname">add_message</tt><big>(</big><em>message</em><big>)</big><a class="reference internal" href="gus2/gus_emailer/models.html#message_history.add_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_emailer.models.message_history.add_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#64;rtype: bool
+&#64;return confirmation of action</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_emailer.models.message_history.delete_message">
+<tt class="descname">delete_message</tt><big>(</big><em>message_id</em><big>)</big><a class="reference internal" href="gus2/gus_emailer/models.html#message_history.delete_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_emailer.models.message_history.delete_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#64;rtype: bool
+&#64;return confirmation of action</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_emailer.models.message_history.display_history">
+<tt class="descname">display_history</tt><big>(</big><em>sort_parameter</em><big>)</big><a class="reference internal" href="gus2/gus_emailer/models.html#message_history.display_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_emailer.models.message_history.display_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#64;rtype: list
+&#64;return list of messages</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gus2.gus_emailer.tests">
+<span id="tests"></span><h2>tests<a class="headerlink" href="#module-gus2.gus_emailer.tests" title="Permalink to this headline">¶</a></h2>
+<p>This file demonstrates two different styles of tests (one doctest and one
+unittest). These will both pass when you run &#8220;manage.py test&#8221;.</p>
+<p>Replace these with more appropriate tests for your application.</p>
+<dl class="class">
+<dt id="gus2.gus_emailer.tests.SimpleTest">
+<em class="property">class </em><tt class="descclassname">gus2.gus_emailer.tests.</tt><tt class="descname">SimpleTest</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="gus2/gus_emailer/tests.html#SimpleTest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_emailer.tests.SimpleTest" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gus2.gus_emailer.tests.SimpleTest.test_basic_addition">
+<tt class="descname">test_basic_addition</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_emailer/tests.html#SimpleTest.test_basic_addition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_emailer.tests.SimpleTest.test_basic_addition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests that 1 + 1 always equals 2.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gus2.gus_emailer.views">
+<span id="views"></span><h2>views<a class="headerlink" href="#module-gus2.gus_emailer.views" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gus_emailer</a><ul>
+<li><a class="reference internal" href="#module-gus2.gus_emailer.__init__">__init__</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_emailer.models">models</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_emailer.tests">tests</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_emailer.views">views</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gus_calendar.html"
+                        title="previous chapter">gus_calendar</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gus_forum.html"
+                        title="next chapter">gus_forum</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/_modules/gus_emailer.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gus_forum.html" title="gus_forum"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gus_calendar.html" title="gus_calendar"
+             >previous</a> |</li>
+        <li><a href="../index.html">gus v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The guspy Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

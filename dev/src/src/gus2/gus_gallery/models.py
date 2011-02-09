@@ -4,19 +4,21 @@
 # January 2011
 #
 # TODO: Figure out where to actually save image files, update the gus_image class to reflect that
-# TODO: See if I'm doing the gus_image queries right in gus_gallery.get_images and gus_gallery.delete
+# TODO: See if I'm doing the gus_image queries right in gus_gallery.get_images and gus_gallery.delete. It builds, but that doesn't mean it works!
+# TODO: Overwrite the __init__ methods to do some basic validation, or do it in the save() functions?
 
 from django.db import models
-from gus.gus_groups.models import *
+from gus2.gus_groups.models import *
+from gus2.gus_users.models import *
 
 class gus_gallery(models.Model):
     """
     An image gallery belonging to a gus_group.
     """
     date_created = models.DateTimeField(auto_now_add=True)
-    group = models.ForeignKey(gus_groups)
-    name = models.CharField(500)
-    user = models.ForeignKey(gus_users)
+    group = models.ForeignKey(gus_group)
+    name = models.CharField(max_length=500)
+    user = models.ForeignKey(gus_user)
 
     def __unicode__(self):
         """
@@ -31,8 +33,11 @@ class gus_gallery(models.Model):
         """
         Deletes the gallery and all the images associated with it.
         """
-        for i in self.gus_image_set:
-            i.delete()
+        images = self.get_images()
+        if images != None:
+            for i in images:
+                i.delete()
+        
         super(gus_gallery, self).delete()
 
     def add_image(self, img):
@@ -50,9 +55,18 @@ class gus_gallery(models.Model):
         @return: An array of images in the gallery.
         """
         try:
-            return self.gus_image_set.filter(galery_id=self)
+            return gus_image.objects.filter(gallery_id=self)
         except:
             return None
+
+    def num_images(self):
+        """
+        Returns the number of images in the gallery
+        """
+        try:
+            return len(get_images())
+        except:
+            return 0
 
 
 class gus_image(models.Model):
@@ -61,8 +75,8 @@ class gus_image(models.Model):
     """
     date_created = models.DateTimeField(auto_now_add=True)
     gallery = models.ForeignKey(gus_gallery)
-    image_path = models.CharField(500)
-    user = models.ForeignKey(gus_users)
+    image_path = models.CharField(max_length=500)
+    user = models.ForeignKey(gus_user)
 
     def __unicode__(self):
         """

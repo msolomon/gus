@@ -12,7 +12,7 @@
 #from django.db import IntegrityError 
 from django.shortcuts import render_to_response
 from django.template import  RequestContext #,Context, loader
-from django.http import HttpResponseRedirect ,HttpResponse  
+from django.http import HttpResponseRedirect , HttpResponse  
 from django.core.urlresolvers import reverse
 #from django import forms
 #from gus.gus_groups.models import *
@@ -28,9 +28,9 @@ def index(urlRequest):
     #from django.contrib.auth.forms import UserCreationForm
     #from gus2.gusTestSuite.forms import SimpleAddUserToGroup
     #return HttpResponse(SimpleGroupAddForm().as_p())
-    return render_to_response('test/welcome.html',{
+    return render_to_response('test/welcome.html', {
          'users':gus_user.objects.all(),
-         'groups':gus_group.objects.all(),                                          
+         'groups':gus_group.objects.all(),
          });
                               
 def addGroup(urlRequest):
@@ -47,7 +47,7 @@ def addGroup(urlRequest):
             createNewGroup(
                     form.cleaned_data['group_owner'],
                     form.cleaned_data['group_name'],
-                    form.cleaned_data['group_description'], 
+                    form.cleaned_data['group_description'],
                     ""
                     )
             
@@ -67,11 +67,11 @@ def addGroup(urlRequest):
                                 context_instance=RequestContext(urlRequest)
                               );
 
-def editUser(urlRequest,user_id):
+def editUser(urlRequest, user_id):
     user = gus_user.objects.get(pk=user_id)
     return HttpResponse('Manage User : %s ' % user)
 
-def editGroup(urlRequest,group_id):
+def editGroup(urlRequest, group_id):
     from gus2.gus_groups.utils import getGroupRoles
     from gus2.gusTestSuite.forms import SimpleAddUserToGroup
    
@@ -83,27 +83,27 @@ def editGroup(urlRequest,group_id):
     group = gus_group.objects.get(pk=group_id)
     form_addUser = SimpleAddUserToGroup(group)    
     return render_to_response('groups/manageGroup.html',
-        { 'group':group,'roles':getGroupRoles(group),
+        { 'group':group, 'roles':getGroupRoles(group),
           'formAddUser':form_addUser},
           context_instance=RequestContext(urlRequest)
           )
     return HttpResponse('Manage Group : %s ' % group)
 
-def deleteUser(urlRequest,user_id):
+def deleteUser(urlRequest, user_id):
     user = gus_user.objects.get(pk=user_id)
     return HttpResponse('Delete User : %s ' % user)
-def deleteGroup(urlRequest,group_id):
+def deleteGroup(urlRequest, group_id):
     group = gus_group.objects.get(pk=group_id)
     return HttpResponse('Delete Group : %s ' % group)
 
-def removeUserFromRole(urlRequest,user_id,role_id):
+def removeUserFromRole(urlRequest, user_id, role_id):
     user = gus_user.objects.get(pk=user_id)
     role = gus_role.objects.get(pk=role_id)
     role.users.remove(user)
     return HttpResponseRedirect(
-            reverse('gus2.gusTestSuite.views.editRole',args=[role_id])
+            reverse('gus2.gusTestSuite.views.editRole', args=[role_id])
             )    
-def editRole(urlRequest,role_id):
+def editRole(urlRequest, role_id):
   
     role = gus_role.objects.get(pk=role_id)
    

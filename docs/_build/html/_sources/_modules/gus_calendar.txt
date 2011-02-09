@@ -1,0 +1,26 @@
+gus_calendar
+==============
+
+__init__
+----------
+.. automodule:: gus2.gus_calendar.__init__
+	:members:
+	:undoc-members:
+
+models
+--------
+.. automodule:: gus2.gus_calendar.models
+	:members:
+	:undoc-members:
+
+tests
+-------
+.. automodule:: gus2.gus_calendar.tests
+	:members:
+	:undoc-members:
+
+views
+-------
+.. automodule:: gus2.gus_calendar.views
+	:members:
+	:undoc-members:

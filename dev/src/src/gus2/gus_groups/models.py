@@ -1,12 +1,11 @@
 from django.db import models 
 
 class GroupManager(models.Manager):
-    def create_group(self,groupname,description="",image=""):
+    def create_group(self, groupname, description="", image=""):
         """
         this will create a new group and insert it into the table
         
-        @type owner:gus_users.models.gus_user
-        @param owner: the owner of the new group to create
+       
         @type groupname:string
         @param groupname: the name of the new group to create
         @type description:string
@@ -16,16 +15,17 @@ class GroupManager(models.Manager):
         @rtype:gus_roles.models.gus_group
         @return: the newly created group
         
-        Example
+        
+            Example
             >>>gus_roles.objects.create_role(<gus_group object>,'group_name')
             (<gus_role object>)
         """
         from utils import makeSlug
         return super(GroupManager, self).get_query_set().create(
-            group_name=groupname,group_description=description,
-            group_image=image,group_slug=makeSlug(groupname)                                                   
+            group_name=groupname, group_description=description,
+            group_image=image, group_slug=makeSlug(groupname)                                                   
             )
-    def has_member(self,gusUser):
+    def has_member(self, gusUser):
         """
         this shall return a list of all groups that have the specified 
         user as a member
@@ -46,8 +46,8 @@ class gus_group(models.Model):
     
     #Our Fields
         #Django recommends using OneToOne Fields to extend built in models
-    group_name  = models.CharField(max_length=100) #the group name
-    group_slug  = models.CharField(max_length=100) #the url slug for lookup
+    group_name = models.CharField(max_length=100,unique=True) #the group name
+    group_slug = models.CharField(max_length=100,unique=True) #the url slug for lookup
     
     group_description = models.TextField()         #the group description
     group_image = models.CharField(max_length=50)

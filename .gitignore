@@ -2,3 +2,10 @@
 *.pyc
 *~
 gus.db
+
+# include only generated html
+docs/index.rst
+docs/_*/
+!docs/_build/
+docs/_build/*
+!docs/_build/html/

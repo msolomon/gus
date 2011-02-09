@@ -1,0 +1,8 @@
+gus_permissions
+=================
+
+permission
+------------
+.. automodule:: gus2.gus_permissions.permission
+	:members:
+	:undoc-members:

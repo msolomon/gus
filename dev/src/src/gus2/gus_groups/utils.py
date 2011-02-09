@@ -11,9 +11,9 @@ def makeSlug(slug):
     @rtype: string
     @return: the string with all lowercase and spaces replaced with underscores  
     """
-    return slug.replace(' ','_').lower()
+    return slug.replace(' ', '_').lower()
 
-def createNewGroup(owner,group_name="",group_desc="",group_image=""):
+def createNewGroup(owner, group_name="", group_desc="", group_image=""):
     """
     creates a new group and the default roles associated with it
     @param owner: the user who is the owner of this group
@@ -60,18 +60,18 @@ def getGroupsWithUser(user):
     @return: list of groups that have this user as a member 
     """
     from gus2.gus_roles.models import gus_role
-    return map(lambda x:  x._role_group ,gus_role.objects.with_user(user))
+    return map(lambda x:  x._role_group , gus_role.objects.with_user(user))
 
 
 
-def setDiff(src_set,set2):
+def setDiff(src_set, set2):
     """
     helper function, yeilds the difference of two sets src_set should be the larger of the two
     @param src_set: the first set (should be the larger of the two)
     @param set2: the second set (should be the smaller of the two)
     @return: a set that contains elements in src_set that are not in set2  
     """
-    a=[]
+    a = []
     for elem in src_set:
         if not set2.__contains__(elem):a.append(elem)
     return a
