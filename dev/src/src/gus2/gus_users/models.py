@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-
+from gus2 import gus_roles
 
 class UserManager(models.Manager):
     def create_user(self, username, email, password):
@@ -35,7 +34,7 @@ class gus_user(models.Model):
     class gus_user model is our model of a user of the gus system
     
     it shall encompass all of the data and 
-    all of the discreet functionality of users of the gus system    
+    all of the discreet functionality of use of the gus system    
     """
 
     ###############################################
@@ -52,6 +51,7 @@ class gus_user(models.Model):
     
     _user = models.OneToOneField(User, primary_key=True)  
     bio = models.TextField()    # Sample Extension Field
+    roles = models.ManyToManyField('gus_roles.gus_role')
 
     #################################################
     ####  Methods specific to gus users  ####
@@ -101,6 +101,9 @@ class gus_user(models.Model):
     
     def get_profile(self):
         return self._user.get_profile()
+
+    def add_role(self, role):
+	role.save()
                                     
     #################################################
     ####  Python Magic Functions       ##############
@@ -120,7 +123,10 @@ class gus_user(models.Model):
         @return:  the default string for built in django.User.
         """
         
-        return "User: %s" % self.user or '(Not Defined)'
+	try:
+	        return "User: %s" % self.user
+	except:
+		return "user: %s" % '(Undefined User)'
      
     
     
@@ -181,6 +187,9 @@ class gus_user(models.Model):
         @return: the value of our parent user
         """
         return self._user
+
+    def getRoles(self):
+	return gus_roles.models.gus_role.objects.filter(_role_group__id=self._user)
     
     def getID(self):
         return self._user.id
