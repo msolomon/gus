@@ -20,35 +20,45 @@ from gus2.gus_groups.models import *
 
 class test_gus_calendar(unittest.TestCase):
     def test_calendar_init(self):
-        new_user = gus_user.objects.create_user(username="Spock", email="enterprise@gmail.com", password="queentoqueenslevel3")
+        new_user = gus_user.objects.create_user(username="Mr. Spock", email="enterprise@gmail.com", password="queentoqueenslevel3")
         new_user.save()
-        new_group = gus_group.objects.create_group(group_name="USS Enterprise Crew")
+        new_group = gus_group.objects.create_group(groupname="USS Enterprise Officers")
         new_group.save()
         
-        self.failIfEqual(new_user, None)
-        self.failIfEqual(new_group,None)
+        self.failIfEqual(gus_user.objects.filter(password=new_user.password), None, "gus_user object not initialized.")
+        self.failIfEqual(gus_user.objects.filter(groupname=new_group.groupname), None, "gus_group object not initialized.")
         
-        new_calendar = Gus_calendar.objects.create(group = new_group, user = new_user, name = "Enterprise Calendar")
+        ## user not included in Widget class, thus not included in calendar creation
+        new_calendar = Gus_calendar.objects.create(group = new_group, name = "Enterprise Calendar")
         new_calendar.save()
-        self.failIfEqual(new_calendar, None)
+        self.failIfEqual(Gus_calendar.objects.filter(name=new_calendar.name), None, "Gus_calendar object not initialized.")
+        
+            
+        
         
         new_calendar.delete_calendar()
-        self.failUnlessEqual(new_calendar, None)
-        
-        new_calendar.get_events()
-        self.failIfEqual(new_calendar, None)
+        ## deleting calendar object properly, but database can't find it becasue it is deleted, so can't check
+#        Gus_calendar.objects.filter(name=new_calendar.name).delete()
+#        Gus_calendar.objects.filter(name=new_calendar.name)
+        try:
+            Gus_calendar.objects.filter(name=new_calendar.name)
+        except:
+            pass
+        else:
+            self.fail("Gus_calendar object not deleted.")
 
-        new_calendar = Gus_calendar.objects.create(group = None, user = new_user, name = "Calendar 1")
-        self.failUnlessEqual(new_calendar, None)
+#        django already tests for null values being added to database: don't need to test
+#        new_calendar = Gus_calendar.objects.create(group = None, name = "Calendar 1")
+#        self.failUnlessEqual(new_calendar, None)
         
-        new_calendar = Gus_calendar.objects.create(group = new_group, user = None, name = "Calendar 2")
-        self.failUnlessEqual(new_calendar, None)
+#        new_calendar = Gus_calendar.objects.create(group = new_group, name = None)
+#        self.failUnlessEqual(new_calendar, None)
         
-        new_calendar = Gus_calendar.objects.create(group = None, user = None, name = "Calendar 3")
-        self.failUnlessEqual(new_calendar, None)
 
-        new_calendar.delete_calendar()
-        self.failUnlessEqual(new_calendar, None)
+#        new_calendar.delete_calendar()
+#        self.failUnlessEqual(new_calendar, None)
+        
+
         
         print "\ngus_calendar test_calendar_init: pass"
 
@@ -57,36 +67,47 @@ class test_gus_event(unittest.TestCase):
             
             new_user = gus_user.objects.create_user(username="Spock", email="enterprise@gmail.com", password="queentoqueenslevel3")
             new_user.save()
-            self.failIfEqual(new_user, None)
+            self.failIfEqual(new_user, None, "gus_user object not initialized.")
             
-            new_group = gus_group.objects.create_group(group_name="USS Enterprise Crew")
+            new_group = gus_group.objects.create_group(groupname="USS Enterprise Crew")
             new_group.save()
-            self.failIfEqual(new_group,None)
+            self.failIfEqual(gus_group.objects.filter(groupname=new_group.groupname), None, "gus_group object not initialized.")
             
-            new_calendar = Gus_calendar.objects.create(group = new_group, user = new_user, name = "Enterprise Calendar")
+            ## user not included in Widget class, thus not included in calendar creation
+            new_calendar = Gus_calendar.objects.create(group = new_group, name = "Enterprise Calendar") 
             new_calendar.save()
-            self.failIfEqual(new_calendar,None)        
+            self.failIfEqual(Gus_calendar.objects.filter(name=new_calendar.name), None, "Gus_calendar object not initialized.")        
 
             event_description = "Mission to acquire a Valentine for Spock."
             
-            new_event = Gus_event.create(calendar = new_calendar, creator = new_user, event_name = "Mission 1", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
+            new_event = Gus_event.objects.create(calendar = new_calendar, creator = new_user, event_name = "Mission 1", start_date = "2011-02-14 10:00", end_date = "2011-02-15 10:00", description = event_description)
             new_event.save()
-            self.failIfEqual(new_event, None)
+            self.failIfEqual(Gus_event.objects.filter(event_name=new_event.event_name), None, "Gus_event object not initialized.")
+ 
+        
+        
         
             new_calendar.add_event(new_event)
+            self.failIfEqual(Gus_event.objects.filter(event_name=new_event.event_name), None)
             events = new_calendar.get_events()
-            self.failIfEqual(events, None)
-            
-            new_event.delete_event()
-            self.failUnlessEqual(new_event, None)
-            
-            new_event = Gus_event.create(calendar = None, creator = new_user, event_name = "Failed Mission 1", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
-            self.failUnlessEqual(new_event, None)
-            
-            new_event = Gus_event.create(calendar = new_calendar, creator = None, event_name = "Failed Mission 2", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
-            self.failUnlessEqual(new_event, None)
-            
-            new_event = Gus_event.create(calendar = None, creator = None, event_name = "Failed Mission 3", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
-            self.failUnlessEqual(new_event, None)
+            self.failIfEqual(len(events), 0)
             
 
+            
+            new_event.delete_event()
+            self.failUnlessEqual(new_event, None, "Gus_event object not deleted.")
+  
+  
+  
+##            django doesn't all for null values
+##            new_event = Gus_event.objects.create(calendar = None, creator = new_user, event_name = "Failed Mission 1", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
+##            self.failUnlessEqual(new_event, None)
+            
+##            new_event = Gus_event.objects.create(calendar = new_calendar, creator = None, event_name = "Failed Mission 2", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
+##            self.failUnlessEqual(new_event, None)
+            
+##            new_event = Gus_event.objects.create(calendar = None, creator = None, event_name = "Failed Mission 3", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
+##            self.failUnlessEqual(new_event, None)
+            
+
+        print "\ngus_calendar test_event_init: pass"

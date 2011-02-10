@@ -35,7 +35,7 @@ class Gus_calendar(Widget):
         @return: an array of events from the calendar
         
         """
-        return Gus_event.objectsfilter(calendar_id=self)
+        return Gus_event.objects.filter(calendar=self)
         
     def add_event(self, event):
         """
@@ -51,9 +51,11 @@ class Gus_calendar(Widget):
         
         """
         events = self.get_events()
-        for event in events:
-            event.delete() ##or event.delete()
-            ##  super(gus_calendar, self).delete()
+        #for event in events:
+        #    event.delete() ##or event.delete()
+        #super(Gus_calendar, self).delete()
+        #self.delete() ##not working
+        events.delete()
         self.delete()
           
 class Gus_event(models.Model):
@@ -63,8 +65,8 @@ class Gus_event(models.Model):
     """
 
     calendar = models.ForeignKey(Gus_calendar)
-    event_id = models.IntegerField()
-    group_id = models.IntegerField()
+    #event_id = models.IntegerField()
+    #group_id = models.IntegerField()
     event_name = models.CharField(max_length=60)
     start_date = models.DateTimeField(blank=True)
     end_date = models.DateTimeField(blank=True)
