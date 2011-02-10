@@ -122,3 +122,11 @@ INSTALLED_APPS = (
 #TEST_RUNNER='gus2.tests.test_runner_with_coverage'
 #COVERAGE_MODULES = ['gus2.gus_bill.models','gus2.gus_calendar.models','gus2.gus_emailer.models','gus2.gus_forum.models','gus2.gus_gallery.models','gus2.gus_groups.models','gus2.gus_users.models','gus2.gus_roles.models','gus2.gus_widget.models']
 
+## Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'guspyuser@gmail.com'
+EMAIL_HOST_PASSWORD = 'givemegus'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_SUBJECT_PREFIX = '[gus] '
