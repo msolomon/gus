@@ -1,36 +1,92 @@
 """
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
+Guspy gus implementation
+Gus_Calendar and Gus_Event Tests
+Sasha Kopriva
 
-Replace these with more appropriate tests for your application.
+
+This is a test document for the Gus_calendar and Gus_event classes. It tests 
+basic functionality of both classes.
+
 """
 
 from django.test import TestCase
 import unittest
-from gus2.gus_calendar.models import Calendar #ok ignore aptana
-from gus2.gus_calendar.models import Event #ok ignore aptana
 
-class Calendar_test(unittest.TestCase):
-    def basic_test(self):
-        calendar = Calendar()
-        #self.name = Calendar.name = "Group Calendar"
-        #self.failUnlessEqual(1 + 1, 2)
-        print "gus_calendar: pass"
+from gus_calendar.models import Gus_calendar #ok ignore aptana
+from gus_calendar.models import Gus_event #ok ignore aptana
+from gus2.gus_users.models import *
+from gus2.gus_groups.models import *
 
-class Event_test(unittest.TestCase):    
-        def basic_test(self):
-            event_id = 0001
-            group_id = 1  
-            event = Event()
-            event.event_id = event_id
-            event.group_id = group_id
-##            self.calendar = Event.calendar
-##            self.id = 5
-##           self.group_id = Event.group_id(25)
-##            self.event_name = Event.event_name("Spock's Birthday")
-##            self.start_date = "10/31/2010"
-##            self.end_date = "11/13/2010"
-            self.failUnlessEqual(event_id, event.event_id)
-            self.failUnlessEqual(group_id, event.group_id)
-            print "gus_calendar: pass"
+
+class test_gus_calendar(unittest.TestCase):
+    def test_calendar_init(self):
+        new_user = gus_user.objects.create_user(username="Spock", email="enterprise@gmail.com", password="queentoqueenslevel3")
+        new_user.save()
+        new_group = gus_group.objects.create_group(group_name="USS Enterprise Crew")
+        new_group.save()
+        
+        self.failIfEqual(new_user, None)
+        self.failIfEqual(new_group,None)
+        
+        new_calendar = Gus_calendar.objects.create(group = new_group, user = new_user, name = "Enterprise Calendar")
+        new_calendar.save()
+        self.failIfEqual(new_calendar, None)
+        
+        new_calendar.delete_calendar()
+        self.failUnlessEqual(new_calendar, None)
+        
+        new_calendar.get_events()
+        self.failIfEqual(new_calendar, None)
+
+        new_calendar = Gus_calendar.objects.create(group = None, user = new_user, name = "Calendar 1")
+        self.failUnlessEqual(new_calendar, None)
+        
+        new_calendar = Gus_calendar.objects.create(group = new_group, user = None, name = "Calendar 2")
+        self.failUnlessEqual(new_calendar, None)
+        
+        new_calendar = Gus_calendar.objects.create(group = None, user = None, name = "Calendar 3")
+        self.failUnlessEqual(new_calendar, None)
+
+        new_calendar.delete_calendar()
+        self.failUnlessEqual(new_calendar, None)
+        
+        print "\ngus_calendar test_calendar_init: pass"
+
+class test_gus_event(unittest.TestCase):    
+        def test_event_init(self):
+            
+            new_user = gus_user.objects.create_user(username="Spock", email="enterprise@gmail.com", password="queentoqueenslevel3")
+            new_user.save()
+            self.failIfEqual(new_user, None)
+            
+            new_group = gus_group.objects.create_group(group_name="USS Enterprise Crew")
+            new_group.save()
+            self.failIfEqual(new_group,None)
+            
+            new_calendar = Gus_calendar.objects.create(group = new_group, user = new_user, name = "Enterprise Calendar")
+            new_calendar.save()
+            self.failIfEqual(new_calendar,None)        
+
+            event_description = "Mission to acquire a Valentine for Spock."
+            
+            new_event = Gus_event.create(calendar = new_calendar, creator = new_user, event_name = "Mission 1", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
+            new_event.save()
+            self.failIfEqual(new_event, None)
+        
+            new_calendar.add_event(new_event)
+            events = new_calendar.get_events()
+            self.failIfEqual(events, None)
+            
+            new_event.delete_event()
+            self.failUnlessEqual(new_event, None)
+            
+            new_event = Gus_event.create(calendar = None, creator = new_user, event_name = "Failed Mission 1", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
+            self.failUnlessEqual(new_event, None)
+            
+            new_event = Gus_event.create(calendar = new_calendar, creator = None, event_name = "Failed Mission 2", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
+            self.failUnlessEqual(new_event, None)
+            
+            new_event = Gus_event.create(calendar = None, creator = None, event_name = "Failed Mission 3", start_date = "02/14/2011", end_date = "02/15/2011", description = event_description)
+            self.failUnlessEqual(new_event, None)
+            
 
