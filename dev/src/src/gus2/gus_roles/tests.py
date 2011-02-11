@@ -33,9 +33,9 @@ class SimpleTest(TestCase):
         """
     	@summary:  tests that roles can be created
     	
-    	@precondition: L{setUp} 
+    	@precondition: L{setUp}
     	
-    	tests built in django model deletion 
+    	tests built in django model deletion
     	and L{gus_role.create_role<gus2.gus_roles.models.RoleManager.create_role>} 
     	"""
         print "Test Create Role test_roles"  
@@ -71,9 +71,12 @@ class SimpleTest(TestCase):
 	@precondition: L{setUp}
 	tests L{gus_role.getUsers<gus2.gus_roles.models.gus_role.getUser>}
 	"""
+        gus_role.objects.create_role(self.testGroup, self.testRole)
 	role = gus_role.objects.get(_role_name=self.testRole)
-	users = role.getusers()
+	role.addUser(self.testUser1)
+	users = role.getUsers()
 	print users
+	print role.users.all()
 
     def test_removeUser(self):
 	"""
@@ -90,12 +93,4 @@ class SimpleTest(TestCase):
 	userRoles = role.getUsers()
 	print userRoles
 	self.failUnless(userRoles == [],"Failed to remove user from role")
-
-    
-
-    
-
-        
-
-
 
