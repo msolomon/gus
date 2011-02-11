@@ -1,0 +1,16 @@
+CS384 guspy minutes
+
+Present: Nathan, Joran, Mike, Sasha, Jacob, Lee, Chandler
+Date: February 10, 2011
+
+Discussed Previous meeting Minutes.
+    -goals
+
+Answered code questions
+    -about python and django
+
+Fixed current test cases
+    -no errors (failures are acceptable)
+
+Prepared demo for class tomorrow
+

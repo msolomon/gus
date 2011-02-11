@@ -1,0 +1,10 @@
+CS 384 pygus meeting minutes
+Present everyone but Mike
+Date 2-8-2011
+
+Determined where everyone was for their testing
+
+Code help is given.
+
+Goal for next meeting get as much ready for Thursday in terms of testing so that we can make a demo for Friday.
+

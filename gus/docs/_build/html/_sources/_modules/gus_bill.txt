@@ -1,0 +1,26 @@
+gus_bill
+==========
+
+__init__
+----------
+.. automodule:: gus2.gus_bill.__init__
+	:members:
+	:undoc-members:
+
+models
+--------
+.. automodule:: gus2.gus_bill.models
+	:members:
+	:undoc-members:
+
+tests
+-------
+.. automodule:: gus2.gus_bill.tests
+	:members:
+	:undoc-members:
+
+views
+-------
+.. automodule:: gus2.gus_bill.views
+	:members:
+	:undoc-members:

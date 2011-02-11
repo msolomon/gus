@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gus_forum &mdash; gus v0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="gus v0.1 documentation" href="../index.html" />
+    <link rel="next" title="gus_gallery" href="gus_gallery.html" />
+    <link rel="prev" title="gus_emailer" href="gus_emailer.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gus_gallery.html" title="gus_gallery"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gus_emailer.html" title="gus_emailer"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">gus v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gus-forum">
+<h1>gus_forum<a class="headerlink" href="#gus-forum" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-gus2.gus_forum.__init__">
+<span id="init"></span><h2>__init__<a class="headerlink" href="#module-gus2.gus_forum.__init__" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gus2.gus_forum.models">
+<span id="models"></span><h2>models<a class="headerlink" href="#module-gus2.gus_forum.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gus2.gus_forum.models.forum">
+<em class="property">class </em><tt class="descclassname">gus2.gus_forum.models.</tt><tt class="descname">forum</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="gus2/gus_forum/models.html#forum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.models.forum" title="Permalink to this definition">¶</a></dt>
+<dd><p>class forum is our model of a forum.
+?</p>
+<dl class="method">
+<dt id="gus2.gus_forum.models.forum.CreateThread">
+<tt class="descname">CreateThread</tt><big>(</big><em>thread_name</em>, <em>user_id</em><big>)</big><a class="reference internal" href="gus2/gus_forum/models.html#forum.CreateThread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.models.forum.CreateThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a thread for this forum as long as the user has the proper permissions.
+?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_forum.models.forum.DeleteThread">
+<tt class="descname">DeleteThread</tt><big>(</big><em>thread_id</em><big>)</big><a class="reference internal" href="gus2/gus_forum/models.html#forum.DeleteThread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.models.forum.DeleteThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows for the deletion of a thread in this forum as long as the user has admin permissions.
+?</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="gus2.gus_forum.models.forum.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#gus2.gus_forum.models.forum.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_forum.models.forum.EditForumDescription">
+<tt class="descclassname">forum.</tt><tt class="descname">EditForumDescription</tt><big>(</big><em>description</em><big>)</big><a class="reference internal" href="gus2/gus_forum/models.html#forum.EditForumDescription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.models.forum.EditForumDescription" title="Permalink to this definition">¶</a></dt>
+<dd><p>This allows the forum&#8217;s description to be changed as long as the user has the proper permissions.
+?</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="gus2.gus_forum.models.forum.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">forum.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#gus2.gus_forum.models.forum.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_forum.models.forum.forum_thread_set">
+<tt class="descclassname">forum.</tt><tt class="descname">forum_thread_set</tt><a class="headerlink" href="#gus2.gus_forum.models.forum.forum_thread_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_forum.models.forum.group_id">
+<tt class="descclassname">forum.</tt><tt class="descname">group_id</tt><a class="headerlink" href="#gus2.gus_forum.models.forum.group_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_forum.models.forum.widget_ptr">
+<tt class="descclassname">forum.</tt><tt class="descname">widget_ptr</tt><a class="headerlink" href="#gus2.gus_forum.models.forum.widget_ptr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gus2.gus_forum.models.forum_post">
+<em class="property">class </em><tt class="descclassname">gus2.gus_forum.models.</tt><tt class="descname">forum_post</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="gus2/gus_forum/models.html#forum_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.models.forum_post" title="Permalink to this definition">¶</a></dt>
+<dd><p>class forum_post is our model of a forum post.</p>
+<dl class="exception">
+<dt id="gus2.gus_forum.models.forum_post.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#gus2.gus_forum.models.forum_post.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_forum.models.forum_post.EditPost">
+<tt class="descclassname">forum_post.</tt><tt class="descname">EditPost</tt><big>(</big><em>user_id</em><big>)</big><a class="reference internal" href="gus2/gus_forum/models.html#forum_post.EditPost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.models.forum_post.EditPost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows a user to edit the text of a post if they have the proper user_id, giving direct access to post_content</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="gus2.gus_forum.models.forum_post.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">forum_post.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#gus2.gus_forum.models.forum_post.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_forum.models.forum_post.get_next_by_date_created">
+<tt class="descclassname">forum_post.</tt><tt class="descname">get_next_by_date_created</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_forum.models.forum_post.get_next_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_forum.models.forum_post.get_previous_by_date_created">
+<tt class="descclassname">forum_post.</tt><tt class="descname">get_previous_by_date_created</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_forum.models.forum_post.get_previous_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_forum.models.forum_post.user_id">
+<tt class="descclassname">forum_post.</tt><tt class="descname">user_id</tt><a class="headerlink" href="#gus2.gus_forum.models.forum_post.user_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gus2.gus_forum.models.forum_thread">
+<em class="property">class </em><tt class="descclassname">gus2.gus_forum.models.</tt><tt class="descname">forum_thread</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="gus2/gus_forum/models.html#forum_thread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.models.forum_thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>class forum_thread is our model of a forum thread.
+?</p>
+<dl class="method">
+<dt id="gus2.gus_forum.models.forum_thread.CreatePost">
+<tt class="descname">CreatePost</tt><big>(</big><em>user_id</em>, <em>text</em><big>)</big><a class="reference internal" href="gus2/gus_forum/models.html#forum_thread.CreatePost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.models.forum_thread.CreatePost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a post in this thread as long as the user has the proper permissions.
+?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_forum.models.forum_thread.DeletePost">
+<tt class="descname">DeletePost</tt><big>(</big><em>post_id</em><big>)</big><a class="reference internal" href="gus2/gus_forum/models.html#forum_thread.DeletePost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.models.forum_thread.DeletePost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows for the deletion of a post in this thread as long s the user has admin permissions.
+?</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="gus2.gus_forum.models.forum_thread.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#gus2.gus_forum.models.forum_thread.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="gus2.gus_forum.models.forum_thread.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">forum_thread.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#gus2.gus_forum.models.forum_thread.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_forum.models.forum_thread.forum_id">
+<tt class="descclassname">forum_thread.</tt><tt class="descname">forum_id</tt><a class="headerlink" href="#gus2.gus_forum.models.forum_thread.forum_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_forum.models.forum_thread.get_next_by_date_created">
+<tt class="descclassname">forum_thread.</tt><tt class="descname">get_next_by_date_created</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_forum.models.forum_thread.get_next_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_forum.models.forum_thread.get_previous_by_date_created">
+<tt class="descclassname">forum_thread.</tt><tt class="descname">get_previous_by_date_created</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_forum.models.forum_thread.get_previous_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_forum.models.forum_thread.user_id">
+<tt class="descclassname">forum_thread.</tt><tt class="descname">user_id</tt><a class="headerlink" href="#gus2.gus_forum.models.forum_thread.user_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gus2.gus_forum.tests">
+<span id="tests"></span><h2>tests<a class="headerlink" href="#module-gus2.gus_forum.tests" title="Permalink to this headline">¶</a></h2>
+<p>This file demonstrates two different styles of tests (one doctest and one
+unittest). These will both pass when you run &#8220;manage.py test&#8221;.</p>
+<p>Replace these with more appropriate tests for your application.</p>
+<dl class="class">
+<dt id="gus2.gus_forum.tests.SimpleTest">
+<em class="property">class </em><tt class="descclassname">gus2.gus_forum.tests.</tt><tt class="descname">SimpleTest</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="gus2/gus_forum/tests.html#SimpleTest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.tests.SimpleTest" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gus2.gus_forum.tests.SimpleTest.test_basic_addition">
+<tt class="descname">test_basic_addition</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_forum/tests.html#SimpleTest.test_basic_addition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_forum.tests.SimpleTest.test_basic_addition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests that 1 + 1 always equals 2.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gus2.gus_forum.views">
+<span id="views"></span><h2>views<a class="headerlink" href="#module-gus2.gus_forum.views" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gus_forum</a><ul>
+<li><a class="reference internal" href="#module-gus2.gus_forum.__init__">__init__</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_forum.models">models</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_forum.tests">tests</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_forum.views">views</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gus_emailer.html"
+                        title="previous chapter">gus_emailer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gus_gallery.html"
+                        title="next chapter">gus_gallery</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/_modules/gus_forum.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gus_gallery.html" title="gus_gallery"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gus_emailer.html" title="gus_emailer"
+             >previous</a> |</li>
+        <li><a href="../index.html">gus v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The guspy Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
