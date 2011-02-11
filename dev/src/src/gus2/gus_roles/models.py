@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import Group
 from gus2.gus_groups.models import gus_group
-from gus_users.models import gus_user
+from gus2.gus_users.models import gus_user
 # Create your models here.
 
 class RoleManager(models.Manager):
