@@ -88,9 +88,11 @@ class SimpleTest(TestCase):
 	"""
 	#Test Deletion of user from role
         print "Test Delete user from Role test_roles"  
+        gus_role.objects.create_role(self.testGroup, self.testRole)
 	role = gus_role.objects.get(_role_name=self.testRole)
+	role.addUser(self.testUser1)
 	role.removeUser(self.testUser1)
 	userRoles = role.getUsers()
 	print userRoles
-	self.failUnless(userRoles == [],"Failed to remove user from role")
+	self.failUnless(len(userRoles.all()) == 0,"Failed to remove user from role")
 
