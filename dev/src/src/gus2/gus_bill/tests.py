@@ -2,9 +2,10 @@
 This file runs unit tests on the gus_bill/models.py file.
 """
 
+from gus2.gus_bill.models import *
 from django.test import TestCase
 
-class SimpleTest(TestCase):
+class BillTest(TestCase):
     def test_create_bill(self):
         """
         Tests that the bill was created.
@@ -17,23 +18,21 @@ class SimpleTest(TestCase):
         Ggroup = "g1"
         Bname = "test"
         Bvalue = 11
-        #test = gus_bill.create(Bname, Bvalue, Ggroup, Guser)
-        #if(test.name == "test" && test.value == 11 && test.group == "g1" && test.user == "u1")
-        #    return true
-        #self.failUnlessEqual(test.value, 11)
+#        test = gus_bill.objects.create(user = Guser, group = Ggroup, name = Bname, value = Bvalue)
+#        self.failUnlessEqual(test, 1) # will fail, need better test here
+#        return test
+
 
     def test_modify_bill(self):
         """
         Tests that the bill from test_create_bill
         Can be modified
         """
-        Guser = "u1"
-        Ggroup = "g1"
-        Bname = "test"
-        Bvalue = 11
-        self.test_create_bill()
+        Nvalue = 5
+#        test = self.test_create_bill()
+#        paid = test.make_payment(Nvalue)
+#        self.failUnlessEqual(paid, 6)
         
-        #self.failUnlessEqual(gus_bill.modify(Bname, Ggroup, Guser, 12), 12)
         
     def test_get_bill(self):
         """
@@ -43,6 +42,7 @@ class SimpleTest(TestCase):
         Ggroup = "g1"
         Bname = "test"
         Bvalue = 11
-        test1 = self.test_create_bill()
-        #test2 = gus_bill.get_bill(Bname, Ggroup, Guser)
-        #self.failUnlessEqual(test2, test1)
+#        test = self.test_create_bill()
+#        test2 = get_bill(Bname, Ggroup, Guser)
+#        self.failUnlessEqual(test, test2)
+
