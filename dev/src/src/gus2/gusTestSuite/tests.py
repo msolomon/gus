@@ -12,8 +12,10 @@ from gus2.gus_users.models import gus_user
 
 class SimpleTest(TestCase):
     testGroupName = "test_group_suite"
+    testGroupName2 = "group_of_failures" # [JS]
     testRoleName = 'test_role_grunt'
     testRoleName2 = 'test_role_bigcheese'
+    testRoleName3 = 'test_role_obama' # [JS]
     testUserName = 'grunt1'
     testUserName2 = 'grunt2'
     def test_basic_groupCreateManageUser(self):
@@ -28,6 +30,11 @@ class SimpleTest(TestCase):
         #simple test to make sure group created properly; do we need since this is tested elsewhere?
         self.failUnlessEqual(grp[0].group_name, self.testGroupName)
         
+        #Create a secondary group to test addition of users to other groups
+        gus_group.objects.create_group(self.testGroupName2, 'unit test created', '')
+        grp2 = gus_group.objects.filter(group_name=self.testGroupName2)
+        #Make sure this created properly too.
+        self.failUnlessEqual(grp2[0].group_name, self.testGroupName2)
         
         #Create a test role and make sure that initializes properly
         gus_role.objects.create_role(grp[0], self.testRoleName)
@@ -63,10 +70,33 @@ class SimpleTest(TestCase):
         self.failUnlessEqual(len(gus_role.objects.with_user(usr)), 2, 'Failed to correctly assign multiple roles')
         self.failUnlessEqual(len(gus_role.objects.with_user(usr2)), 1, 'Failed to correctly assign multiple roles')
         
+        #Now see if users can be part of multiple roles and groups [JS]
+        gus_role.objects.create_role(grp2[0], self.testRoleName3)
+        role3 = gus_role.objects.filter(_role_name=self.testRoleName3)
+        
+        self.failUnlessEqual(len(gus_role.objects.with_group(grp2)), 1, 'Group failed to recognize role [grp2]')
+        
+        role3[0].addUser(usr)
+        
+        self.failUnlessEqual(len(gus_role.objects.users_with_group(grp2)), 1, 'User is not (or too many users) in [grp2]')
+        self.failUnlessEqual(len(gus_role.objects.with_user(usr)), 3, 'User is in incorrect number of roles')
+        
         #Test deletion of usr from the group, thus sadly eliminating our only bigcheese
         #NOTE: I do NOT see a way of listing all members with a given role.
         #      I see all members of a group, and all roles of a group, and all roles of a user
         #      This prevents me from running a test on each role, which I would like to ~ Nathan
+        
+        #NOTE: I've figured out a "safe" way to do this: by first removing a user from the role, you can
+        #      look to see if the user is still in the role.  After that, it _will_ be safe to delete the
+        #      user and assume the user is gone from the role as well. [JS 2011-02-10]
+        #      This also tests the role delete-user function, though it is likely tested elsewhere.
+        
+        #Remove the user from roles
+        role[0].removeUser(usr)
+        role2[0].removeUser(usr)
+        role3[0].removeUser(usr)
+        self.failUnlessEqual(len(gus_role.objects.with_user(usr)), 0, 'User is still in groups!')
+        #Now delete the user
         usr.delete()
         self.failUnlessEqual(len(gus_role.objects.users_with_group(grp)), 1, 'Incorrectly deleted user from group')
         
