@@ -135,6 +135,7 @@ class gus_role(models.Model):
         @rtype: gus_roles.models.gus_role
         @return: the role , with the new user added to the list  
         """
+	user.add_role(self)
         self._role_users.add(user)
     def removeUser(self, user):
         """
