@@ -37,3 +37,18 @@ class EmailSystemTest(TestCase):
 	# for ident, message in response.iteritems():
 	# 	print message['RFC822']
 	
+
+    def test_group(self):
+        ''' Send an email to a group '''
+	connection = mail.get_connection(backend='django.core.mail.backends.locmem.EmailBackend')
+        emailer = Emailer()
+        timestamp = strftime("%Y-%m-%d %H:%M:%S", localtime())
+        testmessage = mail.EmailMessage('[test] %s' % timestamp,
+                             'This is a group test.',
+                             emailer.myaddress,
+                             [],
+                             [],
+			     connection=connection)
+        emailer.sendto_group(testmessage)
+        self.failIfEqual(len(mail.outbox), 0, 'Message not sent!')
+	connection.close()
