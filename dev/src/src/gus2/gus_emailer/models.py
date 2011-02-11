@@ -38,7 +38,7 @@ class Emailer(models.Model):
 		@param email: the email object
 		@type email: mail.EmailMessage
 	'''      
-        email.bcc = [usr.getEmail() for usr in groupies.getEmail()]
+        #email.bcc = [usr.getEmail() for usr in self.groupies.getEmail()]
         email.send()
 
     def send_message(self, subject, message, recipient_list, connection=None):
