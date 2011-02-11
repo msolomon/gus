@@ -24,8 +24,8 @@ class SimpleTest(TestCase):
 		gus_user.objects.create_user(self.user, self.user_email, self.password)
 	
 		usr = gus_user.objects.filter(_user__username = self.user)
-		print usr
-		print len(usr)
+		#print usr
+		#print len(usr)
 	
 		self.failUnlessEqual(len(usr), 1, "could not create user")
 	
