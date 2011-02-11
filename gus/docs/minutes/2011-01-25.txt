@@ -1,0 +1,30 @@
+Guspy Meeting
+Date: January 25, 2011
+Present: Everyone
+Note taker: Lee
+
+Order of business
+	Database setup
+	Sub groups
+	Gantt chart/scheduling
+
+We decided on using sqlite for individual development on individuals machines as with using John's MySQL server the standard user could not create a database as in the case of testing.
+
+Subgroups were formed.
+    Groups/Users/Roles/Permissions
+	Joran
+	Chandler
+	Lee
+	John
+	Nathan
+    Widgets
+	Mike
+	Jacob
+	Max
+	Stephen
+	Sasha
+
+Scheduling
+    Decided on Gantt chart
+    Planned out a good portion of the semester for specific deadlines centered around key mile stones.
+

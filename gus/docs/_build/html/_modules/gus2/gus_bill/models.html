@@ -1,0 +1,192 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gus2.gus_bill.models &mdash; gus v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="gus v0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">gus v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for gus2.gus_bill.models</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<div class="viewcode-block" id="bill"><a class="viewcode-back" href="../../gus_bill.html#gus2.gus_bill.models.bill">[docs]</a><span class="k">class</span> <span class="nc">bill</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    used to keep track of billing for groups.</span>
+
+<span class="sd">    @type id: int</span>
+<span class="sd">    @var id: the id number of this bill</span>
+<span class="sd">    @type group_id: int</span>
+<span class="sd">    @var group_id: the id number of the group associated with this bill</span>
+<span class="sd">    @type user_id: int</span>
+<span class="sd">    @var user_id: the id number of the user associated with this bill</span>
+<span class="sd">    @type name: string</span>
+<span class="sd">    @var name: the name of this bill</span>
+<span class="sd">    @type date_created: datetime</span>
+<span class="sd">    @var date_created: the time/day this bill was created</span>
+<span class="sd">    @type ammount: double</span>
+<span class="sd">    @var ammount: the ammount of currency this bill is</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="c">#    id</span>
+<span class="c">#    group_id</span>
+<span class="c">#    user_id</span>
+<span class="c">#    name</span>
+<span class="c">#    date_created</span>
+<span class="c">#    ammount</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ammount</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;In Development&quot;</span><span class="p">,</span> <span class="s">&quot;This function does not work, yet.&quot;</span><span class="p">)</span>
+         <span class="c">#not sure how to get these values.</span>
+<span class="c">#        id = ??</span>
+<span class="c">#        group_id = ?</span>
+<span class="c">#        user_id = ?</span>
+<span class="c">#        self.date_created = ?</span>
+
+<span class="c">#        self.name = name</span>
+<span class="c">#        self.ammount = ammount</span>
+
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    the following retur their respective variables</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="bill.get_id"><a class="viewcode-back" href="../../gus_bill.html#gus2.gus_bill.models.bill.get_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        @rtype: int</span>
+<span class="sd">        @return: self.id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="c">#        return self.id</span>
+</div>
+<div class="viewcode-block" id="bill.get_group_id"><a class="viewcode-back" href="../../gus_bill.html#gus2.gus_bill.models.bill.get_group_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        @rtype: int</span>
+<span class="sd">        @return: self.group_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="c">#        return self.group_id</span>
+        </div>
+<div class="viewcode-block" id="bill.get_user_id"><a class="viewcode-back" href="../../gus_bill.html#gus2.gus_bill.models.bill.get_user_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_user_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        @rtype: int</span>
+<span class="sd">        @return: self.user_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="c">#        return self.user_id</span>
+        </div>
+<div class="viewcode-block" id="bill.get_name"><a class="viewcode-back" href="../../gus_bill.html#gus2.gus_bill.models.bill.get_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        @rtype: string</span>
+<span class="sd">        @return: self.name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="c">#        return self.name</span>
+        </div>
+<div class="viewcode-block" id="bill.get_date_created"><a class="viewcode-back" href="../../gus_bill.html#gus2.gus_bill.models.bill.get_date_created">[docs]</a>    <span class="k">def</span> <span class="nf">get_date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        @rtype: datetime</span>
+<span class="sd">        @return: self.date_created</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="c">#        return self.date_created</span>
+        </div>
+<div class="viewcode-block" id="bill.get_ammount"><a class="viewcode-back" href="../../gus_bill.html#gus2.gus_bill.models.bill.get_ammount">[docs]</a>    <span class="k">def</span> <span class="nf">get_ammount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        @rtype: double</span>
+<span class="sd">        @return: self.ammount</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="c">#        return self.ammount</span>
+
+</div>
+<div class="viewcode-block" id="bill.modify_bill"><a class="viewcode-back" href="../../gus_bill.html#gus2.gus_bill.models.bill.modify_bill">[docs]</a>    <span class="k">def</span> <span class="nf">modify_bill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ammount</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;In Development&quot;</span><span class="p">,</span> <span class="s">&quot;This function does not work, yet.&quot;</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        this will change the ammout for this bill to the new ammount</span>
+
+<span class="sd">        @type user: gus_users.models.gus_user</span>
+<span class="sd">        @param user: name of the user to create the bill for</span>
+<span class="sd">        @type ammout: double</span>
+<span class="sd">        @param ammount: ammount of currency previously due the user</span>
+<span class="sd">        @type new: double</span>
+<span class="sd">        @param ammount: ammount of currency due the user</span>
+<span class="sd">        @return: none</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt;???</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="c">#        self.ammount = ammount </span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">gus v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The guspy Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

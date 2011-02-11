@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gus2.gus_gallery.tests &mdash; gus v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="gus v0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">gus v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for gus2.gus_gallery.tests</h1><div class="highlight"><pre>
+<span class="c"># Gus Gallery Model Tests</span>
+<span class="c"># Part of the GUSPY effort</span>
+<span class="c"># Stephen Fischer</span>
+<span class="c"># January 2011</span>
+<span class="c">#</span>
+<span class="c"># TODO: Wait for whoever is dealing with gus_groups and gus_users to fix them? My tests fail because those can&#39;t init properly... unless I&#39;m doing this wrong somewhere...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains the unit tests for the gus_gallery model</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+<span class="kn">from</span> <span class="nn">gus2.gus_gallery.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">gus2.gus_groups.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">gus2.gus_users.models</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="gus_gallery_test"><a class="viewcode-back" href="../../gus_gallery.html#gus2.gus_gallery.tests.gus_gallery_test">[docs]</a><span class="k">class</span> <span class="nc">gus_gallery_test</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="gus_gallery_test.test_init"><a class="viewcode-back" href="../../gus_gallery.html#gus2.gus_gallery.tests.gus_gallery_test.test_init">[docs]</a>    <span class="k">def</span> <span class="nf">test_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the gus_gallery object to see if it can be initiated</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Prepare a testing user/group</span>
+        <span class="n">the_user</span> <span class="o">=</span> <span class="n">gus_user</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">&quot;testuser&quot;</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="s">&quot;no@no.com&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s">&quot;password&quot;</span><span class="p">)</span>
+        <span class="n">the_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">the_group</span> <span class="o">=</span> <span class="n">gus_group</span><span class="p">(</span><span class="n">groupname</span><span class="o">=</span><span class="s">&quot;Test Group&quot;</span><span class="p">)</span>
+        <span class="n">the_group</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c"># If either the user or the group isn&#39;t set, then fail</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIfEqual</span><span class="p">(</span><span class="n">the_user</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIfEqual</span><span class="p">(</span><span class="n">the_group</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+        <span class="c"># Prepare a testing gallery</span>
+        <span class="n">the_gallery</span> <span class="o">=</span> <span class="n">gus_gallery</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">the_group</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">the_user</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Test Gallery&quot;</span><span class="p">)</span>
+        <span class="n">the_gallery</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c"># If the gallery doesn&#39;t exist, then fail</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIfEqual</span><span class="p">(</span><span class="n">the_gallery</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">gus_gallery - init passed&quot;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="gus_gallery_test.test_delete"><a class="viewcode-back" href="../../gus_gallery.html#gus2.gus_gallery.tests.gus_gallery_test.test_delete">[docs]</a>    <span class="k">def</span> <span class="nf">test_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the gus_gallery.delete() method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Prepare a testing user/group</span>
+        <span class="n">the_user</span> <span class="o">=</span> <span class="n">gus_user</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">&quot;testuser&quot;</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="s">&quot;no@no.com&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s">&quot;password&quot;</span><span class="p">)</span>
+        <span class="n">the_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">the_group</span> <span class="o">=</span> <span class="n">gus_group</span><span class="p">(</span><span class="n">groupname</span><span class="o">=</span><span class="s">&quot;Test Group&quot;</span><span class="p">)</span>
+        <span class="n">the_group</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c"># If either the user or the group isn&#39;t set, then fail</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIfEqual</span><span class="p">(</span><span class="n">the_user</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIfEqual</span><span class="p">(</span><span class="n">the_group</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+        <span class="c"># Prepare a testing gallery</span>
+        <span class="n">the_gallery</span> <span class="o">=</span> <span class="n">gus_gallery</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">the_group</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">the_user</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Test Delete Gallery&quot;</span><span class="p">)</span>
+        <span class="n">the_gallery</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        
+        <span class="c"># If the gallery doesn&#39;t exist, then fail</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIfEqual</span><span class="p">(</span><span class="n">the_gallery</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+        <span class="c"># If the gallery existed, then we want to delete it and check again</span>
+        <span class="n">the_gallery</span><span class="o">.</span><span class="n">delete</span><span class="p">();</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span><span class="n">the_gallery</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">gus_gallery - delete passed&quot;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="gus_gallery_test.test_add_image"><a class="viewcode-back" href="../../gus_gallery.html#gus2.gus_gallery.tests.gus_gallery_test.test_add_image">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the gus_gallery.add_image() method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO: Implement the test</span>
+
+</div>
+<div class="viewcode-block" id="gus_gallery_test.test_get_images"><a class="viewcode-back" href="../../gus_gallery.html#gus2.gus_gallery.tests.gus_gallery_test.test_get_images">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_images</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the gus_gallery.get_images() method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO: Implement the test</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">gus v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The guspy Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

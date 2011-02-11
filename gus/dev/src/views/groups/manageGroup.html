@@ -1,0 +1,23 @@
+<h2>{{ group }}</h2>
+<p>{{ group.group_description }}</p>
+<hr />
+{% for role in roles %}
+<strong>{{ role }}</strong>
+[
+  <a href="{% url gus2.gusTestSuite.views.editRole role.id %}">Edit Role</a>
+]
+<br />
+{{ role.permissionsString }} <br />
+{% for user in role.users.all %}
+{{ user }}<br/>
+{% endfor %}
+{% endfor %}
+
+<div style="border:thin red solid;margin:50px;padding:25px">
+<form method="post" >
+<fieldset><legend>Add User to Group</legend>
+{{ formAddUser.as_p }}
+{% csrf_token %}
+<input type="submit" value="Add New Member"></fieldset>
+</form>
+</div>

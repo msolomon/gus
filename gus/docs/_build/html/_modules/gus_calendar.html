@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gus_calendar &mdash; gus v0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="gus v0.1 documentation" href="../index.html" />
+    <link rel="next" title="gus_emailer" href="gus_emailer.html" />
+    <link rel="prev" title="gus_bill" href="gus_bill.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gus_emailer.html" title="gus_emailer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gus_bill.html" title="gus_bill"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">gus v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gus-calendar">
+<h1>gus_calendar<a class="headerlink" href="#gus-calendar" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-gus2.gus_calendar.__init__">
+<span id="init"></span><h2>__init__<a class="headerlink" href="#module-gus2.gus_calendar.__init__" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gus2.gus_calendar.models">
+<span id="models"></span><h2>models<a class="headerlink" href="#module-gus2.gus_calendar.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gus2.gus_calendar.models.Calendar">
+<em class="property">class </em><tt class="descclassname">gus2.gus_calendar.models.</tt><tt class="descname">Calendar</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="gus2/gus_calendar/models.html#Calendar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_calendar.models.Calendar" title="Permalink to this definition">¶</a></dt>
+<dd><p>class Calendar is a widget and inherits from the Widget class.
+This class is also related to Calendar_item as many 
+Calendar_items are related to a single Calendar.</p>
+<dl class="exception">
+<dt id="gus2.gus_calendar.models.Calendar.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#gus2.gus_calendar.models.Calendar.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="gus2.gus_calendar.models.Calendar.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">Calendar.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#gus2.gus_calendar.models.Calendar.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_calendar.models.Calendar.event_set">
+<tt class="descclassname">Calendar.</tt><tt class="descname">event_set</tt><a class="headerlink" href="#gus2.gus_calendar.models.Calendar.event_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_calendar.models.Calendar.get_next_by_current_date">
+<tt class="descclassname">Calendar.</tt><tt class="descname">get_next_by_current_date</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_calendar.models.Calendar.get_next_by_current_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_calendar.models.Calendar.get_previous_by_current_date">
+<tt class="descclassname">Calendar.</tt><tt class="descname">get_previous_by_current_date</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_calendar.models.Calendar.get_previous_by_current_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_calendar.models.Calendar.widget_ptr">
+<tt class="descclassname">Calendar.</tt><tt class="descname">widget_ptr</tt><a class="headerlink" href="#gus2.gus_calendar.models.Calendar.widget_ptr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gus2.gus_calendar.models.Event">
+<em class="property">class </em><tt class="descclassname">gus2.gus_calendar.models.</tt><tt class="descname">Event</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="gus2/gus_calendar/models.html#Event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_calendar.models.Event" title="Permalink to this definition">¶</a></dt>
+<dd><p>class Calendar_item inherits from models.Model and is related to the 
+Calendar class as Calendar_items are related to a single 
+Calendar (using a ForeignKey)</p>
+<dl class="exception">
+<dt id="gus2.gus_calendar.models.Event.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#gus2.gus_calendar.models.Event.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="gus2.gus_calendar.models.Event.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">Event.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#gus2.gus_calendar.models.Event.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_calendar.models.Event.calendar">
+<tt class="descclassname">Event.</tt><tt class="descname">calendar</tt><a class="headerlink" href="#gus2.gus_calendar.models.Event.calendar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gus2.gus_calendar.models.Event.creator">
+<tt class="descclassname">Event.</tt><tt class="descname">creator</tt><a class="headerlink" href="#gus2.gus_calendar.models.Event.creator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_calendar.models.Event.get_next_by_end_date">
+<tt class="descclassname">Event.</tt><tt class="descname">get_next_by_end_date</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_calendar.models.Event.get_next_by_end_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_calendar.models.Event.get_next_by_start_date">
+<tt class="descclassname">Event.</tt><tt class="descname">get_next_by_start_date</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_calendar.models.Event.get_next_by_start_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_calendar.models.Event.get_previous_by_end_date">
+<tt class="descclassname">Event.</tt><tt class="descname">get_previous_by_end_date</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_calendar.models.Event.get_previous_by_end_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gus2.gus_calendar.models.Event.get_previous_by_start_date">
+<tt class="descclassname">Event.</tt><tt class="descname">get_previous_by_start_date</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#gus2.gus_calendar.models.Event.get_previous_by_start_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gus2.gus_calendar.tests">
+<span id="tests"></span><h2>tests<a class="headerlink" href="#module-gus2.gus_calendar.tests" title="Permalink to this headline">¶</a></h2>
+<p>This file demonstrates two different styles of tests (one doctest and one
+unittest). These will both pass when you run &#8220;manage.py test&#8221;.</p>
+<p>Replace these with more appropriate tests for your application.</p>
+<dl class="class">
+<dt id="gus2.gus_calendar.tests.Calendar_test">
+<em class="property">class </em><tt class="descclassname">gus2.gus_calendar.tests.</tt><tt class="descname">Calendar_test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="gus2/gus_calendar/tests.html#Calendar_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_calendar.tests.Calendar_test" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gus2.gus_calendar.tests.Calendar_test.basic_test">
+<tt class="descname">basic_test</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_calendar/tests.html#Calendar_test.basic_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_calendar.tests.Calendar_test.basic_test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gus2.gus_calendar.tests.Event_test">
+<em class="property">class </em><tt class="descclassname">gus2.gus_calendar.tests.</tt><tt class="descname">Event_test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="gus2/gus_calendar/tests.html#Event_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_calendar.tests.Event_test" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gus2.gus_calendar.tests.Event_test.basic_test">
+<tt class="descname">basic_test</tt><big>(</big><big>)</big><a class="reference internal" href="gus2/gus_calendar/tests.html#Event_test.basic_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_calendar.tests.Event_test.basic_test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-gus2.gus_calendar.views">
+<span id="views"></span><h2>views<a class="headerlink" href="#module-gus2.gus_calendar.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="gus2.gus_calendar.views.main">
+<tt class="descclassname">gus2.gus_calendar.views.</tt><tt class="descname">main</tt><big>(</big><em>request</em>, <em>year=None</em><big>)</big><a class="reference internal" href="gus2/gus_calendar/views.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_calendar.views.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="gus2.gus_calendar.views.month">
+<tt class="descclassname">gus2.gus_calendar.views.</tt><tt class="descname">month</tt><big>(</big><em>request</em>, <em>year</em>, <em>month</em>, <em>change=None</em><big>)</big><a class="reference internal" href="gus2/gus_calendar/views.html#month"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gus2.gus_calendar.views.month" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gus_calendar</a><ul>
+<li><a class="reference internal" href="#module-gus2.gus_calendar.__init__">__init__</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_calendar.models">models</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_calendar.tests">tests</a></li>
+<li><a class="reference internal" href="#module-gus2.gus_calendar.views">views</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gus_bill.html"
+                        title="previous chapter">gus_bill</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gus_emailer.html"
+                        title="next chapter">gus_emailer</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/_modules/gus_calendar.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gus_emailer.html" title="gus_emailer"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gus_bill.html" title="gus_bill"
+             >previous</a> |</li>
+        <li><a href="../index.html">gus v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The guspy Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

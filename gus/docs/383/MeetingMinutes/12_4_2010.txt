@@ -1,0 +1,66 @@
+[20:01] == joran [d862ed29@gateway/web/freenode/ip.216.98.237.41] has joined #uidaho_cs383
+[20:01] <joran> hey guys
+[20:01] <Sverk> hello
+[20:02] <@ldv629> hey
+[20:02] <joran> are we waiting to see if some more folks showup?
+[20:02] <Sverk> looks like
+[20:02] <@ldv629> yeah give them a few more
+[20:03] <joran> ok afk a few thn
+[20:08] <joran> well lets get goin meh ... we'll see them tomorrow
+[20:09] <joran> everyone havin fun w python?
+[20:09] <Sverk> haven't had time to mess with it much
+[20:09] <@ldv629> bit by bit
+[20:09] <joran> did u guys see my proposal on using a prebuilt cms as a platform?
+[20:10] <joran> any comments on that? better solutions?
+[20:10] <joran> (not for implementing by thurs)
+[20:10] <joran> but after break
+[20:10] <@ldv629> I haven't looked at it yet
+[20:10] <Sverk> i glanced at it but havn't read through it
+[20:11] <joran> i just said theres prebuilt cms ' we should think about using one
+[20:11] <joran> it has nice css
+[20:11] <joran> makes creating "module" like blocks that can be enabled in the backend easy
+[20:11] <joran> and has built in support for event calendar/agenda
+[20:11] <joran> and some built in support for dynamically created pages
+[20:12] <joran> and theres prolly a bunch of cons
+[20:12] <joran> but im a pretty positive guy :P
+[20:12] <Sverk> lol
+[20:12] <joran> So i would assume were safe on our docs till thurs
+[20:13] <RevanTal> positive is really the best way to be
+[20:13] <joran> theres no way he's gonna look at them early
+[20:13] <@ldv629> should be
+[20:13] <joran> as long as theyre in the repository in some form
+[20:13] <RevanTal> no, but he might refuse to pull after tomorrow
+[20:13] <Sverk> hopefully, as i've had no one send me edits or additions
+[20:13] <@ldv629> I'll probably have mine done just incase
+[20:13] <RevanTal> mine are basically done, as long as everyone thinks they are good
+[20:16] <joran> they looked  ok from the list
+[20:16] <joran> but where are the actual usecase writeups?
+[20:16] <joran> or u just grabbed the old ones?
+[20:16] <RevanTal> http://groups.google.com/group/uidaho-software-engineering-10-11/files
+[20:16] <joran> lol oh yeh
+[20:18] <joran> i got scared off by the 7z originally :P
+[20:18] <joran> but im good lookin now
+[20:18] <Sverk> lol
+[20:19] <RevanTal> heh yeah, i was kinda worried about that
+[20:19] <joran> that should have read "but im good,  looking now"
+[20:20] <joran> meh yeh all looks fine to me
+[20:20] <joran> i dunno reading use cases is about as fun as dental surgury w/o the laughing gas
+[20:21] <joran> but yeh they look good
+[20:21] <RevanTal> shiny
+[20:22] <joran> have you guys messed / python/django enough to judge how comfortable you are w/ the language?
+[20:22] <joran> personally im likin it more and more as i find out all the cool stuff built in to it
+[20:23] <joran> (prolly moreso features of  django , rather than the features of pythong
+[20:23] <Sverk> haven't had much time to really do that either, i do like python from what i've messed with so far
+[20:24] <@ldv629> I'm in about the same spot with liking what I have seen, just haven't done as much as I want
+[20:25] <RevanTal> pretty much yeah
+[20:25] <RevanTal> just wish there was more time in the day
+[20:25] <joran> yeh well go in and mess w/ my forum code / or login stuff or whatever ... or just play off line with your own installs of django
+[20:25] <joran> yeh i hear that
+[20:26] <joran> ok well are we done?
+[20:26] <Sverk> i have nothing more
+[20:26] <RevanTal> i don't have anything else to add
+[20:26] <@ldv629> i'm done
+[20:26] <joran> ill take my turn at cut n paste minute taker i guess
+[20:26] <joran> ok so long guys
+[20:26] <Sverk> k, cya then
+[20:26] <joran> go team!

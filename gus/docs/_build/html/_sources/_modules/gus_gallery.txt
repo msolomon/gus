@@ -1,0 +1,32 @@
+gus_gallery
+=============
+
+__init__
+----------
+.. automodule:: gus2.gus_gallery.__init__
+	:members:
+	:undoc-members:
+
+models
+--------
+.. automodule:: gus2.gus_gallery.models
+	:members:
+	:undoc-members:
+
+tests
+-------
+.. automodule:: gus2.gus_gallery.tests
+	:members:
+	:undoc-members:
+
+urls
+------
+.. automodule:: gus2.gus_gallery.urls
+	:members:
+	:undoc-members:
+
+views
+-------
+.. automodule:: gus2.gus_gallery.views
+	:members:
+	:undoc-members:

@@ -1,0 +1,32 @@
+gus_groups
+============
+
+__init__
+----------
+.. automodule:: gus2.gus_groups.__init__
+	:members:
+	:undoc-members:
+
+models
+--------
+.. automodule:: gus2.gus_groups.models
+	:members:
+	:undoc-members:
+
+test_forms
+------------
+.. automodule:: gus2.gus_groups.test_forms
+	:members:
+	:undoc-members:
+
+tests
+-------
+.. automodule:: gus2.gus_groups.tests
+	:members:
+	:undoc-members:
+
+utils
+-------
+.. automodule:: gus2.gus_groups.utils
+	:members:
+	:undoc-members:

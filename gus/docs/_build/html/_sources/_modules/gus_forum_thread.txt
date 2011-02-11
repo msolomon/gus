@@ -1,0 +1,8 @@
+gus_forum_thread
+==================
+
+models
+--------
+.. automodule:: gus2.gus_forum_thread.models
+	:members:
+	:undoc-members:
