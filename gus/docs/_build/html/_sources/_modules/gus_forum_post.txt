@@ -1,8 +1,0 @@
-gus_forum_post
-================
-
-forum_post
-------------
-.. automodule:: gus2.gus_forum_post.forum_post
-	:members:
-	:undoc-members:
