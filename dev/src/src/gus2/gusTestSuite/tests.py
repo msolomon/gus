@@ -90,7 +90,7 @@ class SimpleTest(TestCase):
         #      look to see if the user is still in the role.  After that, it _will_ be safe to delete the
         #      user and assume the user is gone from the role as well. [JS 2011-02-10]
         #      This also tests the role delete-user function, though it is likely tested elsewhere.
-        
+        #gus_role.objects.users_with_group(some_group)  will return all users of a group ~joran
         #Remove the user from roles
         role[0].removeUser(usr)
         role2[0].removeUser(usr)

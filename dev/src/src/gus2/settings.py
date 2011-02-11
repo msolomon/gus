@@ -119,7 +119,7 @@ INSTALLED_APPS = (
 #but if we ever have more, we'll have to insert them
 
 
-TEST_RUNNER='gus2.tests.test_runner_with_coverage'
+#TEST_RUNNER='gus2.tests.test_runner_with_coverage'
 COVERAGE_MODULES = ['gus2.gus_bill.models','gus2.gus_calendar.models','gus2.gus_emailer.models','gus2.gus_forum.models','gus2.gus_gallery.models','gus2.gus_groups.models','gus2.gus_users.models','gus2.gus_roles.models','gus2.gus_widget.models']
 
 ## Email settings
