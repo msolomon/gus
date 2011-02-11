@@ -20,8 +20,7 @@ class SimpleTest(TestCase):
         """
         tests that users can be added and deleted to a group
         tests functionality of 
-        """
-        print "Test Create Group %s" % self.testGroupName        
+        """      
         
         #Create a test group to hang all of our tests on
         gus_group.objects.create_group(self.testGroupName, 'unit test created', '')
@@ -48,7 +47,6 @@ class SimpleTest(TestCase):
         #Now we see if we can attach the users to a role
         role[0].addUser(usr)
         role[0].addUser(usr2)
-        print "Users in group: %s" % gus_role.objects.users_with_group(grp)
         self.failUnlessEqual(len(gus_role.objects.users_with_group(grp)), 2, 'Incorrectly adding users to group')
         
         #Now we see if a user can be added to more than one role
@@ -59,7 +57,6 @@ class SimpleTest(TestCase):
         self.failUnlessEqual(len(gus_role.objects.with_group(grp)), 2, 'Group failed to recognize role')
         #Now we try and elevate grunt1 to bigcheese status
         role2[0].addUser(usr)
-        print "The many roles of grunt1: %s" % gus_role.objects.with_user(usr)
         #Make sure that we still only have 2 users counted as being in the group
         self.failUnlessEqual(len(gus_role.objects.users_with_group(grp)), 2, 'Incorrectly adding users to group')
         #Check to see if usr now has two roles

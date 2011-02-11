@@ -38,14 +38,12 @@ class SimpleTest(TestCase):
     	tests built in django model deletion
     	and L{gus_role.create_role<gus2.gus_roles.models.RoleManager.create_role>} 
     	"""
-        print "Test Create Role test_roles"  
         group_object = gus_group.objects.create_group(self.testRole, 'test', '')
         #Test Creation
         gus_role.objects.create_role(group_object, self.testRole)
         role = gus_role.objects.get(_role_name=self.testRole)
         self.failUnlessEqual(role._role_name, self.testRole,'RoleCreationError:Could Not Create Role')
         #test Deletion
-        print "Test Delete Role test_roles"  
         role.delete()
         roles = gus_role.objects.filter(_role_name=self.testRole)
         self.assertEqual(len(roles),0,"RoleDeletionError:Unable to Delete Role")
@@ -61,7 +59,6 @@ class SimpleTest(TestCase):
         gus_role.objects.create_role(self.testGroup, self.testRole)
         role = gus_role.objects.get(_role_name=self.testRole)
 	#Test Addition of user role
-        print "Test add Role user to role test_roles"  
 	role.addUser(self.testUser1)
 	self.failUnless(role.users.all()[0] == self.testUser1,'Unable to add user to role')
 
@@ -75,8 +72,6 @@ class SimpleTest(TestCase):
 	role = gus_role.objects.get(_role_name=self.testRole)
 	role.addUser(self.testUser1)
 	users = role.getUsers()
-	print users
-	print role.users.all()
 
     def test_removeUser(self):
 	"""
@@ -87,12 +82,10 @@ class SimpleTest(TestCase):
 	tests L{gus_role.removeUser<gus2.gus_roles.models.gus_role.removeUser>}
 	"""
 	#Test Deletion of user from role
-        print "Test Delete user from Role test_roles"  
         gus_role.objects.create_role(self.testGroup, self.testRole)
 	role = gus_role.objects.get(_role_name=self.testRole)
 	role.addUser(self.testUser1)
 	role.removeUser(self.testUser1)
 	userRoles = role.getUsers()
-	print userRoles
 	self.failUnless(len(userRoles.all()) == 0,"Failed to remove user from role")
 

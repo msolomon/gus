@@ -31,7 +31,7 @@ class SimpleTest(TestCase):
         Ggroup = "g1"
         Bname = "test"
         Bvalue = 11
-        self.test_create_bill(self)
+        self.test_create_bill()
         
         #self.failUnlessEqual(gus_bill.modify(Bname, Ggroup, Guser, 12), 12)
         
@@ -43,6 +43,6 @@ class SimpleTest(TestCase):
         Ggroup = "g1"
         Bname = "test"
         Bvalue = 11
-        test1 = self.test_create_bill(self)
+        test1 = self.test_create_bill()
         #test2 = gus_bill.get_bill(Bname, Ggroup, Guser)
         #self.failUnlessEqual(test2, test1)
