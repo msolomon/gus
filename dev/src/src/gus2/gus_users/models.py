@@ -103,7 +103,7 @@ class gus_user(models.Model):
         return self._user.get_profile()
 
     def add_role(self, role):
-	role.save()
+        role.save()
                                     
     #################################################
     ####  Python Magic Functions       ##############
@@ -123,10 +123,10 @@ class gus_user(models.Model):
         @return:  the default string for built in django.User.
         """
         
-	try:
-	        return "User: %s" % self.user
-	except:
-		return "user: %s" % '(Undefined User)'
+        try:
+            return "User: %s" % self.user
+        except:
+            return "user: %s" % '(Undefined User)'
      
     
     
@@ -158,7 +158,17 @@ class gus_user(models.Model):
         @rtype: None
         """
         self._user.username = value
-        
+        self._user.save()
+    def setEmail(self,value): 
+        self._user.email = value
+        self._user.save()
+    def setFN(self,value):
+        self._user.first_name = value
+        self._user.save()
+    def setLN(self,value):
+        self._user.last_name = value
+        self._user.save()
+               
     def setID(self):
         """
         setter hook for ID to disallow changing
@@ -189,10 +199,21 @@ class gus_user(models.Model):
         return self._user
 
     def getRoles(self):
-	return gus_roles.models.gus_role.objects.filter(_role_group__id=self._user)
+        """
+        return all roles associated with group
+        """
+        return gus_roles.models.gus_role.objects.filter(_role_group__id=self._user)
     
     def getID(self):
         return self._user.id
+    
+    def getEmail(self):
+        return self._user.email
+    def getFN(self):
+        return self._user.first_name
+    def getLN(self):
+        return self._user.last_name
+    
     #GETTER/SETTER enabled ... hackish
     #GETTERS AND SETTERS WILL BE USED (!Include simillar code in all classes)
     #getter and setter hooks , these must be setup if you wish to 
@@ -204,3 +225,6 @@ class gus_user(models.Model):
     id = property(getID, setID)
     #username hook
     username = property(getUsername, setUsername)
+    email = property(getEmail, setEmail)
+    first_name = property(getFN, setFN)
+    last_name = property(getLN, setLN)

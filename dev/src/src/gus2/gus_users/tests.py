@@ -31,6 +31,10 @@ class UsersTest(TestCase):
     
     #added 2/11 ~joran
     def test_users_duplicates(self):
+        """
+        test user duplication, this should not be allowed and will fail if 
+        it successfully adds multiple users with same user name
+        """
         gus_user.objects.create_user(self.user, self.user_email, self.password)
         try:
             gus_user.objects.create_user(self.user, self.user_email, self.password)
@@ -41,10 +45,37 @@ class UsersTest(TestCase):
     
     #added 2/11 ~joran
     def test_userAuth(self):
+        """
+        Test Basic User Authentication (specifically password validity)
+        """
         usr = gus_user.objects.create_user(self.user, self.user_email, self.password)
         self.failUnless(usr.check_password(self.password),"Unable to validate Password")
         
-           
+    def test_Unuseable_pw(self):
+        """
+        test the unusable password features
+        """
+        usr = gus_user.objects.create_user(self.user, self.user_email, self.password)
+        usr.set_unusable_password()
+        self.failUnless(not usr.has_usable_password(), "Unusable Password Failure")
+    
+    def test_get_full_name(self):
+        usr = gus_user.objects.create_user(self.user, self.user_email, self.password)
+        usr.first_name="test"
+        usr.last_name="user"
+        self.failUnless(usr.get_full_name()=="test user","could not retrieve full name")
+        
+    def test_anonUser(self):
+        """
+        Test Anonomous User
+        """
+        usr = gus_user.objects.create_user(self.user, self.user_email, self.password)
+        self.failUnless(not usr.is_anonymous(), "User is created and is still anon")
+        
+    def test_authenticated(self):
+        usr = gus_user.objects.create_user(self.user, self.user_email, self.password)
+        self.failUnless( usr.is_authenticated(), "User is created and is still not authenticated")    
+    
     def test_delete_user(self):
         """
         Test the ability to delete a user in the database    

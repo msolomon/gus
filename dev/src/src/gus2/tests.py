@@ -29,15 +29,18 @@ from django.conf import settings
 def test_runner_with_coverage(test_labels, verbosity=1, interactive=True, extra_tests=[]):
   """Custom test runner.  Follows the django.test.simple.run_tests() interface."""
   # Start code coverage before anything else if necessary
+  cov = coverage.coverage()
   if hasattr(settings, 'COVERAGE_MODULES') and not test_labels:
-    coverage.use_cache(0) # Do not cache any of the coverage.py stuff
-    coverage.start()
+    
+    cov.use_cache(0) # Do not cache any of the coverage.py stuff
+    
+    cov.start()
 
   test_results = django_test_runner(test_labels, verbosity, interactive, extra_tests)
 
   # Stop code coverage after tests have completed
   if hasattr(settings, 'COVERAGE_MODULES') and not test_labels:
-    coverage.stop()
+    cov.stop()
 
     # Print code metrics header
     print ''
@@ -51,11 +54,11 @@ def test_runner_with_coverage(test_labels, verbosity=1, interactive=True, extra_
     for module in settings.COVERAGE_MODULES:
       coverage_modules.append(__import__(module, globals(), locals(), ['']))
 
-    coverage.report(coverage_modules, show_missing=1)
+    cov.report(coverage_modules, show_missing=1)
     
     # Print code metrics footer
     print '----------------------------------------------------------------------'
-
+    cov.html_report(directory='../../../covhtml')
   return test_results
 
 # test_runner_with_coverage()
