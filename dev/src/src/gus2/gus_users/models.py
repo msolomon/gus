@@ -146,7 +146,7 @@ class gus_user(models.Model):
         @param user: the user to parent to this instance
         @rtype: none 
         """
-        self._user = user
+        raise Exception('UserPerimissionError', 'This Attribute is READ-ONLY')
         
     #setter for our username
     def setUsername(self, value):

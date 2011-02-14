@@ -42,7 +42,16 @@ class UsersTest(TestCase):
             pass
             return
         self.fail('duplicate users created, this should not happen')
-    
+    def test_user_slow_initialize(self):
+        usr = gus_user()
+        self.failUnless("%s"%usr=="user: (Undefined User)")
+        
+        
+        
+        
+    def test_unicode(self):
+        usr = gus_user.objects.create_user(self.user, self.user_email, self.password)
+        self.failUnless((usr.__unicode__()=="User: %s"%self.user),"Error With unicode")
     #added 2/11 ~joran
     def test_userAuth(self):
         """
@@ -50,6 +59,8 @@ class UsersTest(TestCase):
         """
         usr = gus_user.objects.create_user(self.user, self.user_email, self.password)
         self.failUnless(usr.check_password(self.password),"Unable to validate Password")
+        usr.set_password("testpw2")
+        self.failUnless(usr.check_password("testpw2"),"Unable to change Password")
         
     def test_Unuseable_pw(self):
         """

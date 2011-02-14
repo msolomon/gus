@@ -16,7 +16,8 @@ class EmailerWidget(Widget):
     '''
     The widget for managing emails within a group.
     '''
-    # what else is needed besides the name (provided by Widget)?
+    # what else is needed besides the name (provided by Widget)? (perm strings)
+    permission_strings="can_send|can_send_group" #maybe? -jb
     pass
     
 class Emailer(models.Model):
