@@ -135,7 +135,7 @@ class gus_role(models.Model):
         @rtype: gus_roles.models.gus_role
         @return: the role , with the new user added to the list  
         """
-	user.add_role(self)
+        user.add_role(self)
         self._role_users.add(user)
     def removeUser(self, user):
         """
@@ -155,6 +155,10 @@ class gus_role(models.Model):
     def permString(self):
         """
         return a list of permissions associated with this role
+        as a comma separated string
+        
+        @rtype: string
+        @return: Comma seperated string listing of our permissions
         """
         perms = self._role_permissions.permissions.all()
         if not perms.count() : return ""
@@ -162,6 +166,21 @@ class gus_role(models.Model):
         for perm in perms:
             permList.append(perm)
         return " '%s'" % "', '".join(permList);
+    
+    def has_perm(self,perm):
+        """
+        determine if this role has a given permission
+         
+        @type perm:string
+        @param perm:the permission to checkfor
+        @rtype: boolean
+        @return: True or False Depending on whether the role has the permission  
+        """
+        perms = self._role_permissions.permissions.all()
+        if not perms.count() : return False
+        for i in perms:
+            if i == perm: return True
+        return False
     
     #define how to display our object in the html
     def __unicode__(self):
