@@ -1,0 +1,22 @@
+{% if user.is_authenticated %}
+  <!-- Display User Info and offer logout -->  
+  You are Logged in as {{ user }}
+  <form method="post">
+  <input type="submit" name="do_action" value="Logout">  
+  </form>
+{% else if form_login %}
+  <!-- Login Form -->
+  <form method="post">
+  {{ form_login.as_p }}  
+  <input type="submit" name="do_action" value="Login">
+  </form>
+{% else if form_register %}
+  <!-- Registration Form -->
+  <form method="post">
+    {% csrf_token %}
+  {{ form_register.as_p }}  
+  <input type="submit" name="do_action" value="Register">
+  </form>
+{% else %}
+Sorry Bad Request Try Again
+{%endif%}

@@ -37,7 +37,7 @@ def createNewGroup(owner, group_name="", group_desc="", group_image=""):
     r2._role_permission_level = 1
     r2.save()
     #Create Regular Member Role
-    gus_role.objects.create_role(grp, 'Member')
+    r3 = gus_role.objects.create_role(grp, 'Member')
     
     return grp
     

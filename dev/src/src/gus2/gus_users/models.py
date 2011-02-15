@@ -64,9 +64,27 @@ class gus_user(models.Model):
     #################################################      
     
     def is_anonymous(self):
+        """
+        Always returns false. you should not have an anonymous user
+        except in the case that it is a django.anonUser
+        
+            Note* per django documentation you should defer to is_authenticated
+            
+        @see: L{django.contrib.auth.models.AnonymousUser<AnonymousUser>}
+        @see: L{django.contrib.auth.models.User.is_anonymous<User.is_anonymous>}
+        @return: False
+        """
+        
         return self._user.is_anonymous()
     
     def is_authenticated(self):
+        """
+        Always returns true. you should not have an un authenticated user
+        except in the case that it is a django.anonUser
+        @see: L{django.contrib.auth.models.AnonymousUser<AnonymousUser>}
+        @see: L{django.contrib.auth.models.User.is_authenticated<User.is_authenticated>}
+        @return: True
+        """
         return self._user.is_authenticated()
     
     def get_full_name(self):
@@ -94,15 +112,15 @@ class gus_user(models.Model):
         return self._user.has_module_perms(package_name)  
     
     def get_and_delete_messages(self):
-        return self._user.get_and_delete_messages()
+        return self._user.get_and_delete_messages() # pragma : no cover
     
     def email_user(self, subject, message, from_email=None):
-        return self._user.email_user(subject, message, from_email) 
+        return self._user.email_user(subject, message, from_email) # pragma : no cover
     
     def get_profile(self):
-        return self._user.get_profile()
+        return self._user.get_profile() # pragma : no cover
 
-    def add_role(self, role):
+    def add_role(self, role):       
         role.save()
                                     
     #################################################

@@ -21,6 +21,7 @@ urlpatterns = patterns('gus2.gusTestSuite.views',
     (r'^User/Add', 'addUser'),
     (r'^User/Edit/(?P<user_id>\d+)/', 'editUser'),
     (r'^User/Delete/(?P<user_id>\d+)/', 'deleteUser'),
+    (r'^User/Auth_Test/', 'authUser'),
     
     (r'^Role/Edit/(?P<role_id>\d+)/', 'editRole'),
     (r'^Role/(?P<role_id>\d+)/RemoveUser/(?P<user_id>\d+)/', 'removeUserFromRole'),

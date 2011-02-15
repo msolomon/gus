@@ -46,6 +46,25 @@ class UsersTest(TestCase):
         usr = gus_user()
         self.failUnless("%s"%usr=="user: (Undefined User)")
         
+    def test_setters(self):    
+        usr = gus_user.objects.create_user(self.user, self.user_email, self.password)
+        usr.username="bob1"
+        usr = gus_user.objects.get(pk=1)
+        self.failUnless((usr.username == "bob1"),'Error with Username getter/setter')
+        usr.first_name="bobFN"
+        usr = gus_user.objects.get(pk=1)
+        self.failUnless((usr.first_name == "bobFN"),'Error with first_name getter/setter')
+        
+        usr.first_name="smithLN"
+        usr = gus_user.objects.get(pk=1)
+        self.failUnless((usr.first_name == "smithLN"),'Error with last_name getter/setter')
+        
+        usr.email="smith@email"
+        usr = gus_user.objects.get(pk=1)
+        self.failUnless((usr.email== "smith@email"),'Error with email getter/setter')
+        
+        
+        usr = gus_user.objects.get(pk=1)
         
         
         
