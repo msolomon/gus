@@ -1,4 +1,5 @@
 # Django settings for gus2 project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -77,9 +78,12 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'gus2.urls'
 
+PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
+
 TEMPLATE_DIRS = (
-    'c:/git_shit/gus/iteration2/src/views/',
-    '/home/stephen/gus/dev/src/views',
+    #'c:/git_shit/gus/iteration2/src/views/',
+    os.path.join(PROJECT_PATH, '../../views'),
+    #'/home/stephen/gus/dev/src/views',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
