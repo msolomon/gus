@@ -9,9 +9,9 @@ from django.conf.urls.defaults import *
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('gus2.gus_users.views',
+urlpatterns = patterns('gus.gus_users.views',
     # Example:
-    # (r'^gus2/', include('gus2.foo.urls')),
+    # (r'^gus/', include('gus.foo.urls')),
     (r'^', 'index')
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),

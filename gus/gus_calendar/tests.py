@@ -14,8 +14,8 @@ import unittest
 
 from gus_calendar.models import Gus_calendar #ok ignore aptana
 from gus_calendar.models import Gus_event #ok ignore aptana
-from gus2.gus_users.models import *
-from gus2.gus_groups.models import *
+from gus.gus_users.models import *
+from gus.gus_groups.models import *
 
 
 class test_gus_calendar(unittest.TestCase):

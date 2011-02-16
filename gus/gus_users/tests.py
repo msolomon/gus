@@ -18,7 +18,7 @@ class UsersTest(TestCase):
     def test_create_user(self):
         """
         Test the ability to create a user in the database
-        Testing functions found in L{gus_user<gus2.gus_users.models.UserManager.create_user>}    
+        Testing functions found in L{gus_user<gus.gus_users.models.UserManager.create_user>}    
         """
     
         gus_user.objects.create_user(self.user, self.user_email, self.password)

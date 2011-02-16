@@ -1,4 +1,4 @@
-# Django settings for gus2 project.
+# Django settings for gus project.
 import os
 
 DEBUG = True
@@ -76,7 +76,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'gus2.urls'
+ROOT_URLCONF = 'gus.urls'
 
 PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
 
@@ -93,18 +93,18 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'gus2.gus_gallery',
-    'gus2.gus_groups',
-    'gus2.gus_roles',
-    'gus2.gus_users',
-    'gus2.gus_calendar',
-    'gus2.gus_widget',
-    'gus2.gus_forum',
-    'gus2.gus_forum_post',
-    'gus2.gus_forum_thread',
-    'gus2.gus_emailer',
-    'gus2.gus_bill',
-    'gus2.gusTestSuite'
+    'gus.gus_gallery',
+    'gus.gus_groups',
+    'gus.gus_roles',
+    'gus.gus_users',
+    'gus.gus_calendar',
+    'gus.gus_widget',
+    'gus.gus_forum',
+    'gus.gus_forum_post',
+    'gus.gus_forum_thread',
+    'gus.gus_emailer',
+    'gus.gus_bill',
+    'gus.gusTestSuite'
 
     
     # Uncomment the next line to enable the admin:
@@ -122,8 +122,8 @@ INSTALLED_APPS = (
 #but if we ever have more, we'll have to insert them
 
 
-TEST_RUNNER='gus2.tests.test_runner_with_coverage'
-COVERAGE_MODULES = ['gus2.gus_bill.models','gus2.gus_calendar.models','gus2.gus_emailer.models','gus2.gus_forum.models','gus2.gus_gallery.models','gus2.gus_groups.models','gus2.gus_users.models','gus2.gus_roles.models','gus2.gus_widget.models']
+TEST_RUNNER='gus.tests.test_runner_with_coverage'
+COVERAGE_MODULES = ['gus.gus_bill.models','gus.gus_calendar.models','gus.gus_emailer.models','gus.gus_forum.models','gus.gus_gallery.models','gus.gus_groups.models','gus.gus_users.models','gus.gus_roles.models','gus.gus_widget.models']
 
 ## Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

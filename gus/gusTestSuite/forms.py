@@ -3,8 +3,8 @@ This File simply contains forms for our test environment
 """
 
 from django import forms
-from gus2.gus_users.models import gus_user
-from gus2.gus_roles.models import gus_role
+from gus.gus_users.models import gus_user
+from gus.gus_roles.models import gus_role
 
 class SimpleUserAddForm(forms.Form):
     """

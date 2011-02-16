@@ -6,9 +6,9 @@ Replace these with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from gus2.gus_groups.models import gus_group
-from gus2.gus_roles.models import gus_role
-from gus2.gus_users.models import gus_user
+from gus.gus_groups.models import gus_group
+from gus.gus_roles.models import gus_role
+from gus.gus_users.models import gus_user
 
 class SimpleTest(TestCase):
     """
@@ -22,8 +22,8 @@ class SimpleTest(TestCase):
     def setUp(self):
         """
         setup a group and a couple users to use with role tests
-        @requires: L{gus_group.create_group<gus2.gus_groups.models.GroupManager.create_group>}
-        @requires: L{gus_user.create_user<gus2.gus_users.models.UserManager.create_user>}
+        @requires: L{gus_group.create_group<gus.gus_groups.models.GroupManager.create_group>}
+        @requires: L{gus_user.create_user<gus.gus_users.models.UserManager.create_user>}
         """
         self.testGroup = gus_group.objects.create_group("TestGroup1", "Added For Testing Roles", '')
         self.testUser1  = gus_user.objects.create_user("Test User1", "test@user1", '1')
@@ -36,7 +36,7 @@ class SimpleTest(TestCase):
     	@precondition: L{setUp}
     	
     	tests built in django model deletion
-    	and L{gus_role.create_role<gus2.gus_roles.models.RoleManager.create_role>} 
+    	and L{gus_role.create_role<gus.gus_roles.models.RoleManager.create_role>} 
     	"""
         group_object = gus_group.objects.create_group(self.testRole, 'test', '')
         #Test Creation
@@ -53,7 +53,7 @@ class SimpleTest(TestCase):
 
 	@precondition: L{setUp}
 
-	tests L{gus_role.addUser<gus2.gus_roles.models.gus_role.addUser>}
+	tests L{gus_role.addUser<gus.gus_roles.models.gus_role.addUser>}
 	"""
 
         gus_role.objects.create_role(self.testGroup, self.testRole)
@@ -66,7 +66,7 @@ class SimpleTest(TestCase):
 	"""
 	@summary: test getting users
 	@precondition: L{setUp}
-	tests L{gus_role.getUsers<gus2.gus_roles.models.gus_role.getUser>}
+	tests L{gus_role.getUsers<gus.gus_roles.models.gus_role.getUser>}
 	"""
         gus_role.objects.create_role(self.testGroup, self.testRole)
 	role = gus_role.objects.get(_role_name=self.testRole)
@@ -78,7 +78,7 @@ class SimpleTest(TestCase):
 	"""
 	@summary: test getting groups
 	@precondition: L{setUp}
-	tests L{gus_role.getGroup<gus2.gus_roles.models.gus_role.getGroup>}
+	tests L{gus_role.getGroup<gus.gus_roles.models.gus_role.getGroup>}
 	"""
         gus_role.objects.create_role(self.testGroup, self.testRole)
 	role = gus_role.objects.get(_role_name=self.testRole)
@@ -92,7 +92,7 @@ class SimpleTest(TestCase):
 
 	@precondition: L{setUp}
 
-	tests L{gus_role.removeUser<gus2.gus_roles.models.gus_role.removeUser>}
+	tests L{gus_role.removeUser<gus.gus_roles.models.gus_role.removeUser>}
 	"""
 	#Test Deletion of user from role
         gus_role.objects.create_role(self.testGroup, self.testRole)
@@ -104,7 +104,7 @@ class SimpleTest(TestCase):
     def test_with_user_in_group(self):
 	"""
 	@summary: test getting a role by a user and a group
-	tests L{gus_role.with_user_in_group<gus2.gus_roles.models.gus_role.with_users_in_group>}
+	tests L{gus_role.with_user_in_group<gus.gus_roles.models.gus_role.with_users_in_group>}
 	"""
         gus_role.objects.create_role(self.testGroup, self.testRole)
 	role = gus_role.objects.get(_role_name=self.testRole)
@@ -115,7 +115,7 @@ class SimpleTest(TestCase):
     def test_with_user(self):
 	"""
 	@summary: tests the with_user function
-	tests L{gus_role.with_user<gus2.gus_roles.models.gus_role.with_users>}
+	tests L{gus_role.with_user<gus.gus_roles.models.gus_role.with_users>}
 	"""
         gus_role.objects.create_role(self.testGroup, self.testRole)
 	role = gus_role.objects.get(_role_name=self.testRole)
@@ -126,7 +126,7 @@ class SimpleTest(TestCase):
     def test_with_group(self):
 	"""
 	@summary: test the with_group function
-	tests L{gus_role.with_group<gus2.gus_roles.models.gus_role.with_group>}
+	tests L{gus_role.with_group<gus.gus_roles.models.gus_role.with_group>}
 	"""
         gus_role.objects.create_role(self.testGroup, self.testRole)
 	role = gus_role.objects.get(_role_name=self.testRole)

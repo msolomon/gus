@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from gus2.gus_groups.models import *
+from gus.gus_groups.models import *
 
 def index(urlRequest):
     return render_to_response('gallery/index.html')

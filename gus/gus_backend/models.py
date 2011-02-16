@@ -1,5 +1,5 @@
 from django.db import models
-from gus2.gus_users.models import gus_user
+from gus.gus_users.models import gus_user
 
 # Create your models here.
 class gus_backend(object):

@@ -8,9 +8,9 @@ This file contains the unit tests for the gus_gallery model
 """
 
 from django.test import TestCase
-from gus2.gus_gallery.models import *
-from gus2.gus_groups.models import *
-from gus2.gus_users.models import *
+from gus.gus_gallery.models import *
+from gus.gus_groups.models import *
+from gus.gus_users.models import *
 
 class gus_gallery_test(TestCase):
     def test_gallery(self):

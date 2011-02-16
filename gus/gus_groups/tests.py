@@ -9,7 +9,7 @@ Replace these with more appropriate tests for your application.
 
 from django.test import TestCase
 from django.db import IntegrityError
-from gus2.gus_groups.models import gus_group
+from gus.gus_groups.models import gus_group
 
 class SimpleTest(TestCase):
     testGroupName = "test_group"
@@ -18,7 +18,7 @@ class SimpleTest(TestCase):
         """
         tests that a group can be created successfully
         uses Django's built in delete() functionality for models
-        tests functionality of L{gus_group.create_group<gus2.gus_groups.models.GroupManager.create_group>}
+        tests functionality of L{gus_group.create_group<gus.gus_groups.models.GroupManager.create_group>}
         """      
         gus_group.objects.create_group(self.testGroupName, 'unit test created', '')
         grp = gus_group.objects.filter(group_name=self.testGroupName)
@@ -30,7 +30,7 @@ class SimpleTest(TestCase):
     def test_advanced_groupCreate(self):
         """
         tests that trying to create a group with the same name as an existing one will fail
-        tests functionality of L{gus_group.create_group<gus2.gus_groups.models.GroupManager.create_group>}
+        tests functionality of L{gus_group.create_group<gus.gus_groups.models.GroupManager.create_group>}
         """
         gus_group.objects.create_group(self.testGroupName, 'initial group created', '')
         grp = gus_group.objects.filter(group_name=self.testGroupName)
@@ -47,7 +47,7 @@ class SimpleTest(TestCase):
     def test_edit_group(self):
         """
         tests trying to edit the description of a group
-        tests functionality of L{gus_group.create_group<gus2.gus_groups.models.GroupManager.create_group>}
+        tests functionality of L{gus_group.create_group<gus.gus_groups.models.GroupManager.create_group>}
         """
         gus_group.objects.create_group(self.testGroupName, 'test group', '')
         grp = gus_group.objects.filter(group_name=self.testGroupName)

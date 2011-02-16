@@ -10,13 +10,13 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     # Example:
-    # (r'^gus2/', include('gus2.foo.urls')),
-    (r'^gus_test/', include('gus2.gusTestSuite.urls')),
+    # (r'^gus/', include('gus.foo.urls')),
+    (r'^gus_test/', include('gus.gusTestSuite.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
-    (r'^gallery/', include('gus2.gus_gallery.urls')),
-    (r'^emailer/', include('gus2.gus_emailer.urls')),
+    (r'^gallery/', include('gus.gus_gallery.urls')),
+    (r'^emailer/', include('gus.gus_emailer.urls')),
 )

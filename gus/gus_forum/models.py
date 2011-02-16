@@ -1,7 +1,7 @@
 from django.db import models
-from gus2.gus_widget.models import Widget
-from gus2.gus_users.models import gus_user
-from gus2.gus_groups.models import gus_group
+from gus.gus_widget.models import Widget
+from gus.gus_users.models import gus_user
+from gus.gus_groups.models import gus_group
 
 class ForumManage(models.Manager):
 	"""

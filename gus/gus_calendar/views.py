@@ -2,7 +2,7 @@ import time
 ##from django.contrib.auth.decorators import login_required
 ##from django.http import HttpResponseRedirect, HttpResponse
 ##from django.shortcuts import get_object_or_404, render_to_response
-from gus2.gus_calendar.models import *
+from gus.gus_calendar.models import *
 
 
 month_names = "January February March April May June July August September October November December"

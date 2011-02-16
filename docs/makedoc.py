@@ -1,6 +1,6 @@
 #! /usr/bin/python
 import os
-prefix = '../dev/src/src/'
+prefix = '..//'
 line_prefix = '.. automodule:: '
 line_postfix = '\t:members:\n\t:undoc-members:'
 
@@ -8,7 +8,7 @@ dic = {}
 
 for dirpath, dirnames, filenames in os.walk(prefix):
     for f in filenames:
-        if dirpath == prefix + 'gus2': continue
+        if dirpath == prefix + 'gus': continue
         if f[-3:] == '.py':
             p = dirpath[len(prefix)+5:]
             if p not in dic:

@@ -4,9 +4,9 @@ from imaplib import *
 from django.db import models
 from django.core import mail
 
-from gus2.gus_widget.models import Widget
-from gus2.gus_groups.models import gus_group
-from gus2.gus_users.models import gus_user
+from gus.gus_widget.models import Widget
+from gus.gus_groups.models import gus_group
+from gus.gus_users.models import gus_user
 
 import sys
 sys.path.append('gus_emailer/IMAPClient_0_7/imapclient/')

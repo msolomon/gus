@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import Group
-from gus2.gus_groups.models import gus_group
-from gus2.gus_users.models import gus_user
+from gus.gus_groups.models import gus_group
+from gus.gus_users.models import gus_user
 # Create your models here.
 
 class RoleManager(models.Manager):
@@ -49,7 +49,7 @@ class RoleManager(models.Manager):
         """
         will return all roles of a given user
         @param user: The user to find the groups for
-        @type user: L{gus_user<gus2.gus_users.models.gus_user>}
+        @type user: L{gus_user<gus.gus_users.models.gus_user>}
         @rtype: List
         @return: a set of all groups that a given user belongs to 
         """
@@ -68,7 +68,7 @@ class RoleManager(models.Manager):
         """
         will return all users of a given gus_group
         @param group: The group to find the users for
-        @type group: L{gus_group<gus2.gus_groups.models.gus_group>}
+        @type group: L{gus_group<gus.gus_groups.models.gus_group>}
         @rtype: List
         @return: a set of all users that a given group has
             Ex.

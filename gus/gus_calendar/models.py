@@ -8,8 +8,8 @@ This is the model document for the Gus_calendar and Gus_event classes.
 """
 
 from django.db import models
-from gus2.gus_widget.models import Widget #ok
-from gus2.gus_users.models import gus_user #ok ignore aptana
+from gus.gus_widget.models import Widget #ok
+from gus.gus_users.models import gus_user #ok ignore aptana
 
 class Gus_calendar(Widget):
     """

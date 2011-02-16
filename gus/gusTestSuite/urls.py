@@ -9,9 +9,9 @@ from django.conf.urls.defaults import *
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('gus2.gusTestSuite.views',
+urlpatterns = patterns('gus.gusTestSuite.views',
     # Example:
-    # (r'^gus2/', include('gus2.foo.urls')),
+    # (r'^gus/', include('gus.foo.urls')),
     (r'^$', 'index'),
     
     (r'^Group/Add/$', 'addGroup'),

@@ -3,7 +3,7 @@ Contains tests for the widget class
 """
 
 from django.test import TestCase
-from gus2.gus_widget.models import *
+from gus.gus_widget.models import *
 
 class CreateDestroyTest(TestCase):
     '''Create and destroy a generic widget.

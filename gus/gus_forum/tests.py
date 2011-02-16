@@ -1,6 +1,6 @@
 from django.test import TestCase
-from gus2.gus_users.models import gus_user
-from gus2.gus_groups.models import gus_group
+from gus.gus_users.models import gus_user
+from gus.gus_groups.models import gus_group
 from models import forum
 
 class ForumTest(TestCase):

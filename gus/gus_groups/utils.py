@@ -22,8 +22,8 @@ def createNewGroup(owner, group_name="", group_desc="", group_image=""):
     @param group_image: the image for this group
     @return:  the new group    
     """
-    from gus2.gus_groups.models import gus_group
-    from gus2.gus_roles.models import gus_role
+    from gus.gus_groups.models import gus_group
+    from gus.gus_roles.models import gus_role
     grp = gus_group.objects.create_group(group_name, group_desc, group_image)
     
     #create our default roles
@@ -47,7 +47,7 @@ def getGroupRoles(group):
     @param group: the group to return the roles of
     @return: a query set of roles that the group is associated with 
     """
-    from gus2.gus_roles.models import gus_role
+    from gus.gus_roles.models import gus_role
     return gus_role.objects.with_group(group)
 
 def getGroupsWithUser(user):
@@ -59,7 +59,7 @@ def getGroupsWithUser(user):
     @rtype: queryset
     @return: list of groups that have this user as a member 
     """
-    from gus2.gus_roles.models import gus_role
+    from gus.gus_roles.models import gus_role
     return map(lambda x:  x._role_group , gus_role.objects.with_user(user))
 
 

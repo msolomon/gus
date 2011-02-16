@@ -2,9 +2,9 @@
 This file runs unit tests on the gus_bill/models.py file.
 """
 
-from gus2.gus_bill.models import *
-from gus2.gus_users.models import *
-from gus2.gus_groups.models import *
+from gus.gus_bill.models import *
+from gus.gus_users.models import *
+from gus.gus_groups.models import *
 from django.test import TestCase
 
 class BillTest(TestCase):

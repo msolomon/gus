@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core import mail
 from time import localtime, strftime
-from gus2.gus_emailer.models import *
+from gus.gus_emailer.models import *
 
 class EmailSystemTest(TestCase):
     def runTest(self):

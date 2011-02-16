@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from gus2 import gus_roles
+from gus import gus_roles
 
 class UserManager(models.Manager):
     def create_user(self, username, email, password):
