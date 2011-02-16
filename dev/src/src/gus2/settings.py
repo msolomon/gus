@@ -81,9 +81,7 @@ ROOT_URLCONF = 'gus2.urls'
 PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
 
 TEMPLATE_DIRS = (
-    #'c:/git_shit/gus/iteration2/src/views/',
     os.path.join(PROJECT_PATH, '../../views'),
-    #'/home/stephen/gus/dev/src/views',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -102,8 +100,8 @@ INSTALLED_APPS = (
     'gus2.gus_calendar',
     'gus2.gus_widget',
     'gus2.gus_forum',
-    #'gus2.gus_forum_post',
-    #'gus2.gus_forum_thread',
+    'gus2.gus_forum_post',
+    'gus2.gus_forum_thread',
     'gus2.gus_emailer',
     'gus2.gus_bill',
     'gus2.gusTestSuite'
