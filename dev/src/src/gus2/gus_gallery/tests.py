@@ -1,4 +1,4 @@
-# Gus Gallery Model Tests
+# GUS Gallery Model Tests
 # Part of the GUSPY effort
 # Stephen Fischer
 # February 2011
