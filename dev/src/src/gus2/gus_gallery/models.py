@@ -1,4 +1,4 @@
-# Gus Gallery Models
+# GUS Gallery Models
 # Part of the GUSPY effort
 # Stephen Fischer
 # January 2011
