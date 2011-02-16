@@ -165,7 +165,7 @@ class gus_role(models.Model):
         permList = [] 
         for perm in perms:
             permList.append(perm)
-        return " '%s'" % "', '".join(permList);
+        return " '%s'" % "', '".join(map(lambda x:x.name, permList));
     
     def has_perm(self,perm):
         """
@@ -207,12 +207,12 @@ class gus_role(models.Model):
         """
         return an error about being read only
         """
-        raise Exception, "RoleUsersPermisionError: This Property is read Only"
+        raise Exception, "RoleUsersPermisionError: This Property is read Only" # pragma : no cover
     def setGroup(self):
         """
         return an error about being read only
         """
-        raise Exception, "RoleUsersPermisionError: This Property is read Only"
+        raise Exception, "RoleUsersPermisionError: This Property is read Only" # pragma : no cover
     #Define our getters , syntax is:def getProperty(self): ... 
     #    s.t. Property is the name of the property you wish to use
     #  a getter for, with the first letter capitalized

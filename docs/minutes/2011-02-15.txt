@@ -1,0 +1,10 @@
+CS 384 guspy
+
+Present: Joran, Stephen, Lee, Nathan, Chandler, Max, John, Mike, Jacob
+Date: 2/15/2011
+
+Looked over present goals
+
+    Delegated CSS template to John
+	possible admin tool
+    Others to start looking at views

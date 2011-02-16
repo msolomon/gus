@@ -72,6 +72,19 @@ class SimpleTest(TestCase):
 	role = gus_role.objects.get(_role_name=self.testRole)
 	role.addUser(self.testUser1)
 	users = role.getUsers()
+	self.failUnless(len(users.all()) != 0,'Failed to get users')
+
+    def test_getGroup(self):
+	"""
+	@summary: test getting groups
+	@precondition: L{setUp}
+	tests L{gus_role.getGroup<gus2.gus_roles.models.gus_role.getGroup>}
+	"""
+        gus_role.objects.create_role(self.testGroup, self.testRole)
+	role = gus_role.objects.get(_role_name=self.testRole)
+	test_group = role.getGroup()
+	self.failUnlessEqual(test_group,self.testGroup,'Failed to get group')
+	
 
     def test_removeUser(self):
 	"""
@@ -88,4 +101,36 @@ class SimpleTest(TestCase):
 	role.removeUser(self.testUser1)
 	userRoles = role.getUsers()
 	self.failUnless(len(userRoles.all()) == 0,"Failed to remove user from role")
+    def test_with_user_in_group(self):
+	"""
+	@summary: test getting a role by a user and a group
+	tests L{gus_role.with_user_in_group<gus2.gus_roles.models.gus_role.with_users_in_group>}
+	"""
+        gus_role.objects.create_role(self.testGroup, self.testRole)
+	role = gus_role.objects.get(_role_name=self.testRole)
+	role.addUser(self.testUser1)
+	test_role = gus_role.objects.with_user_in_group(self.testGroup,self.testUser1)
+	self.failUnlessEqual(test_role.all(), self.testRole,'Failed to get role of user in group')	
 
+    def test_with_user(self):
+	"""
+	@summary: tests the with_user function
+	tests L{gus_role.with_user<gus2.gus_roles.models.gus_role.with_users>}
+	"""
+        gus_role.objects.create_role(self.testGroup, self.testRole)
+	role = gus_role.objects.get(_role_name=self.testRole)
+	role.addUser(self.testUser1)
+	test_role = gus_role.objects.with_user(self.testUser1)
+	self.failUnlessEqual(test_role.all(), self.testRole,'Failed to get roles for user')
+	
+    def test_with_group(self):
+	"""
+	@summary: test the with_group function
+	tests L{gus_role.with_group<gus2.gus_roles.models.gus_role.with_group>}
+	"""
+        gus_role.objects.create_role(self.testGroup, self.testRole)
+	role = gus_role.objects.get(_role_name=self.testRole)
+	test_role = gus_role.objects.with_group(self.testGroup)
+	self.failUnlessEqual(test_role.all(), self.testRole,'Failed to get roles of given group')
+	
+    
