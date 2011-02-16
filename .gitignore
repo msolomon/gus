@@ -11,4 +11,5 @@ guspy.db
 # include only generated html
 docs/index.rst
 docs/_*/
-*epydocs*
+docs/epydoc/
+*covhtml*
