@@ -1,13 +1,17 @@
+# GUS Gallery URLs
+# Part of the GUSPY effort
+# Stephen Fischer
+# February 2011
+
+"""
+This file matches the URLs for the GUS Gallery
+"""
+
 from django.conf.urls.defaults import *
-###############################################
-#### Main URL Routing File          ###########
-###############################################
-
-
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
 
 urlpatterns = patterns('gus2.gus_gallery.views',
-    (r'^/', 'index'),
+    (r'^group/([a-zA-z0-9])/', 'group'),
+    (r'^([0-9])', 'single'),
+    (r'^', 'index'),
+
 )
