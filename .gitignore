@@ -12,4 +12,4 @@ guspy.db
 docs/index.rst
 docs/_*/
 docs/epydoc/
-*covhtml*
+docs/covhtml/
