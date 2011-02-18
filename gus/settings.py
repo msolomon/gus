@@ -81,7 +81,7 @@ ROOT_URLCONF = 'gus.urls'
 PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, '../../views'),
+    os.path.join(PROJECT_PATH, '../views'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
