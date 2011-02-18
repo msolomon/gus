@@ -1,6 +1,9 @@
 from django.db import models 
 
 class GroupManager(models.Manager):
+    def create(self, groupname, description="", image=""):
+        self.create_group(groupname, description, image)
+
     def create_group(self, groupname, description="", image=""):
         """
         this will create a new group and insert it into the table

@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from gus import gus_roles
 
 class UserManager(models.Manager):
+    def create(self, username, email, password):
+        self.create_user(username, email, password)
+
     def create_user(self, username, email, password):
         """
         this will create a new user and insert it into the table
