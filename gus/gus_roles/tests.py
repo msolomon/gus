@@ -101,6 +101,13 @@ class SimpleTest(TestCase):
 	role.removeUser(self.testUser1)
 	userRoles = role.getUsers()
 	self.failUnless(len(userRoles.all()) == 0,"Failed to remove user from role")
+
+    def test_permString(self):
+	from django.contrib.auth.models import Permission
+	role = gus_role.objects.create_role(self.testGroup, self.testRole)
+	role._role_permissions.permissions.add(Permission.objects.all()[0])
+	self.failUnless(len(role.permString()) != 0, "Failed to get permisions for role/group")
+
     def test_with_user_in_group(self):
 	"""
 	@summary: test getting a role by a user and a group
