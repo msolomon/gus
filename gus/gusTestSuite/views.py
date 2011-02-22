@@ -58,7 +58,7 @@ def addGroup(urlRequest):
     
     return render_to_response('test/form.html',
                                 {
-                                 'submiturl':reverse('gus.gusTestSuite.views.addGroup'),
+                                 'submiturl':'/gus_test/Group/Add/',
                                  'enctype':'multipart/form-data',
                                  'form':form,
                                  'title':'Add New Group',
@@ -136,7 +136,7 @@ def addUser(urlRequest):
 
     return render_to_response('test/form.html',
                                 {
-                                 'submiturl':reverse('gus.gusTestSuite.views.addUser'),
+                                 'submiturl':'/gus_test/User/Add/',
                                  'encType':'multipart/form-data',
                                  'form':form,
                                  'title':'Add New User',

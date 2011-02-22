@@ -1,26 +1,16 @@
-<h3>Welcome To The Gus User Test Suite</h3>
-<h3>Groups</h3>
-{% for group in groups %}
-{{ group }}  
-         [ <a href="{% url gus2.gusTestSuite.views.editGroup group.id %}">
-              Edit
-           </a> 
-         | 
-           <a href="{% url gus2.gusTestSuite.views.deleteGroup group.id %}">
-              Delete
-           </a>
-         ]<br/>
-{% endfor %}
-<h3>Users</h3>
-{% for user in users %}
-{{user}} [ <a href="{% url gus2.gusTestSuite.views.editUser user.id %}">
-              Edit
-           </a> 
-         | 
-           <a href="{% url gus2.gusTestSuite.views.deleteUser user.id %}">
-              Delete
-           </a>
-         ]<br/>
-{% endfor %}
-<a href="{% url gus2.gusTestSuite.views.addGroup %}">Add A New Group</a><br/>
-<a href="{% url gus2.gusTestSuite.views.addUser %}">Add A New User</a>
+{% extends "base.html" %}
+{% block pagetitle %}Gus Test Suite{%endblock%}
+{% block content %}
+<div style="width:250px;float:right">
+<h3>Groups [<a href="/gus_test/Group/Add">Add</a> ]
+</div>
+
+<div style="width:250px">
+<h3>Users [<a href="/gus_test/User/Add/">Add</a> ]</h3>
+	{%for usr in users%}
+	<div>{{usr}} <a href="/gus_test/User/Delete/{{usr.id}}/">Delete</a>
+	 | <a href="/gus_test/User/Edit/{{usr.id}}/">Edit</a>
+	 </div>
+	{% endfor %}
+</div>
+{%endblock%}

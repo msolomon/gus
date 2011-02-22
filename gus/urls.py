@@ -1,3 +1,5 @@
+import os
+from django.conf import settings
 from django.conf.urls.defaults import *
 ###############################################
 #### Main URL Routing File          ###########
@@ -22,7 +24,7 @@ urlpatterns = patterns('',
 	(r'^groups/', include('gus.gus_groups.urls')),
 	(r'^login/', 'gus.gus_users.views.login'),
 	(r'^register/', 'gus.gus_users.views.register'),
-	
+	(r'^include/(.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, '..', 'media')})
 	
     
 )
