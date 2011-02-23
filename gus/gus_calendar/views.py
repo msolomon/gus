@@ -2,6 +2,10 @@ import time
 ##from django.contrib.auth.decorators import login_required
 ##from django.http import HttpResponseRedirect, HttpResponse
 ##from django.shortcuts import get_object_or_404, render_to_response
+
+from django.shortcuts import render_to_response
+from django.http import HttpResponse
+from django.template import RequestContext
 from gus.gus_calendar.models import *
 
 
@@ -9,6 +13,8 @@ month_names = "January February March April May June July August September Octob
 month_names = month_names.split()
 
 #@login_regquired
+def index(request):
+    return render_to_response('calendar/index.html', {}, context_instance=RequestContext(request))
 
 def main(request, year=None):
     if year: year = int(year)
@@ -27,9 +33,7 @@ def main(request, year=None):
             month_list.append(dict(n=n + 1, name=month, event_name=item, current=current))
         list.append((m, month_list))
         
-        
- 
-        ##return render_to_response("blahblah/main.html", dict(years=list, user=request.user, year=year))
+        return render_to_response("calendar/main.html", dict(years=list, user=request.user, year=year))
   
 def month(request, year, month, change=None):
     year, month = int(year), int(month)
