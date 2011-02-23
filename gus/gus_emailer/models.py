@@ -18,7 +18,9 @@ class EmailerWidget(Widget):
     '''
     # what else is needed besides the name (provided by Widget)? (perm strings)
     permission_strings="can_send|can_send_group" #maybe? -jb
-    pass
+    def __init__(self):
+	self._e = Emailer()
+
     
 class Emailer(models.Model):
     '''
