@@ -47,6 +47,7 @@ class BillManager(models.Manager):
             ct += 1
             temp = super(BillManager, self).get_query_set().filter(user = user, group=group, name=Bname1)
         
+        #call the constructor in untils.py
         return super(BillManager, self).get_query_set().create(user=user, group=group, name=Bname1, value=value)
                 
 
@@ -119,6 +120,10 @@ class bill(models.Model):
         payment.objects.filter(mybill = self).delete()
         #uses the default delete function to delete the bill
         super(bill, self).delete()
+        
+    #used for the views output
+    def __unicode__(self):
+	return "%s Bill: %s Value: %d"%(self.group, self.name, self.value)
 
 
 
