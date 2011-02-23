@@ -58,7 +58,7 @@ def test_runner_with_coverage(test_labels, verbosity=1, interactive=True, extra_
     
     # Print code metrics footer
     print '----------------------------------------------------------------------'
-    cov.html_report(directory='../docs/covhtml')
+    #cov.html_report(directory='../docs/covhtml')
   return test_results
 
 # test_runner_with_coverage()
