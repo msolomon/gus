@@ -22,6 +22,7 @@ from gus.gus_users.models import gus_user
 from gus.gus_groups.models import gus_group
 from gus.gus_roles.models import gus_role
 
+from gus.gusTestSuite.forms import SimpleUserAddForm
 
 def index(urlRequest):
     
@@ -68,8 +69,38 @@ def addGroup(urlRequest):
                               );
 
 def editUser(urlRequest, user_id):
-    user = gus_user.objects.get(pk=user_id)
-    return HttpResponse('Manage User : %s ' % user)
+    #get our user
+    usr = gus_user.objects.get(pk=user_id)
+    #setup our form
+    if urlRequest.method == 'POST': # If the form has been submitted...
+        form = SimpleUserAddForm(urlRequest.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            # Process the data in form.cleaned_data
+            # ...
+            usr.username=form.cleaned_data['username']
+            usr.email=form.cleaned_data['email']
+            usr.save()
+            usr.set_password(form.cleaned_data['password'])
+                        
+            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+    else:
+        form = SimpleUserAddForm({'username':usr.username,'email':usr.email
+                              ,'id':usr.id,'password':usr._user.password}) 
+        # Default Edit Form
+    
+    
+    #return HttpResponse()
+    return render_to_response('test/form.html',
+                                {
+                                 'submiturl':'/gus_test/User/Edit/%s/'%user_id,
+                                 'enctype':'multipart/form-data',
+                                 'form':form,
+                                 'title':'Edit %s'%usr.username,
+                                 'btnlabel':'Save Changes',
+                                },
+                                context_instance=RequestContext(urlRequest)
+                              );
+
 
 def editGroup(urlRequest, group_id):
     from gus.gus_groups.utils import getGroupRoles
@@ -117,7 +148,7 @@ def editRole(urlRequest, role_id):
 
 
 def addUser(urlRequest):
-    from gus.gusTestSuite.forms import SimpleUserAddForm
+    
     #setup our form
     if urlRequest.method == 'POST': # If the form has been submitted...
         form = SimpleUserAddForm(urlRequest.POST) # A form bound to the POST data

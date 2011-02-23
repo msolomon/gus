@@ -1,0 +1,10 @@
+Minutes 2/22/11
+
+-dotProject will now be used for task and bug tracking
+-reviewed meeting optimality, decided to continue as is at least until next week
+-worked on template and views
+	-familiarization with template integration
+	-familiarization with form creation/submittal
+	-user creation via /gus_test/User/Add/ working as intended
+	-user listings via /gus_test/ working as intended
+	-progress made on several additional views
