@@ -13,10 +13,10 @@ month_names = "January February March April May June July August September Octob
 month_names = month_names.split()
 
 #@login_regquired
-def index(request):
-    return render_to_response('calendar/index.html', {}, context_instance=RequestContext(request))
+#def index(request):
+#    return render_to_response('calendar/index.html', {}, context_instance=RequestContext(request))
 
-def main(request, year=None):
+def index(request, year=None):
     if year: year = int(year)
     else: year = time.localtime()[0]
     
@@ -26,15 +26,26 @@ def main(request, year=None):
     for m in [year, year + 1]: # calendar goes out 2 years
         month_list = []
         for n, month in enumerate(month_names):
-            if Event:
-                item = True # there is an event listed
+            event = current = False
+            events = Gus_event.objects.filter(start_date__year=m, start_date__month=n+1)
+            if events:
+                event = True # there is an event listed
             if m == current_year and  n + 1 == current_month:
-                current = True
-            month_list.append(dict(n=n + 1, name=month, event_name=item, current=current))
+                current = True # it is current month
+            month_list.append(dict(n=n + 1, name=month, event=event, current=current))
         list.append((m, month_list))
         
-        return render_to_response("calendar/main.html", dict(years=list, user=request.user, year=year))
+        return render_to_response("calendar/index.html", {'years': list, 'year':year})
+ 
+ 
+def month(request, month=None, year=None):
+    return render_to_response("calendar/month_view.html", {'year': year, 'month':month})
+   
+ 
+ 
   
-def month(request, year, month, change=None):
-    year, month = int(year), int(month)
+#def month(request, year, month, change=None):
+#    year, month = int(year), int(month)
     ##finish this                    
+
+#def day(request, year, month, change=None):
