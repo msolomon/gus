@@ -3,75 +3,95 @@ from gus.gus_widget.models import Widget
 from gus.gus_users.models import gus_user
 from gus.gus_groups.models import gus_group
 
-class ForumManage(models.Manager):
+class ForumManager(models.Manager):
 	"""
-	class ForumManage manages forums.
-	?
+	class ForumManager manages the creation of forums.
 	"""
 
-	def create_forum(self, name, description, groupid):
-        #"""
-        #this will create a new user and insert it into the table
-		#?
-		#"""
+	def create_forum(self, Name, Description, Group):
+		"""
+		This will create a new forum.
+		
+		@type Name: models.CharField()
+		@param Name: The name of the forum being created.
+		@type Description: models.TextField()
+		@param Description: The description of the forum being created.
+		@type Group: gus_group
+		@param Group: The group this forum is associated with.
+		@rtype: 
+		@return: The newly created forum.
+		"""
 
-		grps = forum.objects.filter(forum_name = name, group_id = groupid)
-		if(len(grps) > 0):
-			raise Exception("Forum Exists", "There already exists a forum named %s" %name)
+		forums = forum.objects.filter(forum_name = Name, group = Group)
+		if(len(forums) > 0):
+			raise Exception("Forum Exists", "There already exists a forum named %s" %Name)
 		#End
-		return super(ForumManager, self).get_query_set().create(forum_name = name, forum_description = description, group = groupid)
+		return super(ForumManager, self).get_query_set().create(forum_name = Name, forum_description = Description, group = Group)
 	#End
 #End
 			
-class forum(Widget):
+class forum(models.Model):
 	"""
 	class forum is our model of a forum.
-	?
 	"""
 
-	forum_id = models.IntegerField() #The forum's ID.
-	group_id = models.ForeignKey(gus_group) #The group's ID the forum belongs to.
-	forum_name = models.CharField(max_length=25) #The forum's name. 
-	forum_description = models.TextField() #The forum's description.
-	#forum_threads = models.OneToManyField(forum_thread) #A list of forum_threads
+	objects = ForumManager()					#
+	group = models.ForeignKey(gus_group)		#The Group the forum belongs to.
+	forum_name = models.CharField(max_length=25)#The forum's name.
+	forum_description = models.TextField()		#The forum's description.
 
-	def EditForumDescription(self, description):
+	def __unicode__(self):
+		return "%s: %s\n%s"%(self.forum_name, self.forum_description, self.group)
+
+	def EditForumDescription(self, Description):
 		"""
 		This allows the forum's description to be changed as long as the user has the proper permissions.
-		?
+		
+		@type Description: models.TextField()
+		@param Description: The description to replace the current description.
 		"""
 
 		if 1: #valid_userpermissions()
-			self.forum_description = description
+			self.forum_description = Description
 			self.save()
 		#End
 		else:
-			raise Exception("Wrong Permissions", "User does not have permission to do this.")
+			raise Exception("Invalid Permissions", "User does not have permission to do this.")
 		#End
 	#End
 
-	def CreateThread(self, threadname, userid, intext, forumid):
+	def CreateThread(self, Threadname, User, Text, Forum):
 		"""
 		Creates a thread for this forum as long as the user has the proper permissions.
-		?
+		
+		@type Threadname: string
+		@param Threadname: The name of the thread to be created.
+		@type User: gus_user
+		@param User: The User to assosciate the thread with.
+		@type Text: models.TextField()
+		@param Text: The content of the thread.
+		@type Forum: forum
+		@param Forum: The forum to assosciate the thread with.
 		"""
 
 		if 1: #valid_userpermissions()
-			forum_thread.objects.create(thread_name = threadname, user = userid, text = intext, forum = fourmid)
+			forum_thread.objects.create(thread_name = Threadname, user = User, thread_text = Text, forum = Forum)
 		#End
 		else:
-			raise Exception("Wrong Permissions", "User does not have permission to do this.")
+			raise Exception("Invalid Permissions", "User does not have permission to do this.")
 		#End
 	#End
 
-	def DeleteThread(self, threadid):
+	def DeleteThread(self, Thread):
 		"""
 		Allows for the deletion of a thread in this forum as long as the user has admin permissions.
-		?
+		
+		@type Thread: forum_thread
+		@param Thread: The thread to be found and deleted.
 		"""
 
 		if 1: #valid_userpermissions()
-			threads = forum_thread.objects.filter(pk = threadid)
+			threads = forum_thread.objects.filter(pk = Thread.id)
 			if(len(threads) > 0):
 				threads[0].delete()
 			#End
@@ -80,81 +100,93 @@ class forum(Widget):
 			#End
 		#End
 		else:
-			raise Exception("Wrong Permissions", "User does not have permission to do this.")
+			raise Exception("Invalid Permissions", "User does not have permission to do this.")
+		#End
+	#End
+#End
+
+class forum_thread(models.Model):
+	"""
+	class forum_thread is our model of a forum thread.
+	"""
+
+	forum = models.ForeignKey(forum)				#The forum this thread belongs to.
+	user = models.ForeignKey(gus_user)				#The user who created this thread.
+	date_created = models.DateTimeField(auto_now_add=True, blank=True)#The thread's creation date.
+	thread_name = models.CharField(max_length=25)	#The thread's name.
+	thread_text = models.TextField()				#The thread's content.
+
+	def __unicode__(self):
+		return "%s - %s: %s\n%s\nFrom Forum: %s"%(self.date_created, self.thread_name, self.thread_text, self.user, self.forum)
+
+	def CreatePost(self, User, Text):
+		"""
+		Creates a post in this thread as long as the user has the proper permissions.
+		
+		@type User: gus_user
+		@param User: The user the post is to be associated with.
+		@type Text: models.TextField()
+		@param Text: The content of the post.
+		"""
+
+		if 1: #valid_userpermissions()
+			forum_post.objects.create(user = User, thread = self, post_text = Text)
+		#End
+		else:
+			raise Exception("Invalid Permissions", "User does not have permission to do this.")
+		#End
+	#End
+
+	def DeletePost(self, Post):
+		"""
+		Allows for the deletion of a post in this thread as long as the user has admin permissions.
+		
+		@type Post: forum_post
+		@param Post: The post to be found and deleted.
+		"""
+
+		if 1: #valid_userpermissions()
+			posts = forum_post.objects.filter(pk = Post)
+			if(len(posts) > 0):
+				posts[0].delete()
+			#End
+			else:
+				raise Exception("Posts Empty", "The list of posts is empty.")
+			#End
+		#End
+		else:
+			raise Exception("Invalid Permissions", "User does not have permission to do this.")
 		#End
 	#End
 #End
 
 class forum_post(models.Model):
-    """
-    class forum_post is our model of a forum post.
-    """
+	"""
+	class forum_post is our model of a forum post.
+	"""
 
-    #thread = models.ForeignKey(forum_thread)
-    post = models.IntegerField() 
-    user = models.ForeignKey(gus_user)
-    date_created = models.DateTimeField(auto_now_add = True)
-    post_content = models.TextField()
+	thread = models.ForeignKey(forum_thread)	#The thread this post belongs to.
+	user = models.ForeignKey(gus_user)			#The user this post is assosciated with.
+	date_created = models.DateTimeField(auto_now_add=True, blank=True)#The date this post was created.
+	post_text = models.TextField()				#The content of this post.
 
-    def EditPost(self, text):
+	def __unicode__(self):
+		return "On %s by %s\n%s\nFrom Thread: %s"%(self.date_created, self.user, self.post_text, self.thread)
+
+	def EditPost(self, Text):
 		"""
-		Allows a user to edit the text of a post if they have the proper user_id, giving direct access to post_content
+		This allows the post's text to be changed as long as the user has the proper permissions.
+		
+		@type Text: models.TextField()
+		@param Text: The text to replace the current text.
 		"""
 
 		if 1: #valid_userpermissions()
-			self.post_content = text
+			self.post_text = Text
 			self.save()
 		#End
 		else:
 			raise Exception("Wrong Permissions", "User does not have permission to do this.")
 		#End
     #End
-#End
-
-class forum_thread(models.Model):
-	"""
-	class forum_thread is our model of a forum thread.
-	?
-	"""
-
-	forum = models.ForeignKey(forum) #Forum ID this thread belongs to.
-	user = models.ForeignKey(gus_user) #ID of user who created this thread.
-	date_created = models.DateTimeField() #Thread creation date.
-	thread_name = models.CharField(max_length=25) #Thread's name.
-	text = models.TextField()
-	#thread_posts = models.OneToManyField(forum_post) #A list of forum_posts
-
-	def CreatePost(self, userid, text):
-		"""
-		Creates a post in this thread as long as the user has the proper permissions.
-		?
-		"""
-
-		if 1: #valid_userpermissions()
-			forum_post.objects.create(user = userid, thread = this, post_content = text)
-		#End
-		else:
-			raise Exception("Wrong Permissions", "User does not have permission to do this.")
-		#End
-	#End
-
-	def DeletePost(self, postid):
-		"""
-		Allows for the deletion of a post in this thread as long as the user has admin permissions.
-		?
-		"""
-
-		if 1: #valid user permissions
-			posts = forum_post.objects.filter(pk = postid)
-			if(len(posts) > 0):
-				posts[0].delete()
-			#End
-			else:
-				raise Exception("Posts Empty", "List of Post are Empty.")
-			#End
-		#End
-		else:
-			raise Exception("Wrong Permissions", "User does not have permission to do this.")
-		#End
-	#End
 #End
