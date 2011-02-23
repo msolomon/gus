@@ -39,8 +39,10 @@ class bill_Utils():
             >>>create_bill(test, 11, g1, u1)
             (<gus_bill object>)
         """
+        #find the bill
         temp = bill.objects.filter(user = Guser, group=Ggroup, name=Bname)
-        ct = 1
+	#used to rename the bill.
+	ct = 1
         Bname1 = Bname
         while(len(temp) > 0):
             Bname1 = Bname + ct

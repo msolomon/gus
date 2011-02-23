@@ -19,8 +19,9 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
-    (r'^gallery/', include('gus.gus_gallery.urls')),
-    (r'^emailer/', include('gus.gus_emailer.urls')),
+	(r'^gallery/', include('gus.gus_gallery.urls')),
+	(r'^emailer/', include('gus.gus_emailer.urls')),
+	(r'^bill/', include('gus.gus_bill.urls')),
 	(r'^groups/', include('gus.gus_groups.urls')),
 	(r'^login/', 'gus.gus_users.views.login'),
 	(r'^register/', 'gus.gus_users.views.register'),
