@@ -100,8 +100,6 @@ INSTALLED_APPS = (
     'gus.gus_calendar',
     'gus.gus_widget',
     'gus.gus_forum',
-#    'gus.gus_forum_post',
-#    'gus.gus_forum_thread',
     'gus.gus_emailer',
     'gus.gus_bill',
     'gus.gusTestSuite'
