@@ -4,6 +4,7 @@ from imaplib import *
 from django.db import models
 from django.core import mail
 
+
 from gus.gus_widget.models import Widget
 from gus.gus_groups.models import gus_group
 from gus.gus_users.models import gus_user
@@ -20,7 +21,7 @@ class EmailerWidget(Widget):
     permission_strings="can_send|can_send_group" #maybe? -jb
     def __init__(self):
 	self._e = Emailer()
-
+	
     
 class Emailer(models.Model):
     '''
