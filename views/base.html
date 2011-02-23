@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>{% block pagetitle %}[TITLE HERE]{% endblock %}</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/include/css/gus.css"/>
+	</head>
+	<body>
+		<div id="header">
+			<h1>{% block title %}G.U.S.{% endblock %}</h1>
+			<h2>{% block subtitle %}Groups in University Settings{% endblock %}</h2>
+			{% block menu %}
+			<ul>
+				<li><a href="#">NAV LINK</a></li>
+				<li><a href="#">NAV LINK</a></li>
+				<li><a href="#">NAV LINK</a></li>
+				<li><a href="#">NAV LINK</a></li>
+				<li><a href="#">NAV LINK</a></li>
+				<li><a href="#">NAV LINK</a></li>
+			</ul>
+			{% endblock %}
+			{% block submenu %}
+			<p id="layoutdims">SUB <a href="#">L</a> | <a href="#">L</a> | <a href="#">L</a> </p>
+			{% endblock %}
+		</div>
+		<div class="colmask leftmenu"> 
+			<div class="colright"> 
+				<div class="col1wrap"> 
+					<div class="col1"> 
+					{% block content %}
+						[MAIN COLUMN]
+					{% endblock %}
+					</div> 
+				</div> 
+				<div class="col2"> 
+					{% block sidebar %}
+					[SIDEBAR]
+					{% endblock %}
+				</div> 
+			</div> 
+		</div>
+		<div id="footer">
+			{% block footer %}
+			<p>(c) 2011 -= GusPy (UIdaho CS 384) =-</p>
+			{% endblock %}
+		</div>
+	</body>
+</html>
