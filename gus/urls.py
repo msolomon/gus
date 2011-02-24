@@ -29,7 +29,8 @@ urlpatterns = patterns('',
 	(r'^calendar/', include('gus.gus_calendar.urls')),
 	(r'^login/', 'gus.gus_users.views.login'),
 	(r'^register/', 'gus.gus_users.views.register'),
-	(r'^include/(.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, '..', 'media')})
+	(r'^include/(.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, '..', 'media')}),
+    (r'^users/',include('gus.gus_users.urls')),
 	
     
 )
