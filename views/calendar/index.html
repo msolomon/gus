@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+The Best Calendar Evar.
+
+{% for year, months in years %}
+<h4>{{year}}</h4>
+<table border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="1000" cellpadding="10" cellspacing="3">
+     <tr>
+	 {% for month in months %}
+        <!--{% if month.current %}"current"{% endif %}-->
+        <!--{% if not month.current %}"month"{% endif %}-->
+                <!--{% if month.event %}<b>{% endif %}-->
+				<center>
+                <td><a href="/calendar/view/{{month.name}}/{{year}}/">{{ month.name }}</a></td>
+                <!--{% if month.event %}</b>{% endif %}<-->
+				</center>
+
+		
+       {% endfor %}
+	   </tr>
+	   </table>
+{% endfor %}
+
+{% endblock content %}
+
+{% block pagetitle %}
+Calendar
+{% endblock pagetitle %}
+
+
+
+
