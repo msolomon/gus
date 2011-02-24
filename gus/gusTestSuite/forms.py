@@ -11,8 +11,9 @@ class SimpleUserAddForm(forms.Form):
     A form to add a new user to the system
     """
     username = forms.CharField(max_length=100)
-    password = forms.CharField(max_length=100)
+    password = forms.CharField(max_length=100,widget=forms.PasswordInput())
     email = forms.EmailField()
+    id  = forms.IntegerField(required=False,widget=forms.HiddenInput())
 
 class SimpleAddUserToGroup(forms.Form):
     """

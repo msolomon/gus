@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block pagetitle %}
+Something else
+{% endblock pagetitle %}
+
+{% block content %}
+{% for role in roles %}
+<li><b>{{role.group.group_name}}</b></li>
+{% endfor %}
+{% endblock content %}
