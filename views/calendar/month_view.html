@@ -26,16 +26,16 @@
 
 
 <div class="month">
-    <table>
+    <table border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="600" height="600" cellpadding="10" cellspacing="3">
 
     <tr>
-        <td class="empty">Mon</td>
-        <td class="empty">Tue</td>
-        <td class="empty">Wed</td>
-        <td class="empty">Thu</td>
-        <td class="empty">Fri</td>
-        <td class="empty">Sat</td>
-        <td class="empty">Sun</td>
+        <th class="empty">Mon</td>
+        <th class="empty">Tue</td>
+        <th class="empty">Wed</td>
+        <th class="empty">Thu</td>
+        <th class="empty">Fri</td>
+        <th class="empty">Sat</td>
+        <th class="empty">Sun</td>
     </tr>
 
     {% for week in month_days %}
@@ -45,7 +45,7 @@
             <!-- TD style: empty | day | current; onClick handler and highlight  -->
             <td class= {% if day == 0 %}"empty"{% endif %}
             {% if day != 0 and not current %}"day"{% endif %}
-            {% if day != 0 and current %}"current"{% endif %}>
+            {% if day != 0 and current %}"current"{% endif %} valign="top">
 
             {% if day != 0 %}
                 {{ day }}
