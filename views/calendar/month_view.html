@@ -1,32 +1,32 @@
 {% extends "base.html" %}
 
-<!-- onmouseover="this.style.color'#36648B'" onmouseout="this.style.color='#C1CDCD'" -->
 
 <!-- I want these previous next buttons to work! :( -->
-<!--onclick= "location.href="{% url gus_calendar.views.day %}""-->
-<a href="{% url gus_calendar.views.month_view year|add:'-2' %}">&lt;&lt; Previous</a>
-<a href="{% url gus_calendar.views.month_view year|add:'2' %}">Next &gt;&gt;</a>
+
 
 {% block content %}
+
 {% for year, months in years %}
-<h4><center>{{current_month}}{{month_name}} {{year}}</center></h4>
+<h4><center>{{current_month_name}}{{month_name}} {{year}}</center></h4>
 <center>
 <table border="1" bordercolor="#42647F" style="background-color:#C1CDCD" width="600" cellpadding="10" cellspacing="3">
      <tr>
+       <div class="year">
    {% for month in months %}
         {% if month.current %}
-            <td><a href="/calendar/view/{{month.name}}/{{year}}/"><center><b>{{ month.name }}</b></center></a></td>
+            <td><a href="/calendar/{{year}}/{{month.name}}/"><center><b>{{ month.name }}</b></center></a></td>
         {% endif %}
         
         {% if not month.current %} 
                 <!--{% if month.event %}<b>{% endif %}-->
-                <td><a href="/calendar/view/{{month.name}}/{{year}}/"><center>{{ month.name }}</center></a></td>
+                <td><a href="/calendar/{{year}}/{{month.name}}/"><center>{{ month.name }}</center></a></td>
         {% endif %}
                 
                 <!--{% if month.event %}</b>{% endif %}<-->
 
     
        {% endfor %}
+       </div>
      </tr>
      </table>
      </center>
@@ -58,9 +58,10 @@
 
             {% if day != 0 %}
               valign="top"
-              onmouseover=this.style.backgroundColor='#36648B' this.style.cursor="hand"
-              onmouseout=this.style.backgroundColor='#C1CDCD'>
-              
+              onmouseover=this.style.backgroundColor='#36648B';this.style.cursor='pointer'
+              onmouseout=this.style.backgroundColor='#C1CDCD' 
+              onclick= "top.location='/calendar/{{year}}/{{month_name}}/{{day}}/'">
+             
               {% endif %}
               
               {% if day != 0%}

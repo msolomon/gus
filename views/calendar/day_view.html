@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-Events
-<form action="{% url gus_calendar.views.dat_view year month day %}" method="post">
-{% csrf_token %}
-{{ events_form.as_p }}
+<h4>Events</h4>
 
+<form action="/calendar/{{year}}/{{month}}/" method="post">
+{% csrf_token %}
+{{events.management_form}}
 
 {% for event in events.forms %}
-  {{event}}
+{{event}}
   <div class="event">
-    <div class="delete">Delete{{event.delete_event}}</div>
+    <div class="del">Delete{{event.delete_event}}</div>
+    <br>
     <p>Event Name: {{event.event_name}}</p>
+    <br>
     <p>Description: {{event.description}}</p>
   </div>
 {% endfor %}
@@ -21,5 +23,5 @@ Events
 {% endblock content %}
 
 {% block pagetitle %}
-Email
+Calendar-Events
 {% endblock pagetitle %}

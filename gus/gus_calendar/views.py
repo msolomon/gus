@@ -3,12 +3,10 @@ import calendar
 import datetime
 from django.forms.models import modelformset_factory
 from django.core.context_processors import csrf
-##from django.contrib.auth.decorators import login_required
-##from django.http import HttpResponseRedirect, HttpResponse
-##from django.shortcuts import get_object_or_404, render_to_response
+from django.core.urlresolvers import reverse
 
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from gus.gus_calendar.models import *
 
@@ -42,12 +40,34 @@ def index(request, year=None):
             month_list.append(dict(n=n + 1, name=month, event=event, current=current))
         years.append((m, month_list))
         
-        current_month = month_names[current_month-1]
-        #html = calendar/month_view.html
-        return render_to_response("calendar/month_view.html", {'years': years, 'year':year, 'month_names': month_names, "current_month": current_month, "year": current_year})
+        current_month_name = month_names[current_month-1]
+        
+            
+        #print len(month_names)
+
+        
+        cal = calendar.Calendar()
+        month_days = cal.itermonthdays(year, current_month)
+        nyear, nmonth, nday = time.localtime()[:3]
+        dlist = [[]]
+        week = 0
+        
+        for day in month_days:
+            events = current = False
+            if day:
+                events = Gus_event.objects.filter(start_date__year=year, start_date__month=current_month, start_date__day=day)
+                if day == nday and year == nyear and month == nmonth: 
+                    current = True
+            
+            dlist[week].append((day, events, current))
+            if len(dlist[week]) == 7:
+                dlist.append([])
+                week = week + 1
+        
+        return render_to_response("calendar/month_view.html", {'years': years, 'year':year, 'month_names': month_names, "current_month_name": current_month_name, "year": current_year, "month_days": dlist})
  
  
-def month(request, month, year):
+def month(request, year, month):
     #year, month = int(year), int(month)
     year = int(year)
     month_name = month
@@ -77,22 +97,31 @@ def month(request, month, year):
     
     return render_to_response("calendar/month_view.html", {'year': year, 'month': month, 'month_name': month_name, 'month_days': list, 'years': years})
    
- 
+
+def add_csrf(request, ** kwargs):
+    dictionary = dict(user=request.user, ** kwargs)
+    dictionary.update(csrf(request))
+    return dictionary
+     
           
 
 def day(request, year, month, day):
-    eventsform = modelformest_factory(Gus_Event, extra=1, exclude=("event_name","creator", "start_date"), can_delete=True)
+    month_name = month
+    month = month_names.index(month)
+    EventsFormset = modelformset_factory(Gus_event, extra=1, exclude=("creator","start_date"), can_delete=True)
     
     if request.method == 'POST':
-        form = eventsform(request.POST)
+        form = EventsFormset(request.POST)
         if form.is_valid():
             events = form.save(commit=False)
             for event in events:
 # for later                event.creator = request.user
                 event.date = date(int(year), int(month), int(day))
                 event.save()
-            return HttpResponseRedirect('yay')
-        else:
-            form = eventsform(queryset=Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day, event_name=event_name)) #creator=request.user
-        return render_to_response("calendar/day_view.html", {'event_form': form}, context_instance=RequestContext(request)) #add_csrf(request, events=form, year=year, month=month, day=day))
+            return HttpResponseRedirect(reverse("gus_calendar.views.month", args=(year, month_name)))
+    else:
+        form = EventsFormset(queryset=Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day)) #creator=request.user
+    return  render_to_response("calendar/day_view.html",add_csrf(request, events=form, year=year, month=month_name, day=day))
+        #return render_to_response("calendar/day_view.html", {'event_form': form}, context_instance=RequestContext(request)) #add_csrf(request, events=form, year=year, month=month, day=day))
+    
     

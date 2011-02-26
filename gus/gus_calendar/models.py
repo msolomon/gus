@@ -64,13 +64,13 @@ class Gus_event(models.Model):
     
     """
 
-    calendar = models.ForeignKey(Gus_calendar)
+    #calendar = models.ForeignKey(Gus_calendar)
     #event_id = models.IntegerField()
     #group_id = models.IntegerField()
     event_name = models.CharField(max_length=60)
     start_date = models.DateField(blank=True)
-    end_date = models.DateField(blank=True)
-    description = models.CharField(max_length=250, blank=True)
+    ##end_date = models.DateField(blank=True)
+    description = models.CharField(max_length=10000, blank=True)
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     #reminder = models.BooleanField(default=False)
     
