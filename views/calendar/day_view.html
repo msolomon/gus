@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+Events
+<form action="{% url gus_calendar.views.dat_view year month day %}" method="post">
+{% csrf_token %}
+{{ events_form.as_p }}
+
+
+{% for event in events.forms %}
+  {{event}}
+  <div class="event">
+    <div class="delete">Delete{{event.delete_event}}</div>
+    <p>Event Name: {{event.event_name}}</p>
+    <p>Description: {{event.description}}</p>
+  </div>
+{% endfor %}
+
+<input type="submit" value="save">
+</form>
+
+{% endblock content %}
+
+{% block pagetitle %}
+Email
+{% endblock pagetitle %}

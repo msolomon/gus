@@ -1,30 +1,9 @@
-{% extends "base.html" %}
-{% block content %}
-
-{% for year, months in years %}
-<h4><center>{{year}}</center></h4>
-<center>
-<table border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="1000" cellpadding="10" cellspacing="3">
-     <tr>
-	 {% for month in months %}
-        <!--{% if month.current %}"current"{% endif %}-->
-        <!--{% if not month.current %}"month"{% endif %}-->
-                <!--{% if month.event %}<b>{% endif %}-->
-                <td><a href="/calendar/view/{{month.name}}/{{year}}/"><center>{{ month.name }}</center></a></td>
-                <!--{% if month.event %}</b>{% endif %}<-->
-
-		
-       {% endfor %}
-	   </tr>
-	   </table>
-	   </center>
-{% endfor %}
-
-{% endblock content %}
-
-{% block pagetitle %}
-Calendar
-{% endblock pagetitle %}
+<META 
+     HTTP-EQUIV="Refresh"
+     CONTENT=".1; URL={% url gus_calendar.views.month_view %} >
+     
+     
+ <!--calendar/view/{{current_month}}/{{year}}"> -->
 
 
 

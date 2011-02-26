@@ -1,20 +1,28 @@
 {% extends "base.html" %}
+
+<!-- onmouseover="this.style.color'#36648B'" onmouseout="this.style.color='#C1CDCD'" -->
+
+<!-- I want these previous next buttons to work! :( -->
+<!--onclick= "location.href="{% url gus_calendar.views.day %}""-->
+<a href="{% url gus_calendar.views.month_view year|add:'-2' %}">&lt;&lt; Previous</a>
+<a href="{% url gus_calendar.views.month_view year|add:'2' %}">Next &gt;&gt;</a>
+
 {% block content %}
-
-
-
-<h4>{{month_name}} {{year}}</h4>
-
 {% for year, months in years %}
-<h4><center>{{year}}</center></h4>
+<h4><center>{{current_month}}{{month_name}} {{year}}</center></h4>
 <center>
-<table border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="1000" cellpadding="10" cellspacing="3">
+<table border="1" bordercolor="#42647F" style="background-color:#C1CDCD" width="600" cellpadding="10" cellspacing="3">
      <tr>
    {% for month in months %}
-        <!--{% if month.current %}"current"{% endif %}-->
-        <!--{% if not month.current %}"month"{% endif %}-->
+        {% if month.current %}
+            <td><a href="/calendar/view/{{month.name}}/{{year}}/"><center><b>{{ month.name }}</b></center></a></td>
+        {% endif %}
+        
+        {% if not month.current %} 
                 <!--{% if month.event %}<b>{% endif %}-->
                 <td><a href="/calendar/view/{{month.name}}/{{year}}/"><center>{{ month.name }}</center></a></td>
+        {% endif %}
+                
                 <!--{% if month.event %}</b>{% endif %}<-->
 
     
@@ -26,7 +34,8 @@
 
 
 <div class="month">
-    <table border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="600" height="600" cellpadding="10" cellspacing="3">
+  <center>
+    <table border="1" bordercolor="#42647F" style="background-color:#C1CDCD" width="600" height="600" cellpadding="10" cellspacing="3">
 
     <tr>
         <th class="empty">Mon</td>
@@ -45,9 +54,16 @@
             <!-- TD style: empty | day | current; onClick handler and highlight  -->
             <td class= {% if day == 0 %}"empty"{% endif %}
             {% if day != 0 and not current %}"day"{% endif %}
-            {% if day != 0 and current %}"current"{% endif %} valign="top">
+            {% if day != 0 and current %}"current"{% endif %} 
 
             {% if day != 0 %}
+              valign="top"
+              onmouseover=this.style.backgroundColor='#36648B' this.style.cursor="hand"
+              onmouseout=this.style.backgroundColor='#C1CDCD'>
+              
+              {% endif %}
+              
+              {% if day != 0%}
                 {{ day }}
                 {% for event in events %}
                     <br />
@@ -59,13 +75,13 @@
         </tr>
     {% endfor %}
     </table>
-
+</center>
 </div>
 
-{% endblock content %}
 
+{% endblock content %}
 {% block pagetitle %}
-Calendar
+Calendar - month
 {% endblock pagetitle %}
 
 
