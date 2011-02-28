@@ -104,7 +104,6 @@ class Emailer(models.Model):
                     if line.startswith(prefix):
                         return line[len(prefix):].strip()
                     
-            message = mail.EmailMessage()
             subject = getrest('Subject: ')
             from_email = getrest('From: ')
             to = getrest('To: ')

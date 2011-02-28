@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+Thanks for sending an email!  The following message was posted:
+<p/>
+{% for k, v in email.iteritems %}
+<b>{{ k }}:</b>
+<table frame="border" width="50%">
+	<tr><td>
+		{{ v|urlize|linebreaks }}
+	</td></tr>
+</table>
+<p>
+{% endfor %}
+
+{% endblock content %}
+
+{% block pagetitle %}
+Email
+{% endblock pagetitle %}
