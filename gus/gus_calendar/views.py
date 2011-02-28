@@ -1,9 +1,10 @@
 import time
 import calendar
-import datetime
-from django.forms.models import modelformset_factory
+from datetime import date, datetime
+from django import forms
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
+from django.forms import ModelForm
 
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
@@ -43,9 +44,9 @@ def index(request, year=None):
         current_month_name = month_names[current_month-1]
         
             
-        #print len(month_names)
-
         
+
+        ## this is mostly just so the current month is displayed first
         cal = calendar.Calendar()
         month_days = cal.itermonthdays(year, current_month)
         nyear, nmonth, nday = time.localtime()[:3]
@@ -95,33 +96,44 @@ def month(request, year, month):
             week = week + 1
     
     
-    return render_to_response("calendar/month_view.html", {'year': year, 'month': month, 'month_name': month_name, 'month_days': list, 'years': years})
+    return render_to_response("calendar/month_view.html", {'year': year, 'month': month, 'month_name': month_name, 'month_days': list, 'years': years, 'events':events})
    
 
 def add_csrf(request, ** kwargs):
-    dictionary = dict(user=request.user, ** kwargs)
+    dictionary = dict(gus_user=request.user, ** kwargs)
     dictionary.update(csrf(request))
     return dictionary
      
-          
+#          
+#class Event_form(forms.Form):
+#    event_name = forms.CharField(max_length = 60)
+#    event_description = forms.CharField(widget=forms.Textarea)
+#    
+        
+
 
 def day(request, year, month, day):
     month_name = month
-    month = month_names.index(month)
-    EventsFormset = modelformset_factory(Gus_event, extra=1, exclude=("creator","start_date"), can_delete=True)
-    
-    if request.method == 'POST':
-        form = EventsFormset(request.POST)
+    month = month_names.index(month) + 1
+
+    if request.method == "POST":
+
+        form = Event_form(request.POST)
         if form.is_valid():
-            events = form.save(commit=False)
-            for event in events:
-# for later                event.creator = request.user
-                event.date = date(int(year), int(month), int(day))
-                event.save()
-            return HttpResponseRedirect(reverse("gus_calendar.views.month", args=(year, month_name)))
+            event = form.save(commit=False)
+            #for event in events:
+            #event.creator = request.user
+            event.start_date = date(int(year), int(month), int(day))
+            event.save()
+
+#            return HttpResponseRedirect("calendar/month_view.html")
+            response = request.META['HTTP_REFERER'].rstrip('/')
+            splice = response.rfind('/')
+            return HttpResponseRedirect(response[:splice] + '/')
+            
     else:
-        form = EventsFormset(queryset=Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day)) #creator=request.user
-    return  render_to_response("calendar/day_view.html",add_csrf(request, events=form, year=year, month=month_name, day=day))
-        #return render_to_response("calendar/day_view.html", {'event_form': form}, context_instance=RequestContext(request)) #add_csrf(request, events=form, year=year, month=month, day=day))
+        form = Event_form()
+        
+    return render_to_response("calendar/day_view.html", {'event_form': form, 'month_name':month_name, 'year':year, 'day':day}, context_instance=RequestContext(request)) #add_csrf(request, events=form, year=year, month=month, day=day))
     
     

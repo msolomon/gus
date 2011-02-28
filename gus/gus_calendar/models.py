@@ -10,6 +10,7 @@ This is the model document for the Gus_calendar and Gus_event classes.
 from django.db import models
 from gus.gus_widget.models import Widget #ok
 from gus.gus_users.models import gus_user #ok ignore aptana
+from django.forms import ModelForm
 
 class Gus_calendar(Widget):
     """
@@ -70,7 +71,7 @@ class Gus_event(models.Model):
     event_name = models.CharField(max_length=60)
     start_date = models.DateField(blank=True)
     ##end_date = models.DateField(blank=True)
-    description = models.CharField(max_length=10000, blank=True)
+    description = models.CharField(max_length=1000, blank=True)
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     #reminder = models.BooleanField(default=False)
     
@@ -82,10 +83,11 @@ class Gus_event(models.Model):
         @return: name of event and its creator OR creator and snippet of event's description.
         
         """
+        ## no gus users created yet
         if self.event_name:
-            return unicode(self.event_name) + " : " + self.creator
-        else:
-            return unicode(self.creator) + " : " + self.description[:40]
+            return unicode(self.event_name) #+ " : " ## + self.creator
+        ##else:
+         ##   return unicode(self.creator) + " : " + self.description[:40]
 
     def delete_event(self):
         """
@@ -94,3 +96,10 @@ class Gus_event(models.Model):
         """
         self.delete()
         ##super(gus_event, self).delete()
+
+
+class Event_form(ModelForm):
+    class Meta:
+        model = Gus_event
+        exclude = ('start_date', 'creator',)
+        
