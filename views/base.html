@@ -2,22 +2,22 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<title>{% block pagetitle %}[TITLE HERE]{% endblock %}</title>
+		<title>{% block pagetitle %}gus{% endblock %}</title>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="/include/css/gus.css"/>
 	</head>
 	<body>
 		<div id="header">
-			<h1>{% block title %}G.U.S.{% endblock %}</h1>
+			<h1>{% block title %}G.U.S. (WIP){% endblock %}</h1>
 			<h2>{% block subtitle %}Groups in University Settings{% endblock %}</h2>
 			{% block menu %}
 			<ul>
-				<li><a href="#">NAV LINK</a></li>
-				<li><a href="#">NAV LINK</a></li>
-				<li><a href="#">NAV LINK</a></li>
-				<li><a href="#">NAV LINK</a></li>
-				<li><a href="#">NAV LINK</a></li>
-				<li><a href="#">NAV LINK</a></li>
+				<li><a href="/gus_test/">Manage Groups/Users</a></li>
+				<li><a href="/calendar/">Calendar</a></li>
+				<li><a href="/email/">Email</a></li>
+				<li><a href="http://test.joranbeasley.com/project_management/index.php?m=projects&a=view&project_id=1&tab=0" target="blank">Project Status</a></li>
+				<li><a href="http://test.joranbeasley.com/project_management/">Current Coverage</a></li>
+				<li><a href="https://github.com/arkenflame/gus">GitHub</a></li>
 			</ul>
 			{% endblock %}
 			{% block submenu %}
@@ -29,13 +29,13 @@
 				<div class="col1wrap"> 
 					<div class="col1"> 
 					{% block content %}
-						[MAIN COLUMN]
+						hmmm thats strange theres no content
 					{% endblock %}
 					</div> 
 				</div> 
 				<div class="col2"> 
 					{% block sidebar %}
-					[SIDEBAR]
+					[SIDEBAR(tm)]<br/>...Comming Soon...<hr/>
 					{% endblock %}
 				</div> 
 			</div> 

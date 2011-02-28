@@ -2,7 +2,13 @@
 {% block pagetitle %}Gus Test Suite{%endblock%}
 {% block content %}
 <div style="width:250px;float:right">
-<h3>Groups [<a href="/gus_test/Group/Add">Add</a> ]
+<h3>Groups [<a href="/gus_test/Group/Add">Add</a> ]</h3>
+	{% for grp in groups %}
+	<div>{{grp}}<a href="/gus_test/Group/Delete/{{grp.id}}/">Delete</a>
+	 | <a href="/gus_test/Group/Edit/{{grp.id}}/">Edit</a>
+	 | <a href="/gus_test/Group/View/{{grp.id}}/">View</a>
+	</div>
+	{% endfor %}
 </div>
 
 <div style="width:250px">
@@ -10,6 +16,7 @@
 	{%for usr in users%}
 	<div>{{usr}} <a href="/gus_test/User/Delete/{{usr.id}}/">Delete</a>
 	 | <a href="/gus_test/User/Edit/{{usr.id}}/">Edit</a>
+	 | <a href="/gus_test/User/View/{{usr.id}}/">View</a>
 	 </div>
 	{% endfor %}
 </div>

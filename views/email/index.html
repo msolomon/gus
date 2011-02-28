@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
+{% if user_to %}
+<h3>CONTACT: {{user_to.username}} <a href="mailto:{{user_to.email}}">&lt;{{user_to.email}}&gt;</h3></a>
+{% endif %}
 <form method="post">
 {% csrf_token %}
 {{ email_form.as_p }}
 <input type="submit" value="Send">
 </form>
-
 {% endblock content %}
 
 {% block pagetitle %}
