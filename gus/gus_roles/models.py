@@ -192,7 +192,7 @@ class gus_role(models.Model):
         @return:  the default string for built in django.User.
         """
         
-        return 'Role :[%s] %s ' % (self._role_group.group_name, self._role_name) 
+        return '<b>%s</b> (%s)' % (self._role_group.group_name, self._role_name) 
     
     
     ################################################
@@ -209,6 +209,11 @@ class gus_role(models.Model):
         """
         raise Exception, "RoleUsersPermisionError: This Property is read Only" # pragma : no cover
     def setGroup(self):
+        """
+        return an error about being read only
+        """
+        raise Exception, "RoleUsersPermisionError: This Property is read Only" # pragma : no cover
+    def setName(self):
         """
         return an error about being read only
         """
@@ -237,6 +242,14 @@ class gus_role(models.Model):
         @return: the value of our parent user
         """
         return self._role_group
+    def getName(self):
+        """
+        Return our role name
+        
+        @rtype: string
+        @return: the name of our role
+        """
+        return self._role_name
     
     #GETTER/SETTER enabled ... hackish
     #GETTERS AND SETTERS WILL BE USED (!Include simillar code in all classes)
@@ -247,3 +260,4 @@ class gus_role(models.Model):
     #users hook
     users = property(getUsers, setUsers)
     group = property(getGroup, setGroup)
+    name  = property(getName, setName)

@@ -16,10 +16,12 @@ urlpatterns = patterns('gus.gusTestSuite.views',
     
     (r'^Group/Add/$', 'addGroup'),
     (r'^Group/Edit/(?P<group_id>\d+)/$', 'editGroup'),
+    (r'^Group/View/(?P<group_id>\d+)/$', 'viewGroup'),
     (r'^Group/Delete/(?P<group_id>\d+)/', 'deleteGroup'),
     
     (r'^User/Add/', 'addUser'),
     (r'^User/Edit/(?P<user_id>\d+)/', 'editUser'),
+    (r'^User/View/(?P<user_id>\d+)/', 'viewUser'),
     (r'^User/Delete/(?P<user_id>\d+)/', 'deleteUser'),
     (r'^User/Auth_Test/', 'authUser'),
     

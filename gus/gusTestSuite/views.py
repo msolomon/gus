@@ -176,3 +176,15 @@ def addUser(urlRequest):
                                 context_instance=RequestContext(urlRequest)
                               );
                               
+def viewUser(urlRequest,user_id):
+    try:
+        usr = gus_user.objects.get(pk=user_id)
+    except:
+        return HttpResponse("This User Does not exist<br/>")
+    return render_to_response('test/viewUser.html',
+                                {
+                                 'usr':usr,
+                                 'roles':gus_role.objects.with_user(usr),
+                                },
+                                context_instance=RequestContext(urlRequest)
+                              );
