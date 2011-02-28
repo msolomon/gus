@@ -12,5 +12,5 @@ def index(urlRequest):
 	#End
 
 	forums = forums.objects.all()
-	return render_to_response('forum/index.html', {"forums":forums}, context_instance=RequestContext{request})
+	return render_to_response('forum/index.html', {"forums":forums}, context_instance=RequestContext(request))
 #End

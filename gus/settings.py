@@ -123,7 +123,11 @@ INSTALLED_APPS = (
 
 
 TEST_RUNNER='gus.tests.test_runner_with_coverage'
-COVERAGE_MODULES = ['gus.gus_bill.models','gus.gus_calendar.models','gus.gus_emailer.models','gus.gus_forum.models','gus.gus_gallery.models','gus.gus_groups.models','gus.gus_users.models','gus.gus_roles.models','gus.gus_widget.models']
+modules = 'bill calendar emailer forum gallery groups users roles widget'
+COVERAGE_MODULES = []
+for m in modules.split():
+	COVERAGE_MODULES.append('gus.gus_%s.models' % m)
+	COVERAGE_MODULES.append('gus.gus_%s.views' % m)
 
 ## Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
