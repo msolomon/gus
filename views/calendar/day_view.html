@@ -2,20 +2,10 @@
 {% block content %}
 <h4>Events</h4>
 
-<form action="/calendar/{{year}}/{{month}}/" method="post">
+<form action="/calendar/{{year}}/{{month_name}}/{{day}}/"
+method="POST">
 {% csrf_token %}
-{{events.management_form}}
-
-{% for event in events.forms %}
-{{event}}
-  <div class="event">
-    <div class="del">Delete{{event.delete_event}}</div>
-    <br>
-    <p>Event Name: {{event.event_name}}</p>
-    <br>
-    <p>Description: {{event.description}}</p>
-  </div>
-{% endfor %}
+{{event_form.as_p}}
 
 <input type="submit" value="save">
 </form>
