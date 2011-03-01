@@ -44,6 +44,10 @@ class RoleManager(models.Manager):
                 _role_users=user,
                 _role_group=group,
         )
+
+    def users_without_role(self, role):
+        id_list = map(lambda x: x.id, role.users.all())
+        return gus_user.objects.exclude(_user__in=id_list)
     
     def with_user(self, user):
         """

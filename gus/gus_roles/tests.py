@@ -117,7 +117,7 @@ class SimpleTest(TestCase):
 	role = gus_role.objects.get(_role_name=self.testRole)
 	role.addUser(self.testUser1)
 	test_role = gus_role.objects.with_user_in_group(self.testGroup,self.testUser1)
-	self.failUnlessEqual(test_role.all(), self.testRole,'Failed to get role of user in group')	
+	self.failUnlessEqual(test_role[0]._role_name, self.testRole,'Failed to get role of user in group')	
 
     def test_with_user(self):
 	"""
@@ -128,16 +128,21 @@ class SimpleTest(TestCase):
 	role = gus_role.objects.get(_role_name=self.testRole)
 	role.addUser(self.testUser1)
 	test_role = gus_role.objects.with_user(self.testUser1)
-	self.failUnlessEqual(test_role.all(), self.testRole,'Failed to get roles for user')
+	self.failUnlessEqual(test_role[0]._role_name, self.testRole,'Failed to get roles for user')
 	
     def test_with_group(self):
 	"""
 	@summary: test the with_group function
 	tests L{gus_role.with_group<gus.gus_roles.models.gus_role.with_group>}
 	"""
-        gus_role.objects.create_role(self.testGroup, self.testRole)
-	role = gus_role.objects.get(_role_name=self.testRole)
+        role = gus_role.objects.create_role(self.testGroup, self.testRole)
 	test_role = gus_role.objects.with_group(self.testGroup)
-	self.failUnlessEqual(test_role.all(), self.testRole,'Failed to get roles of given group')
+	self.failUnlessEqual(test_role[0]._role_name, self.testRole,'Failed to get roles of given group')
 	
-    
+    def test_unicode(self):
+	"""
+        @summary: test the __unicode__ function
+        tests L{gus_role.with_group<gus.gus_roles.models.gus_role.with_group>}
+        """
+        role = gus_role.objects.create_role(self.testGroup, self.testRole)
+	self.failUnlessEqual(role.__unicode__(),'Role :[TestGroup1] testRole',"unexpected unicode response")
