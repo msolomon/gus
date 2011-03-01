@@ -196,7 +196,7 @@ class gus_role(models.Model):
         @return:  the default string for built in django.User.
         """
         
-        return '<b>%s</b> (%s)' % (self._role_group.group_name, self._role_name) 
+        return '%s (%s)' % (self._role_group.group_name, self._role_name) 
     
     
     ################################################

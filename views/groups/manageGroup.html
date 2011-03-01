@@ -1,10 +1,12 @@
-<h2>{{ group }}</h2>
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ group }} <a href="/email/Group/{{group.id}}/">Email Group</a></h2>
 <p>{{ group.group_description }}</p>
 <hr />
 {% for role in roles %}
-<strong>{{ role }}</strong>
+<strong>{{ role.name }}({{ role.users.all|length }})</strong>
 [
-  <a href="{% url gus2.gusTestSuite.views.editRole role.id %}">Edit Role</a>
+  <a href="/gus_test/Role/Edit/{{ role.id }}/">Edit Role</a>
 ]
 <br />
 {{ role.permissionsString }} <br />
@@ -21,3 +23,4 @@
 <input type="submit" value="Add New Member"></fieldset>
 </form>
 </div>
+{% endblock %}

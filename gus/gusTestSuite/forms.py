@@ -1,11 +1,17 @@
 """
-This File simply contains forms for our test environment
+This File simply contains form definitions for our test environment
+these definitions are responsible for the rendering of form elements and 
+the validation of form data
+
+they are not responsible for the data processing nor the submission of data
+all forms require a cross site request forgery token provided by django
+{% csrf_token %}
 """
 
 from django import forms
 from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
-
+from django.contrib.auth.models import Permission
 class SimpleUserAddForm(forms.Form):
     """
     A form to add a new user to the system
@@ -36,17 +42,19 @@ class SimpleAddUserToGroup(forms.Form):
                     
 class SimpleGroupAddForm(forms.Form):
     """
-    dhgdhgdhdh
-    jfhfhfghf
+    This is the form that allows you to add a new group
+    it is responsible for both rendering and validating the form fields
+    it is not responsible for the submission of the form,or the proccessing of data
     
     
-    @return: this return blah
+    
+    @return: None
     """
     group_name = forms.CharField(max_length=100)
     group_description = forms.CharField(widget=forms.Textarea, required=False)
     group_image = forms.FileField(required=False)
     group_owner = forms.ModelChoiceField(
-                            queryset=gus_user.objects,
+                            queryset=gus_user.objects.all(),
                             empty_label="Select Owner"
                             )
 
@@ -57,3 +65,9 @@ class ContactForm(forms.Form):
     sender = forms.EmailField()
     cc_myself = forms.BooleanField(required=False)
 
+class RolePermissionForm(forms.Form):
+    is_superUser=forms.BooleanField(required=False)
+    id = forms.IntegerField(widget=forms.HiddenInput,required=False)
+    role_permissions=forms.ModelMultipleChoiceField(
+                        queryset=Permission.objects
+                        )
