@@ -96,14 +96,3 @@ class gus_image(models.Model):
         except:
             pass
         super(gus_image, self).delete()
-
-
-class gallery_helper:
-    """
-    A helper class for the gus_gallery objects
-    """
-    def get_group_galleries(the_group):
-        try:
-            return gus_gallery.objects.filter(group = the_group)
-        except:
-            return None
