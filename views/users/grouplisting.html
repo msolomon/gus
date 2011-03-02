@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% block pagetitle %}
-Something else
+Your Groups
 {% endblock pagetitle %}
 
 {% block content %}
+<h4>Your Groups:</h4>
+<p></p>
+<ul>
 {% for role in roles %}
-<li><b>{{role.group.group_name}}</b></li>
+<li><a href="../gus_test/Group/Edit/{{role.group.id}}/">{{role.group.group_name}}</a> - {{role.group.group_description}}</li>
 {% endfor %}
+</ul>
 {% endblock content %}
