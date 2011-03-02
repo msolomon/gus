@@ -5,6 +5,9 @@ from gus.gus_users.models import gus_user
 # Create your models here.
 
 class RoleManager(models.Manager):
+    """
+    the role manager takes care of several of our custom associations
+    """
     def create_role(self, group, role_name):
         """
         this will create a new role and insert it into the table
@@ -32,18 +35,23 @@ class RoleManager(models.Manager):
     
     def with_user_in_group(self, group, user):
         """
-        will return 1 role or false depending on if the given user 
+        will return exactly one role or None depending on if the given user 
         has a role in the given group
         
         @type group:gus_groups.models.gus_group
         @param group: the group in question
         @type user:gus_groups.models.gus_user
         @param user: the user in question
+        @return: a single role
+        @rtype: L{gus_role<gus.gus_roles.models.gus_role>}
         """
-        return super(RoleManager, self).get_query_set().filter(
-                _role_users=user,
-                _role_group=group,
-        )
+        try:
+            return super(RoleManager, self).get_query_set().get(
+                    _role_users=user,
+                    _role_group=group,
+            )
+        except:
+            return None
 
     def users_without_role(self, role):
 	"""
@@ -67,8 +75,15 @@ class RoleManager(models.Manager):
         return super(RoleManager, self).get_query_set().filter(
                 _role_users=user,
         )
+        
     def users_without_group(self, group):
-        #roles_in_group
+        """
+        returns a list of all users that do not hold a role in a given group
+        @param group: the group to check
+        @type group: L{gus_group<gus.gus_users.models.gus_user>}
+        @return:a list of users who do not exist in the current group
+        @rtype: list
+        """
         roleswgrp = self.with_group(group);
         id_list = []
         for role in roleswgrp:
@@ -96,6 +111,9 @@ class RoleManager(models.Manager):
     def with_group(self, group):
         """
         will return all roles of a given group
+        (and inadvertently all members of each role)
+        @param group: an instance of the group in question
+        @return     : a list of roles 
         """
         return super(RoleManager, self).get_query_set().filter(
                 _role_group=group,
@@ -143,18 +161,17 @@ class gus_role(models.Model):
         this will add a user to a role
         @type user:gus_users.models.gus_user
         @param user:the user to add to the role
-        @rtype: gus_roles.models.gus_role
-        @return: the role , with the new user added to the list  
+        @rtype: None  
         """
         user.add_role(self)
         self._role_users.add(user)
+        
     def removeUser(self, user):
         """
         this will remove a user from a role
         @type user:gus_users.models.gus_user
         @param user:the user to add to the role
-        @rtype: gus_roles.models.gus_role
-        @return: the role , with the user removed from the list  
+        @rtype: None  
         """
         self._role_users.remove(user)
     
@@ -162,7 +179,10 @@ class gus_role(models.Model):
     ####  Python Magic Functions       ##############
     #################################################
     
-    objects = RoleManager() #defines custom associations                                            
+    #defines custom associations 
+    objects = RoleManager()      
+    
+                                          
     def permString(self):
         """
         return a list of permissions associated with this role
@@ -176,7 +196,7 @@ class gus_role(models.Model):
         permList = [] 
         for perm in perms:
             permList.append(perm)
-        return " '%s'" % "', '".join(map(lambda x:x.name, permList));
+        return " '%s'" % "', '".join([x.name for x in permList]);
     
     def has_perm(self,perm):
         """
@@ -197,10 +217,10 @@ class gus_role(models.Model):
     def __unicode__(self):
         """
         This defines the default display of a role
-        for now we will just return the default django.User display
+        
         
         @rtype:   string
-        @return:  the default string for built in django.User.
+        @return:  "groupName (roleName)"
         """
         
         return '%s (%s)' % (self._role_group.group_name, self._role_name) 
@@ -212,21 +232,23 @@ class gus_role(models.Model):
     #Define our setters , syntax is:def setProperty(self): ... 
     #    s.t. Property is the name of the property you wish to use 
     #  a setter for , with the first letter capitalized
-    
+    #  ***these setters largely block setting the variables***
     #setter for our user
     def setUsers(self, user):
         """
-        return an error about being read only
+        returns an error about being read only
         """
         raise Exception, "RoleUsersPermisionError: This Property is read Only" # pragma : no cover
+    #group setter
     def setGroup(self):
         """
-        return an error about being read only
+        returns an error about being read only
         """
         raise Exception, "RoleUsersPermisionError: This Property is read Only" # pragma : no cover
+    #name setter
     def setName(self):
         """
-        return an error about being read only
+        returns an error about being read only
         """
         raise Exception, "RoleUsersPermisionError: This Property is read Only" # pragma : no cover
     #Define our getters , syntax is:def getProperty(self): ... 
@@ -270,5 +292,7 @@ class gus_role(models.Model):
     
     #users hook
     users = property(getUsers, setUsers)
+    #group hook
     group = property(getGroup, setGroup)
+    #name hook to get the rolename but not allow setting of it
     name  = property(getName, setName)
