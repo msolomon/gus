@@ -21,6 +21,24 @@ class ContactForm(forms.Form):
     recipients = forms.EmailField()
     bcc_myself = forms.BooleanField(required=False)
     
+def check(request):
+    # if we are an anonymous user, send from test account
+    # TODO: remove this once user authentication system is complete
+    if not request.user.is_authenticated():
+        request.user.getEmail = lambda: 'guspyuser@gmail.com'
+        request.user.getImap = lambda: ('imap.gmail.com', 993)
+        request.user.getImapUser = lambda: ('guspyuser@gmail.com', 'givemegus')
+        
+    em = Emailer(request.user)
+    imap_server, imap_port = request.user.getImap()
+    em.set_imap(imap_server, imap_port)
+    imap_user, imap_password = request.user.getImapUser()
+    em.set_imap_user(imap_user, imap_password)
+    
+    emails = em.check_email()
+    return render_to_response('email/check.html', {'emails': emails},
+                              context_instance=RequestContext(request))
+    
 def send(request, user_id=None):
     if user_id is not None:
         try:

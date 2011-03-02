@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block pagetitle %}Email{% endblock pagetitle %}
+
+{% block content %}
+{% for email in emails %}
+<b>From:</b> <br> {{ email.from_email|urlize }} <br>
+<b>Subject:</b> <br> {{ email.subject|urlize }} <br>
+<b>Message:</b> <br> {{ email.message|urlize|linebreaks }} <br>
+<hr>
+<p/>
+{% endfor %}
+
+{% endblock content %}
+
+
