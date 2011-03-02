@@ -8,6 +8,7 @@
 # TODO: Overwrite the __init__ methods to do some basic validation, or do it in the save() functions?
 
 from django.db import models
+from django.forms import ModelForm
 from gus.gus_groups.models import *
 from gus.gus_users.models import *
 
