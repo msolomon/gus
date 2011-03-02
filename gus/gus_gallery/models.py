@@ -96,3 +96,12 @@ class gus_image(models.Model):
         except:
             pass
         super(gus_image, self).delete()
+
+
+class gallery_form(ModelForm):
+    """
+    The basic form for a gus_gallery
+    """
+    class Meta:
+        model = gus_gallery
+        exculde = ('date_created',)
