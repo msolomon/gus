@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+
+<!-- I want these previous next buttons to work! :( -->
+
+
+{% block content %}
+
+{% for year, months in years %}
+<h4><center>{{current_month_name}}{{month_name}} {{year}}</center></h4>
+<center>
+<table border="1" bordercolor="#42647F" style="background-color:#C1CDCD" width="600" cellpadding="10" cellspacing="3">
+     <tr>
+       <div class="year">
+   {% for month in months %}
+        {% if month.current %}
+            <td><a href="/calendar/{{year}}/{{month.name}}/"><center><b>{{ month.name }}</b></center></a></td>
+        {% endif %}
+        
+        {% if not month.current %} 
+                <!--{% if month.event %}<b>{% endif %}-->
+                <td><a href="/calendar/{{year}}/{{month.name}}/"><center>{{ month.name }}</center></a></td>
+        {% endif %}
+                
+                <!--{% if month.event %}</b>{% endif %}<-->
+
+    
+       {% endfor %}
+       </div>
+     </tr>
+     </table>
+     </center>
+{% endfor %}
+
+
+<div class="month">
+  <center>
+    <table border="1" bordercolor="#42647F" style="background-color:#C1CDCD" width="600" height="600" cellpadding="10" cellspacing="3">
+
+    <tr>
+        <th class="empty">Mon</td>
+        <th class="empty">Tue</td>
+        <th class="empty">Wed</td>
+        <th class="empty">Thu</td>
+        <th class="empty">Fri</td>
+        <th class="empty">Sat</td>
+        <th class="empty">Sun</td>
+    </tr>
+
+    {% for week in month_days %}
+        <tr>
+        {% for day, events, current in week %}
+
+            <!-- TD style: empty | day | current; onClick handler and highlight  -->
+            <td class= {% if day == 0 %}"empty"{% endif %}
+            {% if day != 0 and not current %}"day"{% endif %}
+            {% if day != 0 and current %}"current"{% endif %} 
+
+            {% if day != 0 %}
+              valign="top"
+              onmouseover=this.style.backgroundColor='#36648B';this.style.cursor='pointer'
+              onmouseout=this.style.backgroundColor='#C1CDCD' 
+              onclick= "top.location='/calendar/{{year}}/{{month_name}}/{{day}}/'">
+             
+              {% endif %}
+              
+              {% if day != 0 %}
+                {{ day }}
+                {% for event in events %}
+                    <br>
+                    <b>{{ event.event_name }}</b>
+               {% endfor %}
+            {% endif %}
+            </td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+</center>
+</div>
+
+
+{% endblock content %}
+{% block pagetitle %}
+Calendar - month
+{% endblock pagetitle %}
+
+
+
+

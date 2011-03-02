@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block pagetitle %}Gus Roles{%endblock%}
+{% block content %}
+{% for u in role.users.all %}
+{{u}} <br>
+{% endfor %}
+{% endblock %}
+

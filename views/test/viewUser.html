@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>View : {{usr.username}}'s Details</h3>
+<h4><a href="/email/user/{{usr.id}}/">Email User</a><hr/>
+{% if not roles %}
+not yet a participant in any groups
+{% else %}
+	{% for role in roles %}
+	{{role|safe}}
+		{% if role.name == "Owner" %}
+		<a href="/gus_test/Group/Edit/{{role.group.id}}">Manage</a>
+		{% else %}
+		<a href="/gusTest/viewGroup/">View</a>
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% endblock %}

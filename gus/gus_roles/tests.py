@@ -101,6 +101,13 @@ class SimpleTest(TestCase):
 	role.removeUser(self.testUser1)
 	userRoles = role.getUsers()
 	self.failUnless(len(userRoles.all()) == 0,"Failed to remove user from role")
+
+    def test_permString(self):
+	from django.contrib.auth.models import Permission
+	role = gus_role.objects.create_role(self.testGroup, self.testRole)
+	role._role_permissions.permissions.add(Permission.objects.all()[0])
+	self.failUnless(len(role.permString()) != 0, "Failed to get permisions for role/group")
+
     def test_with_user_in_group(self):
 	"""
 	@summary: test getting a role by a user and a group
@@ -110,7 +117,7 @@ class SimpleTest(TestCase):
 	role = gus_role.objects.get(_role_name=self.testRole)
 	role.addUser(self.testUser1)
 	test_role = gus_role.objects.with_user_in_group(self.testGroup,self.testUser1)
-	self.failUnlessEqual(test_role.all(), self.testRole,'Failed to get role of user in group')	
+	self.failUnlessEqual(test_role[0]._role_name, self.testRole,'Failed to get role of user in group')	
 
     def test_with_user(self):
 	"""
@@ -121,16 +128,21 @@ class SimpleTest(TestCase):
 	role = gus_role.objects.get(_role_name=self.testRole)
 	role.addUser(self.testUser1)
 	test_role = gus_role.objects.with_user(self.testUser1)
-	self.failUnlessEqual(test_role.all(), self.testRole,'Failed to get roles for user')
+	self.failUnlessEqual(test_role[0]._role_name, self.testRole,'Failed to get roles for user')
 	
     def test_with_group(self):
 	"""
 	@summary: test the with_group function
 	tests L{gus_role.with_group<gus.gus_roles.models.gus_role.with_group>}
 	"""
-        gus_role.objects.create_role(self.testGroup, self.testRole)
-	role = gus_role.objects.get(_role_name=self.testRole)
+        role = gus_role.objects.create_role(self.testGroup, self.testRole)
 	test_role = gus_role.objects.with_group(self.testGroup)
-	self.failUnlessEqual(test_role.all(), self.testRole,'Failed to get roles of given group')
+	self.failUnlessEqual(test_role[0]._role_name, self.testRole,'Failed to get roles of given group')
 	
-    
+    def test_unicode(self):
+	"""
+        @summary: test the __unicode__ function
+        tests L{gus_role.with_group<gus.gus_roles.models.gus_role.with_group>}
+        """
+        role = gus_role.objects.create_role(self.testGroup, self.testRole)
+	self.failUnlessEqual(role.__unicode__(),'Role :[TestGroup1] testRole',"unexpected unicode response")

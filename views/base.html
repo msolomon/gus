@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>{% block pagetitle %}gus{% endblock %}</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/include/css/gus.css"/>
+	</head>
+	<body>
+		<div id="header">
+			<h1>{% block title %}G.U.S. (WIP){% endblock %}</h1>
+			<h2>{% block subtitle %}Groups in University Settings{% endblock %}</h2>
+			{% block menu %}
+			<ul>
+				<li><a href="/gus_test/">Manage Groups/Users</a></li>
+				<li><a href="/calendar/">Calendar</a></li>
+				<li><a href="/email/">Email</a></li>
+				<!--><li></li>
+				<li></li>
+				<li></li>-->
+			</ul>
+			{% endblock %}
+			{% block submenu %}
+			<p id="layoutdims">SUB <a href="#">L</a> | <a href="#">L</a> | <a href="#">L</a> </p>
+			{% endblock %}
+		</div>
+		<div class="colmask leftmenu"> 
+			<div class="colright"> 
+				<div class="col1wrap"> 
+					<div class="col1"> 
+					{% block content %}
+						hmmm thats strange theres no content
+					{% endblock %}
+					</div> 
+				</div> 
+				<div class="col2"> 
+					{% block sidebar %}
+					[SIDEBAR(tm)]<br/>Coming Soon<hr/>
+					<a href="http://test.joranbeasley.com/project_management/index.php?m=projects&a=view&project_id=1&tab=0" target="blank">Project Status</a><br>
+					<a href="http://test.joranbeasley.com/coverage_report/">Current Coverage</a><br>
+					<a href="http://test.joranbeasley.com/api/">Api Documentation</a><br>
+					<a href="https://github.com/arkenflame/gus">GitHub</a>
+					
+					{% endblock %}
+				</div> 
+			</div> 
+		</div>
+		<div id="footer">
+			{% block footer %}
+			<p>(c) 2011 -= GusPy (UIdaho CS 384) =-</p>
+			{% endblock %}
+		</div>
+	</body>
+</html>

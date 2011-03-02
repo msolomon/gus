@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>Events</h4>
+
+<form action="/calendar/{{year}}/{{month_name}}/{{day}}/"
+method="POST">
+{% csrf_token %}
+{{event_form.as_p}}
+
+<input type="submit" value="save">
+</form>
+
+{% endblock content %}
+
+{% block pagetitle %}
+Calendar-Events
+{% endblock pagetitle %}

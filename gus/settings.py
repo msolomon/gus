@@ -1,6 +1,7 @@
 # Django settings for gus project.
 import os
-
+from django.core.urlresolvers import get_script_prefix
+PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -29,7 +30,8 @@ DATABASES = {
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'America/Chicago'
-
+#BASE_URL = get_script_prefix()
+#print BASE_URL
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
@@ -46,17 +48,17 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(PROJECT_PATH, '../views')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+#  MEDIA_URL = "include/" - this is set in root urls.py to allow dynamic urls
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = 'media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '^nat@lnqd0wmfr9gyw8&o_l(v2=uwr+524(1g!a!@!thf17m&k'
@@ -78,7 +80,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'gus.urls'
 
-PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
+
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, '../views'),
@@ -100,8 +102,6 @@ INSTALLED_APPS = (
     'gus.gus_calendar',
     'gus.gus_widget',
     'gus.gus_forum',
-#    'gus.gus_forum_post',
-#    'gus.gus_forum_thread',
     'gus.gus_emailer',
     'gus.gus_bill',
     'gus.gusTestSuite'
@@ -123,7 +123,11 @@ INSTALLED_APPS = (
 
 
 TEST_RUNNER='gus.tests.test_runner_with_coverage'
-COVERAGE_MODULES = ['gus.gus_bill.models','gus.gus_calendar.models','gus.gus_emailer.models','gus.gus_forum.models','gus.gus_gallery.models','gus.gus_groups.models','gus.gus_users.models','gus.gus_roles.models','gus.gus_widget.models']
+modules = 'bill calendar emailer forum gallery groups users roles widget'
+COVERAGE_MODULES = []
+for m in modules.split():
+	COVERAGE_MODULES.append('gus.gus_%s.models' % m)
+	COVERAGE_MODULES.append('gus.gus_%s.views' % m)
 
 ## Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
