@@ -61,7 +61,7 @@ class RoleManager(models.Manager):
 	@rtype: List
 	@return: a list of all users that don't have the given role
 	"""
-        id_list = map(lambda x: x.id, role.users.all())
+        id_list = [u.id for u in role.users.all()]
         return gus_user.objects.exclude(_user__in=id_list)
     
     def with_user(self, user):
@@ -87,7 +87,7 @@ class RoleManager(models.Manager):
         roleswgrp = self.with_group(group);
         id_list = []
         for role in roleswgrp:
-            id_list.extend(map(lambda x: x.id , role.users.all()))
+            id_list.extend([u.id for u in role.users.all()])
         return gus_user.objects.exclude(_user__in=id_list)
         
     def users_with_group(self, group):
@@ -104,7 +104,7 @@ class RoleManager(models.Manager):
         roleswgrp = self.with_group(group);
         id_list = []
         for role in roleswgrp:
-            id_list.extend(map(lambda x: x.id , role.users.all()))
+            id_list.extend([u.id for u in role.users.all()])
         return gus_user.objects.filter(_user__in=id_list)
         
             
