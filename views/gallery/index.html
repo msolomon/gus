@@ -1,0 +1,12 @@
+<h1>Your Image Galleries</h1>
+
+{% if groups == None %}<b>You aren't a member of any groups!</b> {% endif %}
+
+<!-- Print a list of the groups that the user belongs to -->
+{% for g in groups.all %}
+<h2>{{g.name}}</h2>
+
+<!-- TODO: For each of the galleries we have to implement a custom templatetag that calls the gus_gallery.utils.get_group_galleries -->
+
+<br/><br/>
+{% endfor %}
