@@ -188,11 +188,11 @@ def viewUser(urlRequest,user_id):
                               );
 def createRole(urlRequest,group_id):
     group = gus_group.objects.get(pk=group_id)
-    form = RolePermissionForm({'id':group_id})
+    form = RoleCreateForm({'id':group_id})
     #return HttpResponse("WIP")
     return render_to_response('test/form.html',
                                 {
-                                 'submiturl':('/gus_test/Role/EditPerms/%s/'%role_id),
+                                 'submiturl':('/gus_test/Role/New/%s/'%group_id),
                                  'encType':'multipart/form-data',
                                  'form':form,
                                  'title':'Create Role for %s'%group.group_name,
