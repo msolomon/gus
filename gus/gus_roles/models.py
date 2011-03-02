@@ -46,6 +46,13 @@ class RoleManager(models.Manager):
         )
 
     def users_without_role(self, role):
+	"""
+	will return all the users without a role
+	@param role: The role to find that users don't have
+	@type role: L{gus_role<gus.gus_roles.models.gus_role>}
+	@rtype: List
+	@return: a list of all users that don't have the given role
+	"""
         id_list = map(lambda x: x.id, role.users.all())
         return gus_user.objects.exclude(_user__in=id_list)
     

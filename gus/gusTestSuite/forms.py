@@ -71,3 +71,10 @@ class RolePermissionForm(forms.Form):
     role_permissions=forms.ModelMultipleChoiceField(
                         queryset=Permission.objects
                         )
+class RoleCreateForm(forms.Form):
+    role_name=forms.CharField(max_length=50)
+    is_superUser=forms.BooleanField(required=False)    
+    id = forms.IntegerField(widget=forms.HiddenInput,required=False)
+    role_permissions=forms.ModelMultipleChoiceField(
+                        queryset=Permission.objects
+                        )
