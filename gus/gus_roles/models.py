@@ -44,6 +44,17 @@ class RoleManager(models.Manager):
                 _role_users=user,
                 _role_group=group,
         )
+
+    def users_without_role(self, role):
+	"""
+	will return all the users without a role
+	@param role: The role to find that users don't have
+	@type role: L{gus_role<gus.gus_roles.models.gus_role>}
+	@rtype: List
+	@return: a list of all users that don't have the given role
+	"""
+        id_list = map(lambda x: x.id, role.users.all())
+        return gus_user.objects.exclude(_user__in=id_list)
     
     def with_user(self, user):
         """
@@ -192,7 +203,7 @@ class gus_role(models.Model):
         @return:  the default string for built in django.User.
         """
         
-        return '<b>%s</b> (%s)' % (self._role_group.group_name, self._role_name) 
+        return '%s (%s)' % (self._role_group.group_name, self._role_name) 
     
     
     ################################################

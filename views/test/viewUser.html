@@ -8,9 +8,9 @@ not yet a participant in any groups
 	{% for role in roles %}
 	{{role|safe}}
 		{% if role.name == "Owner" %}
-		<a href="">Manage</a>
+		<a href="/gus_test/Group/Edit/{{role.group.id}}">Manage</a>
 		{% else %}
-		<a href="">View</a>
+		<a href="/gusTest/viewGroup/">View</a>
 		{% endif %}
 	{% endfor %}
 {% endif %}

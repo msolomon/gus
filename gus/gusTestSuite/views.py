@@ -22,7 +22,7 @@ from gus.gus_users.models import gus_user
 from gus.gus_groups.models import gus_group
 from gus.gus_roles.models import gus_role
 
-from gus.gusTestSuite.forms import SimpleUserAddForm
+from gus.gusTestSuite.forms import *
 
 def index(urlRequest):
     
@@ -131,9 +131,7 @@ def removeUserFromRole(urlRequest, user_id, role_id):
     user = gus_user.objects.get(pk=user_id)
     role = gus_role.objects.get(pk=role_id)
     role.users.remove(user)
-    return HttpResponseRedirect(
-            reverse('gus.gusTestSuite.views.editRole', args=[role_id])
-            )    
+    return HttpResponseRedirect('/gus_test/Role/Edit/%s'%role_id)
 def editRole(urlRequest, role_id):
   
     role = gus_role.objects.get(pk=role_id)
@@ -188,3 +186,32 @@ def viewUser(urlRequest,user_id):
                                 },
                                 context_instance=RequestContext(urlRequest)
                               );
+def createRole(urlRequest,group_id):
+    group = gus_group.objects.get(pk=group_id)
+    form = RoleCreateForm({'id':group_id})
+    #return HttpResponse("WIP")
+    return render_to_response('test/form.html',
+                                {
+                                 'submiturl':('/gus_test/Role/New/%s/'%group_id),
+                                 'encType':'multipart/form-data',
+                                 'form':form,
+                                 'title':'Create Role for %s'%group.group_name,
+                                 'btnlabel':'Create Role',
+                                },
+                                context_instance=RequestContext(urlRequest)
+                              )
+def editRolePerms(urlRequest,role_id):
+    role = gus_role.objects.get(pk=role_id)
+    form = RolePermissionForm({'id':role_id})
+    #return HttpResponse("WIP")
+    
+    return render_to_response('test/form.html',
+                                {
+                                 'submiturl':('/gus_test/Role/EditPerms/%s/'%role_id),
+                                 'encType':'multipart/form-data',
+                                 'form':form,
+                                 'title':'Edit Permissions For Role %s'%role.name,
+                                 'btnlabel':'Save Role',
+                                },
+                                context_instance=RequestContext(urlRequest)
+                              )

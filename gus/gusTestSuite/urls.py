@@ -26,6 +26,8 @@ urlpatterns = patterns('gus.gusTestSuite.views',
     (r'^User/Auth_Test/', 'authUser'),
     
     (r'^Role/Edit/(?P<role_id>\d+)/', 'editRole'),
+    (r'^Role/New/(?P<group_id>\d+)/', 'createRole'),
+    (r'^Role/EditPerms/(?P<role_id>\d+)/', 'editRolePerms'),
     (r'^Role/(?P<role_id>\d+)/RemoveUser/(?P<user_id>\d+)/', 'removeUserFromRole'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
