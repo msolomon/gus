@@ -1,9 +1,4 @@
 {% extends "base.html" %}
-
-
-<!-- I want these previous next buttons to work! :( -->
-
-
 {% block content %}
 
 {% for year, months in years %}
@@ -68,7 +63,7 @@
                 {{ day }}
                 {% for event in events %}
                     <br>
-                    <b>{{ event.event_name }}</b>
+                    <b><a href="/calendar/{{year}}/{{month_name}}/_edit{{day}}/">{{ event.event_name }}</a></b>
                {% endfor %}
             {% endif %}
             </td>
