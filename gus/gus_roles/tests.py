@@ -146,5 +146,4 @@ class SimpleTest(TestCase):
         tests L{gus_role.with_group<gus.gus_roles.models.gus_role.with_group>}
         """
         role = gus_role.objects.create_role(self.testGroup, self.testRole)
-	print role.__unicode__()
 	self.failUnlessEqual(role.__unicode__(),'TestGroup1 (testRole)',"unexpected unicode response")
