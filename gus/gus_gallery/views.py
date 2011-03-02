@@ -2,7 +2,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 
-from gus.gus_gallery.utils import *
 from gus.gus_groups.models import *
 from gus.gus_roles.models import *
 from gus.gus_users.models import *

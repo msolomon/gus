@@ -5,6 +5,7 @@ from django import forms
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
+from django.forms.models import modelformset_factory
 
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
@@ -99,11 +100,6 @@ def month(request, year, month):
     return render_to_response("calendar/month_view.html", {'year': year, 'month': month, 'month_name': month_name, 'month_days': list, 'years': years, 'events':events})
    
 
-def add_csrf(request, ** kwargs):
-    dictionary = dict(gus_user=request.user, ** kwargs)
-    dictionary.update(csrf(request))
-    return dictionary
-     
 #          
 #class Event_form(forms.Form):
 #    event_name = forms.CharField(max_length = 60)
@@ -135,5 +131,38 @@ def day(request, year, month, day):
         form = Event_form()
         
     return render_to_response("calendar/day_view.html", {'event_form': form, 'month_name':month_name, 'year':year, 'day':day}, context_instance=RequestContext(request)) #add_csrf(request, events=form, year=year, month=month, day=day))
+    
+
+
+
+def day_edit(request, year, month, day):
+    month_name = month
+    month = month_names.index(month) + 1
+
+    if request.method == "POST":
+
+        #edit = Gus_event.objects.get(creator=request.user)
+        edit = Gus_event.objects.get(pk=1)
+        form = Event_form(request.POST, instance=edit) 
+        print "editing"
+        if form.is_valid():
+            event = form.save()
+                #event = form.save(commit=False)
+            #for event in events:
+            #event.creator = request.user
+                #event.start_date = date(int(year), int(month), int(day))
+            #if form.fields['delete'] != False:
+             #   event.delete_event()
+
+#            return HttpResponseRedirect("calendar/month_view.html")
+            response = request.META['HTTP_REFERER'].rstrip('/')
+            splice = response.rfind('/')
+            return HttpResponseRedirect(response[:splice] + '/')
+            
+    else:
+        form = Event_form()
+        
+    return render_to_response("calendar/day_edit_view.html", {'event_form': form, 'month_name':month_name, 'year':year, 'day':day}, context_instance=RequestContext(request)) #add_csrf(request, events=form, year=year, month=month, day=day))
+    
     
     
