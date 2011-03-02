@@ -21,7 +21,7 @@ class ContactForm(forms.Form):
     recipients = forms.EmailField()
     bcc_myself = forms.BooleanField(required=False)
     
-def index(request, user_id=None):
+def send(request, user_id=None):
     if user_id is not None:
         try:
             usr = gus_user.objects.get(pk=user_id)
