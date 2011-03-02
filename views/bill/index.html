@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block pagetitle %}Bills for the User{%endblock%}
+{% block content %}
+
+<div style="width:250px">
+{% for bill in bills %}
+  {{bill}}
+{% endfor %}
+</div>
+
+<div style="width:250px">
+{% for bill in adminBills %}
+  {{bill}}
+{% endfor %}
+</div>
+
+{%endblock%}

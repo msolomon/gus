@@ -7,10 +7,18 @@ from gus.gus_users.models import *
 from gus.gus_bill.models import *
 
 def index(request):
-	request_usr = gus_user.objects.get(pk=1)
-	request_grp = gus_group.objects.get(pk=1)
-	bills = bill.objects.filter(user = request_usr.id, group = request_grp)
-	return render_to_response('bill/index.html', {"bills":bills}, context_instance=RequestContext(request))
-	
+	usr = request.user
+	usr = gus_user.objects.get(pk = 1)
+	bills = bill.objects.filter(user = usr.id)
+	#returns all the roles which the usr is an Owner
+	roles = gus_role.objects.with_user(usr).filter(_role_name = "Owner")
+	adbills = []
+	for a in roles:
+	  #a.getGroup() returns the group
+	  #bill.objects.filter(group) returns the bills associated with that group
+	  #adbills will be a list of all the bills which the current user is an owner
+	  adbills.append(bill.objects.filter(group = a.group)
 
+	return render_to_response('bill/index.html', {"bills":bills, "adminBills":adbills}, context_instance=RequestContext(request))
+	
 

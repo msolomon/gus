@@ -8,6 +8,7 @@
 # TODO: Overwrite the __init__ methods to do some basic validation, or do it in the save() functions?
 
 from django.db import models
+from django.forms import ModelForm
 from gus.gus_groups.models import *
 from gus.gus_users.models import *
 
@@ -96,3 +97,12 @@ class gus_image(models.Model):
         except:
             pass
         super(gus_image, self).delete()
+
+
+class gallery_form(ModelForm):
+    """
+    The basic form for a gus_gallery
+    """
+    class Meta:
+        model = gus_gallery
+        exculde = ('date_created',)
