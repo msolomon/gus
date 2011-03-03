@@ -25,9 +25,10 @@ def check(request):
     # if we are an anonymous user, send from test account
     # TODO: remove this once user authentication system is complete
     if not request.user.is_authenticated():
-        request.user.getEmail = lambda: 'guspyuser@gmail.com'
-        request.user.getImap = lambda: ('imap.gmail.com', 993)
-        request.user.getImapUser = lambda: ('guspyuser@gmail.com', 'givemegus')
+        request.user.getEmail = lambda: 'anonymous-user@guspy.joranbeasley.com'
+        request.user.getImap = lambda: ('mail.guspy.joranbeasley.com', 25)
+        request.user.getImapUser = lambda: ('catch-all@guspy.joranbeasley.com',
+                                            'sKtb-Sna')
         
     em = Emailer(request.user)
     imap_server, imap_port = request.user.getImap()
@@ -35,8 +36,16 @@ def check(request):
     imap_user, imap_password = request.user.getImapUser()
     em.set_imap_user(imap_user, imap_password)
     
-    emails = em.check_email()
-    return render_to_response('email/check.html', {'emails': emails},
+    emails = reversed(em.check_email())
+    # filter for emails to logged in user only
+    users_emails = [m for m in emails if
+                    ''.join(m.to + m.cc + m.bcc).
+                    find(request.user.getEmail()) != -1]
+    return render_to_response('email/check.html',
+                              {'username':request.user.username,
+                               'useremail':request.user.getEmail(),
+                               'emails': users_emails
+                               },
                               context_instance=RequestContext(request))
     
 def send(request, user_id=None):
@@ -53,7 +62,7 @@ def send(request, user_id=None):
             # if we are an anonymous user, send from test account
             # TODO: remove this once user authentication system is complete
             if not request.user.is_authenticated():
-                request.user.getEmail = lambda: 'guspyuser@gmail.com'
+                request.user.getEmail = lambda: 'anonymous-user@guspy.joranbeasley.com'
                 
             email = form.cleaned_data
             # add sender to recipients if box checked
