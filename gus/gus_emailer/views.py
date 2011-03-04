@@ -1,19 +1,11 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.forms import ModelForm
 from smtplib import SMTPException
 
-from gus_emailer.models import EmailerWidget, Emailer
+from gus_emailer.models import Emailer
 from gus_users.models import gus_user
 from django import forms
-
-#class ContactForm(ModelForm):
-#    def __init__(self, usr):
-#        self.usr = usr
-#    class Meta:
-#        def __init__(self):
-#            model = Emailer(self.usr)
 
 class ContactForm(forms.Form):
     subject = forms.CharField(max_length=100)
@@ -37,10 +29,14 @@ def check(request):
     em.set_imap_user(imap_user, imap_password)
     
     emails = reversed(em.check_email())
-    # filter for emails to logged in user only
+    # filter for emails to logged in user only, since emails are
+    #     sent to a catch-all account
+    # TODO: move this filtering to the model, not view. also do it
+    #     more efficiently
     users_emails = [m for m in emails if
                     ' '.join(m.to + m.cc + m.bcc).
                     find(request.user.getEmail()) != -1]
+    
     return render_to_response('email/check.html',
                               {'username':request.user.username,
                                'useremail':request.user.getEmail(),
@@ -93,13 +89,4 @@ def send(request, user_id=None):
     return render_to_response('email/index.html', {
         'email_form': form, 
     }, context_instance=RequestContext(request))
-
-
-class ContactFormUser(forms.Form):
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
-    recipients = forms.EmailField(widget=forms.HiddenInput)
-    bcc_myself = forms.BooleanField(required=False)
-    
-
 
