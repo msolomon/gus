@@ -39,7 +39,7 @@ def check(request):
     emails = reversed(em.check_email())
     # filter for emails to logged in user only
     users_emails = [m for m in emails if
-                    ''.join(m.to + m.cc + m.bcc).
+                    ' '.join(m.to + m.cc + m.bcc).
                     find(request.user.getEmail()) != -1]
     return render_to_response('email/check.html',
                               {'username':request.user.username,
