@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from gus import gus_roles
+
+
 
 class UserManager(models.Manager):
     def create(self, username, email, password):
@@ -106,13 +107,13 @@ class gus_user(models.Model):
         return self._user.has_usable_password() 
     
     def has_perm(self, perm, obj=None):
-        return self._user.has_perm(perm, obj)
+        return self._user.has_perm(perm, obj) # pragma : no cover
     
     def has_perms(self, perm_list, obj=None):
-        return self._user.has_perms(perm_list, obj)
+        return self._user.has_perms(perm_list, obj) # pragma : no cover
     
     def has_module_perms(self, package_name):
-        return self._user.has_module_perms(package_name)  
+        return self._user.has_module_perms(package_name)  # pragma : no cover
     
     def get_and_delete_messages(self):
         return self._user.get_and_delete_messages() # pragma : no cover
@@ -190,7 +191,7 @@ class gus_user(models.Model):
         self._user.last_name = value
         self._user.save()
                
-    def setID(self):
+    def setID(self,value):
         """
         setter hook for ID to disallow changing
         """
@@ -223,7 +224,9 @@ class gus_user(models.Model):
         """
         return all roles associated with group
         """
-        return gus_roles.models.gus_role.objects.filter(_role_group__id=self._user)
+        from gus.gus_roles.models import gus_role
+        
+        return gus_role.objects.filter(_role_users=self._user.id)
     
     def getID(self):
         return self._user.id
@@ -249,3 +252,4 @@ class gus_user(models.Model):
     email = property(getEmail, setEmail)
     first_name = property(getFN, setFN)
     last_name = property(getLN, setLN)
+    roles = property(getRoles, None)

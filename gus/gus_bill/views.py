@@ -14,10 +14,10 @@ def index(request):
 	roles = gus_role.objects.with_user(usr).filter(_role_name = "Owner")
 	adbills = []
 	for a in roles:
-	  #a.getGroup() returns the group
-	  #bill.objects.filter(group) returns the bills associated with that group
-	  #adbills will be a list of all the bills which the current user is an owner
-	  adbills.append(bill.objects.filter(group = a.group)
+		#a.getGroup() returns the group
+		#bill.objects.filter(group) returns the bills associated with that group
+		#adbills will be a list of all the bills which the current user is an owner
+		adbills.append(bill.objects.filter(group = a.group))
 
 	return render_to_response('bill/index.html', {"bills":bills, "adminBills":adbills}, context_instance=RequestContext(request))
 	
