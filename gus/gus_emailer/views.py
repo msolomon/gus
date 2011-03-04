@@ -1,19 +1,11 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.forms import ModelForm
 from smtplib import SMTPException
 
-from gus_emailer.models import EmailerWidget, Emailer
+from gus_emailer.models import Emailer
 from gus_users.models import gus_user
 from django import forms
-
-#class ContactForm(ModelForm):
-#    def __init__(self, usr):
-#        self.usr = usr
-#    class Meta:
-#        def __init__(self):
-#            model = Emailer(self.usr)
 
 class ContactForm(forms.Form):
     subject = forms.CharField(max_length=100)
@@ -25,9 +17,10 @@ def check(request):
     # if we are an anonymous user, send from test account
     # TODO: remove this once user authentication system is complete
     if not request.user.is_authenticated():
-        request.user.getEmail = lambda: 'guspyuser@gmail.com'
-        request.user.getImap = lambda: ('imap.gmail.com', 993)
-        request.user.getImapUser = lambda: ('guspyuser@gmail.com', 'givemegus')
+        request.user.getEmail = lambda: 'anonymous-user@guspy.joranbeasley.com'
+        request.user.getImap = lambda: ('mail.guspy.joranbeasley.com', 25)
+        request.user.getImapUser = lambda: ('catch-all@guspy.joranbeasley.com',
+                                            'sKtb-Sna')
         
     em = Emailer(request.user)
     imap_server, imap_port = request.user.getImap()
@@ -35,8 +28,20 @@ def check(request):
     imap_user, imap_password = request.user.getImapUser()
     em.set_imap_user(imap_user, imap_password)
     
-    emails = em.check_email()
-    return render_to_response('email/check.html', {'emails': emails},
+    emails = reversed(em.check_email())
+    # filter for emails to logged in user only, since emails are
+    #     sent to a catch-all account
+    # TODO: move this filtering to the model, not view. also do it
+    #     more efficiently
+    users_emails = [m for m in emails if
+                    ' '.join(m.to + m.cc + m.bcc).
+                    find(request.user.getEmail()) != -1]
+    
+    return render_to_response('email/check.html',
+                              {'username':request.user.username,
+                               'useremail':request.user.getEmail(),
+                               'emails': users_emails
+                               },
                               context_instance=RequestContext(request))
     
 def send(request, user_id=None):
@@ -53,7 +58,7 @@ def send(request, user_id=None):
             # if we are an anonymous user, send from test account
             # TODO: remove this once user authentication system is complete
             if not request.user.is_authenticated():
-                request.user.getEmail = lambda: 'guspyuser@gmail.com'
+                request.user.getEmail = lambda: 'anonymous-user@guspy.joranbeasley.com'
                 
             email = form.cleaned_data
             # add sender to recipients if box checked
@@ -84,13 +89,4 @@ def send(request, user_id=None):
     return render_to_response('email/index.html', {
         'email_form': form, 
     }, context_instance=RequestContext(request))
-
-
-class ContactFormUser(forms.Form):
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
-    recipients = forms.EmailField(widget=forms.HiddenInput)
-    bcc_myself = forms.BooleanField(required=False)
-    
-
 

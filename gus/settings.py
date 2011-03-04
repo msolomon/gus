@@ -131,9 +131,9 @@ for m in modules.split():
 
 ## Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'guspyuser@gmail.com'
-EMAIL_HOST_PASSWORD = 'givemegus'
+EMAIL_HOST = 'mail.guspy.joranbeasley.com'
+EMAIL_HOST_USER = 'catch-all@guspy.joranbeasley.com'
+EMAIL_HOST_PASSWORD = 'sKtb-Sna'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = '[gus] '

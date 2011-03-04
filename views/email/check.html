@@ -2,6 +2,8 @@
 {% block pagetitle %}Email{% endblock pagetitle %}
 
 {% block content %}
+<h1> Inbox for {{ username }} ({{ useremail }})</h1>
+<hr>
 {% for email in emails %}
 <b>From:</b> <br> {{ email.from_email|urlize }} <br>
 <b>Subject:</b> <br> {{ email.subject|urlize }} <br>
