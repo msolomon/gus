@@ -21,7 +21,12 @@
 			</ul>
 			{% endblock %}
 			{% block submenu %}
-			<p id="layoutdims">SUB <a href="#">L</a> | <a href="#">L</a> | <a href="#">L</a> </p>
+			<p id="layoutdims">
+				{% if user.is_anonymous %}
+					Not Logged In: <a href="/login/">Login</a> | <a href="/register/">Register</a> </p>
+				{% else %}
+					{{ user.username|capfirst }}: <a href="/logout/">Logout</a> 
+				{% endif %}
 			{% endblock %}
 		</div>
 		<div class="colmask leftmenu"> 

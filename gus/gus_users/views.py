@@ -1,11 +1,13 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse ,HttpResponseRedirect
 from django import forms
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
 
 from gus_roles.models import gus_role
 from gus_users.models import gus_user
+from django.contrib.auth import authenticate,login
+from django.contrib.auth.views import logout_then_login
 
 class loginForm(forms.Form):
     user = forms.CharField(max_length=100)
@@ -14,15 +16,23 @@ class loginForm(forms.Form):
 def index(request):
     return HttpResponse('Hello World')
 
-def login(request):    
+def logoutView(request):
+    return logout_then_login(request,'/login/')
+    
+def loginView(request):    
 
     if request.method == 'POST': # If the form has been submitted...
         form = loginForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            return HttpResponseRedirect('/thanks/')
-        return render_to_response("users/login.html",{"form":form},context_instance=RequestContext(request))
+            un=form.cleaned_data['user']
+            pw=form.cleaned_data['password']
+            user = authenticate(username=un,
+                                password=pw)
+            if(user):
+                login(request, user)
+                return HttpResponseRedirect('/gus_test/User/Auth_Test/')
     else:
         form = loginForm()
 

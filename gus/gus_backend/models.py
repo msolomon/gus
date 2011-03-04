@@ -10,8 +10,14 @@ class gus_backend(object):
                 return user
         except gus_user.DoesNotExist:
             return None
+    def get_user(self,user_id):
+        return gus_user.objects.get(pk=user_id)
 
 
 class AdminVars(models.Model):
     name=models.CharField(max_length=50)
     value=models.CharField(max_length=255)
+
+
+
+    

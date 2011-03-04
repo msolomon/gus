@@ -32,8 +32,11 @@ def index(urlRequest):
     return render_to_response('test/welcome.html', {
          'users':gus_user.objects.all(),
          'groups':gus_group.objects.all(),
-         });
-                              
+         },context_instance=RequestContext(urlRequest));
+
+def authUser(urlRequest):
+    return render_to_response('users/info.html',{},
+                              context_instance=RequestContext(urlRequest))
 def addGroup(urlRequest):
     
     from gus.gus_groups.utils import createNewGroup
@@ -141,7 +144,7 @@ def editRole(urlRequest, role_id):
                        {
                          'role':role,
                         
-                       }
+                       },context_instance=RequestContext(urlRequest)
                        )
 
 

@@ -12,8 +12,9 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('gus.gus_users.views',
     # Example:
     # (r'^gus/', include('gus.foo.urls')),
-    (r'^idx/', 'index'),
-    (r'^', 'users_groups'),
+    (r'^idx/$', 'index'),
+    (r'^$', 'users_groups'),
+    
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
