@@ -37,14 +37,16 @@ class UsersTest(TestCase):
         """
         gus_user.objects.create_user(self.user, self.user_email, self.password)
         try:
-            gus_user.objects.create_user(self.user, self.user_email, self.password)
+            gus_user.objects.create(self.user, self.user_email, self.password)
         except IntegrityError:
             pass
             return
         self.fail('duplicate users created, this should not happen')
     def test_user_slow_initialize(self):
         usr = gus_user()
+        
         self.failUnless("%s"%usr=="user: (Undefined User)")
+        
         
     def test_setters(self):    
         usr = gus_user.objects.create_user(self.user, self.user_email, self.password)
@@ -66,6 +68,12 @@ class UsersTest(TestCase):
         
         usr = gus_user.objects.get(pk=1)
         
+        try:
+            usr.user = "a"
+        except:#here we expect exception
+            pass 
+            return 
+        self.fail('Able to set readonly user property')
         
         
     def test_unicode(self):
@@ -81,6 +89,15 @@ class UsersTest(TestCase):
         usr.set_password("testpw2")
         self.failUnless(usr.check_password("testpw2"),"Unable to change Password")
         
+        #try and illegally manually set userid
+        try:
+            usr.setID(1)
+        except:#here we expect exception
+            pass 
+            return 
+        self.fail('Able to set readonly user property')
+        
+        
     def test_Unuseable_pw(self):
         """
         test the unusable password features
@@ -93,6 +110,7 @@ class UsersTest(TestCase):
         usr = gus_user.objects.create_user(self.user, self.user_email, self.password)
         usr.first_name="test"
         usr.last_name="user"
+        str = usr.first_name,usr.last_name
         self.failUnless(usr.get_full_name()=="test user","could not retrieve full name")
         
     def test_anonUser(self):

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block pagetitle %}
+Login
+{% endblock pagetitle %}
+
+{% block content %}
+<form method="post">
+<!--Print Login Form -->
+{{ form.as_p }}
+<!-- add cross site request forgery safety key(reqd for all forms) --> 
+{% csrf_token %}
+<input type="submit" value="Login">
+</form>
+{% endblock content %}

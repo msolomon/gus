@@ -45,18 +45,21 @@ class SimpleTest(TestCase):
         roles = gus_role.objects.filter(_role_name=self.testRole)
         self.assertEqual(len(roles),0,"RoleDeletionError:Unable to Delete Role")
     def test_addUser(self):
-	"""
-	@summary: test adding users to a role
-
-	@precondition: L{setUp}
-
-	tests L{gus_role.addUser<gus.gus_roles.models.gus_role.addUser>}
-	"""
+    	"""
+    	@summary: test adding users to a role
+    
+    	@precondition: L{setUp}
+    
+    	tests L{gus_role.addUser<gus.gus_roles.models.gus_role.addUser>}
+    	"""
 
         role = gus_role.objects.create_role(self.testGroup, self.testRole)
-	#Test Addition of user role
-	role.addUser(self.testUser1)
-	self.failUnless(role.users.all()[0] == self.testUser1,'Unable to add user to role')
+    	#Test Addition of user role
+        
+        role.addUser(self.testUser1)
+        
+        self.failUnless(role.users.all()[0] == self.testUser1,'Unable to add user to role')
+        self.failUnless(role.users.all()[0].roles.all()[0] == role,'user has no ref to role')
 
     def test_getUsers(self):
 	"""
@@ -114,7 +117,7 @@ class SimpleTest(TestCase):
         role = gus_role.objects.create_role(self.testGroup, self.testRole)
 	role.addUser(self.testUser1)
 	test_role = gus_role.objects.with_user_in_group(self.testGroup,self.testUser1)
-	self.failUnlessEqual(test_role[0]._role_name, self.testRole,'Failed to get role of user in group')	
+	self.failUnlessEqual(test_role._role_name, self.testRole,'Failed to get role of user in group')	
 
     def test_with_user(self):
 	"""
