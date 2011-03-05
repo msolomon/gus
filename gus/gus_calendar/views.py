@@ -41,7 +41,7 @@ def month(request, year=None, month=None):
         month = time.localtime()[2]
         years = [] ## have to reset or get duplicates!!!
             
-     for m in [year]: # calendar goes out 2 years
+     for m in [year, year+1]: # calendar goes out 2 years
         month_list = []
      for n, month_name in enumerate(month_names):
         event = current = False
@@ -72,6 +72,7 @@ def month(request, year=None, month=None):
          if len(list[week]) == 7:
              list.append([])
              week = week + 1
+     year = time.localtime()[0]
     
     
      return render_to_response("calendar/month_view.html",
