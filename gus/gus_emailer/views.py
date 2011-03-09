@@ -18,36 +18,23 @@ def check(request):
     # TODO: remove this once user authentication system is complete
     if not request.user.is_authenticated():
         request.user.getEmail = lambda: 'anonymous-user@guspy.joranbeasley.com'
-        request.user.getImap = lambda: ('mail.guspy.joranbeasley.com', 25)
-        request.user.getImapUser = lambda: ('catch-all@guspy.joranbeasley.com',
-                                            'sKtb-Sna')
-        
     em = Emailer(request.user)
-    imap_server, imap_port = request.user.getImap()
-    em.set_imap(imap_server, imap_port)
-    imap_user, imap_password = request.user.getImapUser()
-    em.set_imap_user(imap_user, imap_password)
-    
-    emails = reversed(em.check_email())
-    # filter for emails to logged in user only, since emails are
-    #     sent to a catch-all account
-    # TODO: move this filtering to the model, not view. also do it
-    #     more efficiently
-    users_emails = [m for m in emails if
-                    ' '.join(m.to + m.cc + m.bcc).
-                    find(request.user.getEmail()) != -1]
+    emails = em.check_email()
     
     return render_to_response('email/check.html',
                               {'username':request.user.username,
                                'useremail':request.user.getEmail(),
-                               'emails': users_emails
+                               'emails': emails
                                },
                               context_instance=RequestContext(request))
     
-def send(request, user_id=None):
-    if user_id is not None:
+def send(request, user_ids=[]):
+    # check if we are sending to a user
+    if len(user_ids) > 0:
         try:
-            usr = gus_user.objects.get(pk=user_id)
+            print user_ids
+            usrs = [gus_user.objects.get(pk=user_id).email for id in user_ids]
+            print usrs
         except:
             return HttpResponseRedirect('/gus_test/')
 
@@ -81,8 +68,8 @@ def send(request, user_id=None):
             return render_to_response('email/sent.html', {'email': email},
                                       context_instance=RequestContext(request))
     else:
-        if user_id is not None:
-            form = ContactForm({'recipients':usr.email})
+        if len(user_ids) > 0:
+            form = ContactForm({'recipients':', '.join(usrs)})
         else:
             form = ContactForm() # An unbound form
 

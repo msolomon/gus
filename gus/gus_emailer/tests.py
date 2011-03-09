@@ -29,16 +29,10 @@ class EmailSystemTest(TestCase):
     	''' Test the IMAP4 email checking system
     	'''
     	em = Emailer(self.usr)
-    	em.set_imap('imap.gmail.com', 993)
-    	em.set_imap_user('guspyuser@gmail.com', 'givemegus')
     
     	messages = em.check_email()
     	self.failIfEqual(len(messages), 0,
     			"No messages could be retrieved!")
-    
-    	# for ident, message in response.iteritems():
-    	# 	print message['RFC822']
-	
 
     def test_group(self):
         ''' Send an email to a group '''
