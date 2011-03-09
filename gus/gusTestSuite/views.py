@@ -138,6 +138,7 @@ def removeUserFromRole(urlRequest, user_id, role_id):
 def editRole(urlRequest, role_id):
   
     role = gus_role.objects.get(pk=role_id)
+
    
     
     return render_to_response('groups/manageRole.html',
@@ -191,8 +192,15 @@ def viewUser(urlRequest,user_id):
                               );
 def createRole(urlRequest,group_id):
     group = gus_group.objects.get(pk=group_id)
-    form = RoleCreateForm({'id':group_id})
-    #return HttpResponse("WIP")
+    if urlRequest.method == 'POST':
+        form = RoleCreateForm(urlRequest.POST)
+	if form.is_valid():
+	    role = gus_role.objects.create_role(group,form.cleaned_data['role_name'])
+	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
+    else:
+        form = RoleCreateForm({'id':group_id})
+	
+#    return HttpResponse("WIP")
     return render_to_response('test/form.html',
                                 {
                                  'submiturl':('/gus_test/Role/New/%s/'%group_id),
@@ -205,7 +213,15 @@ def createRole(urlRequest,group_id):
                               )
 def editRolePerms(urlRequest,role_id):
     role = gus_role.objects.get(pk=role_id)
-    form = RolePermissionForm({'id':role_id})
+    if urlRequest.method == 'POST':
+        form = RolePermissionForm(urlRequest.POST)
+	if form.is_valid():
+	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
+    else:
+	role_permissions = role._role_permissions.permissions.all()
+	data = {'id':role_id, 'role_permissions':role_permissions}
+        form = RolePermissionForm(data)
+
     #return HttpResponse("WIP")
     
     return render_to_response('test/form.html',
