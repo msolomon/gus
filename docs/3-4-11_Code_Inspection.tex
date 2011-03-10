@@ -1,0 +1,76 @@
+\documentclass[12pt]{report}
+\usepackage{parskip}
+\usepackage[top=1in,right=1in,left=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+
+\fancyhf{}
+\headheight 14.49998pt
+\pagestyle{fancy}
+\lhead{3/4/11}
+\rhead{GusPy Code Inspection Summary}
+\cfoot{PAGE}
+\rfoot{\thepage}
+
+\setlength{\parskip}{0.25pt}
+\setlength{\parindent}{0.0cm}
+
+\begin{document}
+ \textbf{Positions:}
+  \begin{itemize}
+   \item Coordination: Mike
+   \item Secretary: Max
+   \item Authors:
+   \begin{itemize}
+    \item Joran - Roles
+    \item Mike - Emailer
+    \item Sasha - Calendar
+   \end{itemize}
+   \item Reviewers:
+   \begin{itemize}
+    \item Jacob
+    \item Lee
+    \item Nathan
+    \item Mike
+    \item Sasha
+    \item Joran
+   \end{itemize}
+  \end{itemize}
+
+ \textbf{\\[0.5pt] gus\_roles/models.py}\newline
+ \textbf{Talker:} Mike\newline
+ Questions/thoughts that came up:
+ \begin{itemize}
+  \item Mike: Why use `super' in `with\_user\_in\_group'?\newline 
+           Joran: Not sure, all examples found were that way.
+  \item Dr J: Do lists scale well in Django/Python?\newline
+           Joran: Pretty sure they will.
+  \item Possible Code Change on Lines 212-213.
+  \item Mike: Why use setUsers, setGroup, setName?\newline
+           Joran: Django requires that you have both getters and setters, makes nicer way to access things.
+ \end{itemize}
+
+ \textbf{\\[0.5pt] gus\_emailer/view.py}\newline
+ \textbf{Talker:} Sasha \& Joran\newline
+ Questions/thoughts that came up:
+ \begin{itemize}
+  \item Possible Code Change in `check(request)'. Needs an update since users work.
+ \end{itemize}
+
+ \textbf{\\[0.5pt] views/gus\_emailer/index.html}\newline
+ \textbf{Talker:} Joran\newline
+ Questions/thoughts that came up:
+ \begin{itemize}
+  \item Dr J: What is the base.html look like/do?\newline
+           Joran: The template look of the page, sets up a base page to work from.
+ \end{itemize}
+
+ \textbf{\\[0.5pt] views/gus\_calendar/month\_view.html}\newline
+ \textbf{Talker:} Joran\newline
+ Questions/thoughts that came up:
+ \begin{itemize}
+  \item Dr J: Calendars seem easy and generic, is there a Django one? Was ours made from scratch?\newline
+          Joran: Doesn't seem to be one and yes.
+ \end{itemize}
+\end{document} 
+
+​
