@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}
+{{posts[0].thread.group.group_name}} : {{posts[0].thread.forum.forum_name}} : {{posts[0].thread.thread_name}} : Posts
+{% endblock pagetitle %}
+
+{% block content %}
+	<!--------------------------------------------
+	 |Poster Name                     Posted Date|
+	 ---------------------------------------------
+	 |Post Text                                  |
+	--------------------------------------------->
+<a href="/add_post">Post Reply</a>
+
+<table>
+{% for post in posts %}
+	<tr>
+	 <th><b><a href="">{{post.user.get_full_name}}</a></th>
+	 <th></b>{{post.date_created}}</th>
+	</tr>
+	<tr colspan="2">
+	 <td>{{post.post_text}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+{% endblock content %}

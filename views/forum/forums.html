@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}
+{{group}.group_name} : Forums 
+{% endblock pagetitle %}
+
+{% block content %}
+<!--------------------------------------------
+ |Forum Name          | Last Post on ?/??/?? |
+ |Description         | by User              |
+--------------------------------------------->
+<a href="/add_forum">Add Forum</a>
+
+<table>
+{% for forum in forums %}
+	<tr>
+	 <td><b><a href="/{{forum.forum_name}}/threads">{{forum.forum_name}}</a></b><br />
+	  <p>{{forum.forum_description}}</p></td> 
+	 <td><a href="">Last Post on ?/??/??</a><br />
+	  by <a href="">User</a></td>
+	</tr>
+{% endfor %}
+</table>
+{% endblock content %}
