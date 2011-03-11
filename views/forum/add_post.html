@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}
+{{group.group_name} : {{posts[0].thread.forum.forum_name}} : {{posts[0].thread.thread_name}} : Posts : New Post
+{% endblock pagetitle %}
+
+{% block content %}
+
+ <form method="POST">
+  {%csrf_token%}
+  {{form.as_p}}
+  <input type="SUBMIT" value="Post Reply">
+ </form>
+
+{% endblock content %}

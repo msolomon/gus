@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}
+{{group.group_name}} : {{threads[0].forum.forum_name}} : Threads : New Thread
+{% endblock pagetitle %}
+
+{% block content %}
+
+ <form method="POST">
+  {%csrf_token%}
+  {{form.as_p}}
+  <input type="SUBMIT" value="Create Thread">
+ </form>
+
+{% endblock content %}

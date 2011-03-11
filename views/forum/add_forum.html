@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}
+{{group.group_name}} : Forums : Add Forum
+{% endblock pagetitle %}
+
+{% block content %}
+
+	<form method="POST">
+	 {%csrf_token%}
+	 {{form.as_p}}
+	 <input type="SUBMIT" value="Create Forum">
+	</form>
+
+{% endblock content %}

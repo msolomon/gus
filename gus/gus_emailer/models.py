@@ -3,7 +3,7 @@
 from imaplib import *
 from django.db import models
 from django.core import mail
-
+from gus import settings
 
 from gus.gus_widget.models import Widget
 from gus.gus_groups.models import gus_group
@@ -31,13 +31,14 @@ class Emailer(models.Model):
     #user = models.ForeignKey(gus_user)
     myplaintextpassword = models.CharField(max_length=128)
     #myusername = user.name
-    imap_host = models.CharField(max_length=128)
-    imap_port = models.SmallIntegerField()
-    imap_user = models.CharField(max_length=16)
-    imap_password = models.CharField(max_length=16)
+#    imap_host = models.CharField(max_length=128)
+#    imap_port = models.SmallIntegerField()
+#    imap_user = models.CharField(max_length=16)
+#    imap_password = models.CharField(max_length=16)
     
     def __init__(self, usr):
         self.user = usr
+        self.user_email = usr.getEmail()
     
     def sendto_group(self, email):
         ''' Email a message to the whole group.
@@ -114,8 +115,8 @@ class Emailer(models.Model):
                         [to],
                         None)        
         
-        server = IMAPClient(self.imap_host, use_uid=False, ssl=True)
-        server.login(self.imap_user, self.imap_password)
+        server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
+        server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
         
         select_info = server.select_folder('INBOX')
         messages = server.search(['NOT DELETED'])
@@ -123,8 +124,12 @@ class Emailer(models.Model):
     
         emails = []
         for v in response.values():
-            emails.append(parse_rfc822(v['BODY[HEADER]'], v['BODY[TEXT]']))
-            #print mes.to, mes.from_email, mes.subject
+            em = parse_rfc822(v['BODY[HEADER]'], v['BODY[TEXT]'])
+            # ensure the email was sent to this user.
+            # TODO: only query for such emails
+            if self.user_email in \
+                ' '.join(em.to + em.cc + em.bcc).translate(None, "\"'<>,").split():
+                    emails.insert(0, em)
     
         server.logout()
         return emails

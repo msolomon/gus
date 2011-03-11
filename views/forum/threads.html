@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}
+{{threads[0].group.group_name}} : {{threads[0].forum.forum_name}} : Threads
+{% endblock pagetitle %}
+
+{% block content %}
+	<!--------------------------------------------
+	 |Thread Name          | Last Post on ?/??/?? |
+	 |Thread Creator       | by User              |
+	---------------------------------------------->
+<a href="/add_thread">New Thread</a>
+
+<table>
+{% for thread in threads %}
+	<tr>
+	 <td><b><a href="">{{thread.thread_name}}</a></b><br />
+	  <p>{{thread.thread_user.get_full_name}}</p></td> 
+	 <td><a href="">Last Post on ?/??/??</a><br />
+	  by <a href="">User</a></td>
+	</tr>
+{% endfor %}
+</table>
+
+{% endblock content %}
