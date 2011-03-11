@@ -38,10 +38,10 @@ def month(request, year=None, month=None):
          month_list = []
          years = [] ## have to reset or get duplicates!!!
      else:
-        month = time.localtime()[2]
+        month = time.localtime()[1]
         years = [] ## have to reset or get duplicates!!!
             
-     for m in [year, year+1]: # calendar goes out 2 years
+     for m in [year]: # calendar goes out 2 years
         month_list = []
      for n, month_name in enumerate(month_names):
         event = current = False
