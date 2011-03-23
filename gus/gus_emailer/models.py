@@ -108,6 +108,7 @@ class Emailer(models.Model):
             subject = getrest('Subject: ')
             from_email = getrest('From: ')
             to = getrest('To: ')
+            print body
             return mail.EmailMessage(
                         subject,
                         body,
