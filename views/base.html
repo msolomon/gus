@@ -15,6 +15,7 @@
 				<li><a href="/gus_test/">Manage Groups/Users</a></li>
 				<li><a href="/calendar/">Calendar</a></li>
 				<li><a href="/email/">Email</a></li>
+				<li><a href="/bill/"><Bill></a></li>
 				<!--><li></li>
 				<li></li>
 				<li></li>-->
@@ -40,13 +41,27 @@
 				</div> 
 				<div class="col2"> 
 					{% block sidebar %}
+					
+					{% block sidebar_top %}
+					{% endblock %}
+
+					<br><hr/>
+					
+					{% block sidebar_sitewide %}
 					[SIDEBAR(tm)]<br/>Coming Soon<hr/>
 					<a href="http://test.joranbeasley.com/project_management/index.php?m=projects&a=view&project_id=1&tab=0" target="blank">Project Status</a><br>
 					<a href="http://test.joranbeasley.com/coverage_report/">Current Coverage</a><br>
 					<a href="http://test.joranbeasley.com/api/">Api Documentation</a><br>
 					<a href="https://github.com/arkenflame/gus">GitHub</a>
+					{% endblock %}
+					
+					<br><hr/>
+
+					{% block sidebar_bottom %}
+					{% endblock %}
 					
 					{% endblock %}
+
 				</div> 
 			</div> 
 		</div>

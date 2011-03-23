@@ -108,6 +108,7 @@ class Emailer(models.Model):
             subject = getrest('Subject: ')
             from_email = getrest('From: ')
             to = getrest('To: ')
+            print body
             return mail.EmailMessage(
                         subject,
                         body,
@@ -128,7 +129,8 @@ class Emailer(models.Model):
             # ensure the email was sent to this user.
             # TODO: only query for such emails
             if self.user_email in \
-                ' '.join(em.to + em.cc + em.bcc).translate(None, "\"'<>,").split():
+                ' '.join(em.to + em.cc + em.bcc).replace('"', '').replace("'", ''). \
+                replace('<', '').replace('>', '').split():
                     emails.insert(0, em)
     
         server.logout()

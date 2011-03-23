@@ -123,7 +123,7 @@ class bill(models.Model):
         
     #used for the views output
     def __unicode__(self):
-	return "%s Bill: %s Value: %d"%(self.group, self.name, self.value)
+	return "%s, %s: $%.2f"%(self.user, self.name, self.value)
 
 
 
