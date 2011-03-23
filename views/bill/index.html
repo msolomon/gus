@@ -2,16 +2,28 @@
 {% block pagetitle %}Bills for the User{%endblock%}
 {% block content %}
 
-<div style="width:250px">
+
+<p>
+{% if not bills %}
+  No Bills.
+{% endif %}
 {% for bill in bills %}
   {{bill}}
 {% endfor %}
-</div>
+</p>
 
-<div style="width:250px">
-{% for bill in adminBills %}
-  {{bill}}
+<p>
+<table>
+{% for group in adminGroups %}
+  <tr>
+  <th>{{group.group_name|capfirst}} [<a  href='/bill/Add/{{group.id}}/'>Add</a>]</th></tr>
+  {% for bill in group.my_bills %}<tr>
+    <td> </td>
+    <td>{{bill}} [<a href='/bill/'>Delete</a>]</td>
+     </tr>
+  {% endfor %}
 {% endfor %}
-</div>
+</table>
+</p>
 
 {%endblock%}

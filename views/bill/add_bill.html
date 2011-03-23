@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}
+Add Bill
+{% endblock pagetitle %}
+
+{% block content %}
+<h3>Add a Bill For Group {{group.group_name}}</h3>
+<form method="POST">
+{%csrf_token%}
+{{ form.as_p }}
+<input type="SUBMIT" value="Create Bill">
+</form>
+
+{% endblock content %}
