@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from gus_forum.models import *
 from gus_users.models import *
+from gus_roles.models import *
 from django import forms
 
 class new_forum_form (forms.Form): 
@@ -33,9 +34,9 @@ def index(request, group_id):
 #		return HttpResponse("Invalid Permissions to View These Forums")
 	#End
 
-	groups_forums = gus_forum.forum.objects.filter(group = request_for_group)
+	groups_forums = forum.objects.filter(group = request_for_group)
 
-	return render_to_response('forum/forums.html', {"forums":groups_forums}, context_instance=RequestContext(request))
+	return render_to_response('forum/forums.html', {"forums":groups_forums, "group":request_for_group}, context_instance=RequestContext(request))
 #End
 
 def view_threads(request, group_id, forum_id):
@@ -93,7 +94,18 @@ def add_forum(request, group_id):
 #		return HttpResponse("Invalid Permissions to Add a Forum")
 	#End
 
-	form = new_forum_form()
+	if request.method == 'POST':
+		form = new_forum_form(request.POST)
+		if form.is_valid():
+			form.cleaned_data["Name"],
+			form.cleaned_data["Description"]
+			forum.objects.create_forum(form.cleaned_data["Name"], form.cleaned_data["Description"], request_for_group)
+			return HttpResponseRedirect('/forum/%s' %group_id)
+		#End
+	#End
+	else:
+		form = new_forum_form() 
+	#End
 
 	return render_to_response('forum/add_forum.html', {"group":request_for_group, "form":form}, context_instance=RequestContext(request))
 #End
