@@ -23,7 +23,6 @@ def index(request):
 	if not request.user.is_authenticated():
 	   return HttpResponseRedirect('/login/')
 	usr = request.user
-	usr = gus_user.objects.get(pk = 1)
 	bills = bill.objects.filter(user = usr.id)
 	#returns all the roles which the usr is an Owner
 	
@@ -68,3 +67,11 @@ def AddBill(request,group_id=-1):
   return render_to_response('bill/add_bill.html',{"group":bill_grp,'form':form},
 			    context_instance=RequestContext(request))
   return HttpResponse("Adding a bill to group %s"%group_id)
+
+def DeleteBill(request,bill_id=-1):
+  try:
+    b = bill.objects.get(pk=bill_id)
+  except:
+    return HttpResponse('Bill Not Found')
+  b.delete()
+  return HttpResponseRedirect('/bill/')
