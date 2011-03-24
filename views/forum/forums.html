@@ -14,7 +14,7 @@
 <table>
 {% for forum in forums %}
 	<tr>
-	 <td><b><a href="/forum/{{forum.forum_name}}/threads">{{forum.forum_name}}</a></b><br />
+	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}">{{forum.forum_name}}</a></b><br />
 	  <p>{{forum.forum_description}}</p></td> 
 	 <td><a href="">Last Post on ?/??/??</a><br />
 	  by <a href="">User</a></td>
