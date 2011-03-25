@@ -7,7 +7,6 @@
 gus.db
 guspy.db
 .pydevproject
-.project
 
 ## specific files/directories
 # include only generated html

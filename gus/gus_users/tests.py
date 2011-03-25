@@ -29,7 +29,7 @@ class UsersTest(TestCase):
     
         self.failUnlessEqual(len(usr), 1, "could not create user")
     
-    #added 2/11 ~jora    n
+    #added 2/11 ~joran
     def test_users_duplicates(self):
         """
         test user duplication, this should not be allowed and will fail if 
