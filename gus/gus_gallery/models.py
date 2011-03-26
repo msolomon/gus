@@ -3,9 +3,6 @@
 # Stephen Fischer
 # January 2011
 #
-# TODO: Figure out where to actually save image files, update the gus_image class to reflect that
-# TODO: See if I'm doing the gus_image queries right in gus_gallery.get_images and gus_gallery.delete. It builds, but that doesn't mean it works!
-# TODO: Overwrite the __init__ methods to do some basic validation, or do it in the save() functions?
 
 from django.db import models
 from django.forms import ModelForm
@@ -76,7 +73,7 @@ class gus_image(models.Model):
     """
     date_created = models.DateTimeField(auto_now_add=True)
     gallery = models.ForeignKey(gus_gallery)
-    image_path = models.CharField(max_length=500)
+    image = models.ImageField(upload_to='images/%Y/%m')
     user = models.ForeignKey(gus_user)
 
     def __unicode__(self):
@@ -105,4 +102,14 @@ class gallery_form(ModelForm):
     """
     class Meta:
         model = gus_gallery
-        exculde = ('date_created',)
+        exclude = ('date_created', 'group', 'user')
+        fields = ('name')
+
+class image_form(ModelForm):
+    """
+    The basic form for a gus_image
+    """
+    class Meta:
+        model = gus_image
+        exclude = ('date_created', 'gallery', 'user')
+        fields = ('image')
