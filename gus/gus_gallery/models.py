@@ -72,9 +72,9 @@ class gus_image(models.Model):
     A single image belonging to a gus_gallery.
     """
     date_created = models.DateTimeField(auto_now_add=True)
-    gallery = models.ForeignKey(gus_gallery)
+    gus_gallery = models.ForeignKey(gus_gallery)
     image = models.ImageField(upload_to='images/%Y/%m')
-    user = models.ForeignKey(gus_user)
+    gus_user = models.ForeignKey(gus_user)
 
     def __unicode__(self):
         """
@@ -103,7 +103,6 @@ class gallery_form(ModelForm):
     class Meta:
         model = gus_gallery
         exclude = ('date_created', 'group', 'user')
-        fields = ('name')
 
 class image_form(ModelForm):
     """
@@ -112,4 +111,3 @@ class image_form(ModelForm):
     class Meta:
         model = gus_image
         exclude = ('date_created', 'gallery', 'user')
-        fields = ('image')

@@ -15,11 +15,11 @@
   <br/>
   {% for gal in galleries %}
     {% if gal.group == g %}
-      <a href="#">{{ gal.name }}</a><br/>
+      <a href="/gallery/{{gal.pk}}">{{ gal.name }}</a><br/>
     {% endif %}
   {% endfor %}
 
-  <a href="/gallery/add/">Create New Gallery</a><br/>
+  <a href="/gallery/add/{{g.pk}}">Create New Gallery</a><br/>
   <br/><br/>
 {% endfor %}
 {% endblock %}

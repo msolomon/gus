@@ -13,7 +13,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('gus.gus_gallery.views',
     (r'^([0-9])', 'single'),        # /gallery/5/
-    (r'^add/', 'add'),              # /gallery/add/
+    (r'^add/[0-9]', 'add'),              # /gallery/add/5/
     (r'^delete/([0-9])', 'delete'), # /gallery/delete/5/
     (r'^edit/([0-9])', 'edit'),     # /gallery/edit/5/
     (r'^', 'index'),                # /gallery/
