@@ -12,7 +12,7 @@ Created by: <a href="#">{{gallery.user.username}}</a> on {{gallery.date_created|
   <a href="/gallery/image/delete/{{i.id}}">Delete</a>]
   <br/>
   
-  <img src="{{MEDIA_URL}}{{i.image.url}}"/>
+  <img src="{{i.image.url}}"/>
   <br/>
 
   {{i.description}}
