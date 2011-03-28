@@ -2,8 +2,21 @@
 {% block pagetitle %}{{gallery}} - Image Gallery{% endblock %}
 
 {% block content %}
-<h3>{{gallery}}</h3>
-<br/>
+<h3>{{gallery}} [<a href="/gallery/image/add/{{gallery.pk}}">Add Image</a>]</h3>
+Created by: <a href="#">{{gallery.user.username}}</a> on {{gallery.date_created|date:"l, F jS, Y"}}
+<br/><br/>
 
+{% for i in images %}
+  <b>{{i.name}}</b>
+  [<a href="/gallery/image/edit/{{i.id}}">Edit</a> /
+  <a href="/gallery/image/delete/{{i.id}}">Delete</a>]
+  <br/>
+  
+  <img src="{{MEDIA_URL}}{{i.image.url}}"/>
+  <br/>
+
+  {{i.description}}
+  <br/><br/>
+{% endfor %}
 
 {% endblock %}

@@ -11,15 +11,17 @@
 
 <!-- Print a list of the groups that the user belongs to, and each of the galleries for each group -->
 {% for g in groups %}
-  <b>{{ g.group_name }}</b>
+  <b>{{ g.group_name }}</b> [<a href="/gallery/add/{{g.pk}}">Add Gallery</a>]
   <br/>
   {% for gal in galleries %}
     {% if gal.group == g %}
-      <a href="/gallery/{{gal.pk}}">{{ gal.name }}</a><br/>
+      <a href="/gallery/{{gal.pk}}">{{ gal.name }}</a> [
+      <a href="/gallery/edit/{{gal.pk}}">Edit</a> / 
+      <a href="/gallery/delete/{{gal.pk}}">Delete</a>]
+      <br/>
     {% endif %}
   {% endfor %}
+  <br/>
 
-  <a href="/gallery/add/{{g.pk}}">Create New Gallery</a><br/>
-  <br/><br/>
 {% endfor %}
 {% endblock %}

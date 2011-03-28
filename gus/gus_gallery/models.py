@@ -3,6 +3,8 @@
 # Stephen Fischer
 # January 2011
 #
+# TODO: Create a smarter gus_gallery.delete() that will delete all the associated images
+#   at the same time.
 
 from django.db import models
 from django.forms import ModelForm
@@ -27,17 +29,6 @@ class gus_gallery(models.Model):
         """
         return self.name;
 
-    def delete(self):
-        """
-        Deletes the gallery and all the images associated with it.
-        """
-        images = self.get_images()
-        if images != None:
-            for i in images:
-                i.delete()
-        
-        super(gus_gallery, self).delete()
-
     def add_image(self, img):
         """
         Adds a given image to the gallery.
@@ -53,7 +44,7 @@ class gus_gallery(models.Model):
         @return: An array of images in the gallery.
         """
         try:
-            return gus_image.objects.filter(gallery_id=self)
+            return gus_image.objects.filter(gallery=self)
         except:
             return None
 
@@ -72,10 +63,12 @@ class gus_image(models.Model):
     A single image belonging to a gus_gallery.
     """
     date_created = models.DateTimeField(auto_now_add=True)
-    gus_gallery = models.ForeignKey(gus_gallery)
-    image = models.ImageField(upload_to='images/%Y/%m')
-    gus_user = models.ForeignKey(gus_user)
-
+    description = models.CharField(max_length=1000)
+    gallery = models.ForeignKey(gus_gallery)
+    image = models.ImageField(upload_to='gallery/%Y/%m')
+    name = models.CharField(max_length=500)
+    user = models.ForeignKey(gus_user)
+    
     def __unicode__(self):
         """
         When referencing the image object, return its URL path.
@@ -83,7 +76,7 @@ class gus_image(models.Model):
         @rtype: string
         @return: The path to the image file on the server.
         """
-        return self.image_path
+        return self.name
 
     def delete(self):
         """
@@ -102,7 +95,8 @@ class gallery_form(ModelForm):
     """
     class Meta:
         model = gus_gallery
-        exclude = ('date_created', 'group', 'user')
+        # LOL: Taking that comma away breaks the form... so don't do it
+        fields = ('name',)
 
 class image_form(ModelForm):
     """
@@ -110,4 +104,15 @@ class image_form(ModelForm):
     """
     class Meta:
         model = gus_image
-        exclude = ('date_created', 'gallery', 'user')
+        fields = ('image',
+                  'name',
+                  'description')
+
+class image_edit_form(ModelForm):
+    """
+    The basic form for editing a gus_image
+    """
+    class Meta:
+        model = gus_image
+        fields = ('name',
+                  'description')
