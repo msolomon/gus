@@ -89,13 +89,12 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'gus.gus_gallery',
     'gus.gus_groups',
     'gus.gus_roles',
     'gus.gus_users',
@@ -111,7 +110,13 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-)
+]
+try:
+    import Image
+except ImportError:
+    print 'PIL is not installed, skipping image gallery...'
+else:
+    INSTALLED_APPS.append('gus.gus_gallery')
 
 #The first line of code sets a custom test runner, instead of the default one django uses. We need the custom one
 # in order to include the coverage library that will run our coverage tests.
