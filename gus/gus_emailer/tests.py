@@ -3,10 +3,15 @@ from django.core import mail
 from time import localtime, strftime
 from gus.gus_emailer.models import *
 from gus.gus_users.models import *
+from gus.gus_groups.utils import *
 
 class EmailSystemTest(TestCase):
     def setUp(self):
-        gus_user.objects.create_user('testuser', 'guspyuser@gmail.com', 'password')
+        owner = gus_user.objects.create_user('owner', 'guspyuser@gmail.com', 'password')
+        member = gus_user.objects.create_user('testuser', 'guspyuser@gmail.com', 'password')
+        grp = createNewGroup(owner, 'My awesome group', 'test group')
+        roles = getGroupRoles(grp)
+        roles[2].addUser(member)
         self.usr = gus_user.objects.get(pk=1)
         
     def test_emailer(self):

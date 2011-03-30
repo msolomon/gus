@@ -45,10 +45,11 @@ class Emailer(models.Model):
             @param email: the email object
             @type email: mail.EmailMessage
         '''      
-        groups = [x.group() for x in gus_role.objects.with_user(self.user)]
+        groups = [x.group for x in gus_role.objects.with_user(self.user)]
         # list of tuples (group, list of group users)
-        ## group_users = [(g, [u for u in gus_role.objects.users_with_group(g)]) for g in groups]
-        all_users = [u.getEmail() for u in [gus_role.object.users_with_group(g) for g in groups]]
+        all_users = [u.getEmail() for sublist in 
+                        [gus_role.objects.users_with_group(g) for g in groups]
+                        for u in sublist]
         email.send()
 
     def send_message(self, subject, message, recipient_list, connection=None):
