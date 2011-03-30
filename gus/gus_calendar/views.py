@@ -94,6 +94,11 @@ def month(request, year=None, month=None):
 
 
 def day(request, year, month, day):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    usr = request.user
+ 
+    
     month_name = month
     month = month_names.index(month) + 1
 
@@ -103,7 +108,7 @@ def day(request, year, month, day):
         if form.is_valid():
             event = form.save(commit=False)
             #for event in events:
-            #event.creator = request.user
+            event.creator = usr
             event.start_date = date(int(year), int(month), int(day))
             event.save()
 
@@ -124,14 +129,19 @@ def day(request, year, month, day):
 
 
 
-def day_edit(request, year, month, day):
+def day_edit(request, year, month, day, urlRequest, event_id):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    usr = request.user
+ 
+    
     month_name = month
     month = month_names.index(month) + 1
 
     if request.method == "POST":
 
         #edit = Gus_event.objects.get(creator=request.user)
-        edit = Gus_event.objects.get(pk=1)
+        edit = Gus_event.objects.filter(pk=event_id)
         form = Event_form(request.POST, instance=edit) 
         print "editing"
         if form.is_valid():
