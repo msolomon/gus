@@ -42,9 +42,10 @@ def register(request):
     return render_to_response("users/register.html")
 
 
-def users_groups(request):
-    usr=gus_user.objects.get(pk=1)
+def users_groups(urlRequest,user_id):
+    try:
+        usr = gus_user.objects.get(pk=user_id)
+    except:
+        return HttpResponse("This User Does not exist<br/>")
     my_roles=gus_role.objects.with_user(usr)
-    return render_to_response('users/grouplisting.html', {'roles':my_roles})
-
-
+    return render_to_response('users/grouplisting.html', {'roles':my_roles}, context_instance=RequestContext(urlRequest))

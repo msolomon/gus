@@ -4,11 +4,15 @@ Your Groups
 {% endblock pagetitle %}
 
 {% block content %}
-<h4>Your Groups:</h4>
+<h4>Your Groups:<hr/>
 <p></p>
 <ul>
+{% if not roles %}
+Not a member in any groups
+{% else %}
 {% for role in roles %}
 <li><a href="../gus_test/Group/Edit/{{role.group.id}}/">{{role.group.group_name}}</a> - {{role.group.group_description}}</li>
 {% endfor %}
+{% endif %}
 </ul>
 {% endblock content %}
