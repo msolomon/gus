@@ -1,19 +1,27 @@
 """
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
+This File Tests the Functionality of the gus_group module
+for the python implementation of guspy
 
-This tests general group functionality
-
-Replace these with more appropriate tests for your application.
 """
 
 from django.test import TestCase
 from django.db import IntegrityError
 from gus.gus_groups.models import gus_group
+from gus.gus_users.models import gus_user
+from gus.gus_roles.models import gus_role
+from gus.gus_groups.utils import createNewGroup
 
-class SimpleTest(TestCase):
+
+class GusGroupTest(TestCase):
+    """
+    This class shall test the core functionality of the 
+    gus_group module
+    """
     testGroupName = "test_group"
-
+    
+    def setUp(self):
+        self.test_user = gus_user.objects.create_user("test","test2","test3")
+        self.test_user1 = gus_user.objects.create_user("testMember","test2","test3")
     def test_basic_groupCreateDelete(self):
         """
         tests that a group can be created successfully
@@ -58,5 +66,16 @@ class SimpleTest(TestCase):
         grp = gus_group.objects.filter(group_name=self.testGroupName)
         self.failUnlessEqual("Altered Description", grp[0].group_description, 'Unable to edit group description')
         
-        
-        
+    def test_abstract_group_creation(self):
+        """
+        Tests the functionality of gus_groups.utility.createNewGroup
+        Helper, as well as gus_group.addUser
+        """
+        grp = createNewGroup(self.test_user,self.testGroupName,"asd","")
+        grp.addUser(self.test_user1)
+        try:
+            testRole=self.test_user1.roles[0]
+            self.failUnless(testRole._role_name=="Member" or testRole._role_group==grp,
+                            "gus_group.addUser Failure")
+        except:
+            self.fail("No Role Found For User,Should have a role")
