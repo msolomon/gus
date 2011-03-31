@@ -5,19 +5,20 @@
 {% endblock pagetitle %}
 
 {% block content %}
-	<!--------------------------------------------
-	 |Thread Name          | Last Post on ?/??/?? |
-	 |Thread Creator       | by User              |
-	---------------------------------------------->
+	<!-------------------------------------------------------------
+	 |Thread Name          | Last Post on ?/??/?? | Delete Thread |
+	 |Thread Creator       | by User              |               |
+	 ------------------------------------------------------------->
 <a href="/forum/{{group.id}}/{{forum.id}}/add_thread">New Thread</a>
 
-<table>
+<table border="1" cellpadding="6">
 {% for thread in threads %}
 	<tr>
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.thread_name}}</a></b><br />
-	  <p>{{thread.thread_user.get_full_name}}</p></td> 
-	 <td><a href="">Last Post on ?/??/??</a><br />
-	  by <a href="">User</a></td>
+	  by <a href="">{{thread.user.username|capfirst}}</td> 
+	 <td>Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.LastPostThread.id}}">{{thread.LastPostDate}}</a><br />
+	  by <a href="">{{thread.LastPostUser.username|capfirst}}</a></td>
+	 <td> <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/delete_thread">Delete Thread</a>
 	</tr>
 {% endfor %}
 </table>

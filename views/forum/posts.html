@@ -6,20 +6,27 @@
 
 {% block content %}
 	<!--------------------------------------------
-	 |Poster Name                     Posted Date|
+	 |Poster Name          |          Posted Date|
 	 ---------------------------------------------
 	 |Post Text                                  |
-	--------------------------------------------->
+	 ---------------------------------------------
+	 | Post Reply   Edit Post   Delete Post      |
+	 |------------------------------------------->
 <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a>
 
-<table>
+<table border="1" cellpadding="6">
 {% for post in posts %}
 	<tr>
-	 <th><b><a href="">{{post.user.get_full_name}}</a></th>
-	 <th></b>{{post.date_created}}</th>
+	 <th><b><a href="">{{post.user.username|capfirst}}</a></th>
+	 <th colspan="2"></b>{{post.date_created}}</th>
+	</tr>
+	<tr colspan="3">
+	 <td colspan="3">{{post.post_text}}</td>
 	</tr>
 	<tr colspan="2">
-	 <td>{{post.post_text}}</td>
+	 <td><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a></td>
+	 <td><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/edit_post">Edit Post</a></td>
+	 <td><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/delete_post">Delete Post</a></td>
 	</tr>
 {% endfor %}
 </table>
