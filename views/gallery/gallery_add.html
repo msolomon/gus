@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block pagetitle %}Add Image Gallery{% endblock %}
+
+{% block content %}
+<h3>Add Image Gallery</h3>
+
+<form action="" method="post">
+  {{gallery_form.as_p}}
+  {% csrf_token %}
+  <input type="submit" value="Create Gallery"/>
+</form>
+<a href="/gallery">Cancel</a>
+{% endblock %}

@@ -3,6 +3,17 @@ gus
 =====
 Groups in a University Setting
 --------------------------------
+ 
+Links
+*****
+`Live Server 
+<http://guspy.joranbeasley.com>`_
+
+`Reports Page
+<http://guspy.joranbeasley.com/reports/index.html>`_
+
+`Project Management
+<http://test.joranbeasley.com/project_management>`_
 
 :Development Team:
 	- Mike Solomon

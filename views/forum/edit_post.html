@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block pagetitle %}
-{{group.group_name}} : {{forum.forum_name}} : Threads : New Thread
+{{group.group_name}} : {{forum.forum_name}} : {{thread.thread_name}} : {{post.user..username|capfirst}}'s post : Edit Post
 {% endblock pagetitle %}
 
 {% block content %}
@@ -9,7 +9,7 @@
  <form method="POST">
   {%csrf_token%}
   {{form.as_p}}
-  <input type="SUBMIT" value="Create Thread">
+  <input type="SUBMIT" value="Save">
  </form>
 
 {% endblock content %}

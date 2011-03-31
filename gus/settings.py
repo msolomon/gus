@@ -48,12 +48,12 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_PATH, '../views')
+MEDIA_ROOT = os.path.join(PROJECT_PATH, '../media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-#  MEDIA_URL = "include/" - this is set in root urls.py to allow dynamic urls
+MEDIA_URL = "/include/"
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -89,13 +89,12 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'gus.gus_gallery',
     'gus.gus_groups',
     'gus.gus_roles',
     'gus.gus_users',
@@ -111,7 +110,13 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-)
+]
+try:
+    import Image
+except ImportError:
+    print 'PIL is not installed, skipping image gallery...'
+else:
+    INSTALLED_APPS.append('gus.gus_gallery')
 
 #The first line of code sets a custom test runner, instead of the default one django uses. We need the custom one
 # in order to include the coverage library that will run our coverage tests.

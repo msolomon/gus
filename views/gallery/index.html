@@ -1,18 +1,27 @@
-<h1>Your Image Galleries</h1>
+{% extends "base.html" %}
+{% block pagetitle %}Image Galleries{% endblock %}
 
-{% if groups == None %}<b>You aren't a member of any groups!</b> {% endif %}
+{% block content %}
+<h3>Image Galleries</h3>
+<br/>
 
-<!-- Print a list of the groups that the user belongs to, and each of the galleries for each group -->
-{% for g in groups.all %}
-<h2>{{g.name}}</h2>
-
-{% for gal in galleries.all %}
-
-{% if gal.group == g %}
-<a href="#">{{gal.name}}</a><br/>
+{% if groups == None %}
+  <b>You aren't a member of any groups!</b>
 {% endif %}
 
+<!-- Print a list of the groups that the user belongs to, and each of the galleries for each group -->
+{% for g in groups %}
+  <b>{{ g.group_name }}</b> [<a href="/gallery/add/{{g.pk}}">Add Gallery</a>]
+  <br/>
+  {% for gal in galleries %}
+    {% if gal.group == g %}
+      <a href="/gallery/{{gal.pk}}">{{ gal.name }}</a> [
+      <a href="/gallery/edit/{{gal.pk}}">Edit</a> / 
+      <a href="/gallery/delete/{{gal.pk}}">Delete</a>]
+      <br/>
+    {% endif %}
+  {% endfor %}
+  <br/>
+
 {% endfor %}
-<a href="#">Create New Gallery</a><br/>
-<br/><br/>
-{% endfor %}
+{% endblock %}

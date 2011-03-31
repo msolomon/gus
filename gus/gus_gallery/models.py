@@ -3,9 +3,8 @@
 # Stephen Fischer
 # January 2011
 #
-# TODO: Figure out where to actually save image files, update the gus_image class to reflect that
-# TODO: See if I'm doing the gus_image queries right in gus_gallery.get_images and gus_gallery.delete. It builds, but that doesn't mean it works!
-# TODO: Overwrite the __init__ methods to do some basic validation, or do it in the save() functions?
+# TODO: Create a smarter gus_gallery.delete() that will delete all the associated images
+#   at the same time.
 
 from django.db import models
 from django.forms import ModelForm
@@ -30,17 +29,6 @@ class gus_gallery(models.Model):
         """
         return self.name;
 
-    def delete(self):
-        """
-        Deletes the gallery and all the images associated with it.
-        """
-        images = self.get_images()
-        if images != None:
-            for i in images:
-                i.delete()
-        
-        super(gus_gallery, self).delete()
-
     def add_image(self, img):
         """
         Adds a given image to the gallery.
@@ -56,7 +44,7 @@ class gus_gallery(models.Model):
         @return: An array of images in the gallery.
         """
         try:
-            return gus_image.objects.filter(gallery_id=self)
+            return gus_image.objects.filter(gallery=self)
         except:
             return None
 
@@ -75,10 +63,12 @@ class gus_image(models.Model):
     A single image belonging to a gus_gallery.
     """
     date_created = models.DateTimeField(auto_now_add=True)
+    description = models.CharField(max_length=1000)
     gallery = models.ForeignKey(gus_gallery)
-    image_path = models.CharField(max_length=500)
+    image = models.ImageField(upload_to='gallery/%Y/%m')
+    name = models.CharField(max_length=500)
     user = models.ForeignKey(gus_user)
-
+    
     def __unicode__(self):
         """
         When referencing the image object, return its URL path.
@@ -86,7 +76,7 @@ class gus_image(models.Model):
         @rtype: string
         @return: The path to the image file on the server.
         """
-        return self.image_path
+        return self.name
 
     def delete(self):
         """
@@ -105,4 +95,24 @@ class gallery_form(ModelForm):
     """
     class Meta:
         model = gus_gallery
-        exculde = ('date_created',)
+        # LOL: Taking that comma away breaks the form... so don't do it
+        fields = ('name',)
+
+class image_form(ModelForm):
+    """
+    The basic form for a gus_image
+    """
+    class Meta:
+        model = gus_image
+        fields = ('image',
+                  'name',
+                  'description')
+
+class image_edit_form(ModelForm):
+    """
+    The basic form for editing a gus_image
+    """
+    class Meta:
+        model = gus_image
+        fields = ('name',
+                  'description')
