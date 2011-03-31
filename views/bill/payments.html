@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}
+Payments
+{% endblock pagetitle %}
+
+{% block content %}
+Current Balance: {{balance}}
+
+<h3>Previous Payments</h3>
+{% if not payments %}
+  No payments associated with the bill: {{bill.name|capfirst}}
+{% endif %}
+
+<table>
+  <tr>
+  <th>{{bill.name|capfirst}}</th></tr>
+{% for payment in payments %}
+  <td></td>
+  <td>{{payment}}</td>
+  </tr>
+{% endfor %}
+</table>
+
+
+<h3>Payments for Bill {{bill.name}}</h3>
+<form method="POST">
+{%csrf_token%}
+{{ form.as_p }}
+<input type="SUBMIT" value="Submit">
+</form>
+
+{% endblock content %}
+ 

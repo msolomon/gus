@@ -7,6 +7,10 @@ from gus.gus_users.models import *
 from gus.gus_bill.models import *
 from django import forms
 
+class payment_bill_form(forms.Form):
+  Value = forms.FloatField(min_value=0)
+
+
 class new_bill_form(forms.Form):
   Name = forms.CharField(max_length = 25)
   Value = forms.IntegerField(min_value=0)
@@ -23,7 +27,7 @@ def index(request):
 	if not request.user.is_authenticated():
 	   return HttpResponseRedirect('/login/')
 	usr = request.user
-	bills = bill.objects.filter(user = usr.id)
+	bills = bill.objects.filter(user = usr.id).exclude(name__contains="_archive")
 	#returns all the roles which the usr is an Owner
 	
 	form = new_bill_form()
@@ -42,8 +46,9 @@ def index(request):
 		
 		
 
-	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":adgroups, "formFint":form}, context_instance=RequestContext(request))
+	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":adgroups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
 	
+#AddBill
 def AddBill(request,group_id=-1):
   try:
 	bill_grp = gus_group.objects.get(pk=group_id)
@@ -60,18 +65,47 @@ def AddBill(request,group_id=-1):
       bill_rcpt = form.cleaned_data['user']
       bill.objects.create_bill(bill_rcpt, bill_grp, bill_name, bill_val)
       pass
-  else:
+      return HttpResponseRedirect('/bill/')
     #no form data recieved
-    form = new_bill_form()
-    
-  return render_to_response('bill/add_bill.html',{"group":bill_grp,'form':form},
+  form = new_bill_form()    
+  return render_to_response('bill/add_bill.html',{'group':bill_grp,'form':form},
 			    context_instance=RequestContext(request))
-  return HttpResponse("Adding a bill to group %s"%group_id)
 
+#Delete
 def DeleteBill(request,bill_id=-1):
   try:
     b = bill.objects.get(pk=bill_id)
   except:
     return HttpResponse('Bill Not Found')
   b.delete()
+  return HttpResponseRedirect('/bill/')
+
+#PAYMENTS
+#class payment_bill_form(forms.Form):
+#  Value = forms.FloatField(min_value=0)
+
+def Payments(request, bill_id=-1):
+  try:
+    b = bill.objects.get(pk=bill_id)
+  except:
+    return HttpResponse('Bill Not Found')
+  paymnts = payment.objects.filter(mybill = b)
+  if request.method == "POST":
+    form = payment_bill_form(request.POST)
+    if form.is_valid():
+      bill_payment = form.cleaned_data['Value']
+      b.make_payment(bill_payment)
+      pass
+  else:
+    form = payment_bill_form()
+  balance = b.value - b.paid_balance()
+  return render_to_response('bill/payments.html',{'payments':paymnts,'form':form, 'bill':b, 'balance':balance},
+			    context_instance=RequestContext(request))
+  
+def Archive(request, bill_id=-1):
+  try:
+    b = bill.objects.get(pk=bill_id)
+  except:
+    return HttpResponse('Bill Not Found')
+  b.archive()
   return HttpResponseRedirect('/bill/')
