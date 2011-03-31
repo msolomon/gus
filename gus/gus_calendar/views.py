@@ -113,7 +113,7 @@ def day(request, year, month, day):
             event.save()
 
 #            return HttpResponseRedirect("calendar/month_view.html")
-            response = request.META['HTTP_REFERER'].rstrip('/')
+            response = request.META['HTTP_REFERER'].rstrip('/').rstrip('/)')
             splice = response.rfind('/')
             return HttpResponseRedirect(response[:splice] + '/')
             
@@ -129,11 +129,12 @@ def day(request, year, month, day):
 
 
 
-def day_edit(request, year, month, day, urlRequest, event_id):
+def day_edit(request, year, month, day, event_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
  
+    edit = Gus_event.objects.get(pk=event_id)
     
     month_name = month
     month = month_names.index(month) + 1
@@ -141,17 +142,15 @@ def day_edit(request, year, month, day, urlRequest, event_id):
     if request.method == "POST":
 
         #edit = Gus_event.objects.get(creator=request.user)
-        edit = Gus_event.objects.filter(pk=event_id)
-        form = Event_form(request.POST, instance=edit) 
+        
+        form = Event_form(request.POST) 
         print "editing"
         if form.is_valid():
-            event = form.save()
-                #event = form.save(commit=False)
+            event = form.save()#commit=False)
             #for event in events:
-            #event.creator = request.user
-                #event.start_date = date(int(year), int(month), int(day))
-            #if form.fields['delete'] != False:
-             #   event.delete_event()
+            #event.creator = usr
+            #event.start_date = date(int(year), int(month), int(day))
+            #event.save()
 
 #            return HttpResponseRedirect("calendar/month_view.html")
             response = request.META['HTTP_REFERER'].rstrip('/')
@@ -159,7 +158,7 @@ def day_edit(request, year, month, day, urlRequest, event_id):
             return HttpResponseRedirect(response[:splice] + '/')
             
     else:
-        form = Event_form()
+        form = Event_form(instance=edit)
         
     return render_to_response("calendar/day_edit_view.html", 
                               {'event_form': form, 

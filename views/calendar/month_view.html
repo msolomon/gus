@@ -56,7 +56,7 @@
               valign="top"
               onmouseover=this.style.backgroundColor='#36648B';this.style.cursor='pointer'
               onmouseout=this.style.backgroundColor='#C1CDCD' 
-              onclick= "top.location='/calendar/{{year}}/{{month_name}}/{{day}}/'">
+              onclick= "top.location='/calendar/{{year}}/{{month_name}}/{{day}}'">
              
               {% endif %}
               
@@ -64,7 +64,7 @@
                 {{ day }}
                 {% for event in events %}
                     <br>
-                    <b><a href="/calendar/{{year}}/{{month_name}}/_edit{{day}}/">{{ event.event_name }}</a></b>
+                    <b><a href="/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event.pk}}">{{ event.event_name }}</a></b>
                {% endfor %}
             {% endif %}
             </td>
