@@ -47,4 +47,9 @@ def users_groups(request):
     my_roles=gus_role.objects.with_user(usr)
     return render_to_response('users/grouplisting.html', {'roles':my_roles})
 
+def profile(request):
+    return render_to_response("users/profile.html")
+    
+
+
 
