@@ -2,12 +2,12 @@
 {% block content %}
 <h4>Events</h4>
 
-<form action="/calendar/{{year}}/{{month_name}}/_edit{{day}}/"
+<form action="/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event_id}}/"
 method="POST">
 {% csrf_token %}
 {{event_form.as_p}}
-{{event.event_name}}
-<input type="submit" value="save">
+
+<input type="submit" value="Save Changes">
 </form>
 
 {% endblock content %}
