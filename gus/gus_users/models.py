@@ -90,7 +90,12 @@ class gus_user(models.Model):
         @return: True
         """
         return self._user.is_authenticated()
-    
+    def group_role(self,group):
+        from gus_roles.models import gus_role
+        return gus_role.objects.with_user_in_group(group,self)
+    def has_group_perm(self,group,perm):
+        r = self.group_role(group)
+        return r.has_perm(perm)
     def get_full_name(self):
         return self._user.get_full_name()
     
@@ -224,7 +229,7 @@ class gus_user(models.Model):
         """
         return all roles associated with group
         """
-        from gus.gus_roles.models import gus_role
+        from gus_roles.models import gus_role
         
         return gus_role.objects.filter(_role_users=self._user.id)
     

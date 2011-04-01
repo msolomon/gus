@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>{{ group }} <a href="/email/Group/{{group.id}}/">Email Group</a></h2>
+<a href="/forum/{{group.id}}/">Group Forums</a>
 <p>{{ group.group_description }}</p>
 <hr />
 {% for role in roles %}
