@@ -41,13 +41,14 @@ class GroupManager(models.Manager):
 
 # Create your models here.
 # Example documentation for pydoc included
+#from gus_roles.models import  gus_role
 class gus_group(models.Model):
     """
     class gus_group  is our model of a group
     it shall encompass both the data and discreet functionality of groups
     @author: Joran    
     """
-    
+
     #Our Fields
         #Django recommends using OneToOne Fields to extend built in models
     group_name = models.CharField(max_length=100,unique=True) #the group name
@@ -55,7 +56,6 @@ class gus_group(models.Model):
     
     group_description = models.TextField()         #the group description
     group_image = models.CharField(max_length=50)
-    
     
     def addUser(self,user,role=None):
         """"
@@ -74,9 +74,10 @@ class gus_group(models.Model):
         @return: The role that the user has been added to.
         @rtype: <gus_role>      
         """
-        from gus.gus_roles.models import gus_role
+        
         if not role:
             try:
+                from gus_roles.models import gus_role
                 r=gus_role.objects.get(_role_group=self,_role_name="Member")
             except:
                 print "Error No Role Found"
@@ -95,8 +96,13 @@ class gus_group(models.Model):
             self.group_description or "(None)",
             self.group_image or "(None)",
             )
-                
-    
+    def getRoles(self):
+        from gus_roles.models import gus_role
+        return gus_role.objects.filter(_role_group=self)
+    def getUsers(self):
+        from gus_roles.models import gus_role
+        roles = gus_role.objects.filter(_role_group=self)
+        return [j for j in [x.users.all() for x in roles ]]
     objects = GroupManager() # our custom relationships
     class Meta:
         verbose_name = 'group'
@@ -111,5 +117,5 @@ class gus_group(models.Model):
         @return:  the default string for built in django.User.
         """
         return "Group: %s" % self.group_name or '(Not Defined)'
-
+    roles=property(getRoles)
     

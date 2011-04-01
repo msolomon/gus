@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>Events</h4>
+<h4>Upload News Item</h4>
 
-<form action="/calendar/{{year}}/{{month_name}}/{{day}}/"
-method="POST">
+<form action="/news/edit" method="POST">
 {% csrf_token %}
-{{event_form.as_p}}
-
-<input type="submit" value="Save">
+{{News_form.as_p}}
+<input type="submit" value="save">
 </form>
 
 {% endblock content %}

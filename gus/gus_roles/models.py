@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import Group
-from gus.gus_groups.models import gus_group
-from gus.gus_users.models import gus_user
+from gus_groups.models import gus_group
+from gus_users.models import gus_user
 # Create your models here.
 
 class RoleManager(models.Manager):
@@ -54,13 +54,13 @@ class RoleManager(models.Manager):
             return None
 
     def users_without_role(self, role):
-	"""
-	will return all the users without a role
-	@param role: The role to find that users don't have
-	@type role: L{gus_role<gus.gus_roles.models.gus_role>}
-	@rtype: List
-	@return: a list of all users that don't have the given role
-	"""
+        """
+    will return all the users without a role
+    @param role: The role to find that users don't have
+    @type role: L{gus_role<gus.gus_roles.models.gus_role>}
+    @rtype: List
+    @return: a list of all users that don't have the given role
+        """
         id_list = [u.id for u in role.users.all()]
         return gus_user.objects.exclude(_user__in=id_list)
     
@@ -210,7 +210,7 @@ class gus_role(models.Model):
         perms = self._role_permissions.permissions.all()
         if not perms.count() : return False
         for i in perms:
-            if i == perm: return True
+            if i.name == perm: return True
         return False
     
     #define how to display our object in the html
@@ -283,7 +283,9 @@ class gus_role(models.Model):
         @return: the name of our role
         """
         return self._role_name
-    
+    def getPerms(self):
+        return self._role_permissions.permissions
+
     #GETTER/SETTER enabled ... hackish
     #GETTERS AND SETTERS WILL BE USED (!Include simillar code in all classes)
     #getter and setter hooks , these must be setup if you wish to 
@@ -296,3 +298,4 @@ class gus_role(models.Model):
     group = property(getGroup, setGroup)
     #name hook to get the rolename but not allow setting of it
     name  = property(getName, setName)
+    permissions=property(getPerms)

@@ -78,13 +78,9 @@ def gallery_edit(urlRequest, gallery_id):
 
     if urlRequest.method == "POST":
         # If the user just posted data to the form, and it validates, update it
-        the_form = gallery_form(urlRequest.POST)
+        the_form = gallery_form(urlRequest.POST, instance=gallery)
         if the_form.is_valid():
-            # Save the gallery, take the user back to the list of galleries
-            # TODO: Find a better way to do this? This isn't very versatile...
-            new_gallery = the_form.save(commit=False)
-            gallery.name = new_gallery.name
-            gallery.save()
+            the_form.save()
             return HttpResponseRedirect('/gallery/')   
 
     # If the form isn't posted to us, or it doesn't validate, then we get the
@@ -193,15 +189,9 @@ def image_edit(urlRequest, image_id):
     # If the form has been posted, handle it
     if urlRequest.method == "POST":
         # If the user just posted data to the form, and it validates, update it
-        form = image_edit_form(urlRequest.POST)
-        if form.is_valid():
-            # Save the image, take the user back to the gallery
-            # TODO: Find a better way to do this? This is still bad...
-            new_image = form.save(commit=False)
-            image.name = new_image.name
-            image.description = new_image.description
-            image.save()
-            # Used backticks below to cast the gallery.id as a string
+        the_form = image_edit_form(urlRequest.POST, instance=image)
+        if the_form.is_valid():
+            the_form.save(commit=False)
             return HttpResponseRedirect('/gallery/' + `gallery.id`)
 
     # Otherwise, if the form hasn't been posted, fill it with information

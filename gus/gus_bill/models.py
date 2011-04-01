@@ -15,6 +15,10 @@ class payment(models.Model):
     amtpaid = models.FloatField()
     datepaid = models.DateField(auto_now_add = True)
 
+    def __unicode__(self):
+	return "Ammount: $%.2f, Date: %s"%(self.amtpaid, self.datepaid)
+
+
 class BillManager(models.Manager):
     def create_bill(self, user, group, name, value):
         """
@@ -120,10 +124,27 @@ class bill(models.Model):
         payment.objects.filter(mybill = self).delete()
         #uses the default delete function to delete the bill
         super(bill, self).delete()
-        
+
+    def archive(self):
+      """
+      Resets the payments on a bill to 0, so yearly bills can be re-used.
+      
+	>>>bill.reset_payment()
+      """
+      tempb = bill()
+      tempb.name = self.name
+      tempb.value = self.value
+      tempb.user = self.user
+      tempb.group = self.group
+      
+      self.name = "%s_archive"%self.name
+      self.save()
+      tempb.save()
+
     #used for the views output
     def __unicode__(self):
-	return "%s, %s: $%.2f"%(self.user, self.name, self.value)
+	curr = self.value - self.paid_balance()
+	return "%s, %s: Total: $%.2f, Payments: $%.2f, Outstanding: $%.2f"%(self.user, self.name, self.value, self.paid_balance(), curr)
 
 
 
