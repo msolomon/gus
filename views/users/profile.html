@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block pagetitle %}
+Profile
+{% endblock pagetitle %}
+
+{% block content %}
+<h3>Your Profile<hr/>
+<h5></h5>
+<ul>
+{% if not roles %}
+Not a member in any groups
+{% else %}
+{% for role in roles %}
+<li><a href="../your_group/{{role.group.id}}/">{{role.group.group_name}}</a> - {{role.group.group_description}}</li>
+{% endfor %}
+{% endif %}
+</ul>
+{% endblock content %}
