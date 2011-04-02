@@ -40,16 +40,18 @@ class Emailer(models.Model):
         self.user = usr
         self.user_email = usr.getEmail()
     
-    def sendto_group(self, email):
+    def sendto_group(self, email, group):
         ''' Email a message to the whole group.
             @param email: the email object
+            @param group: the group object
             @type email: mail.EmailMessage
         '''      
-        groups = [x.group for x in gus_role.objects.with_user(self.user)]
-        # list of tuples (group, list of group users)
-        all_users = [u.getEmail() for sublist in 
-                        [gus_role.objects.users_with_group(g) for g in groups]
-                        for u in sublist]
+        #groups = [x.group for x in gus_role.objects.with_user(self.user)]
+        emails = [u.getEmail() for u in gus_role.objects.users_with_group(group)] 
+#        all_users = [u.getEmail() for sublist in 
+#                        [gus_role.objects.users_with_group(g) for g in groups]
+#                        for u in sublist]
+        email.bcc.extend(emails)
         email.send()
 
     def send_message(self, subject, message, recipient_list, connection=None):
