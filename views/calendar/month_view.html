@@ -54,27 +54,28 @@
               valign="top"
               onmouseover=this.style.backgroundColor='#D8D8D8';this.style.cursor='pointer'
               onmouseout=this.style.backgroundColor='#A7CAE8' 
-              onclick= "top.location='/calendar/{{year}}/{{month_name}}/{{day}}/'">
+              onclick= "top.location='/calendar/{{year}}/{{month_name}}/_add{{day}}/'">
              
               {% endif %}
               
               {% if day != 0 %}
                 {{ day }}
                 <br>
-       {% comment %}        {% if events|length > 3 %} 
-                  {% for event in events|slice:":2" %}
-                  <b><a href="/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
+               {% if events|length > 2 %} 
+                  {% for event in events|slice:":1" %}
+                  <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
                   <hr size="1" noshade>
                   {% endfor %}
-                <a href="/calendar{{year}}/{{month_name}}/{{day}}/view_events/">View All Events</a>
+                <a href="/calendar/{{year}}/{{month_name}}/{{day}}/view_events/">View All Events</a>
                 
                 
                 {% else %}
-              {% endcomment %}
                 {% for event in events %}
-                    <b><a href="/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
-                    <hr size="1" noshade>
+                    <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
+                    <br>
+                    
                {% endfor %}
+               {% endif %}
                {% endif %}
         {% comment %}    {% endif %} {% endcomment %}
             </td>

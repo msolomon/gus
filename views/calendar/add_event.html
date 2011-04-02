@@ -2,16 +2,17 @@
 {% block content %}
 <h4>Events</h4>
 
-<form action="/calendar/{{year}}/{{month_name}}/{{day}}/"
+<form action="/calendar/{{year}}/{{month_name}}/_add{{day}}/"
 method="POST">
 {% csrf_token %}
 {{event_form.as_p}}
 
 <input type="submit" value="Save">
+
 </form>
 
 {% endblock content %}
 
 {% block pagetitle %}
-Calendar-Events
+Calendar-Add Event
 {% endblock pagetitle %}
