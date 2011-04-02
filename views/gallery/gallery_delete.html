@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block pagetitle %}Delete Image Gallery{% endblock %}
+
+{% block content %}
+<h3>Image Gallery - Delete</h3>
+<br/>
+
+Are you sure you wish to delete the image gallery: <i>{{gallery}}</i>? <b>Warning: This cannot be undone!</b> To cancel, click the link below. Otherwise, if you want to delete the gallery, click 'Delete Gallery' below.
+<br/><br/>
+
+<form action="" method="post">
+  {% csrf_token %}
+  <input type="submit" value="Delete Gallery"/>
+</form>
+<a href="/gallery">Cancel</a>
+
+{% endblock %}

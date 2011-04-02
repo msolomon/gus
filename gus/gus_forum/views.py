@@ -28,7 +28,11 @@ def index(request, group_id):
 		return HttpResponseRedirect('/login/')
 	#End
 
-	request_for_group = gus_group.objects.get(pk = group_id)
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
 	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
 #	if not role_in_group || role_in_group._role_permissions_level == 1:
 #		return HttpResponse("Invalid Permissions to View These Forums")
@@ -47,16 +51,25 @@ def view_threads(request, group_id, forum_id):
 		return HttpResponseRedirect('/login/')
 	#End
 
-	request_for_group = gus_group.objects.get(pk = group_id)
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
 	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
 #	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse("Invalid Permissions to View These Threads")
+#		return HttpResponse('Invalid Permissions to View These Threads')
 	#End
 
-	request_for_forum = forum.objects.get(pk = forum_id)
+	try:
+		request_for_forum = forum.objects.get(pk = forum_id)
+	except:
+		return HttpResponse('Forum Not Found!')
+	#End
+
 	forums_threads = forum_thread.objects.filter(forum = request_for_forum)
 
-	return render_to_response('forum/threads.html', {"threads": forums_threads, "group":request_for_group, "forum":request_for_forum}, context_instance=RequestContext(request))
+	return render_to_response('forum/threads.html', {"threads": forums_threads, "forum":request_for_forum, "group":request_for_group}, context_instance=RequestContext(request))
 #End
 
 def view_posts(request, group_id, forum_id, thread_id):
@@ -67,17 +80,29 @@ def view_posts(request, group_id, forum_id, thread_id):
 		return HttpResponseRedirect('/login/')
 	#End
 
-	request_for_group = gus_group.objects.get(pk = group_id)
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
 	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
 #	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse("Invalid Permissions to View These Forums")
+#		return HttpResponse('Invalid Permissions to View These Forums')
 	#End
 
-	request_for_forum = forum.objects.get(pk = forum_id)
-	request_for_thread = forum_thread.objects.get(pk = thread_id)
+	try:
+		request_for_forum = forum.objects.get(pk = forum_id)
+	except:
+		return HttpResponse('Forum Not Found!')
+	try:
+		request_for_thread = forum_thread.objects.get(pk = thread_id)
+	except:
+		return HttpResponse('Thread Not Found!')
+	#End
+
 	threads_posts = forum_post.objects.filter(thread = request_for_thread)
 
-	return render_to_response('forum/posts.html', {"posts": threads_posts, "thread": request_for_thread, "group":request_for_group, "forum":request_for_forum}, context_instance=RequestContext(request))
+	return render_to_response('forum/posts.html', {"posts": threads_posts, "thread": request_for_thread, "forum":request_for_forum, "group":request_for_group}, context_instance=RequestContext(request))
 #End
 
 def add_forum(request, group_id):
@@ -88,10 +113,14 @@ def add_forum(request, group_id):
 		return HttpResponseRedirect('/login/')
 	#End
 
-	request_for_group = gus_group.objects.get(pk = group_id)
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
 	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
 #	if not role_in_group || role_in_group._role_permission_level < 1:
-#		return HttpResponse("Invalid Permissions to Add a Forum")
+#		return HttpResponse('Invalid Permissions to Add a Forum')
 	#End
 
 	if request.method == 'POST':
@@ -118,11 +147,20 @@ def add_thread(request, group_id, forum_id):
 		return HttpResponseRedirect('/login/')
 	#End
 
-	request_for_group = gus_group.objects.get(pk = group_id)
-	request_for_forum = forum.objects.get(pk = forum_id)
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
 	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
 #	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse("Invalid Permissions to Add a Thread")
+#		return HttpResponse('Invalid Permissions to Add a Thread')
+	#End
+
+	try:
+		request_for_forum = forum.objects.get(pk = forum_id)
+	except:
+		return HttpResponse('Forum Not Found!')
 	#End
 
 	if request.method == 'POST':
@@ -131,8 +169,14 @@ def add_thread(request, group_id, forum_id):
 			form.cleaned_data["Name"],
 			form.cleaned_data["Text"]
 			request_for_forum.CreateThread(form.cleaned_data["Name"], request.user, form.cleaned_data["Text"], request_for_forum)
-#			return HttpResponseRedirect('/forum/%s/%s' %group_id %forum_id)
-			return HttpResponseRedirect('/forum/%s' %group_id)
+			try:
+				last_thread = forum_thread.objects.filter(forum = request_for_forum).order_by('date_created') #This
+				request_for_thread = forum_thread.objects.get(pk = last_thread[0].id)						  #Doesn't
+			except:
+				return HttpResponse('Thread Was Not Created!')												  #Quite
+			#End
+			request_for_thread.CreatePost(request.user, form.cleaned_data["Text"])							  #Work
+			return HttpResponseRedirect('/forum/%s/%s' % (group_id, forum_id))
 		#End
 	#End
 	else:
@@ -150,11 +194,24 @@ def add_post(request, group_id, forum_id, thread_id):
 		return HttpResponseRedirect('/login/')
 	#End
 
-	request_for_group = gus_group.objects.get(pk = group_id)
-	request_for_thread = forum_thread.objects.get(pk = thread_id)
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
 	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
 #	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse("Invalid Permissions to Add a Post")
+#		return HttpResponse('Invalid Permissions to Add a Post')
+	#End
+
+	try:
+		request_for_forum = forum.objects.get(pk = forum_id)
+	except:
+		return HttpResponse('Forum Not Found!')
+	try:
+		request_for_thread = forum_thread.objects.get(pk = thread_id)
+	except:
+		return HttpResponse('Thread Not Found!')
 	#End
 
 	if request.method == 'POST':
@@ -162,8 +219,7 @@ def add_post(request, group_id, forum_id, thread_id):
 		if form.is_valid():
 			form.cleaned_data["Text"]
 			request_for_thread.CreatePost(request.user, form.cleaned_data["Text"])
-#			return HttpResponseRedirect('/forum/%s/%s/%s' %group_id %forum_id %thread_id)
-			return HttpResponseRedirect('/forum/%s' %group_id)
+			return HttpResponseRedirect('/forum/%s/%s/%s' % (group_id, forum_id, thread_id))
 		#End
 	#End
 	else:
@@ -171,4 +227,184 @@ def add_post(request, group_id, forum_id, thread_id):
 	#End
 
 	return render_to_response('forum/add_post.html', {"thread":request_for_thread, "form":form}, context_instance=RequestContext(request))
+#End
+
+def delete_forum(request, group_id, forum_id):
+	"""
+	"""
+
+	if request.user.is_anonymous():
+		return HttpResponseRedirect('/login/')
+	#End
+
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
+	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
+#	if not role_in_group || role_in_group._role_permission_level < 1:
+#		return HttpResponse('Invalid Permissions to Delete a Forum')
+	#End
+
+	try:
+		request_for_forum = forum.objects.get(pk = forum_id)
+	except:
+		return HttpResponse('Forum Not Found!')
+	#End
+
+	request_for_forum.delete()
+	return HttpResponseRedirect('/forum/%s/' % group_id)
+#End
+
+def delete_thread(request, group_id, forum_id, thread_id):
+	"""
+	"""
+
+	if request.user.is_anonymous():
+		return HttpResponseRedirect('/login/')
+	#End
+
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
+	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
+#	if not role_in_group || role_in_group._role_permission_level < 1:
+#		return HttpResponse('Invalid Permissions to Delete a Thread')
+	#End
+
+	try:
+		request_for_forum = forum.objects.get(pk = forum_id)
+	except:
+		return HttpResponse('Forum Not Found!')
+	try:
+		request_for_thread = forum_thread.objects.get(pk = thread_id)
+	except:
+		return HttpResponse('Thread Not Found!')
+	#End
+
+	request_for_thread.delete()
+	return HttpResponseRedirect('/forum/%s/%s/' % (group_id, forum_id))
+#End
+
+def delete_post(request, group_id, forum_id, thread_id, post_id):
+	"""
+	"""
+
+	if request.user.is_anonymous():
+		return HttpResponseRedirect('/login/')
+	#End
+
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
+	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
+#	if not role_in_group || role_in_group._role_permissions_level == 1:
+#		return HttpResponse('Invalid Permissions to Delete a Post')
+	#End
+
+	try:
+		request_for_forum = forum.objects.get(pk = forum_id)
+	except:
+		return HttpResponse('Forum Not Found!')
+	try:
+		request_for_thread = forum_thread.objects.get(pk = thread_id)
+	except:
+		return HttpResponse('Thread Not Found!')
+	try:
+		request_for_post = forum_post.objects.get(pk = post_id)
+	except:
+		return HttpResponse('Post Not Found!')
+	#End
+
+	request_for_post.delete()
+	return HttpResponseRedirect('/forum/%s/%s/%s/' % (group_id, forum_id, post_id))
+#End
+
+def edit_forum(request, group_id, forum_id):
+	"""
+	"""
+
+	if request.user.is_anonymous():
+		return HttpResponseRedirect('/login/')
+	#End
+
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
+	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
+#	if not role_in_group || role_in_group._role_permissions_level == 1:
+#		return HttpResponse('Invalid Permissions to Delete a Post')
+	#End
+
+	try:
+		request_for_forum = forum.objects.get(pk = forum_id)
+	except:
+		return HttpResponse('Forum Not Found!')
+	#End
+
+	if request.method == "POST":
+		form = new_forum_form(request.POST, instance=request_for_forum)
+		if form.is_valid():
+			forum = form.save()
+			return HttpResponseRedirect('/forum/%s' %group_id)
+		#End
+	#End
+	else:
+		form = new_forum_form()
+	#End
+
+	return render_to_response('forum/edit_forum.html', {"group":request_for_group, "forum":request_for_forum, "form":form}, context_instance=RequestContext(request))
+#End
+
+def edit_post(request, group_id, forum_id, thread_id, post_id):
+	"""
+	"""
+
+	if request.user.is_anonymous():
+		return HttpResponseRedirect('/login/')
+	#End
+
+	try:
+		request_for_group = gus_group.objects.get(pk = group_id)
+	except:
+		return HttpResponse('Group Not Found!')
+	#End
+	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
+#	if not role_in_group || role_in_group._role_permissions_level == 1:
+#		return HttpResponse('Invalid Permissions to Delete a Post')
+	#End
+
+	try:
+		request_for_forum = forum.objects.get(pk = forum_id)
+	except:
+		return HttpResponse('Forum Not Found!')
+	try:
+		request_for_thread = forum_thread.objects.get(pk = thread_id)
+	except:
+		return HttpResponse('Thread Not Found!')
+	try:
+		request_for_post = forum_post.objects.get(pk = post_id)
+	except:
+		return HttpResponse('Post Not Found!')
+	#End
+
+	if request.method == "POST":
+		form = new_post_form(request.POST, instance=request_for_post)
+		if form.is_valid():
+			post = form.save()
+			return HttpResponseRedirect('/forum/%s/%s/%s/' % (group_id, forum_id, post_id))
+		#End
+	#End
+	else:
+		form = new_post_form()
+	#End
+
+	return render_to_response('forum/edit_post.html', {"group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "post":request_for_post, "form":form}, context_instance=RequestContext(request))
 #End

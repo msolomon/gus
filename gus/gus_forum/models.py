@@ -60,6 +60,62 @@ class forum(models.Model):
 		#End
 	#End
 
+	def LastPostDate(self):
+		"""
+		Returns the date of the last post made in this forum's threads.
+		
+		@rtype: models.DateTimeField
+		@return: The last date a post was made in this forum's threads.
+		"""
+
+		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		if len(last_thread) == 0:
+			return 'Never'
+		#End
+		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		if len(last_post) == 0:
+			return 'Never'
+		#End
+
+		return last_post[0].date_created
+	#End
+
+	def LastPostUser(self):
+		"""
+		Returns the user of the last post made in this forum's threads.
+		
+		@rtype: gus_roles.models.gus_user
+		@return: The user of the last date a post was made in this forum's threads.
+		"""
+
+		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		if len(last_thread) == 0:
+			return 'Nobody'
+		#End
+		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		if len(last_post) == 0:
+			return 'Nobody'
+		#End
+
+		return last_post[0].user
+	#End
+
+	def LastPostThread(self):
+		"""
+		Returns the thread of the last post made in this forum's threads.
+		
+		@rtype: gus_forum.forum_thread
+		@return The thread of the last thread the was posted in this forum's threads.
+		"""
+
+		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		if len(last_thread) == 0:
+			return -1
+		#End
+
+		return last_thread[0]
+	#End
+
 	def CreateThread(self, Threadname, User, Text, Forum):
 		"""
 		Creates a thread for this forum as long as the user has the proper permissions.
@@ -118,6 +174,62 @@ class forum_thread(models.Model):
 
 	def __unicode__(self):
 		return "%s - %s: %s\n%s\nFrom Forum: %s"%(self.date_created, self.thread_name, self.thread_text, self.user, self.forum)
+
+	def LastPostDate(self):
+		"""
+		Returns the date of the last post made in this forum's threads.
+		
+		@rtype: models.DateTimeField
+		@return: The last date a post was made in this forum's threads.
+		"""
+
+		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		if len(last_thread) == 0:
+			return 'Never'
+		#End
+		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		if len(last_post) == 0:
+			return 'Never'
+		#End
+
+		return last_post[0].date_created
+	#End
+
+	def LastPostUser(self):
+		"""
+		Returns the user of the last post made in this forum's threads.
+		
+		@rtype: gus_roles.models.gus_user
+		@return: The user of the last date a post was made in this forum's threads.
+		"""
+
+		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		if len(last_thread) == 0:
+			return 'Nobody'
+		#End
+		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		if len(last_post) == 0:
+			return 'Nobody'
+		#End
+
+		return last_post[0].user
+	#End
+
+	def LastPostThread(self):
+		"""
+		Returns the thread of the last post made in this forum's threads.
+		
+		@rtype: gus_forum.forum_thread
+		@return The thread of the last thread the was posted in this forum's threads.
+		"""
+
+		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		if len(last_thread) == 0:
+			return -1
+		#End
+
+		return last_thread[0]
+	#End
 
 	def CreatePost(self, User, Text):
 		"""

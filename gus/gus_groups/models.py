@@ -41,12 +41,14 @@ class GroupManager(models.Manager):
 
 # Create your models here.
 # Example documentation for pydoc included
+#from gus_roles.models import  gus_role
 class gus_group(models.Model):
     """
     class gus_group  is our model of a group
-    it shall encompass both the data and discreet functionality of groupss    
+    it shall encompass both the data and discreet functionality of groups
+    @author: Joran    
     """
-    
+
     #Our Fields
         #Django recommends using OneToOne Fields to extend built in models
     group_name = models.CharField(max_length=100,unique=True) #the group name
@@ -55,11 +57,37 @@ class gus_group(models.Model):
     group_description = models.TextField()         #the group description
     group_image = models.CharField(max_length=50)
     
-    
-    
+    def addUser(self,user,role=None):
+        """"
+        gus_group.addUser(<gus_user>[,<gus_role>]) shall add a user to the given role in the 
+        this group, if the <role> argument is ommited it shall add the user as a simple
+        Member
+         
+        @requires: The Group must have the role given (or Member)
+        *** all groups created with gus_groups.utils.createNewGroup are automagically given this role
+        
+        @param user: the user to add to the group
+        @type user: <gus_user>
+        @param role(Optional):The Group role to add the user to
+        @type role:<gus_role> or None
+        
+        @return: The role that the user has been added to.
+        @rtype: <gus_role>      
+        """
+        
+        if not role:
+            try:
+                from gus_roles.models import gus_role
+                r=gus_role.objects.get(_role_group=self,_role_name="Member")
+            except:
+                print "Error No Role Found"
+                return
+        r.addUser(user)
+        return r
     def output(self): #define verbose output of our group object
         """
         This defines a verbose output display for our group
+        ***at the moment this is largely a stub it may or maynot be used 
         @rtype: string
         @return: the verbose output for the group
         """
@@ -68,8 +96,13 @@ class gus_group(models.Model):
             self.group_description or "(None)",
             self.group_image or "(None)",
             )
-                
-    
+    def getRoles(self):
+        from gus_roles.models import gus_role
+        return gus_role.objects.filter(_role_group=self)
+    def getUsers(self):
+        from gus_roles.models import gus_role
+        roles = gus_role.objects.filter(_role_group=self)
+        return [j for j in [x.users.all() for x in roles ]]
     objects = GroupManager() # our custom relationships
     class Meta:
         verbose_name = 'group'
@@ -84,5 +117,5 @@ class gus_group(models.Model):
         @return:  the default string for built in django.User.
         """
         return "Group: %s" % self.group_name or '(Not Defined)'
-
+    roles=property(getRoles)
     

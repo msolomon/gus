@@ -5,7 +5,7 @@
 
 <p>
 {% if not bills %}
-  No Bills.
+  No Bills associated with user: {{user.username|capfirst}}.
 {% endif %}
 
 <table>
@@ -26,7 +26,7 @@
   <th>{{group.group_name|capfirst}} [<a  href='/bill/Add/{{group.id}}/'>Add</a>]</th></tr>
   {% for bill in group.my_bills %}<tr>
     <td> </td>
-    <td>{{bill}} [<a href='/bill/Delete/{{bill.id}}'>Delete</a>]</td>
+    <td>{{bill}}</td><td> [<a href='/bill/Delete/{{bill.id}}'>Delete</a>]  [<a href='/bill/Payments/{{bill.id}}'>Payments</a>] [<a href='/bill/Archive/{{bill.id}}'>Renew</a>]</td>
     </tr>
   {% endfor %}
 {% endfor %}
