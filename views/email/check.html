@@ -4,13 +4,22 @@
 {% block content %}
 <h1> Inbox for {{ username }} ({{ useremail }})</h1>
 <hr>
-{% for email in emails %}
-<b>From:</b> <br> {{ email.from_email|urlize }} <br>
-<b>Subject:</b> <br> {{ email.subject|urlize }} <br>
-<b>Message:</b> <br> {{ email.body|urlize|linebreaks }} <br>
-<hr>
-<p/>
+<table border="0">
+	<tr align="left">
+		<th>From</th>
+		<th>Subject</th>
+	</tr>
+	{% for email in snippets %}
+	<tr>
+		<td>
+			<a href="{{email.from}}">{{email.from}}</a> <br>
+		</td>
+		<td>
+			<a href="/email/check/message/{{email.id}}">{{email.subject}}
+		</td>
+	</tr>
 {% endfor %}
+</table>
 
 {% endblock content %}
 
