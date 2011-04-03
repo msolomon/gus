@@ -5,12 +5,32 @@
 <h1> Inbox for {{ username }} ({{ useremail }})</h1>
 <hr>
 <table border="0">
+	<tr>
+		<td>
+	        {% if page.has_previous %}
+	            <a href="/email/check/{{ page.previous_page_number }}">Previous</a>
+	        {% endif %}
+		</td>
+		<td>
+			Page {{ page.number }} of {{ page.paginator.num_pages }}
+		</td>		
+		<td>
+	        {% if page.has_next %}
+	            <a href="/email/check/{{ page.next_page_number }}">Next</a>
+	        {% endif %}
+		</td>
+	</tr>
 	<tr align="left">
+		<th>Date</th>
 		<th>From</th>
 		<th>Subject</th>
 	</tr>
-	{% for email in snippets %}
+	
+	{% for email in page.object_list %}
 	<tr>
+		<td>
+			{{email.date}}
+		</td>
 		<td>
 			<a href="{{email.from}}">{{email.from}}</a> <br>
 		</td>
@@ -18,8 +38,26 @@
 			<a href="/email/check/message/{{email.id}}">{{email.subject}}
 		</td>
 	</tr>
-{% endfor %}
+	{% endfor %}
+	
+	<tr>
+		<td>
+	        {% if page.has_previous %}
+	            <a href="/email/check/{{ page.previous_page_number }}">Previous</a>
+	        {% endif %}
+		</td>
+		<td>
+			Page {{ page.number }} of {{ page.paginator.num_pages }}
+		</td>		
+		<td>
+	        {% if page.has_next %}
+	            <a href="/email/check/{{ page.next_page_number }}">Next</a>
+	        {% endif %}
+		</td>
+	</tr>
 </table>
+
+<b>Page {{ page.number }} of {{ page.paginator.num_pages }}</b>
 
 {% endblock content %}
 

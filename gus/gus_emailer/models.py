@@ -13,15 +13,15 @@ from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
 
 import sys
-sys.path.append('gus_emailer/IMAPClient_0_7/imapclient/')
+sys.path.append('gus_emailer/libs/IMAPClient_0_7/imapclient/')
+sys.path.append('gus_emailer/libs/python-dateutil-1_5/')
 from imapclient import IMAPClient
+from dateutil.parser import parse
 
 class EmailerWidget(Widget):
     '''
     The widget for managing emails within a group.
     '''
-    # what else is needed besides the name (provided by Widget)? (perm strings)
-    permission_strings="can_send|can_send_group" #maybe? -jb
     def __init__(self):
         self._e = Emailer()
     
@@ -89,15 +89,10 @@ class Emailer(models.Model):
         self.imap_user = user #models.CharField(user)
         self.imap_password = password #models.CharField(password)
     
-    def check_email(self, pagenum):
-        '''Check for email messages, and return a list snippets
-            @param int, page number to fill
-            @return: [{uid, subject, from}...]
+    def check_email(self):
+        '''Check for email messages, and return a list of snippets
+            @return: [{uid, subject, from, date}...]
         '''
-        emails_per_page = 5
-        pagenum = int(pagenum)
-        start = (pagenum-1) * emails_per_page
-        end = pagenum * emails_per_page
 
         server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
         server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
@@ -117,25 +112,27 @@ class Emailer(models.Model):
         for id, message in response.iteritems():
             mes = message['BODY[HEADER]']
             try:
-                to = re.search('to:([^\n]*)\n', mes, re.IGNORECASE).group(1)
+                to = re.search('to:([^\n]*)\n', mes, re.IGNORECASE).group(1).strip()
             except IndexError: continue
+            
+            # create the snippets
             if self.user_email in to.translate(None, '\'"<>').split():
                 try:
-                    frm = re.search('from:([^\n]*)\n', mes, re.IGNORECASE).group(1)
-                    sub = re.search('subject:([^\n]*)\n', mes, re.IGNORECASE).group(1)
-                    snippets.insert(0, {'id': id,
-                                        'subject': sub.strip(),
-                                        'from': frm.strip()
-                                        })
-                except IndexError:
-                    snippets.insert(0, (id, '', '')) 
-            if len(snippets) >= end: break
+                    date = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
+                    date = parse(date).strftime('%I:%M %p, %x')
+                except (IndexError, ValueError): date = ''
+                try: frm = re.search('from:([^\n]*)\n', mes, re.I).group(1).strip()
+                except IndexError:  frm = ''    
+                try:  sub = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
+                except IndexError: sub = ''   
+                    
+                snippets.insert(0, {'id': id,
+                                    'subject': sub,
+                                    'from': frm,
+                                    'date': date
+                                    })      
             
-        # get only the desired range
-        try:
-            snippets = snippets[start:]
-        except IndexError:
-            pass
+        print [x['id'] for x in snippets]
             
         return snippets
     
