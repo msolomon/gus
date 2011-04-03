@@ -144,7 +144,8 @@ class Emailer(models.Model):
             @param int, the email UID to get
             @return: mail.EmailMessage
         '''
-        notfound = 'This email message could not be found.'
+        notfound = 'This email message could not be found, ' + \
+                   ' or you do not have the rights to view it.'
         server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
         server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
         
@@ -153,7 +154,7 @@ class Emailer(models.Model):
         # get a list of messages prefiltered for this user
         potential = server.search(['UID ' + emailuid])
         if len(potential) == 0:
-            return notfound
+            return (False, notfound)
         
         # otherwise, get the message and log out
         messages = server.fetch(potential, ['BODY[HEADER]', 'BODY[TEXT]'])
@@ -161,7 +162,7 @@ class Emailer(models.Model):
         
         # ensure there is exactly one message
         if len(messages) != 1:
-            return notfound
+            return (False, notfound)
         
         # extract the message and put it into an EmailMessage object
         k = messages.keys()[0]
@@ -169,15 +170,16 @@ class Emailer(models.Model):
             message = self.parse_rfc822(messages[k]['BODY[HEADER]'],
                                         messages[k]['BODY[TEXT]'])
         except KeyError:
-            return 'The email message could not be retrieved. Please try again later.'
+            return (True, 'The email message could not be retrieved. Retrying...')
         
-
+        # ensure the logged-in user was sent this email
+        dest = ' '.join(message.to + message.cc + message.bcc)
+        dest = dest.split()
+        
+        if self.user_email not in dest:
+            return (False, notfound)
     
-        return message
-    
-#    def get_user_id_given_email(self, email):
-#        try:
-#            username =  
+        return message 
     
     def parse_rfc822(self, mes, body):
         ''' Parse a message in RFC822 format, split into header and body.

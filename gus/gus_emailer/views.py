@@ -42,11 +42,14 @@ def check_message(request, uid):
     message = em.check_message(uid)
     
     # display error message, if applicable
-    if type(message) == type(''):
+    if type(message) == type((True, '')):
         return render_to_response('email/error.html',
-                          {'error_message': message
+                          {'error_message': message[1],
+                           'refresh': message[0]
                            },
                           context_instance=RequestContext(request))
+    
+    
     
     return render_to_response('email/check_message.html',
                           {'email': message
