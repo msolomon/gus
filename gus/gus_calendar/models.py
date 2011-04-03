@@ -65,15 +65,13 @@ class Gus_event(models.Model):
     
     """
 
-    #calendar = models.ForeignKey(Gus_calendar)
-    #event_id = models.IntegerField()
-    #group_id = models.IntegerField()
+
     event_name = models.CharField(max_length=60)
     start_date = models.DateField(blank=True)
-    ##end_date = models.DateField(blank=True)
     description = models.CharField(max_length=1000, blank=True)
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     Delete = models.BooleanField(blank=True, null=False)
+    #Attending = models.BooleanField(blank=True, null=False)
     #reminder = models.BooleanField(default=False)
     
     def __unicode__(self):
@@ -96,7 +94,6 @@ class Gus_event(models.Model):
         
         """
         self.delete()
-        ##super(gus_event, self).delete()
 
 
 class Event_form(ModelForm):
@@ -111,3 +108,8 @@ class Event_form_edit(ModelForm):
         exclude = ('start_date', 'creator',)
         fields = ('event_name', 'description', 'Delete')
         
+class Event_form_userview(ModelForm):
+    class Meta:
+        model = Gus_event
+        exclude = ('start_date', 'creator',)
+        fields = ('event_name', 'description', 'Attending')

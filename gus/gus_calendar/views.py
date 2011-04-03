@@ -85,15 +85,49 @@ def month(request, year=None, month=None):
                                 context_instance=RequestContext(request))
    
 
-#          
-#class Event_form(forms.Form):
-#    event_name = forms.CharField(max_length = 60)
-#    event_description = forms.CharField(widget=forms.Textarea)
-#    
+def view_all(request, year, month, day):
+    month_name = month
+    month = month_names.index(month) + 1
+    
+    events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day)
+    return render_to_response("calendar/view_events.html",
+                              {'year':year,
+                               'month_name': month_name,
+                               'day':day,
+                               'events':events},
+                               context_instance=RequestContext(request))
+          
+          
+                    
+def day_view(request, year, month, day, event_id):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    usr = request.user
+ 
+    month_name = month
+    month = month_names.index(month) + 1
+    
+    
+    event = Gus_event.objects.get(pk=event_id)
+    event_creator = event.creator
+    event_description = event.description
+    event_name = event.event_name
+    
+    return render_to_response("calendar/day_view.html",
+                              {'year':year,
+                               'month_name':month_name, 
+                               'day':day,
+                               'creator':event.creator,
+                               'description': event.description,
+                               'name': event.event_name,
+                               'start_date': event.start_date,
+                               'event_id': event_id}, 
+                               context_instance=RequestContext(request))
+    
         
 
 
-def day(request, year, month, day):
+def day_add(request, year, month, day):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
@@ -119,7 +153,7 @@ def day(request, year, month, day):
     else:
         form = Event_form()
         
-    return render_to_response("calendar/day_view.html", 
+    return render_to_response("calendar/add_event.html", 
                               {'event_form': form, 
                                'month_name':month_name, 
                                'year':year, 'day':day}, 
