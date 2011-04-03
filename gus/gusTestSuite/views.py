@@ -216,10 +216,16 @@ def editRolePerms(urlRequest,role_id):
     if urlRequest.method == 'POST':
         form = RolePermissionForm(urlRequest.POST)
 	if form.is_valid():
-	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
+	    role._role_permissions.permissions.clear()
+	    if form.cleaned_data['is_superUser'] == True:
+		role._role_permission_level = 1
+	    else:
+	        [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
     else:
+	if role._role_permission_level == 1:
+	    is_superUser = True
 	role_permissions = role._role_permissions.permissions.all()
-	data = {'id':role_id, 'role_permissions':role_permissions}
+	data = {'id':role_id, 'is_superUser':is_superUser, 'role_permissions':role_permissions}
         form = RolePermissionForm(data)
 
     #return HttpResponse("WIP")
