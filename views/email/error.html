@@ -1,0 +1,17 @@
+{% extends "email/emailer.html" %}
+{% block pagetitle %}Email - Error{% endblock pagetitle %}
+
+{% block custom_header %}
+{% if refresh %}
+<meta http-equiv="refresh" content="0" />
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<p/>
+<h1>Error:</h1>
+<p>{{error_message}}</p>
+
+{% endblock content %}
+
+

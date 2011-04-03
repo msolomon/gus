@@ -15,6 +15,8 @@ urlpatterns = patterns('gus.gus_users.views',
     (r'^idx/$', 'index'),
     #(r'^$', 'users_groups'),
     (r'users_groups/(?P<user_id>\d+)/', 'users_groups'),
+    (r'^profile', 'profile'),
+    (r'^your_group/(?P<group_id>\d+)/', 'profile_sub'),
     
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),

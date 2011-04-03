@@ -4,5 +4,7 @@ urlpatterns = patterns('gus.gus_emailer.views',
 	(r'user/([0-9]+)/','send'),
 	(r'^$', 'check'),
 	(r'^send', 'send'),
-	(r'^check', 'check')
+	(r'^check/message/(\d+)/?', 'check_message'),
+	(r'^check/(\d+)', 'check'),
+	(r'^check', 'check'),
 )

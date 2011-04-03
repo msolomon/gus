@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from smtplib import SMTPException
 
 from gus_emailer.models import Emailer
@@ -13,39 +14,73 @@ class ContactForm(forms.Form):
     recipients = forms.EmailField()
     bcc_myself = forms.BooleanField(required=False)
     
-def check(request):
-    # if we are an anonymous user, send from test account
-    # TODO: remove this once user authentication system is complete
+def check(request, pagenum=1):
+    # if we are an anonymous user, redirect to login
     if not request.user.is_authenticated():
-        request.user.getEmail = lambda: 'anonymous-user@guspy.joranbeasley.com'
+        return HttpResponseRedirect('/login/')
+    
+    # numberify pagenum - this will never fail due to the regex
+    pagenum = int(pagenum)
+        
+    # fetch snippets
     em = Emailer(request.user)
-    emails = em.check_email()
+    snippets = em.check_email()
+    
+    # paginate the emails
+    snippets_per_page = 50
+    paginator = Paginator(snippets, snippets_per_page)
+    
+    # default to last page if page number is invalid (too high)
+    try:
+        page = paginator.page(pagenum)
+    except (EmptyPage, InvalidPage):
+        page = paginator.page(paginator.num_pages)
     
     return render_to_response('email/check.html',
                               {'username':request.user.username,
                                'useremail':request.user.getEmail(),
-                               'emails': emails
+                               'page': page,
                                },
                               context_instance=RequestContext(request))
     
+def check_message(request, uid):
+    # if we are an anonymous user, redirect to login
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+        
+    em = Emailer(request.user)
+    message = em.check_message(uid)
+    
+    # display error message, if applicable
+    if type(message) == type((True, '')):
+        return render_to_response('email/error.html',
+                          {'error_message': message[1],
+                           'refresh': message[0]
+                           },
+                          context_instance=RequestContext(request))
+    
+    
+    
+    return render_to_response('email/check_message.html',
+                          {'email': message
+                           },
+                          context_instance=RequestContext(request))
+        
 def send(request, user_ids=[]):
     # check if we are sending to a user
     if len(user_ids) > 0:
         try:
-            print user_ids
             usrs = [gus_user.objects.get(pk=user_id).email for id in user_ids]
-            print usrs
         except:
-            return HttpResponseRedirect('/gus_test/')
+            return HttpResponseRedirect('/login/')
 
     if request.method == 'POST': # If the form has been submitted...
         form = ContactForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             
-            # if we are an anonymous user, send from test account
-            # TODO: remove this once user authentication system is complete
+            # if we are an anonymous user, ask to log in
             if not request.user.is_authenticated():
-                request.user.getEmail = lambda: 'anonymous-user@guspy.joranbeasley.com'
+                return HttpResponseRedirect('/login/')
                 
             email = form.cleaned_data
             # add sender to recipients if box checked
