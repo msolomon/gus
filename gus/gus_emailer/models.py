@@ -136,8 +136,6 @@ class Emailer(models.Model):
             snippets = snippets[start:]
         except IndexError:
             pass
-        
-        print snippets   
             
         return snippets
     
@@ -199,7 +197,7 @@ class Emailer(models.Model):
         subject = getrest('Subject: ')
         from_email = getrest('From: ')
         to = getrest('To: ')
-        print body
+
         return mail.EmailMessage(
                     subject,
                     body,
