@@ -132,8 +132,6 @@ class Emailer(models.Model):
                                     'date': date
                                     })      
             
-        print [x['id'] for x in snippets]
-            
         return snippets
     
     def check_message(self, emailuid):

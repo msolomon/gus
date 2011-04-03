@@ -70,9 +70,7 @@ def send(request, user_ids=[]):
     # check if we are sending to a user
     if len(user_ids) > 0:
         try:
-            print user_ids
             usrs = [gus_user.objects.get(pk=user_id).email for id in user_ids]
-            print usrs
         except:
             return HttpResponseRedirect('/login/')
 
