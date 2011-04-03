@@ -1,6 +1,7 @@
 # Django settings for gus project.
 import os
 from django.core.urlresolvers import get_script_prefix
+
 PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -30,8 +31,7 @@ AUTHENTICATION_BACKENDS=('gus_backend.models.gus_backend','django.contrib.auth.b
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'America/Chicago'
-#BASE_URL = get_script_prefix()
-#print BASE_URL
+
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
@@ -67,7 +67,6 @@ SECRET_KEY = '^nat@lnqd0wmfr9gyw8&o_l(v2=uwr+524(1g!a!@!thf17m&k'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (                      
@@ -80,13 +79,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'gus.urls'
 
-
-
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, '../views'),
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 )
 
 INSTALLED_APPS = [
@@ -104,13 +98,8 @@ INSTALLED_APPS = [
     'gus.gus_emailer',
     'gus.gus_bill',
     'gus.gusTestSuite'
-
-    
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
 ]
+
 try:
     import Image
 except ImportError:
