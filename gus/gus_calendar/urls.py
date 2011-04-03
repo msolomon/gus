@@ -9,5 +9,5 @@ urlpatterns = patterns('gus.gus_calendar.views',
     (r"^(\d+)/([A-Za-z]+)/$", "month"),
     (r"^", "month"),
     
-    
+    ## add group_id later
 )

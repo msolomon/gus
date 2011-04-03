@@ -66,13 +66,13 @@
                   <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
                   <hr size="1" noshade>
                   {% endfor %}
-                <a href="/calendar/{{year}}/{{month_name}}/{{day}}/view_events/">View All Events</a>
+                <a href="/calendar/{{year}}/{{month_name}}/{{day}}/view_events/">View All</a>
                 
                 
                 {% else %}
                 {% for event in events %}
                     <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
-                    <br>
+                    <p>
                     
                {% endfor %}
                {% endif %}

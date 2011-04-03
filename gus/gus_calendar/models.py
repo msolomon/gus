@@ -108,8 +108,8 @@ class Event_form_edit(ModelForm):
         exclude = ('start_date', 'creator',)
         fields = ('event_name', 'description', 'Delete')
         
-class Event_form_userview(ModelForm):
-    class Meta:
-        model = Gus_event
-        exclude = ('start_date', 'creator',)
-        fields = ('event_name', 'description', 'Attending')
+#class Event_form_userview(ModelForm):
+#    class Meta:
+#        model = Gus_event
+#        exclude = ('start_date', 'creator',)
+#        fields = ('event_name', 'description', 'Attending')

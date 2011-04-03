@@ -5,13 +5,13 @@ from django import forms
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
-from django.forms.models import modelformset_factory
+
 
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from gus.gus_calendar.models import *
-
+from gus.gus_roles.models import RoleManager
 
 month_names = "January February March April May June July August September October November December"
 month_names = month_names.split()
@@ -25,6 +25,7 @@ years = []
 
 
 def month(request, year=None, month=None):
+    # group = request.group
     
      if year: year = int(year)
      else: year = time.localtime()[0]
@@ -81,7 +82,8 @@ def month(request, year=None, month=None):
                                 'month_name': month_name, 
                                 'month_days': list,
                                 'month_list': month_list, 
-                                'events':events}, 
+                                'events':events},
+#                                'group_id': group_id}, 
                                 context_instance=RequestContext(request))
    
 
@@ -103,6 +105,7 @@ def day_view(request, year, month, day, event_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
+    
  
     month_name = month
     month = month_names.index(month) + 1
@@ -127,11 +130,12 @@ def day_view(request, year, month, day, event_id):
         
 
 
-def day_add(request, year, month, day):
+def day_add(request, year, month, day): #, group_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
- 
+  #  if with_user_in_group(group, usr) != admin:
+        #redirect
     
     month_name = month
     month = month_names.index(month) + 1
@@ -156,12 +160,14 @@ def day_add(request, year, month, day):
     return render_to_response("calendar/add_event.html", 
                               {'event_form': form, 
                                'month_name':month_name, 
-                               'year':year, 'day':day}, 
+                               'year':year, 
+                               'day':day},
+                               #'group_id': group_id}, 
                                context_instance=RequestContext(request)) 
 
 
 
-def day_edit(request, year, month, day, event_id):
+def day_edit(request, year, month, day, event_id): #, group_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
@@ -193,7 +199,8 @@ def day_edit(request, year, month, day, event_id):
                                'month_name':month_name, 
                                'year':year,
                                'day': day, 
-                               'event_id':event_id}, 
+                               'event_id':event_id},
+#                               'group_id': group_id}, 
                                context_instance=RequestContext(request)) #add_csrf(request, events=form, year=year, month=month, day=day))
     
     
