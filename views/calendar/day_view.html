@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Event: {{name}} </h3>
+<b>Creator:</b> {{creator}}
+<br>  
+<b> Start Date: </b> {{start_date}}
+<br>
+<b>Description:</b> {{description}}
+<br>
+<br>
+
+<input type="button" 
+value="Edit" 
+onclick="location.href='/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event_id}}/'">
+
+
+
+{% endblock content %}
+
+{% block pagetitle %}
+gus Calendar-View Event
+{% endblock pagetitle %}

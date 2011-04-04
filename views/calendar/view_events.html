@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>Events on {{month_name}} {{day}}, {{year}}</h4>
+{% for event in events %}
+
+
+<h3>Event: {{event.event_name}} </h3>
+<b>Creator:</b> {{event.creator}}
+<br>  
+<b> Start Date: </b> {{event.start_date}}
+<br>
+<b>Description:</b> {{event.description}}
+<br>
+<br>
+
+<input type="button" 
+value="Edit" 
+onclick="location.href='/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event.pk}}/'">
+
+<br>
+<br>
+<br>
+
+{% endfor %}
+{% endblock content %}
+
+{% block pagetitle %}
+gus Calendar-View All
+{% endblock pagetitle %}
