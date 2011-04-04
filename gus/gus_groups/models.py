@@ -56,7 +56,20 @@ class gus_group(models.Model):
     
     group_description = models.TextField()         #the group description
     group_image = models.CharField(max_length=50)
-    
+    parent_group=models.ForeignKey('gus_group',blank=True,null=True)
+    def getParents(self):
+        groups=[]
+        p=self.parent_group
+        while(p):
+            groups.append(p)
+            p=p.parent_group
+        return groups
+    def getChildren(self,recursive=False):
+        children=gus_group.objects.filter(parent_group=self)
+        if recursive:
+            for i in range(0,len(children)-1):
+                children[i]=[children[i],self.getChildren(recursive)]
+        return children
     def addUser(self,user,role=None):
         """"
         gus_group.addUser(<gus_user>[,<gus_role>]) shall add a user to the given role in the 
@@ -97,9 +110,18 @@ class gus_group(models.Model):
             self.group_image or "(None)",
             )
     def getRoles(self):
+        """
+        return all roles of this group
+        """
         from gus_roles.models import gus_role
         return gus_role.objects.filter(_role_group=self)
+    def getRole(self,roleName):
+        from gus_roles.models import gus_role
+        return gus_role.objects.filter(_role_group=self,_role_name=roleName)
     def getUsers(self):
+        """
+        return all users of this group
+        """
         from gus_roles.models import gus_role
         roles = gus_role.objects.filter(_role_group=self)
         return [j for j in [x.users.all() for x in roles ]]

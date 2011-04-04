@@ -76,7 +76,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+
+INTERNAL_IPS = ('127.0.0.1',)
 
 ROOT_URLCONF = 'gus.urls'
 
@@ -98,7 +101,8 @@ INSTALLED_APPS = [
     'gus.gus_forum',
     'gus.gus_emailer',
     'gus.gus_bill',
-    'gus.gusTestSuite'
+    'gus.gusTestSuite',
+    'debug_toolbar',
 ]
 
 try:

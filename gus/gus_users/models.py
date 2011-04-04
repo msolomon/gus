@@ -91,21 +91,55 @@ class gus_user(models.Model):
         """
         return self._user.is_authenticated()
     def group_role(self,group):
+        """
+        return the role that this use holds within the given group or none
+        
+        """
         from gus_roles.models import gus_role
         return gus_role.objects.with_user_in_group(group,self)
+    
     def has_group_perm(self,group,perm):
+        """"
+        determine if this user has a given permision for a given group
+         
+        """
+        
         r = self.group_role(group)
-        return r.has_perm(perm)
+        try:
+            return r.has_perm(perm)
+        except:
+            return self.has_groups_perm(group, perm)
+    def has_groups_perm(self,group,perm):
+        """
+        determine if this user has a given permission for this group or any of its parent groups
+        """
+        groups = [group]+group.getParents()
+        for g in groups:
+            if self.has_group_perm(g,perm): return True
+        return False
+    
     def get_full_name(self):
+        """
+        return the users full name
+        """
         return self._user.get_full_name()
     
     def set_password(self, raw_password):
+        """
+        Set the users password , expects unencoded password
+        """
         return self._user.set_password(raw_password)
     
     def check_password(self, raw_password):
+        """
+        checks unencoded passsword against expected
+        """
         return self._user.check_password(raw_password) 
     
     def set_unusable_password(self):
+        """
+        create a user that cannot login (or disable login for existing)
+        """
         return self._user.set_unusable_password()
     
     def has_usable_password(self):
