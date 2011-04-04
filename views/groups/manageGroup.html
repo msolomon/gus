@@ -9,6 +9,9 @@
 [
   <a href="/gus_test/Role/Edit/{{ role.id }}/">Edit Role</a>
 ]
+[
+  <a href="/gus_test/Role/Delete/{{ role.id }}/{{ group.id }}/">Delete Role</a>
+]
 <br />
 {{ role.permissionsString }} <br />
 {% for user in role.users.all %}

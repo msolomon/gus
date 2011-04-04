@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group,Permission
 from gus_groups.models import gus_group
 from gus_users.models import gus_user
 # Create your models here.
@@ -197,7 +197,12 @@ class gus_role(models.Model):
         for perm in perms:
             permList.append(perm)
         return " '%s'" % "', '".join([x.name for x in permList]);
-    
+    def addPerm(self,permName):
+        try:
+            perm=Permission.objects.get(name=permName)
+            self._role_permissions.permissions.add(perm)
+        except:
+            raise Exception("Permission Not Found")
     def has_perm(self,perm):
         """
         determine if this role has a given permission
