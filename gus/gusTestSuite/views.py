@@ -135,6 +135,12 @@ def removeUserFromRole(urlRequest, user_id, role_id):
     role = gus_role.objects.get(pk=role_id)
     role.users.remove(user)
     return HttpResponseRedirect('/gus_test/Role/Edit/%s'%role_id)
+
+def deleteRole(urlRequest, role_id):
+    role = gus_role.objects.get(pk=role_id)
+    role.delete() #Needs help in terms of uniqueness
+    return HttpResponseRedirect('/gus_test/')
+
 def editRole(urlRequest, role_id):
   
     role = gus_role.objects.get(pk=role_id)
@@ -196,6 +202,8 @@ def createRole(urlRequest,group_id):
         form = RoleCreateForm(urlRequest.POST)
 	if form.is_valid():
 	    role = gus_role.objects.create_role(group,form.cleaned_data['role_name'])
+	    if form.cleaned_data['is_superUser'] == True:
+		role._role_permission_level = 1
 	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
     else:
         form = RoleCreateForm({'id':group_id})
@@ -220,10 +228,13 @@ def editRolePerms(urlRequest,role_id):
 	    if form.cleaned_data['is_superUser'] == True:
 		role._role_permission_level = 1
 	    else:
+		role._role_permission_level = 0
 	        [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
     else:
 	if role._role_permission_level == 1:
 	    is_superUser = True
+	else:
+	    is_superUser = False
 	role_permissions = role._role_permissions.permissions.all()
 	data = {'id':role_id, 'is_superUser':is_superUser, 'role_permissions':role_permissions}
         form = RolePermissionForm(data)
