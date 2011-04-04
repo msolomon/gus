@@ -69,15 +69,16 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
-MIDDLEWARE_CLASSES = (             
+MIDDLEWARE_CLASSES = [             
     'django.middleware.gzip.GZipMiddleware',         
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+    'django.contrib.messages.middleware.MessageMiddleware'
+    # debug toolbar is added to this later, if installed
+]
+
 
 INTERNAL_IPS = ('127.0.0.1',)
 
@@ -102,15 +103,24 @@ INSTALLED_APPS = [
     'gus.gus_emailer',
     'gus.gus_bill',
     'gus.gusTestSuite',
-    'debug_toolbar',
 ]
 
+# try to use PIL
 try:
     import Image
 except ImportError:
     print 'PIL is not installed, skipping image gallery...'
 else:
     INSTALLED_APPS.append('gus.gus_gallery')
+    
+# try to use debug_toolbar
+try:
+    import debug_toolbar
+except ImportError:
+    print 'Debug toolbar not installed, skipping...'
+else:
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 #The first line of code sets a custom test runner, instead of the default one django uses. We need the custom one
 # in order to include the coverage library that will run our coverage tests.
