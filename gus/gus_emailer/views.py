@@ -16,6 +16,27 @@ class ContactForm(forms.Form):
     recipients = forms.EmailField()
     bcc_myself = forms.BooleanField(required=False)
     
+    def add_emails(self, inuser):
+        # build a list of people to send to
+        # get a list of groups and users from them
+        groups = getGroupsWithUser(inuser)
+        # get users from those groups
+        users_list = [(group, gus_role.objects.users_with_group(group)) for group in groups]
+        for group, users in users_list:
+            us = []
+            for user in users:
+                em = user.getEmail()
+                us.append((em, '%s %s (%s) [%s]' % (user.username,
+                                               user.get_full_name(),
+                                               em,
+                                               user.group_role(group)._role_name)))
+            
+            # add a section for each group the user is a part of
+            self.fields['to_email %s' % group] = \
+                forms.BooleanField(
+                    widget=forms.CheckboxSelectMultiple(choices=us),
+                    label=group.group_name)
+    
 def check(request, pagenum=1):
     # if we are an anonymous user, redirect to login
     if not request.user.is_authenticated():
@@ -109,16 +130,10 @@ def send(request, user_ids=[]):
             form = ContactForm({'recipients':', '.join(usrs)})
         else:
             form = ContactForm() # An unbound form
-            
-    # get a list of groups and users from them
-    groups = getGroupsWithUser(request.user)
     
-    # get users from those groups
-    #rm = RoleManager()
-    users_list = [(group, gus_role.objects.users_with_group(group)) for group in groups]
+    form.add_emails(request.user)
 
     return render_to_response('email/index.html', {
-        'users_list': users_list,
         'email_form': form, 
     }, context_instance=RequestContext(request))
 

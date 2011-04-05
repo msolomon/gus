@@ -14,3 +14,7 @@ docs/index.rst
 docs/_*/
 docs/epydoc/
 docs/covhtml/
+
+# ignore gallery
+media/gallery/*
+
