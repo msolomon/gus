@@ -4,15 +4,39 @@ Profile
 {% endblock pagetitle %}
 
 {% block content %}
-<h3>Your Profile<hr/>
-<h5></h5>
-<ul>
-{% if not roles %}
-Not a member in any groups
+
+
+<form name=groupsForm action="http://localhost:8000/users/profile" method=POST>
+  {% csrf_token %}
+  <p>	Groups
+
+  <select name=groupSelect size=1 onChange="groupsForm.submit();">
+    <option value="" SELECTED>Select a group
+
+    {% for role in roles %}
+    <option value={{role.group.id}}>{{role.group.group_name}}
+    {%endfor %}
+
+  </select>
+  </p>
+</form>
+
+
+<h3>{{group.group_name}} Profile<hr/>
+<p></p>
+<h4>Group: {{group.group_name}}</h4>
+<p>Description - {{group.group_description}}</p>
+<p></p>
+
+<p>Role: {{role.name}}</p>
+<p>
+{% if not bill %}
+	Bill: No bills
 {% else %}
-{% for role in roles %}
-<li><a href="../your_group/{{role.group.id}}/">{{role.group.group_name}}</a> - {{role.group.group_description}}</li>
-{% endfor %}
+	{{bill}}
 {% endif %}
-</ul>
+</p>
 {% endblock content %}
+
+
+

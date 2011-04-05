@@ -53,22 +53,20 @@ def register(request):
 #group_id will be used for our profile page
 # beginnings of profile view that Chandler and Nathan are working on
 def profile(urlRequest):
+    my_group_id = urlRequest.POST['groupSelect']
+    
+    my_group = gus_group.objects.get(pk=my_group_id)
+    
     my_self = urlRequest.user
     my_roles = gus_role.objects.with_user(my_self)
-    return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self}, context_instance=RequestContext(urlRequest))
+    my_role = gus_role.objects.with_user_in_group(my_group, my_self)
+    #my_bill = bill.objects.filter(user = my_self.id)
+    return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self, 'group':my_group, 'role':my_role}, context_instance=RequestContext(urlRequest))
     
     
 # Note to self: This function uncovered a naming inconsistency;
 #    the group name is group_name, the user name is username, and the role name is just "name"
 #    Bring up at next meeting
-def profile_sub(urlRequest, group_id):
-    my_self = urlRequest.user
-    my_group = gus_group.objects.get(pk=group_id)
-    my_role = gus_role.objects.with_user_in_group(my_group, my_self)
-    my_bill = bill.objects.filter(user = my_self.id)
-    #with_user_in_group(my_group, my_self)
-    return render_to_response('users/profilesub.html', {'usr':my_self, 'grp':my_group, 'role':my_role, 'bill':my_bill}, context_instance=RequestContext(urlRequest))
-
 
 
 def users_groups(urlRequest,user_id):
