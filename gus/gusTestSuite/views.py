@@ -7,7 +7,7 @@
 #    It is also dependent on gus_groups forms which contains the form definitions for various views
 #    It also utilizes some helper functions (found in file)
 ###
-  
+
 #from django.core.exceptions import ObjectDoesNotExist
 #from django.db import IntegrityError 
 from django.contrib.auth.decorators import login_required
