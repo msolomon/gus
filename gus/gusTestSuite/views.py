@@ -10,6 +10,7 @@
 
 #from django.core.exceptions import ObjectDoesNotExist
 #from django.db import IntegrityError 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import  RequestContext #,Context, loader
 from django.http import HttpResponseRedirect , HttpResponse  
@@ -24,6 +25,7 @@ from gus.gus_roles.models import gus_role
 
 from gus.gusTestSuite.forms import *
 
+@login_required
 def index(urlRequest):
     
     #from django.contrib.auth.forms import UserCreationForm
