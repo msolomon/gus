@@ -227,11 +227,9 @@ def editRolePerms(urlRequest,role_id):
         form = RolePermissionForm(urlRequest.POST)
 	if form.is_valid():
 	    role._role_permissions.permissions.clear()
-	    if form.cleaned_data['is_superUser'] == True:
-		role._role_permission_level = 1
-	    else:
-		role._role_permission_level = 0
-	        [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
+	    role._role_permission_level = int(form.cleaned_data['is_superUser'])
+	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
+	    role.save()
     else:
 	if role._role_permission_level == 1:
 	    is_superUser = True
