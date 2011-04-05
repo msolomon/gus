@@ -23,9 +23,10 @@ years = []
 #def index(request):
 #    return render_to_response('calendar/index.html', {}, context_instance=RequestContext(request))
 
-
 def month(request, year=None, month=None):
-    # group = request.group
+     if not request.user.is_authenticated():
+         return HttpResponseRedirect('/login/')
+     groups = getGroupswithUser(request.user)
     
      if year: year = int(year)
      else: year = time.localtime()[0]
@@ -60,17 +61,20 @@ def month(request, year=None, month=None):
      month_days = cal.itermonthdays(year, month)
      nyear, nmonth, nday = time.localtime()[:3]
      list = [[]]
+     total_day_events = []
      week = 0
     
      for day in month_days:
-         events = current = False
-         if day:
-             events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day)
-             if day == nday and year == nyear and month == nmonth: 
-                 current = True
+        for group in groups:
+            events = current = False
+            if day:
+                events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day)
+                total_day_events.append(events) 
+                if day == nday and year == nyear and month == nmonth: 
+                    current = True
         
-         list[week].append((day, events, current))
-         if len(list[week]) == 7:
+        list[week].append((day, total_day_events, current))
+        if len(list[week]) == 7:
              list.append([])
              week = week + 1
      year = time.localtime()[0]
@@ -81,8 +85,7 @@ def month(request, year=None, month=None):
                                 'years': years, 
                                 'month_name': month_name, 
                                 'month_days': list,
-                                'month_list': month_list, 
-                                'events':events},
+                                'month_list': month_list}, 
 #                                'group_id': group_id}, 
                                 context_instance=RequestContext(request))
    
