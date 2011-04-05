@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse ,HttpResponseRedirect
 from django import forms
 from django.views.decorators.csrf import csrf_protect
@@ -52,14 +53,21 @@ def register(request):
 
 #group_id will be used for our profile page
 # beginnings of profile view that Chandler and Nathan are working on
+@login_required
 def profile(urlRequest):
-    my_group_id = urlRequest.POST['groupSelect']
+    try:
+        my_group_id = urlRequest.POST['groupSelect']
+        my_group = gus_group.objects.get(pk=my_group_id)
+    except:
+        my_group=None
     
-    my_group = gus_group.objects.get(pk=my_group_id)
     
     my_self = urlRequest.user
     my_roles = gus_role.objects.with_user(my_self)
-    my_role = gus_role.objects.with_user_in_group(my_group, my_self)
+    try:
+        my_role = gus_role.objects.with_user_in_group(my_group, my_self)
+    except:
+        my_role = None
     #my_bill = bill.objects.filter(user = my_self.id)
     return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self, 'group':my_group, 'role':my_role}, context_instance=RequestContext(urlRequest))
     

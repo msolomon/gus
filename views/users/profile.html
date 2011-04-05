@@ -5,11 +5,14 @@ Profile
 
 {% block content %}
 
-
-<form name=groupsForm action="http://localhost:8000/users/profile" method=POST>
+{% if not roles %}
+ 	<strong>You are not yet a member of any groups</strong>
+ 	{% else %}
+<form name=groupsForm  method=POST>
   {% csrf_token %}
+ 	
   <p>	Groups
-
+<!-- Switch to \{\{ form.as_p or somevariation of django forms\}\} -->
   <select name=groupSelect size=1 onChange="groupsForm.submit();">
     <option value="" SELECTED>Select a group
 
@@ -20,8 +23,9 @@ Profile
   </select>
   </p>
 </form>
+{%endif%}
 
-
+{% if group %}
 <h3>{{group.group_name}} Profile<hr/>
 <p></p>
 <h4>Group: {{group.group_name}}</h4>
@@ -30,6 +34,7 @@ Profile
 
 <p>Role: {{role.name}}</p>
 <p>
+{% endif %}	
 {% if not bill %}
 	Bill: No bills
 {% else %}
