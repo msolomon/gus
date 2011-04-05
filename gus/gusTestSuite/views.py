@@ -39,6 +39,8 @@ def index(urlRequest):
 def authUser(urlRequest):
     return render_to_response('users/info.html',{},
                               context_instance=RequestContext(urlRequest))
+
+@login_required
 def addGroup(urlRequest):
     
     from gus.gus_groups.utils import createNewGroup
@@ -73,6 +75,7 @@ def addGroup(urlRequest):
                                 context_instance=RequestContext(urlRequest)
                               );
 
+@login_required
 def editUser(urlRequest, user_id):
     #get our user
     usr = gus_user.objects.get(pk=user_id)
@@ -107,6 +110,7 @@ def editUser(urlRequest, user_id):
                               );
 
 
+@login_required
 def editGroup(urlRequest, group_id):
     from gus.gus_groups.utils import getGroupRoles
     from gus.gusTestSuite.forms import SimpleAddUserToGroup
@@ -125,29 +129,41 @@ def editGroup(urlRequest, group_id):
           )
     return HttpResponse('Manage Group : %s ' % group)
 
+@login_required
 def deleteUser(urlRequest, user_id):
     user = gus_user.objects.get(pk=user_id)
     return HttpResponse('Delete User : %s ' % user)
+
+@login_required
 def deleteGroup(urlRequest, group_id):
     group = gus_group.objects.get(pk=group_id)
     return HttpResponse('Delete Group : %s ' % group)
 
+@login_required
 def removeUserFromRole(urlRequest, user_id, role_id):
     user = gus_user.objects.get(pk=user_id)
     role = gus_role.objects.get(pk=role_id)
+    g_id = role.group.id
     role.users.remove(user)
-    return HttpResponseRedirect('/gus_test/Role/Edit/%s'%role_id)
+    return HttpResponseRedirect('/groups/%s/Edit/'%g_id)
 
+@login_required
+def removeUserFromGroup(urlRequest, group_id, user_id):
+    group = gus_group.objects.get(pk=group_id)
+    user = gus_user.objects.get(pk=user_id)
+    r = gus_role.objects.with_user_in_group(group,user)
+    return removeUserFromRole(urlRequest, user_id, r.id)
+
+@login_required
 def deleteRole(urlRequest, role_id):
     role = gus_role.objects.get(pk=role_id)
-    role.delete() #Needs help in terms of uniqueness
-    return HttpResponseRedirect('/gus_test/')
+    g_id = role.group.id
+    role.delete()
+    return HttpResponseRedirect('/groups/%s/Edit'%g_id)
 
+@login_required
 def editRole(urlRequest, role_id):
-  
     role = gus_role.objects.get(pk=role_id)
-
-   
     
     return render_to_response('groups/manageRole.html',
                        {
@@ -156,7 +172,8 @@ def editRole(urlRequest, role_id):
                        },context_instance=RequestContext(urlRequest)
                        )
 
-
+  
+@login_required
 def addUser(urlRequest):
     
     #setup our form
@@ -186,6 +203,7 @@ def addUser(urlRequest):
                                 context_instance=RequestContext(urlRequest)
                               );
                               
+@login_required
 def viewUser(urlRequest,user_id):
     try:
         usr = gus_user.objects.get(pk=user_id)
@@ -198,6 +216,8 @@ def viewUser(urlRequest,user_id):
                                 },
                                 context_instance=RequestContext(urlRequest)
                               );
+
+@login_required
 def createRole(urlRequest,group_id):
     group = gus_group.objects.get(pk=group_id)
     if urlRequest.method == 'POST':
@@ -221,6 +241,8 @@ def createRole(urlRequest,group_id):
                                 },
                                 context_instance=RequestContext(urlRequest)
                               )
+
+@login_required
 def editRolePerms(urlRequest,role_id):
     role = gus_role.objects.get(pk=role_id)
     if urlRequest.method == 'POST':
@@ -230,6 +252,8 @@ def editRolePerms(urlRequest,role_id):
 	    role._role_permission_level = int(form.cleaned_data['is_superUser'])
 	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
 	    role.save()
+	    g_id = role.group.id
+	    return HttpResponseRedirect("/groups/%s/Edit/"%g_id)
     else:
 	if role._role_permission_level == 1:
 	    is_superUser = True

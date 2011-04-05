@@ -9,7 +9,7 @@ from django.conf.urls.defaults import *
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('gus_roles.views',
+urlpatterns = patterns('gusTestSuite.views',
     # Example:
     # (r'^gus/', include('gus.foo.urls')),
     (r'^add_user/([0-9]+)/', 'add_user_to_role'),
