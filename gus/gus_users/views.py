@@ -17,6 +17,8 @@ class loginForm(forms.Form):
 
 def index(request):
     return HttpResponse('Hello World')
+def welcome(request):
+    return render_to_response('welcome.html',{},context_instance=RequestContext(request))
 
 def logoutView(request):
     return logout_then_login(request,'/login/')

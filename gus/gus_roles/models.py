@@ -33,7 +33,7 @@ class RoleManager(models.Manager):
         return newrole
         
     
-    def with_user_in_group(self, group, user):
+    def with_user_in_group(self, group, usr):
         """
         will return exactly one role or None depending on if the given user 
         has a role in the given group
@@ -47,7 +47,7 @@ class RoleManager(models.Manager):
         """
         try:
             return super(RoleManager, self).get_query_set().get(
-                    _role_users=user,
+                    _role_users=usr,
                     _role_group=group,
             )
         except:
@@ -72,9 +72,7 @@ class RoleManager(models.Manager):
         @rtype: List
         @return: a set of all groups that a given user belongs to 
         """
-        return super(RoleManager, self).get_query_set().filter(
-                _role_users=user,
-        )
+        return super(RoleManager, self).get_query_set().filter(_role_users=user)
         
     def users_without_group(self, group):
         """
@@ -115,9 +113,7 @@ class RoleManager(models.Manager):
         @param group: an instance of the group in question
         @return     : a list of roles 
         """
-        return super(RoleManager, self).get_query_set().filter(
-                _role_group=group,
-        )
+        return super(RoleManager, self).get_query_set().filter(_role_group=group)
     
     
     

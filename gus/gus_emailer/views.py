@@ -7,7 +7,7 @@ from smtplib import SMTPException
 from gus_emailer.models import Emailer
 from gus_users.models import gus_user
 from gus_groups.utils import *
-from gus_roles.models import RoleManager
+from gus_roles.models import gus_role
 from django import forms
 
 class ContactForm(forms.Form):
@@ -114,8 +114,8 @@ def send(request, user_ids=[]):
     groups = getGroupsWithUser(request.user)
     
     # get users from those groups
-    rm = RoleManager()
-    users_list = [(group, rm.users_with_group(group)) for group in groups]
+    #rm = RoleManager()
+    users_list = [(group, gus_role.objects.users_with_group(group)) for group in groups]
 
     return render_to_response('email/index.html', {
         'users_list': users_list,
