@@ -45,7 +45,7 @@
 
     {% for week in month_days %}
         <tr>
-        {% for day, events, current in week %}
+        {% for day, total_events, current in week %}
 
     
             <td height="70" width="65"
@@ -61,6 +61,7 @@
               {% if day != 0 %}
                 {{ day }}
                 <br>
+               {% for events in total_events %}
                {% if events|length > 2 %} 
                   {% for event in events|slice:":1" %}
                   <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
@@ -74,6 +75,7 @@
                     <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
                     <p>
                     
+               {% endfor %}
                {% endfor %}
                {% endif %}
                {% endif %}
