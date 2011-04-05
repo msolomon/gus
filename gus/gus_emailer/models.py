@@ -120,7 +120,7 @@ class Emailer(models.Model):
                 try:
                     date = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
                     date = parse(date).strftime('%I:%M %p, %x')
-                except (IndexError, ValueError): date = ''
+                except (IndexError, ValueError, TypeError): date = ''
                 try: frm = re.search('from:([^\n]*)\n', mes, re.I).group(1).strip()
                 except IndexError:  frm = ''    
                 try:  sub = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
