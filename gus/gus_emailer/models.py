@@ -12,9 +12,12 @@ from gus.gus_groups.models import gus_group
 from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
 
-import sys
-sys.path.append('gus_emailer/libs/IMAPClient_0_7/imapclient/')
-sys.path.append('gus_emailer/libs/python-dateutil-1_5/')
+import sys, os
+sys.path.append(os.path.join(settings.PROJECT_PATH,
+                             'gus_emailer/libs/IMAPClient_0_7/imapclient/'))
+sys.path.append(os.path.join(settings.PROJECT_PATH,
+                             'gus_emailer/libs/python-dateutil-1_5/'))
+
 from imapclient import IMAPClient
 from dateutil.parser import parse
 
@@ -120,7 +123,7 @@ class Emailer(models.Model):
                 try:
                     date = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
                     date = parse(date).strftime('%I:%M %p, %x')
-                except (IndexError, ValueError): date = ''
+                except (IndexError, ValueError, TypeError): date = ''
                 try: frm = re.search('from:([^\n]*)\n', mes, re.I).group(1).strip()
                 except IndexError:  frm = ''    
                 try:  sub = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()

@@ -113,7 +113,9 @@ class gus_user(models.Model):
         """
         determine if this user has a given permission for this group or any of its parent groups
         """
-        groups = [group]+group.getParents()
+        groups = group.getParents()
+        #print "Check Parent Permissions :",perm
+        #print groups
         for g in groups:
             if self.has_group_perm(g,perm): return True
         return False

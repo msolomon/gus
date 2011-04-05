@@ -50,7 +50,7 @@ def getGroupRoles(group):
     from gus.gus_roles.models import gus_role
     return gus_role.objects.with_group(group)
 
-def getGroupsWithUser(user):
+def getGroupsWithUser(usr):
     """
     return a list of groups with user as a member
     
@@ -59,8 +59,9 @@ def getGroupsWithUser(user):
     @rtype: queryset
     @return: list of groups that have this user as a member 
     """
+    if usr.is_anonymous() : return []
     from gus.gus_roles.models import gus_role
-    return map(lambda x:  x._role_group , gus_role.objects.with_user(user))
+    return map(lambda x:  x._role_group , gus_role.objects.with_user(usr))
 
 
 
