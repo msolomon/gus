@@ -36,10 +36,10 @@ def loginView(request):
                                 password=pw)
             if(user):
                 login(request, user)
-                if not request.GET['next']:
+                try:
+                    return HttpResponseRedirect(request.GET['next'])                    
+                except:
                     return HttpResponseRedirect('/gus_test/User/Auth_Test/')
-                else:
-                    return HttpResponseRedirect(request.GET['next'])
     else:
         form = loginForm()
 
