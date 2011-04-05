@@ -182,7 +182,8 @@ def image_edit(urlRequest, image_id):
     try:
         image = gus_image.objects.filter(pk = image_id)[0]
     except:
-        return HttpResponseRedirect('/gallery')
+        return "Invalid Image ID: " + `image_id`
+    #return HttpResponseRedirect('/gallery')
 
     gallery = image.gallery
 
