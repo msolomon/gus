@@ -6,6 +6,8 @@ from django.template import RequestContext
 
 from gus_roles.models import gus_role
 from gus_users.models import gus_user
+from gus_groups.models import gus_group
+from gus_bill.models import bill
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.views import logout_then_login
 
@@ -15,6 +17,8 @@ class loginForm(forms.Form):
 
 def index(request):
     return HttpResponse('Hello World')
+def welcome(request):
+    return render_to_response('welcome.html',{},context_instance=RequestContext(request))
 
 def logoutView(request):
     return logout_then_login(request,'/login/')
@@ -32,7 +36,10 @@ def loginView(request):
                                 password=pw)
             if(user):
                 login(request, user)
-                return HttpResponseRedirect('/gus_test/User/Auth_Test/')
+                if not request.GET['next']:
+                    return HttpResponseRedirect('/gus_test/User/Auth_Test/')
+                else:
+                    return HttpResponseRedirect(request.GET['next'])
     else:
         form = loginForm()
 
@@ -42,12 +49,35 @@ def register(request):
     return render_to_response("users/register.html")
 
 
+
+#group_id will be used for our profile page
+# beginnings of profile view that Chandler and Nathan are working on
+def profile(urlRequest):
+    my_self = urlRequest.user
+    my_roles = gus_role.objects.with_user(my_self)
+    return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self}, context_instance=RequestContext(urlRequest))
+    
+    
+# Note to self: This function uncovered a naming inconsistency;
+#    the group name is group_name, the user name is username, and the role name is just "name"
+#    Bring up at next meeting
+def profile_sub(urlRequest, group_id):
+    my_self = urlRequest.user
+    my_group = gus_group.objects.get(pk=group_id)
+    my_role = gus_role.objects.with_user_in_group(my_group, my_self)
+    my_bill = bill.objects.filter(user = my_self.id)
+    #with_user_in_group(my_group, my_self)
+    return render_to_response('users/profilesub.html', {'usr':my_self, 'grp':my_group, 'role':my_role, 'bill':my_bill}, context_instance=RequestContext(urlRequest))
+
+
+
 def users_groups(urlRequest,user_id):
     try:
         usr = gus_user.objects.get(pk=user_id)
     except:
         return HttpResponse("This User Does not exist<br/>")
     my_roles=gus_role.objects.with_user(usr)
+    # Note to self: always include that last argument "context_instance=RequestContext(urlRequest)"
     return render_to_response('users/grouplisting.html', {'roles':my_roles}, context_instance=RequestContext(urlRequest))
 
 def profile(request):

@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import Group
-from gus.gus_groups.models import gus_group
-from gus.gus_users.models import gus_user
+from django.contrib.auth.models import Group,Permission
+from gus_groups.models import gus_group
+from gus_users.models import gus_user
 # Create your models here.
 
 class RoleManager(models.Manager):
@@ -33,7 +33,7 @@ class RoleManager(models.Manager):
         return newrole
         
     
-    def with_user_in_group(self, group, user):
+    def with_user_in_group(self, group, usr):
         """
         will return exactly one role or None depending on if the given user 
         has a role in the given group
@@ -47,20 +47,20 @@ class RoleManager(models.Manager):
         """
         try:
             return super(RoleManager, self).get_query_set().get(
-                    _role_users=user,
+                    _role_users=usr,
                     _role_group=group,
             )
         except:
             return None
 
     def users_without_role(self, role):
-	"""
-	will return all the users without a role
-	@param role: The role to find that users don't have
-	@type role: L{gus_role<gus.gus_roles.models.gus_role>}
-	@rtype: List
-	@return: a list of all users that don't have the given role
-	"""
+        """
+    will return all the users without a role
+    @param role: The role to find that users don't have
+    @type role: L{gus_role<gus.gus_roles.models.gus_role>}
+    @rtype: List
+    @return: a list of all users that don't have the given role
+        """
         id_list = [u.id for u in role.users.all()]
         return gus_user.objects.exclude(_user__in=id_list)
     
@@ -72,9 +72,7 @@ class RoleManager(models.Manager):
         @rtype: List
         @return: a set of all groups that a given user belongs to 
         """
-        return super(RoleManager, self).get_query_set().filter(
-                _role_users=user,
-        )
+        return super(RoleManager, self).get_query_set().filter(_role_users=user)
         
     def users_without_group(self, group):
         """
@@ -115,9 +113,7 @@ class RoleManager(models.Manager):
         @param group: an instance of the group in question
         @return     : a list of roles 
         """
-        return super(RoleManager, self).get_query_set().filter(
-                _role_group=group,
-        )
+        return super(RoleManager, self).get_query_set().filter(_role_group=group)
     
     
     
@@ -197,7 +193,12 @@ class gus_role(models.Model):
         for perm in perms:
             permList.append(perm)
         return " '%s'" % "', '".join([x.name for x in permList]);
-    
+    def addPerm(self,permName):
+        try:
+            perm=Permission.objects.get(name=permName)
+            self._role_permissions.permissions.add(perm)
+        except:
+            raise Exception("Permission Not Found")
     def has_perm(self,perm):
         """
         determine if this role has a given permission
@@ -210,7 +211,7 @@ class gus_role(models.Model):
         perms = self._role_permissions.permissions.all()
         if not perms.count() : return False
         for i in perms:
-            if i == perm: return True
+            if i.name == perm: return True
         return False
     
     #define how to display our object in the html
@@ -283,7 +284,9 @@ class gus_role(models.Model):
         @return: the name of our role
         """
         return self._role_name
-    
+    def getPerms(self):
+        return self._role_permissions.permissions
+
     #GETTER/SETTER enabled ... hackish
     #GETTERS AND SETTERS WILL BE USED (!Include simillar code in all classes)
     #getter and setter hooks , these must be setup if you wish to 
@@ -296,3 +299,4 @@ class gus_role(models.Model):
     group = property(getGroup, setGroup)
     #name hook to get the rolename but not allow setting of it
     name  = property(getName, setName)
+    permissions=property(getPerms)

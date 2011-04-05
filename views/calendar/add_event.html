@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>Add New Event</h4>
+
+<form action="/calendar/{{year}}/{{month_name}}/_add{{day}}/"
+method="POST">
+{% csrf_token %}
+{{event_form.as_p}}
+
+<input type="submit" value="Save">
+
+</form>
+
+{% endblock content %}
+
+{% block pagetitle %}
+gus Calendar-Add Event
+{% endblock pagetitle %}

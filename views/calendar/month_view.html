@@ -5,7 +5,7 @@
 <h4><center>{{month_name}} {{year}}</center></h4>
 {% for year, months in years %}
 <center>
-<table border="1" bordercolor="#42647F" style="background-color:#C1CDCD" width="600" cellpadding="10" cellspacing="3">
+<table cellpadding="10" cellspacing="3">
      <tr>
        <div class="year">
    {% for month in months %}
@@ -15,7 +15,7 @@
         
         {% if not month.current %} 
                 <!--{% if month.event %}<b>{% endif %}-->
-                <td><a href="/calendar/{{year}}/{{month.name}}/"><center>{{ month.name }}</center></a></td>
+                <td onmouseover=this.style.backgroundColor><a href="/calendar/{{year}}/{{month.name}}/"><center>{{ month.name }}</center></a></td>
         {% endif %}
                 
                 <!--{% if month.event %}</b>{% endif %}<-->
@@ -31,42 +31,53 @@
 
 <div class="month">
   <center>
-    <table border="1" bordercolor="#42647F" style="background-color:#C1CDCD" width="600" height="600" cellpadding="10" cellspacing="3">
+    <table border="1" bordercolor="#42647F" style="background-color:#A7CAE8" cellpadding="10" cellspacing="3">
 
-    <tr>
-        <th class="empty">Mon</td>
-        <th class="empty">Tue</td>
-        <th class="empty">Wed</td>
-        <th class="empty">Thu</td>
-        <th class="empty">Fri</td>
-        <th class="empty">Sat</td>
-        <th class="empty">Sun</td>
+    <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="50">
+        <th class="empty">Monday</th>
+        <th class="empty">Tuesday</th>
+        <th class="empty">Wednesday</th>
+        <th class="empty">Thursday</th>
+        <th class="empty">Friday</th>
+        <th class="empty">Saturday</th>
+        <th class="empty">Sunday</th>
     </tr>
 
     {% for week in month_days %}
         <tr>
         {% for day, events, current in week %}
 
-            <!-- TD style: empty | day | current; onClick handler and highlight  -->
-            <td class= {% if day == 0 %}"empty"{% endif %}
-            {% if day != 0 and not current %}"day"{% endif %}
-            {% if day != 0 and current %}"current"{% endif %} 
+    
+            <td height="70" width="65"
 
             {% if day != 0 %}
               valign="top"
-              onmouseover=this.style.backgroundColor='#36648B';this.style.cursor='pointer'
-              onmouseout=this.style.backgroundColor='#C1CDCD' 
-              onclick= "top.location='/calendar/{{year}}/{{month_name}}/{{day}}'">
+              onmouseover=this.style.backgroundColor='#D8D8D8';this.style.cursor='pointer'
+              onmouseout=this.style.backgroundColor='#A7CAE8' 
+              onclick= "top.location='/calendar/{{year}}/{{month_name}}/_add{{day}}/'">
              
               {% endif %}
               
               {% if day != 0 %}
                 {{ day }}
+                <br>
+               {% if events|length > 2 %} 
+                  {% for event in events|slice:":1" %}
+                  <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
+                  <hr size="1" noshade>
+                  {% endfor %}
+                <a href="/calendar/{{year}}/{{month_name}}/{{day}}/view_events/">View All</a>
+                
+                
+                {% else %}
                 {% for event in events %}
-                    <br>
-                    <b><a href="/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event.pk}}">{{ event.event_name }}</a></b>
+                    <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
+                    <p>
+                    
                {% endfor %}
-            {% endif %}
+               {% endif %}
+               {% endif %}
+        {% comment %}    {% endif %} {% endcomment %}
             </td>
         {% endfor %}
         </tr>
@@ -78,7 +89,7 @@
 
 {% endblock content %}
 {% block pagetitle %}
-Calendar - month
+Calendar
 {% endblock pagetitle %}
 
 

@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>{{ group }} <a href="/email/Group/{{group.id}}/">Email Group</a></h2>
+<a href="/forum/{{group.id}}/">Group Forums</a>
 <p>{{ group.group_description }}</p>
 <hr />
 {% for role in roles %}
 <strong>{{ role.name }}({{ role.users.all|length }})</strong>
 [
   <a href="/gus_test/Role/Edit/{{ role.id }}/">Edit Role</a>
+]
+[
+  <a href="/gus_test/Role/Delete/{{ role.id }}/{{ group.id }}/">Delete Role</a>
 ]
 <br />
 {{ role.permissionsString }} <br />

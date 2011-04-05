@@ -1,6 +1,7 @@
 # Django settings for gus project.
 import os
 from django.core.urlresolvers import get_script_prefix
+
 PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -14,13 +15,14 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'guspy.db', # Or path to database file if using sqlite3.
+        'NAME': '%s/guspy.db'%PROJECT_PATH, # Or path to database file if using sqlite3.
         'USER': 'guspy', # Not used with sqlite3.
         'PASSWORD': 'chandler is a little girl', # Not used with sqlite3.
         'HOST': 'johnls.net', # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '', # Set to empty string for default. Not used with sqlite3.
     }
 }
+LOGIN_URL='/login/'
 AUTHENTICATION_BACKENDS=('gus_backend.models.gus_backend','django.contrib.auth.backends.ModelBackend',)
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -30,8 +32,7 @@ AUTHENTICATION_BACKENDS=('gus_backend.models.gus_backend','django.contrib.auth.b
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'America/Chicago'
-#BASE_URL = get_script_prefix()
-#print BASE_URL
+
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
@@ -67,26 +68,25 @@ SECRET_KEY = '^nat@lnqd0wmfr9gyw8&o_l(v2=uwr+524(1g!a!@!thf17m&k'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
 )
 
-MIDDLEWARE_CLASSES = (                      
+MIDDLEWARE_CLASSES = [             
+    'django.middleware.gzip.GZipMiddleware',         
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-)
+    'django.contrib.messages.middleware.MessageMiddleware'
+    # debug toolbar is added to this later, if installed
+]
+
+
+INTERNAL_IPS = ('127.0.0.1',)
 
 ROOT_URLCONF = 'gus.urls'
 
-
-
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, '../views'),
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 )
 
 INSTALLED_APPS = [
@@ -103,20 +103,25 @@ INSTALLED_APPS = [
     'gus.gus_forum',
     'gus.gus_emailer',
     'gus.gus_bill',
-    'gus.gusTestSuite'
-
-    
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'gus.gusTestSuite',
 ]
+
+# try to use PIL
 try:
     import Image
 except ImportError:
     print 'PIL is not installed, skipping image gallery...'
 else:
     INSTALLED_APPS.append('gus.gus_gallery')
+    
+# try to use debug_toolbar
+try:
+    import debug_toolbar
+except ImportError:
+    print 'Debug toolbar not installed, skipping...'
+else:
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 #The first line of code sets a custom test runner, instead of the default one django uses. We need the custom one
 # in order to include the coverage library that will run our coverage tests.

@@ -5,13 +5,13 @@ from django import forms
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
-from django.forms.models import modelformset_factory
+
 
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from gus.gus_calendar.models import *
-
+from gus.gus_roles.models import RoleManager
 
 month_names = "January February March April May June July August September October November December"
 month_names = month_names.split()
@@ -25,6 +25,7 @@ years = []
 
 
 def month(request, year=None, month=None):
+    # group = request.group
     
      if year: year = int(year)
      else: year = time.localtime()[0]
@@ -81,23 +82,60 @@ def month(request, year=None, month=None):
                                 'month_name': month_name, 
                                 'month_days': list,
                                 'month_list': month_list, 
-                                'events':events}, 
+                                'events':events},
+#                                'group_id': group_id}, 
                                 context_instance=RequestContext(request))
    
 
-#          
-#class Event_form(forms.Form):
-#    event_name = forms.CharField(max_length = 60)
-#    event_description = forms.CharField(widget=forms.Textarea)
-#    
-        
-
-
-def day(request, year, month, day):
+def view_all(request, year, month, day):
+    month_name = month
+    month = month_names.index(month) + 1
+    
+    events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day)
+    return render_to_response("calendar/view_events.html",
+                              {'year':year,
+                               'month_name': month_name,
+                               'day':day,
+                               'events':events},
+                               context_instance=RequestContext(request))
+          
+          
+                    
+def day_view(request, year, month, day, event_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
+    
  
+    month_name = month
+    month = month_names.index(month) + 1
+    
+    
+    event = Gus_event.objects.get(pk=event_id)
+    event_creator = event.creator
+    event_description = event.description
+    event_name = event.event_name
+    
+    return render_to_response("calendar/day_view.html",
+                              {'year':year,
+                               'month_name':month_name, 
+                               'day':day,
+                               'creator':event.creator,
+                               'description': event.description,
+                               'name': event.event_name,
+                               'start_date': event.start_date,
+                               'event_id': event_id}, 
+                               context_instance=RequestContext(request))
+    
+        
+
+
+def day_add(request, year, month, day): #, group_id):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    usr = request.user
+  #  if with_user_in_group(group, usr) != admin:
+        #redirect
     
     month_name = month
     month = month_names.index(month) + 1
@@ -107,29 +145,29 @@ def day(request, year, month, day):
         form = Event_form(request.POST)
         if form.is_valid():
             event = form.save(commit=False)
-            #for event in events:
             event.creator = usr
             event.start_date = date(int(year), int(month), int(day))
             event.save()
 
-#            return HttpResponseRedirect("calendar/month_view.html")
-            response = request.META['HTTP_REFERER'].rstrip('/').rstrip('/)')
+            response = request.META['HTTP_REFERER'].rstrip('/')
+            print response
             splice = response.rfind('/')
             return HttpResponseRedirect(response[:splice] + '/')
             
     else:
         form = Event_form()
         
-    return render_to_response("calendar/day_view.html", 
+    return render_to_response("calendar/add_event.html", 
                               {'event_form': form, 
                                'month_name':month_name, 
-                               'year':year, 'day':day}, 
-                               context_instance=RequestContext(request)) #add_csrf(request, events=form, year=year, month=month, day=day))
-    
+                               'year':year, 
+                               'day':day},
+                               #'group_id': group_id}, 
+                               context_instance=RequestContext(request)) 
 
 
 
-def day_edit(request, year, month, day, event_id):
+def day_edit(request, year, month, day, event_id): #, group_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
@@ -140,31 +178,29 @@ def day_edit(request, year, month, day, event_id):
     month = month_names.index(month) + 1
 
     if request.method == "POST":
-
-        #edit = Gus_event.objects.get(creator=request.user)
-        
-        form = Event_form(request.POST) 
-        print "editing"
+        form = Event_form_edit(request.POST, instance = edit) 
         if form.is_valid():
-            event = form.save()#commit=False)
-            #for event in events:
-            #event.creator = usr
-            #event.start_date = date(int(year), int(month), int(day))
-            #event.save()
-
-#            return HttpResponseRedirect("calendar/month_view.html")
-            response = request.META['HTTP_REFERER'].rstrip('/')
-            splice = response.rfind('/')
-            return HttpResponseRedirect(response[:splice] + '/')
+            event = form.save(commit=False)
+            event.creator = usr
+            event.start_date = date(int(year), int(month), int(day))
+            event.save()
+            if event.Delete == True: ## if delete is checked, delete that event!
+                event.delete()
+            response = request.META['HTTP_REFERER']
+            splice = response.rfind('_')
+            return HttpResponseRedirect(response[:splice])
             
     else:
-        form = Event_form(instance=edit)
+        edit = Gus_event.objects.get(pk=event_id)
+        form = Event_form_edit(instance=edit)
         
     return render_to_response("calendar/day_edit_view.html", 
                               {'event_form': form, 
                                'month_name':month_name, 
-                               'year':year, 
-                               'day':day}, 
+                               'year':year,
+                               'day': day, 
+                               'event_id':event_id},
+#                               'group_id': group_id}, 
                                context_instance=RequestContext(request)) #add_csrf(request, events=form, year=year, month=month, day=day))
     
     
