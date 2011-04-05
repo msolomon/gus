@@ -12,7 +12,7 @@
 		<div id="header">
 			<table border="0"><tr>
 				<td>{% block title %}
-					<a href="/"><img src="/include/images/guspy.png"/></a>
+					<a href="/" class="header_image"><img src="/include/images/guspy.png"/></a>
 					{% endblock %}</td>
 				<td><h1>{% block subtitle %}Groups in a University Setting{% endblock %}</h1></tr>
 			</tr></table>
@@ -54,10 +54,7 @@
 					<br><hr/>
 					
 					{% block sidebar_sitewide %}
-					<a href="http://test.joranbeasley.com/project_management/index.php?m=projects&a=view&project_id=1&tab=0" target="blank">Project Status</a><br>
-					<a href="http://test.joranbeasley.com/coverage_report/">Current Coverage</a><br>
-					<a href="http://test.joranbeasley.com/api/">Api Documentation</a><br>
-					<a href="https://github.com/arkenflame/gus">GitHub</a>
+					<a href="https://github.com/arkenflame/gus" class="blue_hover">Reports</a>
 					{% endblock %}
 					
 					<br><hr/>

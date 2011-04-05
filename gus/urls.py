@@ -7,7 +7,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     (r'^$','gus.gus_users.views.welcome'),
-        (r'^gus_test/', include('gus.gusTestSuite.urls')),
+    (r'^gus_test/', include('gus.gusTestSuite.urls')),
 	(r'^gallery/', include('gus.gus_gallery.urls')),
 	(r'^emailer/', include('gus.gus_emailer.urls')),
 	(r'^bill/', include('gus.gus_bill.urls')),
