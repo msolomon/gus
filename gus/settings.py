@@ -151,3 +151,5 @@ IMAP_PORT = 25
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = '[gus] '
+# the default email suffix
+EMAIL_SUFFIX = '@guspy.joranbeasley.com'

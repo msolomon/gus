@@ -19,6 +19,7 @@ from django.core.urlresolvers import reverse
 #from gus.gus_groups.models import *
 #from gus.gus_groups.forms import *
 #from django.contrib import messages
+from gus import settings
 from gus.gus_users.models import gus_user
 from gus.gus_groups.models import gus_group
 from gus.gus_roles.models import gus_role
@@ -172,8 +173,9 @@ def editRole(urlRequest, role_id):
                        },context_instance=RequestContext(urlRequest)
                        )
 
-  
-@login_required
+ 
+ 
+#@login_required # you need to be able to register without being logged in
 def addUser(urlRequest):
     
     #setup our form
@@ -184,7 +186,9 @@ def addUser(urlRequest):
             # ...
             gus_user.objects.create_user(
                             form.cleaned_data['username'],
-                            form.cleaned_data['email'],
+                            # make the email based on the user
+                            form.cleaned_data['username'] + settings.EMAIL_SUFFIX,
+                            #form.cleaned_data['email'],
                             form.cleaned_data['password'],
                         )
             return HttpResponseRedirect('/gus_test/') # Redirect after POST
