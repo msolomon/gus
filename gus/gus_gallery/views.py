@@ -16,7 +16,7 @@ def gallery_add(urlRequest, group_id):
     The view for adding a new gallery
     """
     the_user = urlRequest.user
-    the_group = gus.gus_group.object.filter(pk = group_id)
+    the_group = gus_group.object.filter(pk = group_id)
 
     # If the user doesn't have permission to add a gallery, redirect them
     if not the_user.has_group_perm(the_group, "Can add gus_gallery"):
