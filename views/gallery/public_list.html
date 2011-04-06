@@ -12,7 +12,7 @@
 
 <!-- Print a list of the public image galleries -->
 {% for g in galleries %}
-  <a href="/gallery/{{ g.pk }}">{{ g.name }}</a>
+  <a href="/gallery/{{ g.pk }}">{{ g.name }}</a> [{{ g.group.group_name }}]
   <br/>
 {% endfor %}
 
