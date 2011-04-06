@@ -148,6 +148,7 @@ def day_add(request, year, month, day): #, group_id):
     groups = getGroupsWithUser(usr)
     print groups
     for group in groups:
+        print gus_role.objects.with_user(usr)
         if not usr.has_group_perm(group, 'Can add event'):
             return HttpResponseRedirect('calendar/month_view.html')
         else:
