@@ -11,6 +11,7 @@
 
 {% block content %}
 <table border="1" cellpadding="6">
+<th>
 {% for forum in forums %}
 	<tr>
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}">{{forum.forum_name}}</a></b><br />
