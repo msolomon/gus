@@ -227,11 +227,10 @@ table
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
-	margin: 45px;
-	width: 480px;
+	margin: 25px;
 	text-align: left;
 	border-collapse: collapse;
-	border-bottom: 2px solid #000000
+	border-bottom: 2px solid #aabcfe
 }
 table th
 {

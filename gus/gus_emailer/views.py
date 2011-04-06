@@ -48,7 +48,7 @@ def check(request, pagenum=1):
     snippets = em.check_email()
     
     # paginate the emails
-    snippets_per_page = 50
+    snippets_per_page = 10
     paginator = Paginator(snippets, snippets_per_page)
     
     # default to last page if page number is invalid (too high)
