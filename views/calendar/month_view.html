@@ -31,16 +31,16 @@
 
 <div class="month">
   <center>
-    <table border="1" cellpadding="10" cellspacing="3">
+    <table border="1" bordercolor="#ced9fe"class="month">
 
-    <tr height="50">
-        <th class="empty">Monday</th>
-        <th class="empty">Tuesday</th>
-        <th class="empty">Wednesday</th>
-        <th class="empty">Thursday</th>
-        <th class="empty">Friday</th>
-        <th class="empty">Saturday</th>
-        <th class="empty">Sunday</th>
+    <tr height="50" width="25%">
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
     </tr>
 
     {% for week in month_days %}
@@ -48,11 +48,12 @@
         {% for day, events, current in week %}
 
     
-            <td height="70" width="65"
+            <td height="70" width="75"
 
             {% if day != 0 %}
               valign="top"
-              onmouseover=this.style.cursor='pointer' 
+              onmouseover=this.style.backgroundColor="#dce4cc";this.style.cursor='pointer'
+              onmouseout=this.style.backgroundColor="#e8edff" 
               onclick= "top.location='/calendar/{{year}}/{{month_name}}/_add{{day}}/'">
              
               {% endif %}

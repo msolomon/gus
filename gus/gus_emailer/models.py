@@ -6,6 +6,7 @@ from imaplib import *
 from django.db import models
 from django.core import mail
 from gus import settings
+import datetime
 
 from gus.gus_widget.models import Widget
 from gus.gus_groups.models import gus_group
@@ -119,11 +120,20 @@ class Emailer(models.Model):
             except IndexError: continue
             
             # create the snippets
-            if self.user_email in to.translate(None, '\'"<>').split():
+            if self.user_email in to.translate(None, '\'"<>,').split():
                 try:
-                    date = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
-                    date = parse(date).strftime('%I:%M %p, %x')
-                except (IndexError, ValueError, TypeError): date = ''
+                    datestr = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
+                except IndexError:
+                    datestr = ''
+                try:
+                    print datestr
+                    date = parse(datestr)
+                    datestr = date.strftime('%I:%M %p, %x')
+                except (ValueError, TypeError):
+                    time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
+                    date = parse(time)
+                    
+                print date, datestr
                 try: frm = re.search('from:([^\n]*)\n', mes, re.I).group(1).strip()
                 except IndexError:  frm = ''    
                 try:  sub = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
@@ -132,8 +142,12 @@ class Emailer(models.Model):
                 snippets.insert(0, {'id': id,
                                     'subject': sub,
                                     'from': frm,
-                                    'date': date
-                                    })      
+                                    'date': datestr,
+                                    'dateobj': date
+                                    })  
+                snippets = sorted(snippets,
+                                  key=lambda x: x['dateobj'],
+                                  reverse=True)    
             
         return snippets
     
@@ -142,8 +156,6 @@ class Emailer(models.Model):
             @param int, the email UID to get
             @return: mail.EmailMessage
         '''
-        notfound = 'This email message could not be found, ' + \
-                   ' or you do not have the rights to view it.'
         server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
         server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
         
@@ -152,15 +164,16 @@ class Emailer(models.Model):
         # get a list of messages prefiltered for this user
         potential = server.search(['UID ' + emailuid])
         if len(potential) == 0:
-            return (False, notfound)
+            print potential
+            return (False, 'The message ID was not found on the messaging server.')
         
         # otherwise, get the message and log out
         messages = server.fetch(potential, ['BODY[HEADER]', 'BODY[TEXT]'])
         server.logout()
         
         # ensure there is exactly one message
-        if len(messages) != 1:
-            return (False, notfound)
+        if len(messages) < 1:
+            return (False, 'This message was not found on the messaging server.')
         
         # extract the message and put it into an EmailMessage object
         k = messages.keys()[0]
@@ -168,14 +181,17 @@ class Emailer(models.Model):
             message = self.parse_rfc822(messages[k]['BODY[HEADER]'],
                                         messages[k]['BODY[TEXT]'])
         except KeyError:
-            return (True, 'The email message could not be retrieved. Retrying...')
+            return (True, 'Still retrieving message from messaging server...')
         
         # ensure the logged-in user was sent this email
         dest = ' '.join(message.to + message.cc + message.bcc)
+        dest = dest.translate(None, '\'"<>,')
         dest = dest.split()
         
         if self.user_email not in dest:
-            return (False, notfound)
+            # print helpful message to console
+            print dest, self.user_email
+            return (False, 'You do not have permission to view this message.')
     
         return message 
     
@@ -185,8 +201,6 @@ class Emailer(models.Model):
             @param body: the body (plain text)
             @return: EmailMessage object
         '''
-        ## TODO: Account for things like multiple recipients
-                ##     and, say, including other header info
         m = mes.split('\n')
         ## Get header fields
         def getrest(prefix):

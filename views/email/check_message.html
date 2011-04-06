@@ -1,5 +1,5 @@
 {% extends "email/emailer.html" %}
-{% block pagetitle %}Email Inbox for {{username}}{% endblock pagetitle %}
+{% block pagetitle %}Message: {{ email.subject }}{% endblock pagetitle %}
 
 {% block content %}
 <b>From:</b> <br> {{ email.from_email|urlize }} <br>
