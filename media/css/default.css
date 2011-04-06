@@ -22,14 +22,21 @@ html {min-height: 100%;}
 	padding: 0;
 }
 
-a {color: #048;}
+a {
+	color: #048;
+}
+
 a:hover {color: #06C;}
+
+img {
+	border-style: none;
+}
 
 body {
 	background: #E7E7E2 url('../images/css_img/body.jpg') center top; 
 	background-repeat: repeat-x;
 	color: #444;
-	font: normal 62.5% Tahoma,sans-serif;
+	font: normal 80% Tahoma,sans-serif;
 	padding-top: 64px;
 }
 
@@ -85,10 +92,16 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 	padding-bottom: 64px;
 }
 
+a .header_image{
+	text-decoration:none;
+	outline:none;
+	background:none;
+}
+
 /* header & title */
 .header {
     background: #222 url('../images/css_img/header.png') center top;
-    background-repeat: repeat-x;
+    width: 100%;
     height: 160px;
 	margin-bottom: 5px;
 	text-align: center;
@@ -118,7 +131,7 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 	font: normal 1.1em Verdana,sans-serif;
 	padding: 8px 12px;
     text-align: center;
-    font-size:130%;
+    font-size:110%;
 }
 .topbar a {
 	color: #FAFAFA;
@@ -132,7 +145,7 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 /* status */
 .status {
     background: #D2D2D0;
-    font: normal 1.1em Verdana,sans-serif;
+    font: normal 80% Verdana,sans-serif;
     padding: 8px 12px;
 }
 .status a {
@@ -153,7 +166,6 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 .calendar
 {
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-  font-size: 12px;
   margin: 45px;
   width: 500px;
   text-align: left;
@@ -163,7 +175,7 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 }
 .calendar th
 {
-  font-size: 13px;
+  font-size: 90%;
   font-weight: normal;
   padding: 8px;
   background: #b9c9fe;
@@ -175,7 +187,6 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 .month
 {
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-  font-size: 12px;
   margin: 45px;
   text-align: left;
   border-collapse: collapse;
@@ -213,16 +224,15 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 table
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-	font-size: 12px;
-	margin: 45px;
-	width: 480px;
+	font-size: 75%;
+	margin: 25px;
 	text-align: left;
 	border-collapse: collapse;
-	border-bottom: 2px solid #000000
+	border-bottom: 2px solid #aabcfe
 }
 table th
 {
-	font-size: 13px;
+	font-size: 130%;
 	font-weight: normal;
 	padding: 8px;
 	background: #b9c9fe;

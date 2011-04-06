@@ -36,7 +36,21 @@ def index(urlRequest):
          'users':gus_user.objects.all(),
          'groups':gus_group.objects.all(),
          },context_instance=RequestContext(urlRequest));
-
+@login_required
+def index2(urlRequest):
+    
+    #from django.contrib.auth.forms import UserCreationForm
+    #from gus.gusTestSuite.forms import SimpleAddUserToGroup
+    #return HttpResponse(SimpleGroupAddForm().as_p()) 
+    data ={}
+    usr=urlRequest.user
+    grps = [r.group for r in gus_role.objects.with_user(usr)]
+    data['user']=usr
+    data['groups']=grps
+    #return HttpResponse(data['groups'][0].group_name)
+    return render_to_response('test/welcome2.html', data
+         #'urls':{'delete':'/gus_test/Group/Delete/%s/'},
+         ,context_instance=RequestContext(urlRequest));
 def authUser(urlRequest):
     return render_to_response('users/info.html',{},
                               context_instance=RequestContext(urlRequest))
@@ -138,7 +152,17 @@ def deleteUser(urlRequest, user_id):
 @login_required
 def deleteGroup(urlRequest, group_id):
     group = gus_group.objects.get(pk=group_id)
-    return HttpResponse('Delete Group : %s ' % group)
+    try:
+        if urlRequest.POST['confirm']:
+            group.delete();
+            
+            return HttpResponseRedirect('/groups/')
+    except:
+        return render_to_response('generic/confirm_delete.html',
+                              {'type' : 'group',
+                               'item' : group.group_name,
+                               'cancel_url' : '/groups/%s/Edit'%group_id},
+                              context_instance = RequestContext(urlRequest))
 
 @login_required
 def removeUserFromRole(urlRequest, user_id, role_id):

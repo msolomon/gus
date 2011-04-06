@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
+{% block pagetitle %}Messages{% endblock %}
+
 {% block sidebar_top %}
-<b>Email</b><br>
-<a href="/email/check">Check Messages</a><br>
-<a href="/email/send">New Message</a>
+<h2>Messages</h2>
+<ul>
+	<li><a href="/email/check">Inbox</a></li>
+	<li><a href="/email/check_sent">Sent Messages</a></li>
+	<li><a href="/email/send">New Message</a></li>
+</ul>
 {% endblock %}

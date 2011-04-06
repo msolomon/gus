@@ -14,7 +14,7 @@ from django import forms
 class SendForm(forms.Form):
     subject = forms.CharField(max_length=100)
     message = forms.CharField(widget=forms.Textarea)
-    recipients = forms.CharField(max_length=1000)
+    recipients = forms.CharField(max_length=1000, required=False)
     
     def add_emails(self, inuser):
         # build a list of people to send to
@@ -35,7 +35,8 @@ class SendForm(forms.Form):
             self.fields['to_email %s' % group] = \
                 forms.CharField(max_length=1000,
                     widget=forms.CheckboxSelectMultiple(choices=us),
-                    label=group.group_name)
+                    label=group.group_name,
+                    required=False)
                 
 @login_required
 def check(request, pagenum=1):
@@ -47,7 +48,7 @@ def check(request, pagenum=1):
     snippets = em.check_email()
     
     # paginate the emails
-    snippets_per_page = 50
+    snippets_per_page = 10
     paginator = Paginator(snippets, snippets_per_page)
     
     # default to last page if page number is invalid (too high)
@@ -62,11 +63,49 @@ def check(request, pagenum=1):
                                'page': page,
                                },
                               context_instance=RequestContext(request))
+    
+@login_required
+def check_sent(request, pagenum=1):
+    # numberify pagenum - this will never fail due to the regex
+    pagenum = int(pagenum)
+        
+    # fetch snippets
+    em = Emailer(request.user)
+    snippets = em.check_sent_email()
+    
+    # paginate the emails
+    snippets_per_page = 10
+    paginator = Paginator(snippets, snippets_per_page)
+    
+    # default to last page if page number is invalid (too high)
+    try:
+        page = paginator.page(pagenum)
+    except (EmptyPage, InvalidPage):
+        page = paginator.page(paginator.num_pages)
+    
+    return render_to_response('email/check_sent.html',
+                              {'username':request.user.username,
+                               'useremail':request.user.getEmail(),
+                               'page': page,
+                               },
+                              context_instance=RequestContext(request))
 
 @login_required
 def check_message(request, uid):        
     em = Emailer(request.user)
     message = em.check_message(uid)
+    
+    # if we are POSTing, we are deleting
+    if request.method == 'POST':
+        success = em.delete_message(uid)
+        if not success:
+            return render_to_response('email/error.html',
+                  {'error_message': 'The message could not be deleted.',
+                   'refresh': False
+                   },
+                   context_instance=RequestContext(request))
+        return HttpResponseRedirect('/email/check/')
+            
     
     # display error message, if applicable
     if type(message) == type((True, '')):
@@ -89,7 +128,7 @@ def send(request, user_ids=[]):
         try:
             usrs = [gus_user.objects.get(pk=user_id).email for id in user_ids]
         except:
-            return HttpResponseRedirect('/login/')
+            pass
 
     if request.method == 'POST': # If the form has been submitted...
         form = SendForm(request.POST) # A form bound to the POST data
@@ -100,6 +139,7 @@ def send(request, user_ids=[]):
             # add recipient if box checked
             for key in email.keys():
                 if key.startswith('to_email '):
+                    if len(email[key].strip()) == 0: continue
                     for address in eval(email[key]):
                         email['recipients'] += ' %s' % address
                                             
