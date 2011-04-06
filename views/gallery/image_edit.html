@@ -4,10 +4,17 @@
 {% block content %}
 <h3>Edit Image: {{image}}</h3>
 
+{% if error %}
+  <br/>
+  <b>There was an error updating the image. Please make sure you fill out all fields and try again!</b>
+  <br/><br/>
+{% endif %}
+
 <form action="" method="post" enctype="multipart/form-data">
   {{image_form.as_p}}
   {% csrf_token %}
   <input type="submit" value="Save Changes"/>
 </form>
+<br/>
 <a href="/gallery/{{gallery.id}}">Cancel</a>
 {% endblock %}

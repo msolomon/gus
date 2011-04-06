@@ -4,10 +4,17 @@
 {% block content %}
 <h3>Edit Gallery: {{gallery}}</h3>
 
+{% if error %}
+  <br/>
+  <b>There was an error updating the gallery. Please make sure you fill out all fields and try again!</b>
+  <br/><br/>
+{% endif %}
+
 <form action="" method="post">
   {{gallery_form.as_p}}
   {% csrf_token %}
   <input type="submit" value="Save Changes"/>
 </form>
+<br/>
 <a href="/gallery">Cancel</a>
 {% endblock %}
