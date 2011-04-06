@@ -1,0 +1,62 @@
+{% extends "email/emailer.html" %}
+{% block pagetitle %}Message Inbox{% endblock pagetitle %}
+
+{% block content %}
+<h1> Inbox for {{ username }} ({{ useremail }})</h1>
+<hr>
+<table width="95%">
+	<tr>
+		<td>
+	        {% if page.has_previous %}
+	            <a href="/email/check/{{ page.previous_page_number }}">Previous</a>
+	        {% endif %}
+		</td>
+		<td>
+			Page {{ page.number }} of {{ page.paginator.num_pages }}
+		</td>		
+		<td>
+	        {% if page.has_next %}
+	            <a href="/email/check/{{ page.next_page_number }}">Next</a>
+	        {% endif %}
+		</td>
+	</tr>
+	<tr align="left">
+		<th>Date</th>
+		<th>To</th>
+		<th>Subject</th>
+	</tr>
+	
+	{% for email in page.object_list %}
+	<tr>
+		<td width="10%">
+			{{email.date}}
+		</td>
+		<td width="30%">
+			<a href="{{email.to}}">{{email.to}}</a> <br>
+		</td>
+		<td width="50%">
+			<a href="/email/check/message/{{email.id}}">{{email.subject}}
+		</td>
+	</tr>
+	{% endfor %}
+	
+	<tr>
+		<td>
+	        {% if page.has_previous %}
+	            <a href="/email/check/{{ page.previous_page_number }}">Previous</a>
+	        {% endif %}
+		</td>
+		<td>
+			Page {{ page.number }} of {{ page.paginator.num_pages }}
+		</td>		
+		<td>
+	        {% if page.has_next %}
+	            <a href="/email/check/{{ page.next_page_number }}">Next</a>
+	        {% endif %}
+		</td>
+	</tr>
+</table>
+
+{% endblock content %}
+
+
