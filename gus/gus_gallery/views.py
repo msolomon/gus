@@ -1,4 +1,4 @@
-0;136;0c# TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
+# TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
 # TODO: Add permission stuff in here so not everyone can perform these actions
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
