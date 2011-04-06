@@ -140,4 +140,5 @@ class gus_group(models.Model):
         """
         return "Group: %s" % self.group_name or '(Not Defined)'
     roles=property(getRoles)
+    users=property(getUsers)
     

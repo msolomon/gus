@@ -1,5 +1,6 @@
-# TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
+  # TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
 # TODO: Add permission stuff in here so not everyone can perform these actions
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.forms.models import model_to_dict
 from django.shortcuts import render_to_response
@@ -8,14 +9,12 @@ from gus.gus_gallery.models import *
 from gus.gus_groups.models import *
 from gus.gus_groups.utils import *
 
+@login_required
 def gallery_add(urlRequest, group_id):
     """
     The view for adding a new gallery
     """
-    # If the user isn't validated, take them to the GUS homepage
     the_user = urlRequest.user
-    if the_user.is_anonymous():
-        return HttpResponseRedirect('/')
 
     if urlRequest.method == "POST":
         # If the user just posted data to the form, and it validates, add it
@@ -34,15 +33,12 @@ def gallery_add(urlRequest, group_id):
                               {'gallery_form' : the_form},
                               context_instance=RequestContext(urlRequest))
 
-
+@login_required
 def gallery_delete(urlRequest, gallery_id):
     """
     The view for deleting a gallery
     """
-    # If the user isn't validated, take them to the GUS homepage
     the_user = urlRequest.user
-    if the_user.is_anonymous():
-        return HttpResponseRedirect('/')
 
     # If the gallery isn't valid, return to the list of galleries
     try:
@@ -60,15 +56,12 @@ def gallery_delete(urlRequest, gallery_id):
                               {'gallery' : gallery},
                               context_instance=RequestContext(urlRequest))
 
-
+@login_required
 def gallery_edit(urlRequest, gallery_id):
     """
     The view for editing a gallery
     """
-    # If the user isn't validated, take them to the GUS homepage
     the_user = urlRequest.user
-    if the_user.is_anonymous():
-        return HttpResponseRedirect('/')
 
     # If the gallery isn't valid, return the user to the gallery list
     try:
@@ -90,32 +83,24 @@ def gallery_edit(urlRequest, gallery_id):
                               {'gallery' : gallery, 'gallery_form' : form},
                               context_instance=RequestContext(urlRequest))
 
-
+@login_required
 def gallery_view(urlRequest, gallery_id):
     """
     A view for a single gallery
     """
-    # If the user isn't validated, take them to the GUS homepage
-    the_user = urlRequest.user
-    if the_user.is_anonymous():
-        return HttpResponseRedirect('/')
-
     gallery = gus_gallery.objects.filter(pk=gallery_id)[0]
     images = gallery.get_images()
 
     return render_to_response('gallery/gallery_view.html',
                               {'gallery' : gallery, 'images' : images})
 
-
+@login_required
 def image_add(urlRequest, gallery_id):
     """
     A view for adding an image to a gallery
     """
-    # If the user isn't validated, take them to the GUS homepage
     the_user = urlRequest.user
-    if the_user.is_anonymous():
-        return HttpResponseRedirect('/')
-    
+
     # Make sure it's a valid gallery, if not, redirect the user to the gallery page
     try:
         gallery = gus_gallery.objects.filter(pk=gallery_id)[0]
@@ -140,16 +125,11 @@ def image_add(urlRequest, gallery_id):
                               {'gallery' : gallery, 'image_form' : form},
                               context_instance = RequestContext(urlRequest))
 
-
+@login_required
 def image_delete(urlRequest, image_id):
     """
     A view for deleting an image from a gallery
     """
-    # If the user isn't validated, take them to the GUS homepage
-    the_user = urlRequest.user
-    if the_user.is_anonymous():
-        return HttpResponseRedirect('/')
-    
     # If the image isn't legit, return to the gallery list
     try:
         image = gus_image.objects.filter(pk = image_id)[0]
@@ -168,16 +148,11 @@ def image_delete(urlRequest, image_id):
                               {'gallery' : gallery, 'image' : image},
                               context_instance = RequestContext(urlRequest))
 
-
+@login_required
 def image_edit(urlRequest, image_id):
     """
     The view for editing an existing image in a gallery
     """
-    # If the user isn't validated, take them to the GUS homepage
-    the_user = urlRequest.user
-    if the_user.is_anonymous():
-        return HttpResponseRedirect('/')
-
     # If the image isn't legit, return to the gallery listing
     try:
         image = gus_image.objects.filter(pk = image_id)[0]
@@ -202,15 +177,12 @@ def image_edit(urlRequest, image_id):
                                'image_form' : form},
                               context_instance = RequestContext(urlRequest))
 
-
+@login_required
 def index(urlRequest):
     """
     The default view that shows all galleries for all groups
     """
-    # If the user isn't validated, take them to the GUS homepage
     the_user = urlRequest.user
-    if the_user.is_anonymous():
-        return HttpResponseRedirect('/')
 
     # Get all the groups that the user belongs to, if any, and all the
     # galleries for those groups

@@ -18,7 +18,8 @@ class SimpleUserAddForm(forms.Form):
     """
     username = forms.CharField(max_length=100)
     password = forms.CharField(max_length=100,widget=forms.PasswordInput())
-    email = forms.EmailField()
+    # the email is automatically created
+    #email = forms.EmailField()
     id  = forms.IntegerField(required=False,widget=forms.HiddenInput())
 
 class SimpleAddUserToGroup(forms.Form):
