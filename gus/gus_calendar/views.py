@@ -12,6 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from gus.gus_calendar.models import *
 from gus.gus_groups.utils import *
+from gus.gus_roles.models import *
 
 month_names = "January February March April May June July August September October November December"
 month_names = month_names.split()
@@ -105,9 +106,14 @@ def view_all(request, year, month, day):
           
                     
 def day_view(request, year, month, day, event_id):
+    not_auth = 0
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
+    groups = getGroupsWithUser(usr)
+    for group in groups:
+        if not usr.has_group_perm(group, 'Can add event'):
+            not_auth = 1 # if user not authorized, display list of events only
     
  
     month_name = month
@@ -127,20 +133,27 @@ def day_view(request, year, month, day, event_id):
                                'description': event.description,
                                'name': event.event_name,
                                'start_date': event.start_date,
-                               'event_id': event_id}, 
+                               'event_id': event_id,
+                               'not_auth': not_auth}, 
                                context_instance=RequestContext(request))
     
         
 
 
 def day_add(request, year, month, day): #, group_id):
+    auth_groups = []
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
-    #usr.has_group_permission(,'Can add event')
-  #  if with_user_in_group(group, usr) != admin:
-        #redirect
-    
+    groups = getGroupsWithUser(usr)
+    print groups
+    for group in groups:
+        if not usr.has_group_perm(group, 'Can add event'):
+            return HttpResponseRedirect('calendar/month_view.html')
+        else:
+            auth_groups.append(group)
+            
+        
     month_name = month
     month = month_names.index(month) + 1
 
@@ -151,6 +164,7 @@ def day_add(request, year, month, day): #, group_id):
             event = form.save(commit=False)
             event.creator = usr
             event.start_date = date(int(year), int(month), int(day))
+            event.groups = auth_groups
             event.save()
 
             response = request.META['HTTP_REFERER'].rstrip('/')
@@ -175,6 +189,7 @@ def day_edit(request, year, month, day, event_id): #, group_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
+    
  
     edit = Gus_event.objects.get(pk=event_id)
     
