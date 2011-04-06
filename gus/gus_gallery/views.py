@@ -161,21 +161,17 @@ def gallery_view(urlRequest, gallery_id):
     images = gallery.get_images()
 
     # If the user isn't in the group, AND the gallery isn't public, redirect to the list of galleries
-    if gus_role.objects.with_user_in_group(gallery.group, the_user) == None:
+    the_group = gallery.group;
+    if gus_role.objects.with_user_in_group(the_group, the_user) == None:
         if not gallery.is_public:
             return HttpResponseRedirect('/gallery/')
-
-    # Get the permissions for the current gallery, if the user is in the group,
-    # otherwise set all permissions to false.
-    the_group = gallery.group;
-    if gus_role.objects.with_user_in_group(gallery.group, the_user) != None:
+        can_add = False
+        can_edit = False
+        can_delete = False
+    else:
         can_add = the_user.has_group_perm(the_group, "Can add gus_image")
         can_edit = the_user.has_group_perm(the_group, "Can change gus_image")
         can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
-    else:
-        can_add = False
-        can_edit = False
-        cad_delete = False
 
     return render_to_response('gallery/gallery_view.html',
                               {'gallery' : gallery,
