@@ -160,15 +160,14 @@ def gallery_view(urlRequest, gallery_id):
     gallery = gus_gallery.objects.filter(pk=gallery_id)[0]
     images = gallery.get_images()
 
-    can_add = False
-    can_edit = False
-    can_delete = False
-
     # If the user isn't in the group, AND the gallery isn't public, redirect to the list of galleries
     the_group = gallery.group;
     if gus_role.objects.with_user_in_group(the_group, the_user) == None:
         if not gallery.is_public:
             return HttpResponseRedirect('/gallery/')
+        can_add = False
+        can_edit = False
+        can_delete = False
     else:
         can_add = the_user.has_group_perm(the_group, "Can add gus_image")
         can_edit = the_user.has_group_perm(the_group, "Can change gus_image")
