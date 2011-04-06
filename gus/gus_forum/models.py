@@ -68,11 +68,11 @@ class forum(models.Model):
 		@return: The last date a post was made in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		last_thread = forum_thread.objects.filter(forum = self).order_by('-date_created')
 		if len(last_thread) == 0:
 			return 'Never'
 		#End
-		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('-date_created')
 		if len(last_post) == 0:
 			return 'Never'
 		#End
@@ -88,11 +88,11 @@ class forum(models.Model):
 		@return: The user of the last date a post was made in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		last_thread = forum_thread.objects.filter(forum = self).order_by('-date_created')
 		if len(last_thread) == 0:
 			return 'Nobody'
 		#End
-		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('-date_created')
 		if len(last_post) == 0:
 			return 'Nobody'
 		#End
@@ -108,7 +108,7 @@ class forum(models.Model):
 		@return The thread of the last thread the was posted in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		last_thread = forum_thread.objects.filter(forum = self).order_by('-date_created')
 		if len(last_thread) == 0:
 			return -1
 		#End
@@ -183,11 +183,7 @@ class forum_thread(models.Model):
 		@return: The last date a post was made in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
-		if len(last_thread) == 0:
-			return 'Never'
-		#End
-		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		last_post = forum_post.objects.filter(thread = self).order_by('-date_created')
 		if len(last_post) == 0:
 			return 'Never'
 		#End
@@ -203,11 +199,7 @@ class forum_thread(models.Model):
 		@return: The user of the last date a post was made in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
-		if len(last_thread) == 0:
-			return 'Nobody'
-		#End
-		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		last_post = forum_post.objects.filter(thread = self).order_by('-date_created')
 		if len(last_post) == 0:
 			return 'Nobody'
 		#End
@@ -223,7 +215,7 @@ class forum_thread(models.Model):
 		@return The thread of the last thread the was posted in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		last_thread = forum_thread.objects.filter(forum = self).order_by('-date_created')
 		if len(last_thread) == 0:
 			return -1
 		#End
