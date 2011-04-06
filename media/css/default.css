@@ -166,7 +166,6 @@ a .header_image{
 .calendar
 {
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-  font-size: 12px;
   margin: 45px;
   width: 500px;
   text-align: left;
@@ -176,7 +175,7 @@ a .header_image{
 }
 .calendar th
 {
-  font-size: 13px;
+  font-size: 90%;
   font-weight: normal;
   padding: 8px;
   background: #b9c9fe;
@@ -188,7 +187,6 @@ a .header_image{
 .month
 {
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-  font-size: 12px;
   margin: 45px;
   text-align: left;
   border-collapse: collapse;
@@ -226,7 +224,7 @@ a .header_image{
 table
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-	font-size: 12px;
+	font-size: 75%;
 	margin: 25px;
 	text-align: left;
 	border-collapse: collapse;
@@ -234,7 +232,7 @@ table
 }
 table th
 {
-	font-size: 13px;
+	font-size: 130%;
 	font-weight: normal;
 	padding: 8px;
 	background: #b9c9fe;
