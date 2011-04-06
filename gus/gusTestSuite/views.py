@@ -36,6 +36,7 @@ def index(urlRequest):
          'users':gus_user.objects.all(),
          'groups':gus_group.objects.all(),
          },context_instance=RequestContext(urlRequest));
+
 @login_required
 def index2(urlRequest):
     
@@ -142,7 +143,17 @@ def editGroup(urlRequest, group_id):
           'formAddUser':form_addUser},
           context_instance=RequestContext(urlRequest)
           )
-    return HttpResponse('Manage Group : %s ' % group)
+    #return HttpResponse('Manage Group : %s ' % group)
+
+@login_required
+def viewGroup(urlRequest, group_id):
+    group = gus_group.objects.get(pk=group_id)
+#left of hear with user
+    return render_to_response('groups/viewGroup.html',
+	{ 'group':group },
+	  context_instance=RequestContext(urlRequest)
+	  )
+    #return HttpResponse("testing")
 
 @login_required
 def deleteUser(urlRequest, user_id):
