@@ -183,7 +183,7 @@ def add_thread(request, group_id, forum_id):
 		form = new_thread_form() 
 	#End
 
-	return render_to_response('forum/add_thread.html', {"forum":request_for_forum, "form":form}, context_instance=RequestContext(request))
+	return render_to_response('forum/add_thread.html', {"group":request_for_group, "forum":request_for_forum, "form":form}, context_instance=RequestContext(request))
 #End
 
 def add_post(request, group_id, forum_id, thread_id):
@@ -226,7 +226,7 @@ def add_post(request, group_id, forum_id, thread_id):
 		form = new_post_form() 
 	#End
 
-	return render_to_response('forum/add_post.html', {"thread":request_for_thread, "form":form}, context_instance=RequestContext(request))
+	return render_to_response('forum/add_post.html', {"group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "form":form}, context_instance=RequestContext(request))
 #End
 
 def delete_forum(request, group_id, forum_id):
@@ -321,8 +321,8 @@ def delete_post(request, group_id, forum_id, thread_id, post_id):
 		return HttpResponse('Post Not Found!')
 	#End
 
-	request_for_post.delete()
-	return HttpResponseRedirect('/forum/%s/%s/%s/' % (group_id, forum_id, post_id))
+	request_for_post.EditPost("Post Deleted")
+	return HttpResponseRedirect('/forum/%s/%s/%s/' % (group_id, forum_id, thread_id))
 #End
 
 def edit_forum(request, group_id, forum_id):
@@ -352,7 +352,7 @@ def edit_forum(request, group_id, forum_id):
 	if request.method == "POST":
 		form = new_forum_form(request.POST, instance=request_for_forum)
 		if form.is_valid():
-			forum = form.save()
+			forum = form.save(commit=False)
 			return HttpResponseRedirect('/forum/%s' %group_id)
 		#End
 	#End

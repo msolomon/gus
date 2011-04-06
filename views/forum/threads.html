@@ -4,12 +4,16 @@
 {{group.group_name}} : {{forum.forum_name}} : Threads
 {% endblock pagetitle %}
 
-{% block content %}
+{% block sidebar_top %}
+<a href="/group/{{group.id}}">Return to Group</a><br />
+<a href="/forum/{{group.id}}">Return to Forums</a> <br />
 <a href="/forum/{{group.id}}/{{forum.id}}/add_thread">New Thread</a>
+{% endblock %}
 
+{% block content %}
 <table border="1" cellpadding="6">
 {% for thread in threads %}
-	<tr>
+	<tr class="{% cycle 'odd' "even" %}">
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.thread_name}}</a></b><br />
 	  by <a href="">{{thread.user.username|capfirst}}</td> 
 	 <td>Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.LastPostThread.id}}">{{thread.LastPostDate}}</a><br />
