@@ -31,9 +31,9 @@
 
 <div class="month">
   <center>
-    <table border="1" bordercolor="#42647F" style="background-color:#A7CAE8" cellpadding="10" cellspacing="3">
+    <table border="1" cellpadding="10" cellspacing="3">
 
-    <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="50">
+    <tr height="50">
         <th class="empty">Monday</th>
         <th class="empty">Tuesday</th>
         <th class="empty">Wednesday</th>
@@ -45,15 +45,14 @@
 
     {% for week in month_days %}
         <tr>
-        {% for day, total_events, current in week %}
+        {% for day, total_day_events, current in week %}
 
     
             <td height="70" width="65"
 
             {% if day != 0 %}
               valign="top"
-              onmouseover=this.style.backgroundColor='#D8D8D8';this.style.cursor='pointer'
-              onmouseout=this.style.backgroundColor='#A7CAE8' 
+              onmouseover=this.style.cursor='pointer' 
               onclick= "top.location='/calendar/{{year}}/{{month_name}}/_add{{day}}/'">
              
               {% endif %}
@@ -61,7 +60,7 @@
               {% if day != 0 %}
                 {{ day }}
                 <br>
-               {% for events in total_events %}
+               {% for events in total_day_events %}
                {% if events|length > 2 %} 
                   {% for event in events|slice:":1" %}
                   <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
@@ -73,14 +72,12 @@
                 {% else %}
                 {% for event in events %}
                     <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
-                    <p>
-                    
+                    <p> 
                {% endfor %}
                {% endif %}
                {% endfor %}
                {% endif %}
               
-        {% comment %}    {% endif %} {% endcomment %}
             </td>
         {% endfor %}
         </tr>

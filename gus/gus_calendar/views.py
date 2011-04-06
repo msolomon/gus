@@ -137,6 +137,7 @@ def day_add(request, year, month, day): #, group_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
+    #usr.has_group_permission(,'Can add event')
   #  if with_user_in_group(group, usr) != admin:
         #redirect
     
