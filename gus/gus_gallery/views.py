@@ -165,20 +165,22 @@ def gallery_view(urlRequest, gallery_id):
     if gus_role.objects.with_user_in_group(the_group, the_user) == None:
         if not gallery.is_public:
             return HttpResponseRedirect('/gallery/')
-        can_add = False
-        can_edit = False
-        can_delete = False
+        return render_to_response('gallery/gallery_view.html',
+                                  {'gallery' : gallery,
+                                   'images' : images,
+                                   'can_add' : False,
+                                   'can_edit' : False,
+                                   'can_delete' : False})
     else:
         can_add = the_user.has_group_perm(the_group, "Can add gus_image")
         can_edit = the_user.has_group_perm(the_group, "Can change gus_image")
         can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
-
-    return render_to_response('gallery/gallery_view.html',
-                              {'gallery' : gallery,
-                               'images' : images,
-                               'can_add' : can_add,
-                               'can_edit' : can_edit,
-                               'can_delete' : can_delete})
+        return render_to_response('gallery/gallery_view.html',
+                                  {'gallery' : gallery,
+                                   'images' : images,
+                                   'can_add' : can_add,
+                                   'can_edit' : can_edit,
+                                   'can_delete' : can_delete})
 
 @login_required
 def image_add(urlRequest, gallery_id):
