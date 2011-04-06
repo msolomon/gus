@@ -168,7 +168,7 @@ def gallery_view(urlRequest, gallery_id):
     # Get the permissions for the current gallery, if the user is in the group,
     # otherwise set all permissions to false.
     the_group = gallery.group;
-    if gus_role.objects.with_user_in_group(gallery.group, the_user):
+    if gus_role.objects.with_user_in_group(gallery.group, the_user) not None:
         can_add = the_user.has_group_perm(the_group, "Can add gus_image")
         can_edit = the_user.has_group_perm(the_group, "Can change gus_image")
         can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
