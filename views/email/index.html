@@ -12,7 +12,7 @@
 	{% for form in email_form %}
 	<p>
 		<b>{{ form.label_tag }}:</b>
-		{{ form }}
+		{{ form.errors }} {{ form }} {{ form.help_text }} 
 	</p>
 	{% endfor %}
 	

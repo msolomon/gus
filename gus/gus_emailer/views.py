@@ -35,7 +35,8 @@ class SendForm(forms.Form):
             self.fields['to_email %s' % group] = \
                 forms.CharField(max_length=1000,
                     widget=forms.CheckboxSelectMultiple(choices=us),
-                    label=group.group_name)
+                    label=group.group_name,
+                    required=False)
                 
 @login_required
 def check(request, pagenum=1):
@@ -100,6 +101,7 @@ def send(request, user_ids=[]):
             # add recipient if box checked
             for key in email.keys():
                 if key.startswith('to_email '):
+                    if len(email[key].strip()) == 0: continue
                     for address in eval(email[key]):
                         email['recipients'] += ' %s' % address
                                             
