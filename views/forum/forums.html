@@ -10,15 +10,17 @@
 {% endblock %}
 
 {% block content %}
-<table border="1" cellpadding="6" class = "table">
-<th>Forum</th><th>Last Post</th><th></th>
+<table border="1" cellpadding="6" class="table" width="95%">
+<th>Forum</th><th align="right">Last Post</th><th></th>
 {% for forum in forums %}
 	<tr class="{% cycle 'odd' "even" %}">
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}">{{forum.forum_name}}</a></b><br />
 	  <p>{{forum.forum_description}}</p></td>
-	 <td>Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostDate}}</a><br />
-	  by <a href="">{{forum.LastPostUser.username|capfirst}}</a></td>
-	 <td> <a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">Edit Forum</a><br />
+	 <td align="right">Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostDate}}</a><br />
+	  by <a href="">{{forum.LastPostUser.username|capfirst}}</a>
+	  in <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostThread.thread_name}}</a>
+	 </td>
+	 <td align="right"> <a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">Edit Forum</a><br />
 	  <a href="/forum/{{group.id}}/{{forum.id}}/delete_forum">Delete Forum</a>
 	</tr>
 {% endfor %}

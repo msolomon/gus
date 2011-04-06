@@ -20,6 +20,10 @@ class new_post_form (forms.Form):
 	Text = forms.CharField(widget = forms.Textarea)
 #End
 
+class delete_post_form (forms.Form):
+	Reason = forms.CharField(widget = forms.Textarea)
+#End
+
 def index(request, group_id):
 	"""
 	"""
@@ -33,13 +37,12 @@ def index(request, group_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse("Invalid Permissions to View These Forums")
+	if not request.user.has_group_perm(request_for_group, 'Can View Forum'):
+		return HttpResponse("You are not allowed to view this group's forums.")
 	#End
 
 	groups_forums = forum.objects.filter(group = request_for_group)
-
+	
 	return render_to_response('forum/forums.html', {"forums":groups_forums, "group":request_for_group}, context_instance=RequestContext(request))
 #End
 
@@ -56,9 +59,8 @@ def view_threads(request, group_id, forum_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse('Invalid Permissions to View These Threads')
+	if not request.user.has_group_perm(request_for_group, 'Can View Forum'):
+		return HttpResponse("You are not allowed to view this group's threads.")
 	#End
 
 	try:
@@ -85,9 +87,8 @@ def view_posts(request, group_id, forum_id, thread_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse('Invalid Permissions to View These Forums')
+	if not request.user.has_group_perm(request_for_group, 'Can View Forum'):
+		return HttpResponse("You are not allowed to view this group's posts.")
 	#End
 
 	try:
@@ -118,9 +119,8 @@ def add_forum(request, group_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permission_level < 1:
-#		return HttpResponse('Invalid Permissions to Add a Forum')
+	if not request.user.has_group_perm(request_for_group, 'Can Add Forum'):
+		return HttpResponse("You are not allowed to add a forum to this group.")
 	#End
 
 	if request.method == 'POST':
@@ -152,9 +152,8 @@ def add_thread(request, group_id, forum_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse('Invalid Permissions to Add a Thread')
+	if not request.user.has_group_perm(request_for_group, 'Can Add Thread'):
+		return HttpResponse("You are not allowed to post a thread to this group's forums.")
 	#End
 
 	try:
@@ -170,12 +169,12 @@ def add_thread(request, group_id, forum_id):
 			form.cleaned_data["Text"]
 			request_for_forum.CreateThread(form.cleaned_data["Name"], request.user, form.cleaned_data["Text"], request_for_forum)
 			try:
-				last_thread = forum_thread.objects.filter(forum = request_for_forum).order_by('date_created') #This
-				request_for_thread = forum_thread.objects.get(pk = last_thread[0].id)						  #Doesn't
+				last_thread = forum_thread.objects.filter(forum = request_for_forum).order_by('-date_created')
+				request_for_thread = forum_thread.objects.get(pk = last_thread[0].id)
 			except:
-				return HttpResponse('Thread Was Not Created!')												  #Quite
+				return HttpResponse('Thread Was Not Created!')
 			#End
-			request_for_thread.CreatePost(request.user, form.cleaned_data["Text"])							  #Work
+			request_for_thread.CreatePost(request.user, form.cleaned_data["Text"])
 			return HttpResponseRedirect('/forum/%s/%s' % (group_id, forum_id))
 		#End
 	#End
@@ -199,9 +198,8 @@ def add_post(request, group_id, forum_id, thread_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse('Invalid Permissions to Add a Post')
+	if not request.user.has_group_perm(request_for_group, 'Can Add Post'):
+		return HttpResponse("You are not allowed to post replys to this group's threads.")
 	#End
 
 	try:
@@ -242,9 +240,8 @@ def delete_forum(request, group_id, forum_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permission_level < 1:
-#		return HttpResponse('Invalid Permissions to Delete a Forum')
+	if not request.user.has_group_perm(request_for_group, 'Can Delete Forum'):
+		return HttpResponse("You are not allowed to delete this group's forums.")
 	#End
 
 	try:
@@ -270,9 +267,8 @@ def delete_thread(request, group_id, forum_id, thread_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permission_level < 1:
-#		return HttpResponse('Invalid Permissions to Delete a Thread')
+	if not request.user.has_group_perm(request_for_group, 'Can Delete Thread'):
+		return HttpResponse("You are not allowed to delete this group's threads.")
 	#End
 
 	try:
@@ -302,9 +298,8 @@ def delete_post(request, group_id, forum_id, thread_id, post_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse('Invalid Permissions to Delete a Post')
+	if not request.user.has_group_perm(request_for_group, 'Can Delete Post'):
+		return HttpResponse("You are not allowed to delete this group's posts.")
 	#End
 
 	try:
@@ -321,8 +316,19 @@ def delete_post(request, group_id, forum_id, thread_id, post_id):
 		return HttpResponse('Post Not Found!')
 	#End
 
-	request_for_post.EditPost("Post Deleted")
-	return HttpResponseRedirect('/forum/%s/%s/%s/' % (group_id, forum_id, thread_id))
+	if request.method == 'POST':
+		form = delete_post_form(request.POST)
+		if form.is_valid():
+			form.cleaned_data["Reason"]
+			request_for_post.EditPost("Post Deleted by %s. Reason: %s" % (request.user.username, form.cleaned_data["Reason"]))
+			return HttpResponseRedirect('/forum/%s/%s/%s' % (group_id, forum_id, thread_id))
+		#End
+	#End
+	else:
+		form = delete_post_form()
+	#End
+
+	return render_to_response('forum/delete_post.html', {"group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "post":request_for_post, "form":form}, context_instance=RequestContext(request))
 #End
 
 def edit_forum(request, group_id, forum_id):
@@ -338,9 +344,8 @@ def edit_forum(request, group_id, forum_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse('Invalid Permissions to Delete a Post')
+	if not request.user.has_group_perm(request_for_group, 'Can Edit Forum'):
+		return HttpResponse("You are not allowed to edit this group's forums.")
 	#End
 
 	try:
@@ -376,9 +381,8 @@ def edit_post(request, group_id, forum_id, thread_id, post_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	role_in_group = gus_role.objects.with_user_in_group(request_for_group, request.user)
-#	if not role_in_group || role_in_group._role_permissions_level == 1:
-#		return HttpResponse('Invalid Permissions to Delete a Post')
+	if not request.user.has_group_perm(request_for_group, 'Can Edit Post'):
+		return HttpResponse("You are not allowed to edit this group's posts.")
 	#End
 
 	try:
@@ -393,6 +397,10 @@ def edit_post(request, group_id, forum_id, thread_id, post_id):
 		request_for_post = forum_post.objects.get(pk = post_id)
 	except:
 		return HttpResponse('Post Not Found!')
+	#End
+	
+	if not request.user == request_for_post.user:
+		return HttpResponse("You are only allowed to edit your own posts.")
 	#End
 
 	if request.method == "POST":
