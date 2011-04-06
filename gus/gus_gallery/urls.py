@@ -20,5 +20,5 @@ urlpatterns = patterns(
     (r'^image/add/([0-9]+)', 'image_add'),       # /gallery/image/add/<gallery id>/
     (r'^image/delete/([0-9]+)', 'image_delete'), # /gallery/image/delete/<image id>/
     (r'^image/edit/([0-9]+)', 'image_edit'),     # /gallery/image/edit/<image id>/
-    (r'^', 'index'),                            # /gallery/
+    (r'^', 'index'),                             # /gallery/
 )

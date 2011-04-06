@@ -1,4 +1,4 @@
-# TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
+0;136;0c# TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
 # TODO: Add permission stuff in here so not everyone can perform these actions
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -18,8 +18,8 @@ def gallery_add(urlRequest, group_id):
     the_group = gus.gus_group.object.filter(pk = group_id)
 
     # If the user doesn't have permission to add a gallery, redirect them
-    if not the_user.has_group_perm(group_id, "Can add gus_gallery"):
-        return HttpResponiseRedirect('/gallery/')
+    if not the_user.has_group_perm(the_group, "Can add gus_gallery"):
+        return HttpResponseRedirect('/gallery/')
 
     if urlRequest.method == "POST":
         # If the user just posted data to the form, and it validates, add it
@@ -55,7 +55,7 @@ def gallery_delete(urlRequest, gallery_id):
 
     # If the user doesn't have permission to delete a gallery, redirect them
     if not the_user.has_group_perm(the_group, "Can delete gus_gallery"):
-        return HttpResponiseRedirect('/gallery/')
+        return HttpResponseRedirect('/gallery/')
 
     # If the form was posted back to the page, the user wants to delete the gallery
     if urlRequest.method == "POST":
@@ -84,7 +84,7 @@ def gallery_edit(urlRequest, gallery_id):
 
     # If the user doesn't have permission to add a gallery, redirect them
     if not the_user.has_group_perm(the_group, "Can change gus_gallery"):
-        return HttpResponiseRedirect('/gallery/')#region Methods
+        return HttpResponseRedirect('/gallery/')#region Methods
 
     if urlRequest.method == "POST":
         # If the user just posted data to the form, and it validates, update it
@@ -128,7 +128,7 @@ def image_add(urlRequest, gallery_id):
 
     # If the user doesn't have permission to add a gallery, redirect them
     if not the_user.has_group_perm(the_group, "Can add gus_image"):
-        return HttpResponiseRedirect('/gallery/')
+        return HttpResponseRedirect('/gallery/')
 
     if urlRequest.method == "POST":
         # If the user just posted data to the form, and it validates, update it
@@ -164,7 +164,7 @@ def image_delete(urlRequest, image_id):
 
     # If the user doesn't have permission to add a gallery, redirect them
     if not the_user.has_group_perm(the_group, "Can delete gus_image"):
-        return HttpResponiseRedirect('/gallery/')
+        return HttpResponseRedirect('/gallery/')
 
     # If the form has been posted, the user wants to delete the image. So do it
     if urlRequest.method == "POST":
@@ -192,7 +192,7 @@ def image_edit(urlRequest, image_id):
 
     # If the user doesn't have permission to add a gallery, redirect them
     if not the_user.has_group_perm(the_group, "Can add gus_image"):
-        return HttpResponiseRedirect('/gallery/')
+        return HttpResponseRedirect('/gallery/')
 
     # If the form has been posted, handle it
     if urlRequest.method == "POST":
