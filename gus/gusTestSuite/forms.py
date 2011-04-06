@@ -12,14 +12,15 @@ from django import forms
 from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
 from django.contrib.auth.models import Permission
+from django.contrib import auth
 class SimpleUserAddForm(forms.Form):
     """
     A form to add a new user to the system
     """
     username = forms.CharField(max_length=100)
-    password = forms.CharField(max_length=100,widget=forms.PasswordInput())
-    # the email is automatically created
-    #email = forms.EmailField()
+    password = forms.CharField(max_length=100)
+    
+    email = forms.EmailField(label='Contact e-mail:')
     id  = forms.IntegerField(required=False,widget=forms.HiddenInput())
 
 class SimpleAddUserToGroup(forms.Form):
