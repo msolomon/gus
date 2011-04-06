@@ -104,6 +104,7 @@ INSTALLED_APPS = [
     'gus.gus_emailer',
     'gus.gus_bill',
     'gus.gusTestSuite',
+    'gus.gus_backend',
 ]
 
 # try to use PIL

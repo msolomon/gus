@@ -41,11 +41,16 @@ def index2(urlRequest):
     
     #from django.contrib.auth.forms import UserCreationForm
     #from gus.gusTestSuite.forms import SimpleAddUserToGroup
-    #return HttpResponse(SimpleGroupAddForm().as_p())
+    #return HttpResponse(SimpleGroupAddForm().as_p()) 
+    data ={}
     usr=urlRequest.user
-    return render_to_response('test/welcome2.html', {
-         'groups':[r.group for r in gus_role.objects.with_user(usr)],
-         },context_instance=RequestContext(urlRequest));
+    grps = [r.group for r in gus_role.objects.with_user(usr)]
+    data['user']=usr
+    data['groups']=grps
+    #return HttpResponse(data['groups'][0].group_name)
+    return render_to_response('test/welcome2.html', data
+         #'urls':{'delete':'/gus_test/Group/Delete/%s/'},
+         ,context_instance=RequestContext(urlRequest));
 def authUser(urlRequest):
     return render_to_response('users/info.html',{},
                               context_instance=RequestContext(urlRequest))
