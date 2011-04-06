@@ -5,7 +5,7 @@ from django import forms
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
-
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
@@ -112,7 +112,7 @@ def day_view(request, year, month, day, event_id):
     usr = request.user
     groups = getGroupsWithUser(usr)
     for group in groups:
-        if not usr.has_group_perm(group, 'Can add event'):
+        if not usr.has_group_perm(group, 'Can add gus_event'):
             not_auth = 1 # if user not authorized, display list of events only
     
  
@@ -139,20 +139,18 @@ def day_view(request, year, month, day, event_id):
     
         
 
-
+@login_required
 def day_add(request, year, month, day): #, group_id):
     auth_groups = []
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
     usr = request.user
+    
     groups = getGroupsWithUser(usr)
-    print groups
     for group in groups:
-        print gus_role.objects.with_user(usr)
-        if not usr.has_group_perm(group, 'Can add event'):
-            return HttpResponseRedirect('calendar/month_view.html')
-        else:
+
+        if usr.has_group_perm(group, 'Can add gus_event'):
             auth_groups.append(group)
+    if len(auth_groups) == 0:
+        return HttpResponseRedirect('calendar/month_view.html')
             
         
     month_name = month
@@ -161,11 +159,12 @@ def day_add(request, year, month, day): #, group_id):
     if request.method == "POST":
 
         form = Event_form(request.POST)
+        #form.add_groups(usr) ##group permission to add event
         if form.is_valid():
             event = form.save(commit=False)
             event.creator = usr
             event.start_date = date(int(year), int(month), int(day))
-            event.groups = auth_groups
+            
             event.save()
 
             response = request.META['HTTP_REFERER'].rstrip('/')
@@ -174,6 +173,15 @@ def day_add(request, year, month, day): #, group_id):
             return HttpResponseRedirect(response[:splice] + '/')
             
     else:
+        auth_groups = []
+        usr = request.user
+        
+        groups = getGroupsWithUser(usr)
+        for group in groups:
+            if usr.has_group_perm(group, 'Can add gus_event'):
+                auth_groups.append(group)
+        if len(auth_groups) == 0:
+            return HttpResponseRedirect('calendar/month_view.html')
         form = Event_form()
         
     return render_to_response("calendar/add_event.html", 
