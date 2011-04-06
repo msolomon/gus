@@ -52,7 +52,7 @@ class RoleManager(models.Manager):
             )
         except:
             return None
-
+        
     def users_without_role(self, role):
         """
     will return all the users without a role

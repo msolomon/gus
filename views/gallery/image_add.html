@@ -4,10 +4,17 @@
 {% block content %}
 <h3>Add Image: {{gallery}}</h3>
 
+{% if error %}
+  <br/>
+  <b>There was an error adding your image to the gallery. Please make sure you fill out all fields and try again!</b>
+  <br/><br/>
+{% endif %}
+
 <form action="" method="post" enctype="multipart/form-data">
   {{image_form.as_p}}
   {% csrf_token %}
   <input type="submit" value="Add"/>
 </form>
+<br/>
 <a href="/gallery/{{gallery.id}}">Cancel</a>
 {% endblock %}
