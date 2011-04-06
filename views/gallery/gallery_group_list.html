@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block pagetitle %}Image Galleries - {{ group.group_name }}{% endblock %}
+{% block pagetitle %}Image Galleries - {{ the_group.group_name }}{% endblock %}
 
 {% block content %}
-<h3>Image Galleries - {{ group.group_name }}</h3>
+<h3>Image Galleries - {{ the_group.group_name }}</h3>
 <br/>
 
-{% if g in can_add %}<a href="/gallery/add/{{group.pk}}">Add Gallery</a><br/>{% endif %}
-<br/>
+{% if can_add %}<a href="/gallery/add/{{the_group.pk}}">Add Gallery</a><br/><br/>
+{% endif %}
 
 {% for gal in galleries %}
   <a href="/gallery/{{gal.pk}}">{{ gal.name }}</a>

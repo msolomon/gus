@@ -121,7 +121,7 @@ def gallery_group_list(urlRequest, group_id):
 
     # If the group isn't legit, then redirect to the list of galleries
     try:
-        the_group = gus_group.objects.filter(pk = group_id)
+        the_group = gus_group.objects.filter(pk = group_id)[0]
     except:
         return HttpResponseReditect('/gallery/')
 
@@ -145,7 +145,7 @@ def gallery_group_list(urlRequest, group_id):
         can_delete = True
 
     return render_to_response('gallery/gallery_group_list.html',
-                              {'group' : the_group,
+                              {'the_group' : the_group,
                                'galleries' : galleries,
                                'can_add' : can_add,
                                'can_edit' : can_edit,
@@ -160,23 +160,26 @@ def gallery_view(urlRequest, gallery_id):
     gallery = gus_gallery.objects.filter(pk=gallery_id)[0]
     images = gallery.get_images()
 
+    can_add = False
+    can_edit = False
+    can_delete = False
+
     # If the user isn't in the group, AND the gallery isn't public, redirect to the list of galleries
-    if gus_role.objects.with_user_in_group(gallery.group, the_user) == None:
+    the_group = gallery.group;
+    if gus_role.objects.with_user_in_group(the_group, the_user) == None:
         if not gallery.is_public:
             return HttpResponseRedirect('/gallery/')
-
-    # Get the permissions for the current gallery
-    the_group = gallery.group;
-    can_add = the_user.has_group_perm(the_group, "Can add gus_image")
-    can_edit = the_user.has_group_perm(the_group, "Can change gus_image")
-    can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
+    else:
+        can_add = the_user.has_group_perm(the_group, "Can add gus_image")
+        can_edit = the_user.has_group_perm(the_group, "Can change gus_image")
+        can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
 
     return render_to_response('gallery/gallery_view.html',
-                              {'gallery' : gallery,
-                               'images' : images,
-                               'can_add' : can_add,
-                               'can_edit' : can_edit,
-                               'can_delete' : can_delete})
+                                  {'gallery' : gallery,
+                                   'images' : images,
+                                   'can_add' : can_add,
+                                   'can_edit' : can_edit,
+                                   'can_delete' : can_delete})
 
 @login_required
 def image_add(urlRequest, gallery_id):
@@ -335,6 +338,8 @@ def public_list(urlRequest):
     """
     # Get the public galleries
     galleries = gus_gallery.objects.filter(is_public = True)
+    if len(galleries) == 0:
+        galleries = None
 
     return render_to_response('gallery/public_list.html',
                               {'galleries' : galleries})
