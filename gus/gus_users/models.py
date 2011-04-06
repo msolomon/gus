@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from gus import settings
 
 
 class UserManager(models.Manager):
@@ -273,7 +273,7 @@ class gus_user(models.Model):
         return self._user.id
     
     def getEmail(self):
-        return self._user.email
+        return self._user.username + settings.EMAIL_SUFFIX
     def getFN(self):
         return self._user.first_name
     def getLN(self):
