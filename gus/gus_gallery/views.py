@@ -1,5 +1,6 @@
 # TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
-# TODO: Add permission stuff in here so not everyone can perform these actions
+# TODO: Add permission stuff in here so not everyone can perform these actions (only needed in index now)
+# TODO: Add the ability for galleries to be flagged public
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.forms.models import model_to_dict
@@ -15,7 +16,7 @@ def gallery_add(urlRequest, group_id):
     The view for adding a new gallery
     """
     the_user = urlRequest.user
-    the_group = gus.gus_group.object.filter(pk = group_id)
+    the_group = gus_group.object.filter(pk = group_id)
 
     # If the user doesn't have permission to add a gallery, redirect them
     if not the_user.has_group_perm(the_group, "Can add gus_gallery"):
@@ -108,6 +109,11 @@ def gallery_view(urlRequest, gallery_id):
     gallery = gus_gallery.objects.filter(pk=gallery_id)[0]
     images = gallery.get_images()
 
+    # If the user isn't in the group, redirect to the list of galleries
+    the_user = urlRequest.user
+    if gus_role.objects.with_user_in_group(gallery.group, the_user) == None:
+        return HttpResponseRedirect('/gallery/')
+
     return render_to_response('gallery/gallery_view.html',
                               {'gallery' : gallery, 'images' : images})
 
@@ -189,6 +195,7 @@ def image_edit(urlRequest, image_id):
 
     gallery = image.gallery
     the_group = gallery.group
+    the_user = urlRequest.user
 
     # If the user doesn't have permission to add a gallery, redirect them
     if not the_user.has_group_perm(the_group, "Can add gus_image"):
