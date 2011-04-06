@@ -148,9 +148,9 @@ def editGroup(urlRequest, group_id):
 @login_required
 def viewGroup(urlRequest, group_id):
     group = gus_group.objects.get(pk=group_id)
-#left of hear with user
+    role = group.roles
     return render_to_response('groups/viewGroup.html',
-	{ 'group':group },
+	{ 'group':group, 'role':role },
 	  context_instance=RequestContext(urlRequest)
 	  )
     #return HttpResponse("testing")
