@@ -12,9 +12,9 @@
 {% endblock %}
 
 {% block content %}
-<table border="1" cellpadding="6">
+<table border="1" cellpadding="6" class="table">
 {% for post in posts %}
-	<tr>
+	<tr class="{% cycle 'odd' "even" %}">
 	 <th><b><a href="">{{post.user.username|capfirst}}</a></th>
 	 <th colspan="2"></b>{{post.date_created}}</th>
 	</tr>

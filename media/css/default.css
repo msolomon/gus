@@ -26,7 +26,8 @@ a {color: #048;}
 a:hover {color: #06C;}
 
 body {
-	background: #E7E7E2 url('../images/css_img/body.jpg') center top;
+	background: #E7E7E2 url('../images/css_img/body.jpg') center top; 
+	background-repeat: repeat-x;
 	color: #444;
 	font: normal 62.5% Tahoma,sans-serif;
 	padding-top: 64px;
@@ -147,6 +148,7 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 	padding: 8px 12px 0 0;
 }
 
+/* tables */
 table
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -155,6 +157,7 @@ table
 	width: 480px;
 	text-align: left;
 	border-collapse: collapse;
+	border-bottom: 2px solid #000000
 }
 table th
 {
@@ -182,17 +185,63 @@ table tr.odd td
 	color: #669;
 	border-top: 1px solid transparent;
 }
-table tr:hover td
+table td:hover td
 {
-	background: #8fbc8f;
+	background: #e8eddd;
 	color: #339;
 }
-table tr.odd:hover td
+table td.odd:hover td
 {
-	background: #8fbc8f;
+	background: #ccdddd;
 	color: #339;
 }
-
+/* calendar table */
+.calendar
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	margin: 45px;
+	width: 480px;
+	text-align: left;
+	border-collapse: collapse;
+	border-bottom: 2px solid #000000
+}
+.calendar th
+{
+	font-size: 13px;
+	font-weight: normal;
+	padding: 8px;
+	background: #b9c9fe;
+	border-top: 4px solid #aabcfe;
+	border-bottom: 1px solid #fff;
+	color: #039;
+}
+.calendar tr td
+{
+	padding: 8px;
+	background: #e8edff;
+	border-bottom: 1px solid #fff;
+	color: #669;
+	border-top: 1px solid transparent;
+}
+.calendar tr.odd td
+{
+	padding: 8px;
+	background: #ccddff;
+	border-bottom: 1px solid #fff;
+	color: #669;
+	border-top: 1px solid transparent;
+}
+.calendar td:hover td
+{
+	background: #2E8B57;
+	color: #339;
+}
+.calendar td.odd:hover td
+{
+	background: #2E8B57;
+	color: #339;
+}
 
 /* content */
 .content {

@@ -11,9 +11,11 @@
 {% endblock %}
 
 {% block content %}
-<table border="1" cellpadding="6">
+<table border="1" cellpadding="6" class="table">
+<th>Thread Name</th><th>Last Post</th><th></th>
 {% for thread in threads %}
 	<tr class="{% cycle 'odd' "even" %}">
+	<tr>
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.thread_name}}</a></b><br />
 	  by <a href="">{{thread.user.username|capfirst}}</td> 
 	 <td>Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.LastPostThread.id}}">{{thread.LastPostDate}}</a><br />
