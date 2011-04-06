@@ -69,6 +69,18 @@ def check_message(request, uid):
     em = Emailer(request.user)
     message = em.check_message(uid)
     
+    # if we are POSTing, we are deleting
+    if request.method == 'POST':
+        success = em.delete_message(uid)
+        if not success:
+            return render_to_response('email/error.html',
+                  {'error_message': 'The message could not be deleted.',
+                   'refresh': False
+                   },
+                   context_instance=RequestContext(request))
+        return HttpResponseRedirect('/email/check/')
+            
+    
     # display error message, if applicable
     if type(message) == type((True, '')):
         return render_to_response('email/error.html',
@@ -90,7 +102,7 @@ def send(request, user_ids=[]):
         try:
             usrs = [gus_user.objects.get(pk=user_id).email for id in user_ids]
         except:
-            return HttpResponseRedirect('/login/')
+            pass
 
     if request.method == 'POST': # If the form has been submitted...
         form = SendForm(request.POST) # A form bound to the POST data

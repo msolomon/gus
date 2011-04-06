@@ -151,11 +151,26 @@ class Emailer(models.Model):
             
         return snippets
     
+    def delete_message(self, emailuid):
+        '''Delete a specified email message
+            @param int, the email UID to delete
+            @return: boolean success
+        '''        
+        server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
+        server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
+        
+        select_info = server.select_folder('INBOX')
+        success = server.add_flags([emailuid], '\Deleted')
+        server.logout()
+        
+        return success
+        
     def check_message(self, emailuid):
         '''Check for a specified email message and return it
             @param int, the email UID to get
             @return: mail.EmailMessage
         '''
+        
         server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
         server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
         

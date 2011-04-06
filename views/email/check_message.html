@@ -2,10 +2,13 @@
 {% block pagetitle %}Message: {{ email.subject }}{% endblock pagetitle %}
 
 {% block content %}
-<b>From:</b> <br> {{ email.from_email|urlize }} <br>
-<b>Subject:</b> <br> {{ email.subject|urlize }} <br>
-<b>Message:</b> <br> {{ email.body|urlize|linebreaks }} <br>
-<p/>
-
+<b>From:</b></br> {{ email.from_email|urlize }}<br/><hr>
+<h2>{{ email.subject|urlize }} </h2>
+{{ email.body|urlize|linebreaks }}
+<hr>
+<form method="post">
+{% csrf_token %}
+<input type="submit" value="Delete">
+</form>
 {% endblock content %}
 
