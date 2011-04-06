@@ -12,12 +12,14 @@ Current Balance: {{balance}}
   No payments associated with the bill: {{bill.name|capfirst}}
 {% endif %}
 
-<table>
-  <tr>
+<table bordercolor="#42647F" style="background-color:#A7CAE8" cellpadding="10" cellspacing="3">
+  <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="30">
   <th>{{bill.name|capfirst}}</th></tr>
+{% if not payments %}
+  <td align="center" width="75"q>0</td>
+{% endif %}
 {% for payment in payments %}
-  <td></td>
-  <td>{{payment}}</td>
+  <td align="center">{{payment}}</td>
   </tr>
 {% endfor %}
 </table>
@@ -29,6 +31,9 @@ Current Balance: {{balance}}
 {{ form.as_p }}
 <input type="SUBMIT" value="Submit">
 </form>
+
+<br>
+<a href="/bill/">Return</a>
 
 {% endblock content %}
  

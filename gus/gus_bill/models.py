@@ -107,7 +107,7 @@ class bill(models.Model):
             x
         """
         #verify the ammount to be paid is not greater than the total balance
-        if(Bvalue + self.paid_balance() > self.value):
+        if(Bvalue + self.paid_balance() > self.value or Bvalue <= 0):
             return self.paid_balance()
         #create a payment object associated with this bill
         payment.objects.create(mybill = self, amtpaid = Bvalue)
@@ -140,6 +140,9 @@ class bill(models.Model):
       self.name = "%s_archive"%self.name
       self.save()
       tempb.save()
+
+    def outstanding(self):
+      return self.value - self.paid_balance()
 
     #used for the views output
     def __unicode__(self):
