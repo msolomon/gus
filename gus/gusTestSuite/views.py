@@ -186,9 +186,7 @@ def addUser(urlRequest):
             # ...
             gus_user.objects.create_user(
                             form.cleaned_data['username'],
-                            # make the email based on the user
-                            form.cleaned_data['username'] + settings.EMAIL_SUFFIX,
-                            #form.cleaned_data['email'],
+                            form.cleaned_data['email'],
                             form.cleaned_data['password'],
                         )
             return HttpResponseRedirect('/gus_test/') # Redirect after POST
@@ -201,7 +199,7 @@ def addUser(urlRequest):
                                  'submiturl':'/gus_test/User/Add/',
                                  'encType':'multipart/form-data',
                                  'form':form,
-                                 'title':'Add New User',
+                                 'title':'Register New User',
                                  'btnlabel':'Create User',
                                 },
                                 context_instance=RequestContext(urlRequest)
