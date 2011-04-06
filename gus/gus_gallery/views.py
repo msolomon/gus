@@ -145,7 +145,7 @@ def gallery_group_list(urlRequest, group_id):
         can_delete = True
 
     return render_to_response('gallery/gallery_group_list.html',
-                              {'group' : the_group,
+                              {'the_group' : the_group,
                                'galleries' : galleries,
                                'can_add' : can_add,
                                'can_edit' : can_edit,
