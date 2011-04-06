@@ -48,7 +48,7 @@ def check(request, pagenum=1):
     snippets = em.check_email()
     
     # paginate the emails
-    snippets_per_page = 50
+    snippets_per_page = 10
     paginator = Paginator(snippets, snippets_per_page)
     
     # default to last page if page number is invalid (too high)
@@ -63,11 +63,49 @@ def check(request, pagenum=1):
                                'page': page,
                                },
                               context_instance=RequestContext(request))
+    
+@login_required
+def check_sent(request, pagenum=1):
+    # numberify pagenum - this will never fail due to the regex
+    pagenum = int(pagenum)
+        
+    # fetch snippets
+    em = Emailer(request.user)
+    snippets = em.check_sent_email()
+    
+    # paginate the emails
+    snippets_per_page = 10
+    paginator = Paginator(snippets, snippets_per_page)
+    
+    # default to last page if page number is invalid (too high)
+    try:
+        page = paginator.page(pagenum)
+    except (EmptyPage, InvalidPage):
+        page = paginator.page(paginator.num_pages)
+    
+    return render_to_response('email/check_sent.html',
+                              {'username':request.user.username,
+                               'useremail':request.user.getEmail(),
+                               'page': page,
+                               },
+                              context_instance=RequestContext(request))
 
 @login_required
 def check_message(request, uid):        
     em = Emailer(request.user)
     message = em.check_message(uid)
+    
+    # if we are POSTing, we are deleting
+    if request.method == 'POST':
+        success = em.delete_message(uid)
+        if not success:
+            return render_to_response('email/error.html',
+                  {'error_message': 'The message could not be deleted.',
+                   'refresh': False
+                   },
+                   context_instance=RequestContext(request))
+        return HttpResponseRedirect('/email/check/')
+            
     
     # display error message, if applicable
     if type(message) == type((True, '')):
@@ -90,7 +128,7 @@ def send(request, user_ids=[]):
         try:
             usrs = [gus_user.objects.get(pk=user_id).email for id in user_ids]
         except:
-            return HttpResponseRedirect('/login/')
+            pass
 
     if request.method == 'POST': # If the form has been submitted...
         form = SendForm(request.POST) # A form bound to the POST data
