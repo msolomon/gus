@@ -1,4 +1,4 @@
-# TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
+  # TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
 # TODO: Add permission stuff in here so not everyone can perform these actions
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -14,6 +14,8 @@ def gallery_add(urlRequest, group_id):
     """
     The view for adding a new gallery
     """
+    the_user = urlRequest.user
+
     if urlRequest.method == "POST":
         # If the user just posted data to the form, and it validates, add it
         the_form = gallery_form(urlRequest.POST)
@@ -36,6 +38,8 @@ def gallery_delete(urlRequest, gallery_id):
     """
     The view for deleting a gallery
     """
+    the_user = urlRequest.user
+
     # If the gallery isn't valid, return to the list of galleries
     try:
         gallery = gus_gallery.objects.filter(pk=gallery_id)[0]
@@ -57,6 +61,8 @@ def gallery_edit(urlRequest, gallery_id):
     """
     The view for editing a gallery
     """
+    the_user = urlRequest.user
+
     # If the gallery isn't valid, return the user to the gallery list
     try:
         gallery = gus_gallery.objects.filter(pk = gallery_id)[0]
@@ -93,6 +99,8 @@ def image_add(urlRequest, gallery_id):
     """
     A view for adding an image to a gallery
     """
+    the_user = urlRequest.user
+
     # Make sure it's a valid gallery, if not, redirect the user to the gallery page
     try:
         gallery = gus_gallery.objects.filter(pk=gallery_id)[0]
@@ -174,6 +182,8 @@ def index(urlRequest):
     """
     The default view that shows all galleries for all groups
     """
+    the_user = urlRequest.user
+
     # Get all the groups that the user belongs to, if any, and all the
     # galleries for those groups
     groups = getGroupsWithUser(the_user)    
