@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block pagetitle %}Public Image Galleries{% endblock %}
+
+{% block content %}
+<h3>Public Image Galleries</h3>
+<br/>
+
+<!-- Print a list of the public image galleries -->
+{% for g in galleries %}
+  <a href="/gallery/{{ g.pk }}">{{ g.name }}</a>
+  <br/>
+{% endfor %}
+
+{% endblock %}
