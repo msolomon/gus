@@ -172,8 +172,8 @@ class gus_role(models.Model):
         self._role_users.remove(user)
 
     def delete(self):
-	self._role_permissions.delete()
-	super(gus_role,self).delete()
+        self._role_permissions.delete()
+        super(gus_role,self).delete()
     
     #################################################
     ####  Python Magic Functions       ##############

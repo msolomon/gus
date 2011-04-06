@@ -14,7 +14,7 @@ from django import forms
 class SendForm(forms.Form):
     subject = forms.CharField(max_length=100)
     message = forms.CharField(widget=forms.Textarea)
-    recipients = forms.CharField(max_length=1000)
+    recipients = forms.CharField(max_length=1000, required=False)
     
     def add_emails(self, inuser):
         # build a list of people to send to
@@ -35,7 +35,8 @@ class SendForm(forms.Form):
             self.fields['to_email %s' % group] = \
                 forms.CharField(max_length=1000,
                     widget=forms.CheckboxSelectMultiple(choices=us),
-                    label=group.group_name)
+                    label=group.group_name,
+                    required=False)
                 
 @login_required
 def check(request, pagenum=1):
@@ -47,7 +48,7 @@ def check(request, pagenum=1):
     snippets = em.check_email()
     
     # paginate the emails
-    snippets_per_page = 50
+    snippets_per_page = 10
     paginator = Paginator(snippets, snippets_per_page)
     
     # default to last page if page number is invalid (too high)
@@ -100,6 +101,7 @@ def send(request, user_ids=[]):
             # add recipient if box checked
             for key in email.keys():
                 if key.startswith('to_email '):
+                    if len(email[key].strip()) == 0: continue
                     for address in eval(email[key]):
                         email['recipients'] += ' %s' % address
                                             

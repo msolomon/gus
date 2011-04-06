@@ -5,10 +5,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.forms.models import model_to_dict
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from gus.gus_gallery.models import *
-from gus.gus_groups.models import *
-from gus.gus_groups.utils import *
-from gus.gus_roles.models import *
+from gus_gallery.models import *
+from gus_groups.models import gus_group
+from gus_groups.utils import *
+from gus_roles.models import *
 
 @login_required
 def gallery_add(urlRequest, group_id):
@@ -16,7 +16,10 @@ def gallery_add(urlRequest, group_id):
     The view for adding a new gallery
     """
     the_user = urlRequest.user
-    the_group = gus_group.objects.filter(pk = group_id)
+    try:
+        the_group = gus_group.objects.get(pk = group_id)
+    except:
+        return HttpResponseRedirect('/gallery/')
     error = False
 
     # If the user doesn't have permission to add a gallery, redirect them

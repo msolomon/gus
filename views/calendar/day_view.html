@@ -10,10 +10,11 @@
 <br>
 <br>
 
+{% if not_auth == 0 %}
 <input type="button" 
 value="Edit" 
 onclick="location.href='/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event_id}}/'">
-
+{% endif %}
 
 
 {% endblock content %}

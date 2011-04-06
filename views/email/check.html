@@ -1,10 +1,10 @@
 {% extends "email/emailer.html" %}
-{% block pagetitle %}Email{% endblock pagetitle %}
+{% block pagetitle %}Message Inbox{% endblock pagetitle %}
 
 {% block content %}
 <h1> Inbox for {{ username }} ({{ useremail }})</h1>
 <hr>
-<table border="0">
+<table width="95%">
 	<tr>
 		<td>
 	        {% if page.has_previous %}
@@ -28,13 +28,13 @@
 	
 	{% for email in page.object_list %}
 	<tr>
-		<td>
+		<td width="10%">
 			{{email.date}}
 		</td>
-		<td>
+		<td width="30%">
 			<a href="{{email.from}}">{{email.from}}</a> <br>
 		</td>
-		<td>
+		<td width="50%">
 			<a href="/email/check/message/{{email.id}}">{{email.subject}}
 		</td>
 	</tr>
