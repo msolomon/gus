@@ -22,8 +22,15 @@ html {min-height: 100%;}
 	padding: 0;
 }
 
-a {color: #048;}
+a {
+	color: #048;
+}
+
 a:hover {color: #06C;}
+
+img {
+	border-style: none;
+}
 
 body {
 	background: #E7E7E2 url('../images/css_img/body.jpg') center top; 
@@ -85,10 +92,16 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 	padding-bottom: 64px;
 }
 
+a .header_image{
+	text-decoration:none;
+	outline:none;
+	background:none;
+}
+
 /* header & title */
 .header {
     background: #222 url('../images/css_img/header.png') center top;
-    background-repeat: repeat-x;
+    width: 100%;
     height: 160px;
 	margin-bottom: 5px;
 	text-align: center;
@@ -118,7 +131,7 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 	font: normal 1.1em Verdana,sans-serif;
 	padding: 8px 12px;
     text-align: center;
-    font-size:130%;
+    font-size:110%;
 }
 .topbar a {
 	color: #FAFAFA;
@@ -132,7 +145,7 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 /* status */
 .status {
     background: #D2D2D0;
-    font: normal 1.1em Verdana,sans-serif;
+    font: normal 80% Verdana,sans-serif;
     padding: 8px 12px;
 }
 .status a {
