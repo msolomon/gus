@@ -19,7 +19,7 @@ def gallery_add(urlRequest, group_id):
     try:
         the_group = gus_group.objects.get(pk = group_id)
     except:
-        return HttpResponse('/gallery/')
+        return HttpResponseRedirect('/gallery/')
     error = False
 
     # If the user doesn't have permission to add a gallery, redirect them
