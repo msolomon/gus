@@ -4,9 +4,14 @@
 {{group.group_name}} : {{forum.forum_name}} : {{thread.thread_name}} : Posts
 {% endblock pagetitle %}
 
-{% block content %}
+{% block sidebar_top %}
+<a href="/group/{{group.id}}">Return to Group</a><br />
+<a href="/forum/{{group.id}}">Return to Forums</a><br />
+<a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a><br />
 <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a>
+{% endblock %}
 
+{% block content %}
 <table border="1" cellpadding="6">
 {% for post in posts %}
 	<tr>
