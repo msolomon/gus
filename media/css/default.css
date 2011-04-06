@@ -85,16 +85,17 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 	padding-bottom: 64px;
 }
 
-/* headere & title */
+/* header & title */
 .header {
-    background: #222 url('../images/css_img/header.jpg');
-	height: 160px;
+    background: #222 url('../images/css_img/header.png') center top;
+    background-repeat: repeat-x;
+    height: 160px;
 	margin-bottom: 5px;
 	text-align: center;
 }
 .header .title {
 	color: #FFF;
-	padding-top: 50px;
+	padding-top: 28px;
 }
 .header .title .sitename a {
 	border-bottom: 1px dashed #657382;
@@ -106,8 +107,8 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 .header .title a:hover {border-color: #F60;}
 .header .title .slogan {
 	font: normal 1.1em Verdana,sans-serif;
-	padding-top: 6px;
-    font-size:130%;
+	padding-top: 12px;
+    font-size:140%;
 }
 
 /* topbar */

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from gus import settings
+import settings
+from gus_groups.models import gus_group
 
 
 class UserManager(models.Manager):
@@ -105,6 +106,7 @@ class gus_user(models.Model):
         """
         
         r = self.group_role(group)
+        if r._role_permission_level > 0: return True
         try:
             return r.has_perm(perm)
         except:
@@ -113,6 +115,7 @@ class gus_user(models.Model):
         """
         determine if this user has a given permission for this group or any of its parent groups
         """
+        if type(group)!=gus_group: return False
         groups = group.getParents()
         #print "Check Parent Permissions :",perm
         #print groups
