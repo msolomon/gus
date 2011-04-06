@@ -61,19 +61,19 @@ def month(request, year=None, month=None):
      month_days = cal.itermonthdays(year, month)
      nyear, nmonth, nday = time.localtime()[:3]
      list = [[]]
-     total_day_events = []
+     #total_day_events = []
      week = 0
     
      for day in month_days:
-        for group in groups:
-            events = current = False
-            if day:
-                events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day)
-                total_day_events.append(events) 
-                if day == nday and year == nyear and month == nmonth: 
-                    current = True
+        #for group in groups:
+        events = current = False
+        if day:
+            events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day)
+            #total_day_events.append(events) 
+            if day == nday and year == nyear and month == nmonth: 
+                current = True
         
-        list[week].append((day, total_day_events, current))
+        list[week].append((day, events, current))
         if len(list[week]) == 7:
              list.append([])
              week = week + 1
@@ -137,6 +137,7 @@ def day_add(request, year, month, day): #, group_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     usr = request.user
+    #usr.has_group_permission(,'Can add event')
   #  if with_user_in_group(group, usr) != admin:
         #redirect
     

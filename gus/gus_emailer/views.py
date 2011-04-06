@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.contrib.auth.decorators import login_required
 from smtplib import SMTPException
 
 from gus_emailer.models import Emailer
@@ -10,11 +11,10 @@ from gus_groups.utils import *
 from gus_roles.models import gus_role
 from django import forms
 
-class ContactForm(forms.Form):
+class SendForm(forms.Form):
     subject = forms.CharField(max_length=100)
     message = forms.CharField(widget=forms.Textarea)
-    recipients = forms.EmailField()
-    bcc_myself = forms.BooleanField(required=False)
+    recipients = forms.CharField(max_length=1000)
     
     def add_emails(self, inuser):
         # build a list of people to send to
@@ -33,15 +33,12 @@ class ContactForm(forms.Form):
             
             # add a section for each group the user is a part of
             self.fields['to_email %s' % group] = \
-                forms.BooleanField(
+                forms.CharField(max_length=1000,
                     widget=forms.CheckboxSelectMultiple(choices=us),
                     label=group.group_name)
-    
+                
+@login_required
 def check(request, pagenum=1):
-    # if we are an anonymous user, redirect to login
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
-    
     # numberify pagenum - this will never fail due to the regex
     pagenum = int(pagenum)
         
@@ -65,12 +62,9 @@ def check(request, pagenum=1):
                                'page': page,
                                },
                               context_instance=RequestContext(request))
-    
-def check_message(request, uid):
-    # if we are an anonymous user, redirect to login
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
-        
+
+@login_required
+def check_message(request, uid):        
     em = Emailer(request.user)
     message = em.check_message(uid)
     
@@ -88,7 +82,7 @@ def check_message(request, uid):
                           {'email': message
                            },
                           context_instance=RequestContext(request))
-        
+@login_required
 def send(request, user_ids=[]):
     # check if we are sending to a user
     if len(user_ids) > 0:
@@ -98,18 +92,19 @@ def send(request, user_ids=[]):
             return HttpResponseRedirect('/login/')
 
     if request.method == 'POST': # If the form has been submitted...
-        form = ContactForm(request.POST) # A form bound to the POST data
+        form = SendForm(request.POST) # A form bound to the POST data
+        form.add_emails(request.user)
         if form.is_valid(): # All validation rules pass
-            
-            # if we are an anonymous user, ask to log in
-            if not request.user.is_authenticated():
-                return HttpResponseRedirect('/login/')
                 
             email = form.cleaned_data
-            # add sender to recipients if box checked
-            if email['bcc_myself']:
-                email['recipients'] += ' %s' % request.user.getEmail()
-                
+            # add recipient if box checked
+            for key in email.keys():
+                if key.startswith('to_email '):
+                    for address in eval(email[key]):
+                        email['recipients'] += ' %s' % address
+                                            
+            print email['recipients']
+
             em = Emailer(request.user)
             try:
                 em.send_message(email['subject'],
@@ -127,9 +122,9 @@ def send(request, user_ids=[]):
                                       context_instance=RequestContext(request))
     else:
         if len(user_ids) > 0:
-            form = ContactForm({'recipients':', '.join(usrs)})
+            form = SendForm({'recipients':', '.join(usrs)})
         else:
-            form = ContactForm() # An unbound form
+            form = SendForm() # An unbound form
     
     form.add_emails(request.user)
 

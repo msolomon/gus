@@ -8,25 +8,45 @@
   No Bills associated with user: {{user.username|capfirst}}.
 {% endif %}
 
-<table>
+<table border="1" bordercolor="#42647F" style="background-color:#A7CAE8" cellpadding="10" cellspacing="3">
 {% for bill in bills %}
-  <tr>
-  <th>{{bill.group.group_name|capfirst}}</th></tr>
-  <td></td>
-  <td>{{bill}}</td>
-  </tr>
+  <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="50">
+  <th width="75">{{bill.group.group_name|capfirst}} </th></tr>
+  <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="50">
+  <td width="50"></td>
+  <th width="75"><b>User</th> <th width="75"><b>Name</th> <th width="75"><b>Total</th> <th width="75"><b>Payments</th> <th width="75"><b>Outstanding</th> </b>
+    <tr height="30">
+    <td width="75"> </td>
+    <td align="center" width="75">{{bill.user.username|capfirst}}</td> 
+    <td align="center" width="75">{{bill.name}}</td>
+    <td align="center" width="75">{{bill.value}}</td>
+    <td align="center" width="75">{{bill.paid_balance}}</td>
+    <td align="center" width="75">{{bill.outstanding}}</td>
+    </tr>
 {% endfor %}
 </table>
 </p>
 
 <p>
-<table>
+<center>
+<table border="1" bordercolor="#42647F" style="background-color:#A7CAE8" cellpadding="10" cellspacing="3">
 {% for group in adminGroups %}
-  <tr>
-  <th>{{group.group_name|capfirst}} [<a  href='/bill/Add/{{group.id}}/'>Add</a>]</th></tr>
-  {% for bill in group.my_bills %}<tr>
-    <td> </td>
-    <td>{{bill}}</td><td> [<a href='/bill/Delete/{{bill.id}}'>Delete</a>]  [<a href='/bill/Payments/{{bill.id}}'>Payments</a>] [<a href='/bill/Archive/{{bill.id}}'>Renew</a>]</td>
+  <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="50">
+  <th width="75">{{group.group_name|capfirst}} </th> <th width="75"> <a  href='/bill/Add/{{group.id}}/'>Add</a></th></tr>
+  <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="50">
+  <td width="50"></td>
+  <th width="75"><b>User</th> <th width="75"><b>Name</th> <th width="75"><b>Total</th> <th width="75"><b>Payments</th> <th width="75"><b>Outstanding</th> </b>
+  {% for bill in group.my_bills %}
+    <tr height="30">
+    <td width="75"> </td>
+    <td align="center" width="75">{{bill.user.username|capfirst}}</td> 
+    <td align="center" width="75">{{bill.name}}</td>
+    <td align="center" width="75">{{bill.value}}</td>
+    <td align="center" width="75">{{bill.paid_balance}}</td>
+    <td align="center" width="75">{{bill.outstanding}}</td>
+    <td align="center" width="75"><a href='/bill/Delete/{{bill.id}}'>Delete</a></td> 
+    <td align="center" width="75"><a href='/bill/Payments/{{bill.id}}'>Payments</a></td>
+    <td align="center" width="75"><a href='/bill/Archive/{{bill.id}}'>Renew</a>]</td>
     </tr>
   {% endfor %}
 {% endfor %}

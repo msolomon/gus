@@ -13,7 +13,7 @@
 {% block content %}
 <table border="1" cellpadding="6">
 {% for thread in threads %}
-	<tr>
+	<tr class="{% cycle 'odd' "even" %}">
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.thread_name}}</a></b><br />
 	  by <a href="">{{thread.user.username|capfirst}}</td> 
 	 <td>Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.LastPostThread.id}}">{{thread.LastPostDate}}</a><br />
