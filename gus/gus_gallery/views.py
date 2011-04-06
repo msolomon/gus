@@ -121,7 +121,7 @@ def gallery_group_list(urlRequest, group_id):
 
     # If the group isn't legit, then redirect to the list of galleries
     try:
-        the_group = gus_group.objects.filter(pk = group_id)
+        the_group = gus_group.objects.filter(pk = group_id)[0]
     except:
         return HttpResponseReditect('/gallery/')
 
