@@ -114,8 +114,18 @@ def gallery_view(urlRequest, gallery_id):
     if gus_role.objects.with_user_in_group(gallery.group, the_user) == None:
         return HttpResponseRedirect('/gallery/')
 
+    # Get the permissions for the current gallery
+    the_group = gallery.group;
+    can_add = the_user.has_group_perm(the_group, "Can add gus_image")
+    can_edit = the_user.has_group_perm(the_group, "Can edit gus_image")
+    can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
+
     return render_to_response('gallery/gallery_view.html',
-                              {'gallery' : gallery, 'images' : images})
+                              {'gallery' : gallery,
+                               'images' : images,
+                               'can_add' : can_add,
+                               'can_edit' : can_edit,
+                               'can_delete' : can_delete})
 
 @login_required
 def image_add(urlRequest, gallery_id):
