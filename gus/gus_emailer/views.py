@@ -63,6 +63,32 @@ def check(request, pagenum=1):
                                'page': page,
                                },
                               context_instance=RequestContext(request))
+    
+@login_required
+def check_sent(request, pagenum=1):
+    # numberify pagenum - this will never fail due to the regex
+    pagenum = int(pagenum)
+        
+    # fetch snippets
+    em = Emailer(request.user)
+    snippets = em.check_sent_email()
+    
+    # paginate the emails
+    snippets_per_page = 10
+    paginator = Paginator(snippets, snippets_per_page)
+    
+    # default to last page if page number is invalid (too high)
+    try:
+        page = paginator.page(pagenum)
+    except (EmptyPage, InvalidPage):
+        page = paginator.page(paginator.num_pages)
+    
+    return render_to_response('email/check_sent.html',
+                              {'username':request.user.username,
+                               'useremail':request.user.getEmail(),
+                               'page': page,
+                               },
+                              context_instance=RequestContext(request))
 
 @login_required
 def check_message(request, uid):        
