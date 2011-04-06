@@ -1,20 +1,23 @@
 {% extends "base.html" %}
 
 {% block pagetitle %}
-{{group.group_name}} : Forums 
+{{group.group_name}} : Forums
 {% endblock pagetitle %}
 
-{% block content %}
-<a href="/forum/{{group.id}}/add_forum">Add Forum</a> 
+{% block sidebar_top %}
+<a href="/group/{{group.id}}">Return to Group Page</a><br />
+<a href="/forum/{{group.id}}/add_forum">Add Forum</a>
+{% endblock %}
 
+{% block content %}
 <table border="1" cellpadding="6">
 {% for forum in forums %}
 	<tr>
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}">{{forum.forum_name}}</a></b><br />
-	  <p>{{forum.forum_description}}</p></td> 
+	  <p>{{forum.forum_description}}</p></td>
 	 <td>Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostDate}}</a><br />
 	  by <a href="">{{forum.LastPostUser.username|capfirst}}</a></td>
-	 <td> <a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">Edit Forum</a><br /> 
+	 <td> <a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">Edit Forum</a><br />
 	  <a href="/forum/{{group.id}}/{{forum.id}}/delete_forum">Delete Forum</a>
 	</tr>
 {% endfor %}
