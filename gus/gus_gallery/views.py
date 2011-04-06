@@ -338,6 +338,8 @@ def public_list(urlRequest):
     """
     # Get the public galleries
     galleries = gus_gallery.objects.filter(is_public = True)
+    if len(galleries) == 0:
+        galleries = None
 
     return render_to_response('gallery/public_list.html',
                               {'galleries' : galleries})
