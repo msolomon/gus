@@ -12,4 +12,12 @@
 {% endblock %}
 
 {% block content %}
+<p>
+Warning! This will overwrite the old post.
+</p>
+ <form method="POST">
+  {%csrf_token%}
+  {{form.as_p}}
+  <input type="SUBMIT" value="Delete Post">
+ </form>
 {% endblock content %}
