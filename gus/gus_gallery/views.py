@@ -1,5 +1,6 @@
 # TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
 # TODO: Add permission stuff in here so not everyone can perform these actions
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.forms.models import model_to_dict
 from django.shortcuts import render_to_response
