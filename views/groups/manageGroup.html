@@ -7,20 +7,25 @@
 {% for role in roles %}
 <strong>{{ role.name }}({{ role.users.all|length }})</strong>
 [
-  <a href="/gus_test/Role/Edit/{{ role.id }}/">Edit Role</a>
+  <a href="/roles/EditPerms/{{ role.id }}/">Edit Role</a>
 ]
 [
-  <a href="/gus_test/Role/Delete/{{ role.id }}/{{ group.id }}/">Delete Role</a>
+  <a href="/roles/Delete/{{ role.id }}/{{ group.id }}/">Delete Role</a>
 ]
 <br />
 {{ role.permissionsString }} <br />
 {% for user in role.users.all %}
-{{ user }}<br/>
+{{ user }} [
+  <a href="/groups/{{group.id}}/RemoveUser/{{user.id}}/">Delete User</a>
+]
+[
+  <a href="/groups/{{group.id}}/EditRole/{{user.id}}/">Change User Role</a>
+]<br/>
 {% endfor %}
 {% endfor %}
 
 <div style="border:thin red solid;margin:50px;padding:25px">
-	<a href="/gus_test/Role/New/{{group.id}}/">Create A New Role</a>
+	<a href="/groups/{{group.id}}/CreateRole/">Create A New Role</a>
 <form method="post" >
 <fieldset><legend>Add User to Group</legend>
 {{ formAddUser.as_p }}

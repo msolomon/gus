@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group,Permission
 from gus_groups.models import gus_group
 from gus_users.models import gus_user
 # Create your models here.
@@ -33,7 +33,7 @@ class RoleManager(models.Manager):
         return newrole
         
     
-    def with_user_in_group(self, group, user):
+    def with_user_in_group(self, group, usr):
         """
         will return exactly one role or None depending on if the given user 
         has a role in the given group
@@ -47,7 +47,7 @@ class RoleManager(models.Manager):
         """
         try:
             return super(RoleManager, self).get_query_set().get(
-                    _role_users=user,
+                    _role_users=usr,
                     _role_group=group,
             )
         except:
@@ -72,9 +72,7 @@ class RoleManager(models.Manager):
         @rtype: List
         @return: a set of all groups that a given user belongs to 
         """
-        return super(RoleManager, self).get_query_set().filter(
-                _role_users=user,
-        )
+        return super(RoleManager, self).get_query_set().filter(_role_users=user)
         
     def users_without_group(self, group):
         """
@@ -115,9 +113,7 @@ class RoleManager(models.Manager):
         @param group: an instance of the group in question
         @return     : a list of roles 
         """
-        return super(RoleManager, self).get_query_set().filter(
-                _role_group=group,
-        )
+        return super(RoleManager, self).get_query_set().filter(_role_group=group)
     
     
     
@@ -174,6 +170,10 @@ class gus_role(models.Model):
         @rtype: None  
         """
         self._role_users.remove(user)
+
+    def delete(self):
+	self._role_permissions.delete()
+	super(gus_role,self).delete()
     
     #################################################
     ####  Python Magic Functions       ##############
@@ -197,7 +197,12 @@ class gus_role(models.Model):
         for perm in perms:
             permList.append(perm)
         return " '%s'" % "', '".join([x.name for x in permList]);
-    
+    def addPerm(self,permName):
+        try:
+            perm=Permission.objects.get(name=permName)
+            self._role_permissions.permissions.add(perm)
+        except:
+            raise Exception("Permission Not Found")
     def has_perm(self,perm):
         """
         determine if this role has a given permission

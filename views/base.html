@@ -2,77 +2,88 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<title>{% block pagetitle %}gus{% endblock %}</title>
-		{% comment %} <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> {% endcomment %}
+		<title>{% block pagetitle %}Gus{% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="/include/css/default.css" media="screen"/>
 		{% block custom_header %}
 		{% endblock %}
-		<link rel="stylesheet" type="text/css" href="/include/css/gus.css"/>
 	</head>
-	<body>
-		<div id="header">
-			<table border="0"><tr>
-				<td>{% block title %}
-					<a href="/"><img src="/include/images/guspy.png"/></a>
-					{% endblock %}</td>
-				<td><h1>{% block subtitle %}Groups in a University Setting{% endblock %}</h1></tr>
-			</tr></table>
-				{% block menu %}
-			<ul>
-				<li><a href="/gus_test/">Manage Groups/Users</a></li>
-				<li><a href="/calendar/">Calendar</a></li>
-				<li><a href="/email/">Email</a></li>
-				<li><a href="/bill/">Bill</a></li>
-				<li><a href="/gallery/">Gallery</a></li>
-				<li></li>
-				<li></li>
-			</ul>
-			{% endblock %}
-			{% block submenu %}
-			<p id="layoutdims">
-				{% if user.is_anonymous %}
-					Not Logged In: <a href="/login/">Login</a> | <a href="/register/">Register</a> </p>
-				{% else %}
-					{{ user.username|capfirst }}: <a href="/logout/">Logout</a> 
-				{% endif %}
-			{% endblock %}
-		</div>
-		<div class="colmask leftmenu"> 
-			<div class="colright"> 
-				<div class="col1wrap"> 
-					<div class="col1"> 
-					{% block content %}
-					{% endblock %}
-					</div> 
-					
-				</div> 
-				<div class="col2"> 
-					{% block sidebar %}
-					
-					{% block sidebar_top %}
-					{% endblock %}
 
-					<br><hr/>
-					
-					{% block sidebar_sitewide %}
-					<a href="http://test.joranbeasley.com/project_management/index.php?m=projects&a=view&project_id=1&tab=0" target="blank">Project Status</a><br>
-					<a href="http://test.joranbeasley.com/coverage_report/">Current Coverage</a><br>
-					<a href="http://test.joranbeasley.com/api/">Api Documentation</a><br>
-					<a href="https://github.com/arkenflame/gus">GitHub</a>
-					{% endblock %}
-					
-					<br><hr/>
 
-					{% block sidebar_bottom %}
-					{% endblock %}
-					
-					{% endblock %}
-				</div> 
-			</div> 
-		</div>
-		<div id="footer">
-			{% block footer %}
-			<p>(c) 2011 -= GusPy (UIdaho CS 384) =-</p>
-			{% endblock %}
-		</div>
-	</body>
-</html>
+<body>
+<div class="outer-container">
+<div class="inner-container">
+    <div class="header">
+        <div class="title">
+            <span class="sitename">
+                {% block title %}
+                    <a href="/" class="header_image"><img src="/include/images/guspy.png"/></a>
+                {% endblock %}</td>
+            </span>
+            <div class="slogan">{% block subtitle %}Groups in a University Setting{% endblock %}</div>
+        </div>
+    </div>
+
+    <div class="topbar">
+        {% block menu %}
+            <a href="/gus_test/">Manage Groups and Users</a> | 
+            <a href="/calendar/">Calendar</a> | 
+            <a href="/email/">Email</a> | 
+            <a href="/bill/">Bill</a> | 
+            <a href="/gallery/">Gallery</a>
+        {% endblock %}
+    </div>
+
+    <div class="status">
+        {% block submenu %}
+                {% if user.is_anonymous %}
+                    Not Logged In. <a href="/login/">Login</a> | <a href="/register/">Register</a>
+                {% else %}
+                    Logged in as <strong>{{ user.username|capfirst }}</strong>. <a href="/users/profile">My Profile</a> | <a href="/logout/">Logout</a> 
+                {% endif %}
+        {% endblock %}
+    </div>
+
+    <div class="main">      
+        <div class="content">
+            {% comment %}
+                <!-- You can do nice looking descriptions with this tag -->
+                <div class="descr">Jun 13, 2006 by Vulputate</div>
+            {% endcomment %}
+
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <div class="navigation">
+            {% block sidebar %}
+                {% block sidebar_top %}
+                {% endblock %}
+
+                {% block sidebar_sidewide %}
+                <h2>Gus</h2>
+                <ul>
+                    <li><a href="https://github.com/arkenflame/gus">Reports</a></li>
+                </ul>
+                {% endblock %}
+
+                {% block sidebar_bottom %}
+                {% endblock %}
+            {% endblock %}
+        </div>
+        <div class="clearer">&nbsp;</div>
+    </div>
+
+    <div class="footer">
+        {% block footer %}
+        <span class="left">
+            &copy; 2011 <a href="https://github.com/arkenflame/gus">GusPy</a> (<a href="http://uidaho.edu/">University of Idaho</a> <a href="http://www2.cs.uidaho.edu/~jeffery/courses/384/">CS 384</a>)
+        </span>
+        <span class="right">
+            <a href="http://templates.arcsin.se/">Template</a> by <a href="http://arcsin.se/">Arcsin</a>
+        </span>
+        {% endblock %}
+        <div class="clearer"></div>
+    </div>
+</div>
+</div>
+</body>
