@@ -105,11 +105,13 @@ class gus_user(models.Model):
          
         """
         
-        
+        r = self.group_role(group)
         try:
-            r = self.group_role(group)
             if r._role_permission_level > 0: return True
-            return r.has_perm(perm)
+            try:
+                return r.has_perm(perm)
+            except:
+                return self.has_groups_perm(group, perm)
         except:
             return self.has_groups_perm(group, perm)
     def has_groups_perm(self,group,perm):
