@@ -11,7 +11,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from gus.gus_calendar.models import *
-from gus.gus_roles.models import RoleManager
+from gus.gus_groups.utils import *
 
 month_names = "January February March April May June July August September October November December"
 month_names = month_names.split()
@@ -26,7 +26,7 @@ years = []
 def month(request, year=None, month=None):
      if not request.user.is_authenticated():
          return HttpResponseRedirect('/login/')
-     groups = getGroupswithUser(request.user)
+     groups = getGroupsWithUser(request.user)
     
      if year: year = int(year)
      else: year = time.localtime()[0]
