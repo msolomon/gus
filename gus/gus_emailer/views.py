@@ -14,7 +14,7 @@ from django import forms
 class SendForm(forms.Form):
     subject = forms.CharField(max_length=100)
     message = forms.CharField(widget=forms.Textarea)
-    recipients = forms.CharField(max_length=1000)
+    recipients = forms.CharField(max_length=1000, required=False)
     
     def add_emails(self, inuser):
         # build a list of people to send to

@@ -1,23 +1,22 @@
 {% extends "email/emailer.html" %}
+
+{% block pagetitle %}Send New Message{% endblock pagetitle %}
+
 {% block content %}
 {% if user_to %}
-<h3>CONTACT: {{user_to.username}} <a href="mailto:{{user_to.email}}">&lt;{{user_to.email}}&gt;</h3></a>
+<h3>To: {{user_to.username}} <a href="mailto:{{user_to.email}}">&lt;{{user_to.email}}&gt;</h3></a>
 {% endif %}
 <form method="post">
-{% csrf_token %}
-{{ email_form.as_p }}
-<input type="submit" value="Send">
+	{% csrf_token %}
+	
+	{% for form in email_form %}
+	<p>
+		<b>{{ form.label_tag }}:</b>
+		{{ form }}
+	</p>
+	{% endfor %}
+	
+	<input type="submit" value="Send">
 </form>
 
-{{ user_list }}
-
 {% endblock content %}
-
-{% block pagetitle %}
-Email
-{% endblock pagetitle %}
-
-{% block sidebar_top %}
-<a href="/email/check">Check Messages</a><br>
-<a href="/email/send">New Message</a>
-{% endblock %}

@@ -1,19 +1,23 @@
 {% extends "email/emailer.html" %}
+{% block pagetitle %}Message Send Result{% endblock pagetitle %}
+
 {% block content %}
-Thanks for sending an email!  The following message was posted:
-<p/>
-{% for k, v in email.iteritems %}
-<b>{{ k }}:</b>
-<table frame="border" width="50%">
-	<tr><td>
-		{{ v|urlize|linebreaks }}
-	</td></tr>
-</table>
+
+{% if email.success %}
+<h1>Your message was successfully sent!</h1>
+<hr>
+<h3>To:</h3>
+{{ email.recipients }}
+<br>
+<h2>{{ email.subject }}</h2>
 <p>
-{% endfor %}
+	{{ email.message }}
+</p>
+{% else %}
+<h1>Error: your message could not be sent</h1>
+{% endif %}
+
+
 
 {% endblock content %}
 
-{% block pagetitle %}
-Email
-{% endblock pagetitle %}
