@@ -167,7 +167,6 @@ def gallery_view(urlRequest, gallery_id):
     except:
         return HttpResponseRedirect('/gallery/')
 
-    the_images = the_gallery.get_images()
     the_user = urlRequest.user
     the_group = the_gallery.group
 
@@ -187,6 +186,7 @@ def gallery_view(urlRequest, gallery_id):
 
     # If we want to show the gallery, do it. Otherwise, redirect the user
     if show_gallery:
+        the_images = the_gallery.get_images()
         return render_to_response('gallery/gallery_view.html',
                                   {'gallery' : the_gallery,
                                    'images' : the_images,
@@ -194,7 +194,7 @@ def gallery_view(urlRequest, gallery_id):
                                    'can_delete' : can_delete,
                                    'can_edit' : can_edit},
                                   context_instance = RequestContext(urlRequest))
-    return HttpRedirect('/gallery/')
+    return HttpResponseRedirect('/gallery/')
 
 
 #@login_required
