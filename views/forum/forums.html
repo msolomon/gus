@@ -5,8 +5,11 @@
 {% endblock pagetitle %}
 
 {% block sidebar_top %}
-<a href="/group/{{group.id}}">Return to Group Page</a><br />
-<a href="/forum/{{group.id}}/add_forum">Add Forum</a>
+<h2>Forum Options</h2>
+<ul>
+ <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
+ <li><a href="/forum/{{group.id}}/add_forum">Add Forum</a></li>
+</ul>
 {% endblock %}
 
 {% block content %}
@@ -17,7 +20,7 @@
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}">{{forum.forum_name}}</a></b><br />
 	  <p>{{forum.forum_description}}</p></td>
 	 <td align="right">Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostDate}}</a><br />
-	  by <a href="">{{forum.LastPostUser.username|capfirst}}</a>
+	  by <a href="/users/profile">{{forum.LastPostUser.username|capfirst}}</a>
 	  in <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostThread.thread_name}}</a>
 	 </td>
 	 <td align="right"> <a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">Edit Forum</a><br />

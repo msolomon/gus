@@ -149,7 +149,8 @@ def gallery_group_list(urlRequest, group_id):
                                'galleries' : galleries,
                                'can_add' : can_add,
                                'can_edit' : can_edit,
-                               'can_delete' : can_delete})
+                               'can_delete' : can_delete},
+                              context_instance = RequestContext(urlRequest))
 
 @login_required
 def gallery_view(urlRequest, gallery_id):
@@ -175,11 +176,12 @@ def gallery_view(urlRequest, gallery_id):
         can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
 
     return render_to_response('gallery/gallery_view.html',
-                                  {'gallery' : gallery,
-                                   'images' : images,
-                                   'can_add' : can_add,
-                                   'can_edit' : can_edit,
-                                   'can_delete' : can_delete})
+                              {'gallery' : gallery,
+                               'images' : images,
+                               'can_add' : can_add,
+                               'can_edit' : can_edit,
+                               'can_delete' : can_delete},
+                              context_instance = RequestContext(urlRequest))
 
 @login_required
 def image_add(urlRequest, gallery_id):
@@ -329,7 +331,8 @@ def index(urlRequest):
                                'galleries' : galleries,
                                'can_add' : can_add,
                                'can_edit' : can_edit,
-                               'can_delete' : can_delete})
+                               'can_delete' : can_delete},
+                              context_instance = RequestContext(urlRequest))
 
 @login_required
 def public_list(urlRequest):
@@ -342,4 +345,5 @@ def public_list(urlRequest):
         galleries = None
 
     return render_to_response('gallery/public_list.html',
-                              {'galleries' : galleries})
+                              {'galleries' : galleries},
+                              context_instance = RequestContext(urlRequest))
