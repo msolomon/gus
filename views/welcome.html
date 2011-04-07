@@ -5,6 +5,11 @@
 {% if not user.is_anonymous %}
 <h2>My Groups</h2>
 <hr/>
+{% for role in user.roles %}
+{{role.group.group_name}} ({{ role.name }}) 
+[<a href="/groups/{{role.group.id}}/Edit">Visit</a>]
+
+{% endfor %}
 <br/><br/><br/>
 <br/>
 
