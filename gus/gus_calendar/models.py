@@ -61,7 +61,7 @@ class Gus_calendar(Widget):
         #super(Gus_calendar, self).delete()
         #self.delete() ##not working
         #events.delete()
-        self.delete()
+        #self.delete()
           
 class Gus_event(models.Model):
     """
@@ -75,7 +75,7 @@ class Gus_event(models.Model):
     description = models.CharField(max_length=1000, blank=True)
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     Delete = models.BooleanField(blank=True, null=False)
-    Group = models.ForeignKey(gus_group,  null=True)
+    Group = models.ForeignKey(gus_group, null=True)
     #Attending = models.BooleanField(blank=True, null=False)
     #reminder = models.BooleanField(default=False)
     

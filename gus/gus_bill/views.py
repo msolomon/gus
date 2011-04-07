@@ -1,4 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from  django.template import RequestContext
 from gus.gus_groups.models import *
@@ -23,9 +24,8 @@ class new_bill_form(forms.Form):
   #      self.fields['group'].initial = group.id
   #	      self.fields['role'].queryset = gus_role.objects.filter(_role_group=group)
 
+@login_required
 def index(request):
-	if not request.user.is_authenticated():
-	   return HttpResponseRedirect('/login/')
 	usr = request.user
 	bills = bill.objects.filter(user = usr.id).exclude(name__contains="_archive")
 	#returns all the roles which the usr is an Owner
@@ -49,6 +49,7 @@ def index(request):
 	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":adgroups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
 	
 #AddBill
+@login_required
 def AddBill(request,group_id=-1):
   try:
 	bill_grp = gus_group.objects.get(pk=group_id)
@@ -72,6 +73,7 @@ def AddBill(request,group_id=-1):
 			    context_instance=RequestContext(request))
 
 #Delete
+@login_required
 def DeleteBill(request,bill_id=-1):
   try:
     b = bill.objects.get(pk=bill_id)
@@ -84,6 +86,7 @@ def DeleteBill(request,bill_id=-1):
 #class payment_bill_form(forms.Form):
 #  Value = forms.FloatField(min_value=0)
 
+@login_required
 def Payments(request, bill_id=-1):
   try:
     b = bill.objects.get(pk=bill_id)
@@ -101,7 +104,8 @@ def Payments(request, bill_id=-1):
   balance = b.value - b.paid_balance()
   return render_to_response('bill/payments.html',{'payments':paymnts,'form':form, 'bill':b, 'balance':balance},
 			    context_instance=RequestContext(request))
-  
+
+@login_required
 def Archive(request, bill_id=-1):
   try:
     b = bill.objects.get(pk=bill_id)
@@ -109,3 +113,5 @@ def Archive(request, bill_id=-1):
     return HttpResponse('Bill Not Found')
   b.archive()
   return HttpResponseRedirect('/bill/')
+  
+  

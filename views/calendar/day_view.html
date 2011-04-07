@@ -2,8 +2,10 @@
 {% block content %}
 
 <h3>Event: {{name}} </h3>
-<b>Creator:</b> {{creator}}
-<br>  
+<b>Creator:</b> {{creator.username}}
+<br> 
+<b>Group:</b> {{event_group.group_name}} 
+<br>
 <b> Start Date: </b> {{start_date}}
 <br>
 <b>Description:</b> {{description}}
