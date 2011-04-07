@@ -17,8 +17,10 @@ urlpatterns = patterns(
     (r'^add/([0-9]+)', 'gallery_add'),           # /gallery/add/<group id>/
     (r'^delete/([0-9]+)', 'gallery_delete'),     # /gallery/delete/<gallery id>/
     (r'^edit/([0-9]+)', 'gallery_edit'),         # /gallery/edit/<gallery id>/
+    (r'^group/([0-9]+)', 'gallery_group_list'),  # /gallery/group/<group id>/
     (r'^image/add/([0-9]+)', 'image_add'),       # /gallery/image/add/<gallery id>/
     (r'^image/delete/([0-9]+)', 'image_delete'), # /gallery/image/delete/<image id>/
     (r'^image/edit/([0-9]+)', 'image_edit'),     # /gallery/image/edit/<image id>/
-    (r'^', 'index'),                            # /gallery/
+    (r'^public', 'public_list'),
+    (r'^', 'index'),                             # /gallery/
 )

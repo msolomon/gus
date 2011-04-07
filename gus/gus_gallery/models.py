@@ -19,6 +19,7 @@ class gus_gallery(models.Model):
     group = models.ForeignKey(gus_group)
     name = models.CharField(max_length=500)
     user = models.ForeignKey(gus_user)
+    is_public = models.BooleanField()
 
     def __unicode__(self):
         """
@@ -95,8 +96,7 @@ class gallery_form(ModelForm):
     """
     class Meta:
         model = gus_gallery
-        # LOL: Taking that comma away breaks the form... so don't do it
-        fields = ('name',)
+        fields = ('name', 'is_public')
 
 class image_form(ModelForm):
     """

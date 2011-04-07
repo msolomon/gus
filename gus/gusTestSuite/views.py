@@ -19,6 +19,7 @@ from django.core.urlresolvers import reverse
 #from gus.gus_groups.models import *
 #from gus.gus_groups.forms import *
 #from django.contrib import messages
+from gus import settings
 from gus.gus_users.models import gus_user
 from gus.gus_groups.models import gus_group
 from gus.gus_roles.models import gus_role
@@ -36,6 +37,21 @@ def index(urlRequest):
          'groups':gus_group.objects.all(),
          },context_instance=RequestContext(urlRequest));
 
+@login_required
+def index2(urlRequest):
+    
+    #from django.contrib.auth.forms import UserCreationForm
+    #from gus.gusTestSuite.forms import SimpleAddUserToGroup
+    #return HttpResponse(SimpleGroupAddForm().as_p()) 
+    data ={}
+    usr=urlRequest.user
+    grps = [r.group for r in gus_role.objects.with_user(usr)]
+    data['user']=usr
+    data['groups']=grps
+    #return HttpResponse(data['groups'][0].group_name)
+    return render_to_response('test/welcome2.html', data
+         #'urls':{'delete':'/gus_test/Group/Delete/%s/'},
+         ,context_instance=RequestContext(urlRequest));
 def authUser(urlRequest):
     return render_to_response('users/info.html',{},
                               context_instance=RequestContext(urlRequest))
@@ -127,7 +143,17 @@ def editGroup(urlRequest, group_id):
           'formAddUser':form_addUser},
           context_instance=RequestContext(urlRequest)
           )
-    return HttpResponse('Manage Group : %s ' % group)
+    #return HttpResponse('Manage Group : %s ' % group)
+
+@login_required
+def viewGroup(urlRequest, group_id):
+    group = gus_group.objects.get(pk=group_id)
+    role = group.roles
+    return render_to_response('groups/viewGroup.html',
+	{ 'group':group, 'role':role },
+	  context_instance=RequestContext(urlRequest)
+	  )
+    #return HttpResponse("testing")
 
 @login_required
 def deleteUser(urlRequest, user_id):
@@ -137,7 +163,17 @@ def deleteUser(urlRequest, user_id):
 @login_required
 def deleteGroup(urlRequest, group_id):
     group = gus_group.objects.get(pk=group_id)
-    return HttpResponse('Delete Group : %s ' % group)
+    try:
+        if urlRequest.POST['confirm']:
+            group.delete();
+            
+            return HttpResponseRedirect('/groups/')
+    except:
+        return render_to_response('generic/confirm_delete.html',
+                              {'type' : 'group',
+                               'item' : group.group_name,
+                               'cancel_url' : '/groups/%s/Edit'%group_id},
+                              context_instance = RequestContext(urlRequest))
 
 @login_required
 def removeUserFromRole(urlRequest, user_id, role_id):
@@ -172,8 +208,9 @@ def editRole(urlRequest, role_id):
                        },context_instance=RequestContext(urlRequest)
                        )
 
-  
-@login_required
+ 
+ 
+#@login_required # you need to be able to register without being logged in
 def addUser(urlRequest):
     
     #setup our form
@@ -197,7 +234,7 @@ def addUser(urlRequest):
                                  'submiturl':'/gus_test/User/Add/',
                                  'encType':'multipart/form-data',
                                  'form':form,
-                                 'title':'Add New User',
+                                 'title':'Register New User',
                                  'btnlabel':'Create User',
                                 },
                                 context_instance=RequestContext(urlRequest)

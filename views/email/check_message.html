@@ -1,11 +1,33 @@
 {% extends "email/emailer.html" %}
-{% block pagetitle %}Email Inbox for {{username}}{% endblock pagetitle %}
+{% block pagetitle %}Message: {{ email.subject }}{% endblock pagetitle %}
 
 {% block content %}
-<b>From:</b> <br> {{ email.from_email|urlize }} <br>
-<b>Subject:</b> <br> {{ email.subject|urlize }} <br>
-<b>Message:</b> <br> {{ email.body|urlize|linebreaks }} <br>
-<p/>
+<h3>To:</h3>
+{% for address in email.to %}
+	{{ address|urlize }}
+{% endfor %}
 
+{% if email.bcc %}
+	{% for address in email.bcc %}
+		{{ address|urlize }}
+	{% endfor %}
+{% endif %}
+<br/><hr>
+{% if email.cc %}
+<h3>CC:</h3>
+{% for address in email.cc %}
+	{{ address|urlize }}
+{% endfor %}
+<br/><hr>
+{% endif %}
+
+<h3>From:</h3> {{ email.from_email|urlize }}<br/><hr>
+<h2>{{ email.subject|urlize }} </h2>
+{{ email.body|urlize|linebreaks }}
+<hr>
+<form method="post">
+{% csrf_token %}
+<input type="submit" value="Delete">
+</form>
 {% endblock content %}
 

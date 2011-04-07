@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load control_manager  %}
+{% block pagetitle %}My Groups{% endblock %}
+{% block content %}
+<div style="width:450px;">
+<h3>Groups </h3>
+	{% for grp in groups %}
+	
+	<div>{{grp}}[ <a href="/gus_test/Group/Delete/{{grp.id}}/">Delete</a> ]
+	 [ <a href="/groups/{{grp.id}}/Edit/">Edit</a> ]
+	 [ <a href="/groups/View/{{grp.id}}/">View</a> ]
+	 [ <a href="/gus_test/Group/Add">Add Subgroup</a> ]
+	 {% control user grp 'link_label' 'http://url' 'Can change user' %}
+	</div>
+	{% endfor %}
+</div>
+{%endblock%}

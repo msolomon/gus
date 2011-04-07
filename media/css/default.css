@@ -1,0 +1,330 @@
+/*
+Template name: Dirtylicious
+Template URI: http://templates.arcsin.se/dirtylicious-website-template/
+Release date: 2007-03-10
+Description: A soft-colored, bright and somewhat dirty two-column template.
+Author: Viktor Persson
+Author URI: http://arcsin.se/
+
+This template is licensed under a Creative Commons Attribution 2.5 License:
+http://templates.arcsin.se/license/
+
+------
+Modifed for guspy by Mike Solomon
+------
+*/
+
+/* standard elements */
+html {min-height: 100%;}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #048;
+}
+
+a:hover {color: #06C;}
+
+img {
+	border-style: none;
+}
+
+body {
+	background: #E7E7E2 url('../images/css_img/body.jpg') center top; 
+	background-repeat: repeat-x;
+	color: #444;
+	font: normal 80% Tahoma,sans-serif;
+	padding-top: 64px;
+}
+
+p,code,ul {padding-bottom: 1.2em;}
+
+li {list-style: none;}
+
+h1 {font: normal 1.8em Tahoma,sans-serif;}
+h2 {font: bold 1.4em sans-serif;}
+h3 {font: bold 1em Tahoma,sans-serif;}
+
+form,input {margin: 0; padding: 0; display: inline;}
+
+code {
+	background: #FFF;
+	border: 1px solid #EEE;
+	border-left: 6px solid #CCC;
+	color: #666;
+	display: block;
+	font: normal 1em Tahoma,sans-serif;
+	line-height: 1.6em;
+	margin-bottom: 12px;
+	padding: 8px 10px;
+	white-space: pre;
+}
+
+blockquote {
+	background: url(img/quote.gif);
+	display: block;
+	font-weight: bold;
+	padding-left: 28px;
+}
+
+h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
+
+/* misc */
+.clearer {clear: both; font-size: 0;}
+.left {float: left;}
+.right {float: right;}
+
+/* structure */
+.inner-container {
+	border: 2px solid #D7D7D2;
+	background: #FFF;
+	font-size: 1.2em;
+	margin: 0 auto;
+	padding: 10px;
+	width: 96%;
+}
+
+.outer-container {
+    background: url('../images/css_img/container.jpg') center bottom;
+	padding-bottom: 64px;
+}
+
+a .header_image{
+	text-decoration:none;
+	outline:none;
+	background:none;
+}
+
+/* header & title */
+.header {
+    background: #222 url('../images/css_img/header.png') center top;
+    width: 100%;
+    height: 160px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+.header .title {
+	color: #FFF;
+	padding-top: 28px;
+}
+.header .title .sitename a {
+	border-bottom: 1px dashed #657382;
+	color: #FFF;
+	font: normal 3em sans-serif;
+	padding-bottom: 2px;
+	text-decoration: none;
+}
+.header .title a:hover {border-color: #F60;}
+.header .title .slogan {
+	font: normal 1.1em Verdana,sans-serif;
+	padding-top: 12px;
+    font-size:140%;
+}
+
+/* topbar */
+.topbar {
+	background: #949490;
+	color: #FFF;
+	font: normal 1.1em Verdana,sans-serif;
+	padding: 8px 12px;
+    text-align: center;
+    font-size:110%;
+}
+.topbar a {
+	color: #FAFAFA;
+	text-decoration: none;
+}
+.topbar a:hover {
+	color: #FFE;
+	text-decoration: underline;
+}
+
+/* status */
+.status {
+    background: #D2D2D0;
+    font: normal 80% Verdana,sans-serif;
+    padding: 8px 12px;
+}
+.status a {
+    text-decoration: none;
+}
+.status a:hover {
+    text-decoration: underline;
+}
+
+/* main */
+.main {
+	background: url(img/main.gif) repeat-y;
+	border-top: 4px solid #FFF;
+	padding: 8px 12px 0 0;
+}
+
+/* calendar table */
+.calendar
+{
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  margin: 45px;
+  width: 500px;
+  text-align: left;
+  border-collapse: collapse;
+  border-bottom: 1px solid #ced9fe;
+  
+}
+.calendar th
+{
+  font-size: 90%;
+  font-weight: normal;
+  padding: 8px;
+  background: #b9c9fe;
+  border-top: 4px solid #aabcfe;
+  border-bottom: 1px solid #fff;
+  color: #039;
+}
+
+.month
+{
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  margin: 45px;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.month tr td
+{
+  padding: 8px;
+  background: #e8edff;
+  border-bottom: 1px solid #ced9fe;
+  color: #669;
+  border-top: 1px solid transparent;
+}
+.month tr.odd td
+{
+  padding: 8px;
+  background: #ccddff;
+  border-bottom: 1px solid #fff;
+  color: #669;
+  border-top: 1px solid transparent;
+}
+.calendar td:hover td
+{
+  background: #2E8B57;
+  color: #339;
+}
+.calendar td.odd:hover td
+{
+  background: #2E8B57;
+  color: #339;
+}
+
+
+/* tables */
+table
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 75%;
+	margin: 25px;
+	text-align: left;
+	border-collapse: collapse;
+	border-bottom: 2px solid #aabcfe
+}
+table th
+{
+	font-size: 130%;
+	font-weight: normal;
+	padding: 8px;
+	background: #b9c9fe;
+	border-top: 4px solid #aabcfe;
+	border-bottom: 1px solid #fff;
+	color: #039;
+}
+table tr td
+{
+	padding: 8px;
+	background: #e8edff; 
+	border-bottom: 1px solid #fff;
+	color: #669;
+	border-top: 1px solid transparent;
+}
+table tr.odd td
+{
+	padding: 8px;
+	background: #ccddff;
+	border-bottom: 1px solid #fff;
+	color: #669;
+	border-top: 1px solid transparent;
+}
+table td:hover td
+{
+	background: #e8eddd;
+	color: #339;
+}
+table td.odd:hover td
+{
+	background: #ccdddd;
+	color: #339;
+}
+
+/* content */
+.content {
+	float: right;
+	width: 78%;
+}
+.content .descr {
+	color: #664;
+	font-size: 0.9em;
+	margin-bottom: 6px;
+}
+.content li {
+	list-style: url(img/li.gif);
+	margin-left: 18px;
+}
+.content p {font-family: "Lucida Sans Unicode",sans-serif;}
+
+/* navigation */
+.navigation {
+	float: left;
+	width: 20%;
+}
+.navigation h2 {
+	color: #5A5A43;
+	font: bold 1.1em Tahoma,sans-serif;
+	line-height: 30px;
+	margin: 0;
+	padding-left: 12px;
+}
+.navigation ul {
+	padding: 0;
+	border-top: 1px solid #EAEADA;
+}
+.navigation li {border-bottom: 1px solid #EAEADA;}
+.navigation li a {
+	font-size: 1.1em;
+	color: #554;
+	display: block;
+	padding: 8px 0 8px 5%;
+	text-decoration: none;
+	width: 95%;
+}
+.navigation li a:hover {
+	background: #F0F0EB;
+	color: #654;	
+}
+
+/* footer */
+.footer {
+	background: #949490;
+	color: #F7F7F2;
+	font: bold 1em sans-serif;
+	margin-top: 5px;
+	padding: 10px 12px;
+}
+.footer a {
+	color: #F7F7F2;
+	text-decoration: none;
+}
+.footer a:hover {color: #FFC;}
+.footer .right, .footer .right a {color: #C8C8C3;}
+.footer .right a:hover {color: #F7F7F2;}

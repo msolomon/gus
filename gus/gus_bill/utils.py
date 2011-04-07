@@ -48,6 +48,6 @@ class bill_Utils():
             Bname1 = Bname + ct
             ct += 1
             temp = bill.objects.filter(user = Guser, group=Ggroup, name=Bname1)
-        
-        return bill.objects.create(user=Guser, group=Ggroup, name=Bname1, value=Bvalue)
+            
+        return bill.objects.create(user=Guser, group=Ggroup, name=Bname1, value=Bvalue, paymentsTotal=0.0f, outstanding=0.0f)
         

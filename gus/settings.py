@@ -31,7 +31,7 @@ AUTHENTICATION_BACKENDS=('gus_backend.models.gus_backend','django.contrib.auth.b
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Los_Angeles'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -104,6 +104,7 @@ INSTALLED_APPS = [
     'gus.gus_emailer',
     'gus.gus_bill',
     'gus.gusTestSuite',
+    'gus.gus_backend',
 ]
 
 # try to use PIL
@@ -151,3 +152,5 @@ IMAP_PORT = 25
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = '[gus] '
+# the default email suffix
+EMAIL_SUFFIX = '@guspy.joranbeasley.com'

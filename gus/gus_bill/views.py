@@ -14,12 +14,12 @@ class payment_bill_form(forms.Form):
 class new_bill_form(forms.Form):
   Name = forms.CharField(max_length = 25)
   Value = forms.IntegerField(min_value=0)
-  user = forms.ModelChoiceField(queryset=gus_user.objects.all(), empty_label="Select User")
-  #def __init__(self, data=None):
-  #      super(SimpleAddUserToGroup, self).__init__()
-  #      self.fields[
-  #          'new_member'a
-  #          ].queryset = gus_role.objects.users_without_group(group)
+  user = forms.ModelMultipleChoiceField(queryset=gus_user.objects.all())
+  def setGroup(self, group):
+      role_ids =[r.id for r in group.roles]
+      self.fields[
+            'user'
+            ].queryset = gus_role.objects.users_with_group(group)
   #      self.fields['group'].initial = group.id
   #	      self.fields['role'].queryset = gus_role.objects.filter(_role_group=group)
 
@@ -60,14 +60,14 @@ def AddBill(request,group_id=-1):
   if request.method == "POST":
     form = new_bill_form(request.POST)
     if form.is_valid() :
-      bill_name = form.cleaned_data['Name']
-      bill_val = form.cleaned_data['Value']
-      bill_rcpt = form.cleaned_data['user']
-      bill.objects.create_bill(bill_rcpt, bill_grp, bill_name, bill_val)
-      pass
+      for u in form.cleaned_data['user']:
+	bill_name = form.cleaned_data['Name']
+	bill_val = form.cleaned_data['Value']
+	bill.objects.create_bill(u, bill_grp, bill_name, bill_val)
       return HttpResponseRedirect('/bill/')
     #no form data recieved
   form = new_bill_form()    
+  form.setGroup(bill_grp)
   return render_to_response('bill/add_bill.html',{'group':bill_grp,'form':form},
 			    context_instance=RequestContext(request))
 

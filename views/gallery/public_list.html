@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block pagetitle %}Public Image Galleries{% endblock %}
+
+{% block content %}
+<h3>Public Image Galleries</h3>
+<br/>
+
+{% if galleries == None %}
+  <i>There are currently no public image galleries available. Once a group
+  decides to make an image gallery public, it will appear on this page.</i>
+{% endif %}
+
+<!-- Print a list of the public image galleries -->
+{% for g in galleries %}
+  <a href="/gallery/{{ g.pk }}">{{ g.name }}</a> [{{ g.group.group_name }}]
+  <br/>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ group }}</h2>
+<a href="/email/Group/{{group.id}}/">Email Group</a>
+<a href="/forum/{{group.id}}/">Group Forums</a>
+<p>{{ group.group_description }}</p>
+<hr />
+{% for r in role %}
+{% for user in r.users.all %}
+{{ user }} 
+<br/>
+{% endfor %}
+{% endfor %}
+
+{% endblock %}

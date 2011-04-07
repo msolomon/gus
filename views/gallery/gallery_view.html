@@ -2,14 +2,18 @@
 {% block pagetitle %}{{gallery}} - Image Gallery{% endblock %}
 
 {% block content %}
-<h3>{{gallery}} [<a href="/gallery/image/add/{{gallery.pk}}">Add Image</a>]</h3>
+<h3>{{gallery}} {% if can_add %}[<a href="/gallery/image/add/{{gallery.pk}}">Add Image</a>]{% endif %}</h3>
 Created by: <a href="#">{{gallery.user.username}}</a> on {{gallery.date_created|date:"l, F jS, Y"}}
 <br/><br/>
 
 {% for i in images %}
   <b>{{i.name}}</b>
-  [<a href="/gallery/image/edit/{{i.id}}">Edit</a> /
-  <a href="/gallery/image/delete/{{i.id}}">Delete</a>]
+
+  {% if can_edit or can_delete %}[{% endif %}
+  {% if can_edit %}<a href="/gallery/image/edit/{{i.id}}">Edit</a>{% endif %}
+  {% if can_edit and can_delete %}/{% endif %}
+  {% if can_delete %}<a href="/gallery/image/delete/{{i.id}}">Delete</a>{% endif %}
+  {% if can_edit or can_delete %}]{% endif %}
   <br/>
   
   <img src="{{i.image.url}}"/>

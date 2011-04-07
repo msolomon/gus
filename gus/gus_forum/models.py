@@ -26,6 +26,7 @@ class ForumManager(models.Manager):
 		if(len(forums) > 0):
 			raise Exception("Forum Exists", "There already exists a forum named %s" %Name)
 		#End
+
 		return super(ForumManager, self).get_query_set().create(forum_name = Name, forum_description = Description, group = Group)
 	#End
 #End
@@ -40,24 +41,16 @@ class forum(models.Model):
 	forum_name = models.CharField(max_length=25)#The forum's name.
 	forum_description = models.TextField()		#The forum's description.
 
-	def __unicode__(self):
-		return "%s: %s\n%s"%(self.forum_name, self.forum_description, self.group)
-
 	def EditForumDescription(self, Description):
 		"""
-		This allows the forum's description to be changed as long as the user has the proper permissions.
+		This allows the forum's description to be changed.
 		
 		@type Description: models.TextField()
 		@param Description: The description to replace the current description.
 		"""
 
-		if 1: #valid_userpermissions()
-			self.forum_description = Description
-			self.save()
-		#End
-		else:
-			raise Exception("Invalid Permissions", "User does not have permission to do this.")
-		#End
+		self.forum_description = Description
+		self.save()
 	#End
 
 	def LastPostDate(self):
@@ -68,11 +61,11 @@ class forum(models.Model):
 		@return: The last date a post was made in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		last_thread = forum_thread.objects.filter(forum = self).order_by('-date_created')
 		if len(last_thread) == 0:
 			return 'Never'
 		#End
-		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('-date_created')
 		if len(last_post) == 0:
 			return 'Never'
 		#End
@@ -88,11 +81,11 @@ class forum(models.Model):
 		@return: The user of the last date a post was made in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		last_thread = forum_thread.objects.filter(forum = self).order_by('-date_created')
 		if len(last_thread) == 0:
 			return 'Nobody'
 		#End
-		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('-date_created')
 		if len(last_post) == 0:
 			return 'Nobody'
 		#End
@@ -108,9 +101,9 @@ class forum(models.Model):
 		@return The thread of the last thread the was posted in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		last_thread = forum_thread.objects.filter(forum = self).order_by('-date_created')
 		if len(last_thread) == 0:
-			return -1
+			return 'None'
 		#End
 
 		return last_thread[0]
@@ -118,7 +111,7 @@ class forum(models.Model):
 
 	def CreateThread(self, Threadname, User, Text, Forum):
 		"""
-		Creates a thread for this forum as long as the user has the proper permissions.
+		Creates a thread for this forum.
 		
 		@type Threadname: string
 		@param Threadname: The name of the thread to be created.
@@ -130,12 +123,7 @@ class forum(models.Model):
 		@param Forum: The forum to assosciate the thread with.
 		"""
 
-		if 1: #valid_userpermissions()
-			forum_thread.objects.create(thread_name = Threadname, user = User, thread_text = Text, forum = Forum)
-		#End
-		else:
-			raise Exception("Invalid Permissions", "User does not have permission to do this.")
-		#End
+		forum_thread.objects.create(thread_name = Threadname, user = User, thread_text = Text, forum = Forum)
 	#End
 
 	def DeleteThread(self, Thread):
@@ -146,17 +134,12 @@ class forum(models.Model):
 		@param Thread: The thread to be found and deleted.
 		"""
 
-		if 1: #valid_userpermissions()
-			threads = forum_thread.objects.filter(pk = Thread.id)
-			if(len(threads) > 0):
-				threads[0].delete()
-			#End
-			else:
-				raise Exception("Threads Empty", "List of Threads are Empty.")
-			#End
+		threads = forum_thread.objects.filter(pk = Thread.id)
+		if(len(threads) > 0):
+			threads[0].delete()
 		#End
 		else:
-			raise Exception("Invalid Permissions", "User does not have permission to do this.")
+			raise Exception("Threads Empty", "List of Threads are Empty.")
 		#End
 	#End
 #End
@@ -172,9 +155,6 @@ class forum_thread(models.Model):
 	thread_name = models.CharField(max_length=25)	#The thread's name.
 	thread_text = models.TextField()				#The thread's content.
 
-	def __unicode__(self):
-		return "%s - %s: %s\n%s\nFrom Forum: %s"%(self.date_created, self.thread_name, self.thread_text, self.user, self.forum)
-
 	def LastPostDate(self):
 		"""
 		Returns the date of the last post made in this forum's threads.
@@ -183,11 +163,7 @@ class forum_thread(models.Model):
 		@return: The last date a post was made in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
-		if len(last_thread) == 0:
-			return 'Never'
-		#End
-		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		last_post = forum_post.objects.filter(thread = self).order_by('-date_created')
 		if len(last_post) == 0:
 			return 'Never'
 		#End
@@ -203,11 +179,7 @@ class forum_thread(models.Model):
 		@return: The user of the last date a post was made in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
-		if len(last_thread) == 0:
-			return 'Nobody'
-		#End
-		last_post = forum_post.objects.filter(thread = last_thread[0]).order_by('date_created')
+		last_post = forum_post.objects.filter(thread = self).order_by('-date_created')
 		if len(last_post) == 0:
 			return 'Nobody'
 		#End
@@ -223,9 +195,9 @@ class forum_thread(models.Model):
 		@return The thread of the last thread the was posted in this forum's threads.
 		"""
 
-		last_thread = forum_thread.objects.filter(forum = self).order_by('date_created')
+		last_thread = forum_thread.objects.filter(forum = self).order_by('-date_created')
 		if len(last_thread) == 0:
-			return -1
+			return 'None'
 		#End
 
 		return last_thread[0]
@@ -233,7 +205,7 @@ class forum_thread(models.Model):
 
 	def CreatePost(self, User, Text):
 		"""
-		Creates a post in this thread as long as the user has the proper permissions.
+		Creates a post in this thread.
 		
 		@type User: gus_user
 		@param User: The user the post is to be associated with.
@@ -241,33 +213,23 @@ class forum_thread(models.Model):
 		@param Text: The content of the post.
 		"""
 
-		if 1: #valid_userpermissions()
-			forum_post.objects.create(user = User, thread = self, post_text = Text)
-		#End
-		else:
-			raise Exception("Invalid Permissions", "User does not have permission to do this.")
-		#End
+		forum_post.objects.create(user = User, thread = self, post_text = Text)
 	#End
 
 	def DeletePost(self, Post):
 		"""
-		Allows for the deletion of a post in this thread as long as the user has admin permissions.
+		Allows for the deletion of a post in this thread.
 		
 		@type Post: forum_post
 		@param Post: The post to be found and deleted.
 		"""
 
-		if 1: #valid_userpermissions()
-			posts = forum_post.objects.filter(pk = Post)
-			if(len(posts) > 0):
-				posts[0].delete()
-			#End
-			else:
-				raise Exception("Posts Empty", "The list of posts is empty.")
-			#End
+		posts = forum_post.objects.filter(pk = Post)
+		if(len(posts) > 0):
+			posts[0].delete()
 		#End
 		else:
-			raise Exception("Invalid Permissions", "User does not have permission to do this.")
+			raise Exception("Posts Empty", "The list of posts is empty.")
 		#End
 	#End
 #End
@@ -282,23 +244,15 @@ class forum_post(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True, blank=True)#The date this post was created.
 	post_text = models.TextField()				#The content of this post.
 
-	def __unicode__(self):
-		return "On %s by %s\n%s\nFrom Thread: %s"%(self.date_created, self.user, self.post_text, self.thread)
-
 	def EditPost(self, Text):
 		"""
-		This allows the post's text to be changed as long as the user has the proper permissions.
+		This allows the post's text to be changed.
 		
 		@type Text: models.TextField()
 		@param Text: The text to replace the current text.
 		"""
 
-		if 1: #valid_userpermissions()
-			self.post_text = Text
-			self.save()
-		#End
-		else:
-			raise Exception("Wrong Permissions", "User does not have permission to do this.")
-		#End
+		self.post_text = Text
+		self.save()
     #End
 #End
