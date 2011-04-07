@@ -1,6 +1,7 @@
 from imaplib import *
 from django.db import models
 from django.forms import ModelForm
+from django import forms
 from gus import settings
 
 from gus.gus_widget.models import Widget
@@ -35,8 +36,8 @@ class News_item(models.Model):
         An individual news item.
     '''
     headline = models.CharField(max_length=100)
-    shortdesc = models.TextField()
-    content = models.TextField()
+    shortdesc = models.CharField(max_length=1000)
+    content = models.CharField(max_length=10000)
     date = models.DateField(blank=False)
     
     def __unicode__(self):
@@ -52,7 +53,11 @@ class News_item(models.Model):
         '''
         self.delete();
 
-class News_form(ModelForm):
-    class Meta:
-        model = News_item
-        fields = ('headline', 'shortdesc', 'content', 'date')
+class News_form(forms.Form):
+	headline = forms.CharField(max_length = 64)
+	shortdesc = forms.CharField(max_length=1000, widget=forms.Textarea)
+	content = forms.CharField(max_length=10000, widget=forms.Textarea)
+	date = forms.DateField('%b %d, %Y')
+	class Meta:
+		model = News_item
+		fields = ('headline', 'shortdesc', 'content', 'date')
