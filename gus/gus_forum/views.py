@@ -1,10 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django import forms
 from gus_forum.models import *
 from gus_users.models import *
 from gus_roles.models import *
-from django import forms
 
 class new_forum_form (forms.Form): 
 	Name = forms.CharField(max_length = 25)
@@ -28,17 +29,10 @@ def index(request, group_id):
 	"""
 	"""
 
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
-
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
-	#End
-	if not request.user.has_group_perm(request_for_group, 'Can View Forum'):
-		return HttpResponse("You are not allowed to view this group's forums.")
 	#End
 
 	groups_forums = forum.objects.filter(group = request_for_group)
@@ -50,17 +44,10 @@ def view_threads(request, group_id, forum_id):
 	"""
 	"""
 
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
-
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
-	#End
-	if not request.user.has_group_perm(request_for_group, 'Can View Forum'):
-		return HttpResponse("You are not allowed to view this group's threads.")
 	#End
 
 	try:
@@ -78,17 +65,10 @@ def view_posts(request, group_id, forum_id, thread_id):
 	"""
 	"""
 
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
-
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
-	#End
-	if not request.user.has_group_perm(request_for_group, 'Can View Forum'):
-		return HttpResponse("You are not allowed to view this group's posts.")
 	#End
 
 	try:
@@ -106,20 +86,17 @@ def view_posts(request, group_id, forum_id, thread_id):
 	return render_to_response('forum/posts.html', {"posts": threads_posts, "thread": request_for_thread, "forum":request_for_forum, "group":request_for_group}, context_instance=RequestContext(request))
 #End
 
+@login_required
 def add_forum(request, group_id):
 	"""
 	"""
-
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
 
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can Add Forum'):
+	if not request.user.has_group_perm(request_for_group, 'Can add forum'):
 		return HttpResponse("You are not allowed to add a forum to this group.")
 	#End
 
@@ -128,6 +105,10 @@ def add_forum(request, group_id):
 		if form.is_valid():
 			form.cleaned_data["Name"],
 			form.cleaned_data["Description"]
+			exists = forum.objects.filter(forum_name = form.cleaned_data["Name"])
+			if len(exists) > 0:
+				return HttpResponse("A forum already exists with this name.")
+			#End
 			forum.objects.create_forum(form.cleaned_data["Name"], form.cleaned_data["Description"], request_for_group)
 			return HttpResponseRedirect('/forum/%s' %group_id)
 		#End
@@ -139,20 +120,17 @@ def add_forum(request, group_id):
 	return render_to_response('forum/add_forum.html', {"group":request_for_group, "form":form}, context_instance=RequestContext(request))
 #End
 
+@login_required
 def add_thread(request, group_id, forum_id):
 	"""
 	"""
-
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
 
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can Add Thread'):
+	if not request.user.has_group_perm(request_for_group, 'Can add forum_thread'):
 		return HttpResponse("You are not allowed to post a thread to this group's forums.")
 	#End
 
@@ -185,20 +163,17 @@ def add_thread(request, group_id, forum_id):
 	return render_to_response('forum/add_thread.html', {"group":request_for_group, "forum":request_for_forum, "form":form}, context_instance=RequestContext(request))
 #End
 
+@login_required
 def add_post(request, group_id, forum_id, thread_id):
 	"""
 	"""
-
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
 
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can Add Post'):
+	if not request.user.has_group_perm(request_for_group, 'Can add forum_post'):
 		return HttpResponse("You are not allowed to post replys to this group's threads.")
 	#End
 
@@ -227,20 +202,17 @@ def add_post(request, group_id, forum_id, thread_id):
 	return render_to_response('forum/add_post.html', {"group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "form":form}, context_instance=RequestContext(request))
 #End
 
+@login_required
 def delete_forum(request, group_id, forum_id):
 	"""
 	"""
-
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
 
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can Delete Forum'):
+	if not request.user.has_group_perm(request_for_group, 'Can delete forum'):
 		return HttpResponse("You are not allowed to delete this group's forums.")
 	#End
 
@@ -254,20 +226,17 @@ def delete_forum(request, group_id, forum_id):
 	return HttpResponseRedirect('/forum/%s/' % group_id)
 #End
 
+@login_required
 def delete_thread(request, group_id, forum_id, thread_id):
 	"""
 	"""
-
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
 
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can Delete Thread'):
+	if not request.user.has_group_perm(request_for_group, 'Can delete forum_thread'):
 		return HttpResponse("You are not allowed to delete this group's threads.")
 	#End
 
@@ -285,20 +254,17 @@ def delete_thread(request, group_id, forum_id, thread_id):
 	return HttpResponseRedirect('/forum/%s/%s/' % (group_id, forum_id))
 #End
 
+@login_required
 def delete_post(request, group_id, forum_id, thread_id, post_id):
 	"""
 	"""
-
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
 
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can Delete Post'):
+	if not request.user.has_group_perm(request_for_group, 'Can delete forum_post'):
 		return HttpResponse("You are not allowed to delete this group's posts.")
 	#End
 
@@ -331,20 +297,17 @@ def delete_post(request, group_id, forum_id, thread_id, post_id):
 	return render_to_response('forum/delete_post.html', {"group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "post":request_for_post, "form":form}, context_instance=RequestContext(request))
 #End
 
+@login_required
 def edit_forum(request, group_id, forum_id):
 	"""
 	"""
-
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
 
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can Edit Forum'):
+	if not request.user.has_group_perm(request_for_group, 'Can change forum'):
 		return HttpResponse("You are not allowed to edit this group's forums.")
 	#End
 
@@ -368,20 +331,17 @@ def edit_forum(request, group_id, forum_id):
 	return render_to_response('forum/edit_forum.html', {"group":request_for_group, "forum":request_for_forum, "form":form}, context_instance=RequestContext(request))
 #End
 
+@login_required
 def edit_post(request, group_id, forum_id, thread_id, post_id):
 	"""
 	"""
-
-	if request.user.is_anonymous():
-		return HttpResponseRedirect('/login/')
-	#End
 
 	try:
 		request_for_group = gus_group.objects.get(pk = group_id)
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can Edit Post'):
+	if not request.user.has_group_perm(request_for_group, 'Can change forum_post'):
 		return HttpResponse("You are not allowed to edit this group's posts.")
 	#End
 
