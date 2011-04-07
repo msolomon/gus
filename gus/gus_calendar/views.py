@@ -141,9 +141,9 @@ def day_view(request, year, month, day, event_id):
 
 @login_required
 def day_add(request, year, month, day): #, group_id):
+    ## user permission authenticity ##
     auth_groups = []
-    usr = request.user
-    
+    usr = request.user  
     groups = getGroupsWithUser(usr)
     for group in groups:
 
@@ -151,15 +151,14 @@ def day_add(request, year, month, day): #, group_id):
             auth_groups.append(group)
     if len(auth_groups) == 0:
         return HttpResponseRedirect('calendar/month_view.html')
-            
+## -------------------------------------------------------##            
         
     month_name = month
     month = month_names.index(month) + 1
 
     if request.method == "POST":
-
         form = Event_form(request.POST)
-        #form.add_groups(usr) ##group permission to add event
+        from django.forms.extras.widgets import SelectDateWidget ##group permission to add event
         if form.is_valid():
             event = form.save(commit=False)
             event.creator = usr
@@ -173,23 +172,25 @@ def day_add(request, year, month, day): #, group_id):
             return HttpResponseRedirect(response[:splice] + '/')
             
     else:
+        ## check if user is allowed to add events and display those groups
         auth_groups = []
-        usr = request.user
-        
+        usr = request.user      
         groups = getGroupsWithUser(usr)
         for group in groups:
             if usr.has_group_perm(group, 'Can add gus_event'):
                 auth_groups.append(group)
         if len(auth_groups) == 0:
             return HttpResponseRedirect('calendar/month_view.html')
+        ##------------------------------------------##
         form = Event_form()
-        
+        ## display groups user has permissions for ##
+        gids = [g.id for g in groups if usr.has_group_perm(g, 'Can add gus_event')]
+        form.fields['Groups'].queryset = gus_group.objects.filter(pk__in=gids)
     return render_to_response("calendar/add_event.html", 
                               {'event_form': form, 
                                'month_name':month_name, 
                                'year':year, 
-                               'day':day},
-                               #'group_id': group_id}, 
+                               'day':day}, 
                                context_instance=RequestContext(request)) 
 
 
