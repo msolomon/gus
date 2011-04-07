@@ -105,7 +105,7 @@ def add_forum(request, group_id):
 		if form.is_valid():
 			form.cleaned_data["Name"],
 			form.cleaned_data["Description"]
-			exists = forum.objects.filter(forum_name = form.cleaned_data["Name"])
+			exists = forum.objects.filter(forum_name = form.cleaned_data["Name"], group = request_for_group)
 			if len(exists) > 0:
 				return HttpResponse("A forum already exists with this name.")
 			#End
