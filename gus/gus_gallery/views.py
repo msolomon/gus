@@ -173,14 +173,14 @@ def gallery_view(urlRequest, gallery_id):
     if not the_user.is_authenticated() and the_gallery.is_public:
         # If the user isn't logged in and the gallery is public, show it
         show_gallery = True
-    else if the_user.is_authenticated():
+    if the_user.is_authenticated():
         if gus_role.objects.with_user_in_group(the_group, the_user):
             # If the user is a member of the group, get their perms
             can_add = the_user.has_group_perm(the_group, "Can add gus_image")
             can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
             can_edit = the_user.has_group_perm(the_group, "Can change gus_image")
             show_gallery = True
-        else if the_gallery.is_public:
+        if the_gallery.is_public:
             # If the gallery is public, show the gallery
             show_gallery = True
 
@@ -321,7 +321,7 @@ def image_edit(urlRequest, image_id):
     the_group = gallery.group
 
     # If the user doesn't have permission to add a gallery, redirect them
-    if not the_user.has_group_perm(the_group, "Can add gus_image"):
+    if not the_user.has_group_perm(the_group, "Can change gus_image"):
         return HttpResponseRedirect('/gallery/')
 
     # If the form has been posted, handle it
