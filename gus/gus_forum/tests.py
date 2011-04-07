@@ -18,7 +18,6 @@ class ForumTest(TestCase):
 		self.testGroup = gus_group.objects.create_group("name", "test", "test2")
 	#End
 
-
 	def test_ForumCreateDelete(self):
 		"""
 		Tests the creation of a forum.
