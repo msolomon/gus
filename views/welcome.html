@@ -8,6 +8,7 @@
 {% for role in user.roles %}
 {{role.group.group_name}} ({{ role.name }}) 
 [<a href="/groups/{{role.group.id}}/Edit">Visit</a>]
+<br/>
 
 {% endfor %}
 <br/><br/><br/>
