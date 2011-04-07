@@ -75,7 +75,7 @@ class Gus_event(models.Model):
     description = models.CharField(max_length=1000, blank=True)
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     Delete = models.BooleanField(blank=True, null=False)
-    Groups = models.ForeignKey(gus_group,  null=True)
+    Group = models.ForeignKey(gus_group,  null=True)
     #Attending = models.BooleanField(blank=True, null=False)
     #reminder = models.BooleanField(default=False)
     
@@ -116,7 +116,7 @@ class Event_form(ModelForm):
     class Meta:
         model = Gus_event
         exclude = ('start_date', 'creator')
-        fields = ('event_name', 'description', 'Groups')
+        fields = ('event_name', 'description', 'Group')
         
         
 class Event_form_edit(ModelForm):

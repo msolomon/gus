@@ -20,14 +20,13 @@ years = []
 
 #print month_names
 #print month_names[1]
-#@login_regquired
 #def index(request):
 #    return render_to_response('calendar/index.html', {}, context_instance=RequestContext(request))
 
-def month(request, year=None, month=None):
+def month(request, year=None, month=None, group=None):
      if not request.user.is_authenticated():
          return HttpResponseRedirect('/login/')
-     groups = getGroupsWithUser(request.user)
+     #groups = getGroupsWithUser(request.user)
     
      if year: year = int(year)
      else: year = time.localtime()[0]
@@ -58,26 +57,37 @@ def month(request, year=None, month=None):
      month_name = month_names[month-1]
 
 ## for months
+     num_total_events = 0
      cal = calendar.Calendar()
      month_days = cal.itermonthdays(year, month)
      nyear, nmonth, nday = time.localtime()[:3]
      list = [[]]
      #total_day_events = []
      week = 0
-    
+     total_events = []
+     count = 0
      for day in month_days:
         #for group in groups:
         events = current = False
         if day:
-            events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day)
-            #total_day_events.append(events) 
-            if day == nday and year == nyear and month == nmonth: 
-                current = True
-        
-        list[week].append((day, events, current))
+            if group == None:
+                user_groups = getGroupsWithUser(request.user)
+                for user_group in user_groups:
+                    events = Gus_event.objects.filter(start_date__year=year, 
+                                                      start_date__month=month, 
+                                                      start_date__day=day,
+                                                      Group=user_group.id)
+                    
+                    num_total_events += len(events) 
+                    if day == nday and year == nyear and month == nmonth: 
+                        current = True
+                    total_events.append(events)
+        list[week].append((day, total_events, current, num_total_events))
+        num_total_events = 0
         if len(list[week]) == 7:
              list.append([])
              week = week + 1
+        total_events = []
      year = time.localtime()[0]
     
     
@@ -86,35 +96,38 @@ def month(request, year=None, month=None):
                                 'years': years, 
                                 'month_name': month_name, 
                                 'month_days': list,
-                                'month_list': month_list}, 
-#                                'group_id': group_id}, 
+                                'month_list': month_list,
+                                'total_events':total_events}, 
                                 context_instance=RequestContext(request))
    
 
 def view_all(request, year, month, day):
+    total_day_events = []
+    usr = request.user
+    groups = getGroupsWithUser(usr)
+    
+    auth_groups = [user_group for user_group in groups if usr.has_group_perm(user_group, 'Can add gus_event')]
+
+    
     month_name = month
     month = month_names.index(month) + 1
-    
-    events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day)
+    for group in groups:
+        events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day, Group=group.id)
+        total_day_events.append(events)
     return render_to_response("calendar/view_events.html",
                               {'year':year,
                                'month_name': month_name,
                                'day':day,
-                               'events':events},
+                               'total_day_events':total_day_events,
+                               'auth_groups': auth_groups},
                                context_instance=RequestContext(request))
           
           
-                    
+@login_required           
 def day_view(request, year, month, day, event_id):
-    not_auth = 0
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
     usr = request.user
     groups = getGroupsWithUser(usr)
-    for group in groups:
-        if not usr.has_group_perm(group, 'Can add gus_event'):
-            not_auth = 1 # if user not authorized, display list of events only
-    
+
  
     month_name = month
     month = month_names.index(month) + 1
@@ -124,7 +137,10 @@ def day_view(request, year, month, day, event_id):
     event_creator = event.creator
     event_description = event.description
     event_name = event.event_name
-    
+    event_group = event.Group
+    if not usr.has_group_perm(event_group, 'Can add gus_event'):
+        auth_event_group = 0
+    else: auth_event_group = 1
     return render_to_response("calendar/day_view.html",
                               {'year':year,
                                'month_name':month_name, 
@@ -134,7 +150,8 @@ def day_view(request, year, month, day, event_id):
                                'name': event.event_name,
                                'start_date': event.start_date,
                                'event_id': event_id,
-                               'not_auth': not_auth}, 
+                               'event_group':event_group,
+                               'auth_event_group': auth_event_group}, 
                                context_instance=RequestContext(request))
     
         
@@ -165,7 +182,7 @@ def day_add(request, year, month, day): #, group_id):
             event.start_date = date(int(year), int(month), int(day))
             
             event.save()
-
+            event_group = event.Group
             response = request.META['HTTP_REFERER'].rstrip('/')
             print response
             splice = response.rfind('/')
@@ -185,19 +202,20 @@ def day_add(request, year, month, day): #, group_id):
         form = Event_form()
         ## display groups user has permissions for ##
         gids = [g.id for g in groups if usr.has_group_perm(g, 'Can add gus_event')]
-        form.fields['Groups'].queryset = gus_group.objects.filter(pk__in=gids)
+        form.fields['Group'].queryset = gus_group.objects.filter(pk__in=gids)
+        
+        
     return render_to_response("calendar/add_event.html", 
-                              {'event_form': form, 
+                              {'event_form': form,
+                               'event_group': Group, 
                                'month_name':month_name, 
                                'year':year, 
                                'day':day}, 
                                context_instance=RequestContext(request)) 
 
 
-
+@login_required
 def day_edit(request, year, month, day, event_id): #, group_id):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login/')
     usr = request.user
     
  

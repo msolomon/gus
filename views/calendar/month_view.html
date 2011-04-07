@@ -45,7 +45,7 @@
 
     {% for week in month_days %}
         <tr>
-        {% for day, events, current in week %}
+        {% for day, total_events, current, num_total_events in week %}
 
     
             <td height="70" width="75"
@@ -62,22 +62,21 @@
                 {{ day }}
                 <br>
                
-               {% if events|length > 2 %} 
-                  {% for event in events|slice:":1" %}
-                  <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
-                  <hr size="1" noshade>
-                  {% endfor %}
-                <a href="/calendar/{{year}}/{{month_name}}/{{day}}/view_events/">View All</a>
+               {% if num_total_events > 2 %} 
+                <a href="/calendar/{{year}}/{{month_name}}/{{day}}/view_events/">Show {{num_total_events}} events</a>
                 
                 
                 {% else %}
+                {% for events in total_events %}
                 {% for event in events %}
                     <b><a href="/calendar/{{year}}/{{month_name}}/{{day}}/{{event.pk}}/">{{ event.event_name }}</a></b>
                     <p> 
                {% endfor %}
+               {% endfor %}
                {% endif %}
+               {% endif %}
+              
                
-               {% endif %}
               
             </td>
         {% endfor %}
