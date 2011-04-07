@@ -10,7 +10,7 @@
 <br>
 <br>
 
-{% if not_auth == 0 %}
+{% if auth_event_group == 1 %}
 <input type="button" 
 value="Edit" 
 onclick="location.href='/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event_id}}/'">

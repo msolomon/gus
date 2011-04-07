@@ -5,10 +5,13 @@
 {% endblock pagetitle %}
 
 {% block sidebar_top %}
-<a href="/group/{{group.id}}">Return to Group</a><br />
-<a href="/forum/{{group.id}}">Return to Forums</a><br />
-<a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a><br />
-<a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">Return to Posts</a><br />
+<h2>Forum Options</h2>
+<ul>
+ <li><a href="/groups/{{group.id}}">Return to Group Page</a></li><br />
+ <li><a href="/forum/{{group.id}}">Return to Forums</a></li><br />
+ <li><a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a></li><br />
+ <li><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">Return to Posts</a></li>
+</ul>
 {% endblock %}
 
 {% block content %}
