@@ -16,7 +16,7 @@ Created by: <a href="#">{{gallery.user.username}}</a> on {{gallery.date_created|
   {% if can_edit or can_delete %}]{% endif %}
   <br/>
   
-  <img src="{{i.image.url}}"/>
+  <img src="{{i.image.url}}" style="max-width: 100%"/>
   <br/>
 
   {{i.description}}
