@@ -10,7 +10,10 @@ This is the model document for the Gus_calendar and Gus_event classes.
 from django.db import models
 from gus.gus_widget.models import Widget #ok
 from gus.gus_users.models import gus_user #ok ignore aptana
+from gus.gus_groups.models import gus_group
 from django.forms import ModelForm
+from django.forms import ModelChoiceField
+from gus.gus_groups.utils import *
 
 class Gus_calendar(Widget):
     """
@@ -71,7 +74,7 @@ class Gus_event(models.Model):
     description = models.CharField(max_length=1000, blank=True)
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     Delete = models.BooleanField(blank=True, null=False)
-    groups = models.CharField(max_length=20, choices=[], null=True)
+    Groups = models.ForeignKey(gus_group, null=True)
     #Attending = models.BooleanField(blank=True, null=False)
     #reminder = models.BooleanField(default=False)
     
@@ -97,11 +100,12 @@ class Gus_event(models.Model):
         self.delete()
 
 
-class Event_form(ModelForm):
+class Event_form(ModelForm):         
     class Meta:
         model = Gus_event
-        exclude = ('start_date', 'creator','groups')
-        fields = ('event_name', 'description')
+        exclude = ('start_date', 'creator')
+        fields = ('event_name', 'description', 'Groups')
+        
         
 class Event_form_edit(ModelForm):
     class Meta:
