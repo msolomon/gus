@@ -98,7 +98,7 @@ def editUser(urlRequest, user_id):
     usr = gus_user.objects.get(pk=user_id)
     #setup our form
     if urlRequest.method == 'POST': # If the form has been submitted...
-        form = SimpleUserAddForm(urlRequest.POST) # A form bound to the POST data
+        form = SimpleUserEditForm(urlRequest.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
@@ -109,7 +109,7 @@ def editUser(urlRequest, user_id):
                         
             return HttpResponseRedirect('/gus_test/') # Redirect after POST
     else:
-        form = SimpleUserAddForm({'username':usr.username,'email':usr.email
+        form = SimpleUserEditForm({'username':usr.username,'email':usr.email
                               ,'id':usr.id,'password':usr._user.password}) 
         # Default Edit Form
     
@@ -222,7 +222,7 @@ def editRole(urlRequest, group_id, user_id):
         group = gus_group.objects.get(pk=group_id)
         usr = gus_user.objects.get(pk=user_id)
     except:
-	return HttpResponseRedirect('/groups/View/%s/'%group_id)
+	return HttpResponseRedirect('/groups/%s/'%group_id)
 
     role = gus_role.objects.with_user_in_group(group, usr)
 
@@ -231,7 +231,7 @@ def editRole(urlRequest, group_id, user_id):
 	    r2 = gus_role.objects.get(pk=int(urlRequest.POST['newRole']))
 	    role.users.remove(usr)
 	    r2.users.add(usr)
-	    return HttpResponseRedirect("/groups/View/%s/"%group_id)
+	    return HttpResponseRedirect("/groups/%s/"%group_id)
     except:
         return render_to_response('groups/manageRole.html',
                        {
@@ -297,7 +297,7 @@ def createRole(urlRequest,group_id):
 		role._role_permission_level = 1
 	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
 	    role.save()
-	    return HttpResponseRedirect("/groups/View/%s/"%group_id)
+	    return HttpResponseRedirect("/groups/%s/"%group_id)
     else:
         form = RoleCreateForm({'id':group_id})
 	
@@ -324,7 +324,7 @@ def editRolePerms(urlRequest,role_id):
 	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
 	    role.save()
 	    g_id = role.group.id
-	    return HttpResponseRedirect("/groups/View/%s/"%g_id)
+	    return HttpResponseRedirect("/groups/%s/"%g_id)
     else:
 	if role._role_permission_level == 1:
 	    is_superUser = True
