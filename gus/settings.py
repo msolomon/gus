@@ -112,6 +112,7 @@ INSTALLED_APPS = [
     'gus.gus_bill',
     'gus.gusTestSuite',
     'gus.gus_backend',
+	'gus.gus_news',
 ]
 
 # try to use PIL
