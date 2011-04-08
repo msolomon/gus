@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <h4>Upload News Item</h4>
-
+<script type="text/javascript">
+   $(function() {
+       $("#id_date").datepicker({ dateFormat: 'yy-mm-dd' });
+   });
+</script>
 <form action="." method="POST">
 {% csrf_token %}
 {{form.as_p}}

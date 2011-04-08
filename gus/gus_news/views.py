@@ -17,6 +17,7 @@ def upload_form(request):
 			ni.date = form.cleaned_data['date']
 			ni.shortdesc = form.cleaned_data['shortdesc']
 			ni.content = form.cleaned_data['content']
+			ni.group = form.cleaned_data['group']
 			ni.save()
 			
 			return render_to_response('news/upl-test.html', {
@@ -32,10 +33,9 @@ def upload_form(request):
 	}, context_instance=RequestContext(request))
 
 def all_news(request):
-	allnews = News_upload_widget.get_all_news()
-	#r = ""
-	#for ni in allnews.reverse():
-	#	r += "<h4>" +  ni.headline + "</h4><i>" + ni.date + "</i><br /><br /><i>" + ni.shortdesc + "</i><br /><br />" + ni.content + "<br /><br /><br />"
+	#user_groups = [r.group for r in <gus_user_instance>.roles]
+	#allnews = News_item.objects.filter(group = user_groups)
+	allnews = News_item.objects.all()
 	return render_to_response('news/show.html', {
-		'r':allnews #r
+		'r':allnews
 	}, context_instance=RequestContext(request))
