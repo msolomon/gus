@@ -69,6 +69,13 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+    #   'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+    #   'EXTRA_SIGNALS': ['myproject.signals.MySignal'],
+    'HIDE_DJANGO_SQL': False,
+    #   'TAG': 'div',
+}
 
 MIDDLEWARE_CLASSES = [             
     'django.middleware.gzip.GZipMiddleware',         

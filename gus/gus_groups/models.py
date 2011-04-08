@@ -125,6 +125,14 @@ class gus_group(models.Model):
         from gus_roles.models import gus_role
         roles = gus_role.objects.filter(_role_group=self)
         return [j for j in [x.users.all() for x in roles ]]
+
+    def delete(self):
+	from gus_roles.models import *
+	roles = gus_role.objects.filter(_role_group=self)
+	for role in roles:
+	    role.delete()
+	super(gus_group,self).delete()
+
     objects = GroupManager() # our custom relationships
     class Meta:
         verbose_name = 'group'

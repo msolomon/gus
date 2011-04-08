@@ -165,7 +165,7 @@ def deleteGroup(urlRequest, group_id):
     group = gus_group.objects.get(pk=group_id)
     try:
         if urlRequest.POST['confirm']:
-            group.delete();
+            group.delete()
             
             return HttpResponseRedirect('/groups/')
     except:
