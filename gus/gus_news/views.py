@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 
 from gus_news.models import *
+from gus.gus_groups.utils import *
 from gus_users.models import gus_user
 from django import forms
 
@@ -33,9 +34,9 @@ def upload_form(request):
 	}, context_instance=RequestContext(request))
 
 def all_news(request):
-	#user_groups = [r.group for r in <gus_user_instance>.roles]
-	#allnews = News_item.objects.filter(group = user_groups)
-	allnews = News_item.objects.all()
+	user_groups = getGroupsWithUser(request.user) #[r.group for r in request.user.roles]
+	allnews = News_item.objects.filter(group__in = user_groups)
+	#allnews = News_item.objects.all()
 	return render_to_response('news/show.html', {
 		'r':allnews
 	}, context_instance=RequestContext(request))
