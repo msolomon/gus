@@ -13,6 +13,7 @@ from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
 from django.contrib.auth.models import Permission
 from django.contrib.auth.models import User
+from gus.gus_groups.models import gus_group
 
 class SimpleUserAddForm(forms.Form):
     """
@@ -81,6 +82,17 @@ class SimpleGroupAddForm(forms.Form):
                             queryset=gus_user.objects.all(),
                             empty_label="Select Owner"
                             )
+    
+    def clean_group_name(self):
+        '''
+        Ensure the chosen group name is unique
+        '''
+        data = self.cleaned_data['group_name']
+        try:
+            gus_group.objects.get(group_name=data)
+        except:
+            return data
+        raise forms.ValidationError('This group name is already taken')
 
 
 class ContactForm(forms.Form):
