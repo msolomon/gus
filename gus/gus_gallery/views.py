@@ -152,36 +152,81 @@ def gallery_group_list(urlRequest, group_id):
                                'can_delete' : can_delete},
                               context_instance = RequestContext(urlRequest))
 
-@login_required
 def gallery_view(urlRequest, gallery_id):
     """
     A view for a single gallery
     """
-    the_user = urlRequest.user
-    gallery = gus_gallery.objects.filter(pk=gallery_id)[0]
-    images = gallery.get_images()
-
+    show_gallery = False
     can_add = False
-    can_edit = False
     can_delete = False
+    can_edit = False
 
-    # If the user isn't in the group, AND the gallery isn't public, redirect to the list of galleries
-    the_group = gallery.group;
-    if gus_role.objects.with_user_in_group(the_group, the_user) == None:
-        if not gallery.is_public:
-            return HttpResponseRedirect('/gallery/')
-    else:
-        can_add = the_user.has_group_perm(the_group, "Can add gus_image")
-        can_edit = the_user.has_group_perm(the_group, "Can change gus_image")
-        can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
+    # If the gallery isn't legit, redirect to the list of galleries
+    try:
+        the_gallery = gus_gallery.objects.filter(pk = gallery_id)[0]
+    except:
+        return HttpResponseRedirect('/gallery/')
 
-    return render_to_response('gallery/gallery_view.html',
-                              {'gallery' : gallery,
-                               'images' : images,
-                               'can_add' : can_add,
-                               'can_edit' : can_edit,
-                               'can_delete' : can_delete},
-                              context_instance = RequestContext(urlRequest))
+    the_user = urlRequest.user
+    the_group = the_gallery.group
+
+    if not the_user.is_authenticated() and the_gallery.is_public:
+        # If the user isn't logged in and the gallery is public, show it
+        show_gallery = True
+    if the_user.is_authenticated():
+        if gus_role.objects.with_user_in_group(the_group, the_user):
+            # If the user is a member of the group, get their perms
+            can_add = the_user.has_group_perm(the_group, "Can add gus_image")
+            can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
+            can_edit = the_user.has_group_perm(the_group, "Can change gus_image")
+            show_gallery = True
+        if the_gallery.is_public:
+            # If the gallery is public, show the gallery
+            show_gallery = True
+
+    # If we want to show the gallery, do it. Otherwise, redirect the user
+    if show_gallery:
+        the_images = the_gallery.get_images()
+        return render_to_response('gallery/gallery_view.html',
+                                  {'gallery' : the_gallery,
+                                   'images' : the_images,
+                                   'can_add' : can_add,
+                                   'can_delete' : can_delete,
+                                   'can_edit' : can_edit},
+                                  context_instance = RequestContext(urlRequest))
+    return HttpResponseRedirect('/gallery/')
+
+
+#@login_required
+#def gallery_view(urlRequest, gallery_id):
+#    """
+#    A view for a single gallery
+#    """
+#    the_user = urlRequest.user
+#    gallery = gus_gallery.objects.filter(pk=gallery_id)[0]
+#    images = gallery.get_images()
+#
+#    can_add = False
+#    can_edit = False
+#    can_delete = False
+#
+#    # If the user isn't in the group, AND the gallery isn't public, redirect to the list of galleries
+#    the_group = gallery.group;
+#    if gus_role.objects.with_user_in_group(the_group, the_user) == None:
+#        if not gallery.is_public:
+#            return HttpResponseRedirect('/gallery/')
+#    else:
+#        can_add = the_user.has_group_perm(the_group, "Can add gus_image")
+#        can_edit = the_user.has_group_perm(the_group, "Can change gus_image")
+#        can_delete = the_user.has_group_perm(the_group, "Can delete gus_image")
+#
+#    return render_to_response('gallery/gallery_view.html',
+#                              {'gallery' : gallery,
+#                               'images' : images,
+#                               'can_add' : can_add,
+#                               'can_edit' : can_edit,
+#                               'can_delete' : can_delete},
+#                              context_instance = RequestContext(urlRequest))
 
 @login_required
 def image_add(urlRequest, gallery_id):
@@ -276,7 +321,7 @@ def image_edit(urlRequest, image_id):
     the_group = gallery.group
 
     # If the user doesn't have permission to add a gallery, redirect them
-    if not the_user.has_group_perm(the_group, "Can add gus_image"):
+    if not the_user.has_group_perm(the_group, "Can change gus_image"):
         return HttpResponseRedirect('/gallery/')
 
     # If the form has been posted, handle it
@@ -334,7 +379,6 @@ def index(urlRequest):
                                'can_delete' : can_delete},
                               context_instance = RequestContext(urlRequest))
 
-@login_required
 def public_list(urlRequest):
     """
     The view for a list of all public image galleries
