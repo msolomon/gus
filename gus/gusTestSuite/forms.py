@@ -12,28 +12,15 @@ from django import forms
 from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
 from django.contrib.auth.models import Permission
-from django.contrib.auth.models import User
-
 class SimpleUserAddForm(forms.Form):
     """
     A form to add a new user to the system
     """
-    username = forms.CharField(max_length=30)
-    password = forms.CharField(max_length=30,widget=forms.PasswordInput())
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(max_length=100,widget=forms.PasswordInput())
     
     email = forms.EmailField(label='Contact e-mail:')
     id  = forms.IntegerField(required=False,widget=forms.HiddenInput())
-    
-    def clean_username(self):
-        '''
-        Ensure the chosen username is unique
-        '''
-        data = self.cleaned_data['username']
-        try:
-            User.objects.get(username=data)
-        except:
-            return data
-        raise forms.ValidationError('This username is already taken')
 
 class SimpleAddUserToGroup(forms.Form):
     """
