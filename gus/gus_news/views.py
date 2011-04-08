@@ -42,5 +42,5 @@ def all_news(request):
 	allnews = News_item.objects.filter(group__in = user_groups)
 	#allnews = News_item.objects.all()
 	return render_to_response('news/show.html', {
-		'r':allnews
+		'r':reversed(allnews)
 	}, context_instance=RequestContext(request))

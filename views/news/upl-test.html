@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>Uploaded News Item:</h4><br /><br />
+<!-- <h4>Uploaded News Item</h4><br /><br /> -->
 
-<form action="/news/edit" method="POST">
-{% csrf_token %}
+<!-- <form action="/news/edit" method="POST">
+{% csrf_token %} -->
 <h4>{{headline}}</h4>
 <i>{{date}}</i><br /><br />
 <i>{{shortdesc}}</i><br /><br />
 {{content}}
-</form>
+<!-- </form> -->
+<br /><br /><br />
+<a href="/news/_all/">View All News</a>
 
 {% endblock content %}
 
