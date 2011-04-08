@@ -8,6 +8,8 @@ from gus_users.models import gus_user
 from django import forms
 
 def upload_form(request):
+	if not request.user.is_authenticated():
+		return HttpResponseRedirect('/login/')
 	form = News_form()
 	if request.method == 'POST':
 		form = News_form(request.POST)
@@ -34,6 +36,8 @@ def upload_form(request):
 	}, context_instance=RequestContext(request))
 
 def all_news(request):
+	if not request.user.is_authenticated():
+		return HttpResponseRedirect('/login/')
 	user_groups = getGroupsWithUser(request.user) #[r.group for r in request.user.roles]
 	allnews = News_item.objects.filter(group__in = user_groups)
 	#allnews = News_item.objects.all()
