@@ -58,6 +58,6 @@ class News_form(forms.Form):
 	shortdesc = forms.CharField(max_length=1000, widget=forms.Textarea)
 	content = forms.CharField(max_length=10000, widget=forms.Textarea)
 	date = forms.DateField('%b %d, %Y')
-	class Meta:
-		model = News_item
-		fields = ('headline', 'shortdesc', 'content', 'date')
+	#class Meta:
+	#	model = News_item
+	#	fields = ('headline', 'shortdesc', 'content', 'date')
