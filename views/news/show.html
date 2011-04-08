@@ -23,8 +23,18 @@
 	}
 	
 	.ncContent {
-		padding: 10px;
-		top: 20px;
+		padding-left: 10px;
+		padding-right: 10px;
+		/*padding-top: 30px;*/
+		padding-bottom: 10px;
+		/*top: 20px;*/
+		overflow-y: auto;
+		overflow-x: hidden;
+		/*bottom: 0px;*/
+		left: 0; right: 0; top: 0; bottom: 0;
+		margin-top: 30px;
+		display: block;
+		position: absolute;
 	}
 	.ncClose {
 		position: absolute;
@@ -116,8 +126,8 @@
 	</div>
 </div>
 <br /><br /><br />
-{% endfor %}
 <br /><br /><br />
+{% endfor %}
 <a href="/news/_add">Add News Item</a>
 
 {% endblock content %}
