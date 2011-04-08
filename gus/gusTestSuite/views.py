@@ -155,9 +155,19 @@ def viewGroup(urlRequest, group_id):
         role.users.add(usr)
     group = gus_group.objects.get(pk=group_id)
     form_addUser = SimpleAddUserToGroup(group)
-    role = group.roles
+    role=gus_role.objects.with_user_in_group(group,urlRequest.user)
+    roles = group.roles
+    
+    my_perms={
+           'adduser':urlRequest.user.has_group_perm(group,'Can add user'),
+           'deluser':urlRequest.user.has_group_perm(group,'Can delete user'),
+           'edituser':urlRequest.user.has_group_perm(group,'Can change user'),
+           'addrole':urlRequest.user.has_group_perm(group,'Can add gus_role'),
+           'delrole':urlRequest.user.has_group_perm(group,'Can delete gus_role'),
+           'editrole':urlRequest.user.has_group_perm(group,'Can change gus_role'),   
+              }
     return render_to_response('groups/viewGroup.html',
-	{ 'group':group, 'role':role, 
+	{ 'group':group, 'role':role,'roles':roles,'can':my_perms, 
           'formAddUser':form_addUser},
 	  context_instance=RequestContext(urlRequest)
 	  )

@@ -23,3 +23,4 @@ def has_group_perm(usr,group,permstring):
         return True
     return False
 
+

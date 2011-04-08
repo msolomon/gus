@@ -3,14 +3,20 @@
 <ul>
     <li><a href="/email/Group/{{group.id}}/">Email Group</a>
     <li><a href="/forum/{{group.id}}/">Group Forums</a>
+    {% if can.addrole %}
     <li><a href="/groups/{{group.id}}/CreateRole/">Create a New Role</a>
+    {% endif %}
+    {% if can.adduser %}
     <li><a href="#" onClick="toggle(0)">Add User</a>
+    {% endif %}
 </ul>
 {% endblock%}
 {% block content %}
+{{ can }} {{ group }}
 <h2>{{ group }}</h2>
 <p>{{ group.group_description }}</p>
 <hr />
+{% if can.adduser %}
 <div style="display:none" id="Add">
 <form method="post" >
 <fieldset><legend>Add User to Group</legend>
@@ -21,10 +27,11 @@
 </fieldset>
 </form>
 </div>
-{% for r in role %}
+{% endif %}
+{% for r in roles %}
 {% for usr in r.users.all %}
 {{ usr.username }} (
-{% if r.name != "Owner" %}
+{% if r.name != "Owner" and can.editrole %}
 <a href="/roles/EditPerms/{{r.id}}/">{{r.name}}</a>
 {% else %}
 {{r.name}}
@@ -32,8 +39,13 @@
 )
 <br/>
 <div style="margin-left:25px">
-<a href="/groups/{{group.id}}/EditRole/{{usr.id}}/">Change User Role</a>
- | <a href="/groups/{{group.id}}/RemoveUser/{{usr.id}}/">Delete User</a>
+{% if can.edituser %}
+<a href="/groups/{{group.id}}/EditRole/{{usr.id}}">Change User Role</a>
+{% endif %}
+{% if can.edituser and can.deluser and usr.id != user.id%} | {% endif %}
+{% if can.deluser and user.id != usr.id %}
+<a href="/groups/{{group.id}}/RemoveUser/{{usr.id}}/">Delete User</a>
+{% endif %}
 </div>
 
 {% endfor %}
