@@ -46,13 +46,13 @@ def month(request, year=None, month=None, group=None):
      for m in [year]: # calendar goes out 2 years
         month_list = []
      for n, month_name in enumerate(month_names):
-        event = current = False
-        events = Gus_event.objects.filter(start_date__year=m, start_date__month=n+1)
-        if events:
-            event = True # there is an event listed
+        current = False
+        #events = Gus_event.objects.filter(start_date__year=m, start_date__month=n+1)
+        #if events:
+        #    event = True # there is an event listed
         if m == current_year and  n + 1 == current_month:
             current = True # it is current month
-        month_list.append(dict(n=n + 1, name=month_name, event=event, current=current))
+        month_list.append(dict(n=n + 1, name=month_name, current=current))
      years.append((m, month_list))
      month_name = month_names[month-1]
 
@@ -72,16 +72,16 @@ def month(request, year=None, month=None, group=None):
         if day:
             if group == None:
                 user_groups = getGroupsWithUser(request.user)
-                for user_group in user_groups:
-                    events = Gus_event.objects.filter(start_date__year=year, 
-                                                      start_date__month=month, 
-                                                      start_date__day=day,
-                                                      Group=user_group.id)
+                group_ids = [user_group.id for user_group in user_groups]
+                events = Gus_event.objects.filter(start_date__year=year, 
+                                                  start_date__month=month, 
+                                                  start_date__day=day,
+                                                  Group__in=group_ids)
                     
-                    num_total_events += len(events) 
-                    if day == nday and year == nyear and month == nmonth: 
-                        current = True
-                    total_events.append(events)
+                num_total_events += len(events) 
+                if day == nday and year == nyear and month == nmonth: 
+                    current = True
+                total_events.append(events)
         list[week].append((day, total_events, current, num_total_events))
         num_total_events = 0
         if len(list[week]) == 7:
