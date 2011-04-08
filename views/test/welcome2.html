@@ -6,8 +6,8 @@
 <h3>Groups </h3>
 	{% for g in groups %}
 	
-	<div>{{g.group.group_name}}
-	 [ <a href="/groups/View/{{g.group.id}}/">View</a> ]
+	<div>
+	 <a href="/groups/{{g.group.id}}/">{{g.group.group_name}}</a> 
 	 {% if g.candeletegroup %}
 	 [ <a href="/gus_test/Group/Delete/{{g.group.id}}/">Delete</a> ]
 	 {% endif %}

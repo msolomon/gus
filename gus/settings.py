@@ -15,15 +15,17 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '%s/guspy.db'%PROJECT_PATH, # Or path to database file if using sqlite3.
-        'USER': 'guspy', # Not used with sqlite3.
-        'PASSWORD': 'chandler is a little girl', # Not used with sqlite3.
-        'HOST': 'johnls.net', # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': '%s/guspy.db' % PROJECT_PATH, # Or path to database file if using sqlite3.
+        'USER': '', # Not used with sqlite3.
+        'PASSWORD': '', # Not used with sqlite3.
+        'HOST': '', # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '', # Set to empty string for default. Not used with sqlite3.
     }
 }
 LOGIN_URL='/login/'
-AUTHENTICATION_BACKENDS=('gus_backend.models.gus_backend','django.contrib.auth.backends.ModelBackend',)
+AUTHENTICATION_BACKENDS=('gus_backend.models.gus_backend',
+                         'django.contrib.auth.backends.ModelBackend',)
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -41,7 +43,7 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
@@ -69,6 +71,7 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
+
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     #   'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
@@ -160,5 +163,6 @@ IMAP_PORT = 25
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = '[gus] '
+
 # the default email suffix
 EMAIL_SUFFIX = '@guspy.joranbeasley.com'
