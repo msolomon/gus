@@ -18,8 +18,8 @@ class SimpleUserAddForm(forms.Form):
     """
     A form to add a new user to the system
     """
-    username = forms.CharField(max_length=30)
-    password = forms.CharField(max_length=30,widget=forms.PasswordInput())
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(max_length=100,widget=forms.PasswordInput())
     
     email = forms.EmailField(label='Contact e-mail:')
     id  = forms.IntegerField(required=False,widget=forms.HiddenInput())
@@ -34,6 +34,16 @@ class SimpleUserAddForm(forms.Form):
         except:
             return data
         raise forms.ValidationError('This username is already taken')
+    
+class SimpleUserEditForm(forms.Form):
+    """
+    A form to edit an to the system
+    """
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(max_length=100,widget=forms.PasswordInput())
+    
+    email = forms.EmailField(label='Contact e-mail:')
+    id  = forms.IntegerField(required=False,widget=forms.HiddenInput())
 
 class SimpleAddUserToGroup(forms.Form):
     """

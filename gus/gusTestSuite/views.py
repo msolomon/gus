@@ -98,7 +98,7 @@ def editUser(urlRequest, user_id):
     usr = gus_user.objects.get(pk=user_id)
     #setup our form
     if urlRequest.method == 'POST': # If the form has been submitted...
-        form = SimpleUserAddForm(urlRequest.POST) # A form bound to the POST data
+        form = SimpleUserEditForm(urlRequest.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
@@ -109,7 +109,7 @@ def editUser(urlRequest, user_id):
                         
             return HttpResponseRedirect('/gus_test/') # Redirect after POST
     else:
-        form = SimpleUserAddForm({'username':usr.username,'email':usr.email
+        form = SimpleUserEditForm({'username':usr.username,'email':usr.email
                               ,'id':usr.id,'password':usr._user.password}) 
         # Default Edit Form
     
