@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for news in r.reverse %}
+<h4> {{ news.headline }}</h4><i>{{ news.date }}</i><br /><br /><i> {{ news.shortdesc }}</i><br /><br />{{ news.content }}<br /><br /><br />
+{% endfor %}
+
+{% endblock content %}
+
+{% block pagetitle %}
+Calendar-Events
+{% endblock pagetitle %}

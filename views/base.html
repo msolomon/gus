@@ -4,6 +4,9 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<title>{% block pagetitle %}Gus{% endblock %}</title>
 		<link rel="stylesheet" type="text/css" href="/include/css/default.css" media="screen"/>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+		<script type="text/javascript" src="/include/js/jquery-ui-1.8.11.custom.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/include/css/ui-lightness/jquery-ui-1.8.11.custom.css" media="screen"/>
 		{% block custom_header %}
 		{% endblock %}
 	</head>
@@ -24,6 +27,7 @@
     <div class="topbar">
         {% block menu %}
             <a href="/gus_test/">Manage Groups and Users</a> | 
+            <a href="/groups/">My Groups</a> | 
             <a href="/calendar/">My Calendar</a> | 
             <a href="/email/">My Messages</a> | 
             <a href="/bill/">My Bills</a> | 

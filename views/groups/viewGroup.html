@@ -1,15 +1,51 @@
 {% extends "base.html" %}
+{% block sidebar_top %}
+<ul>
+    <li><a href="/email/Group/{{group.id}}/">Email Group</a>
+    <li><a href="/forum/{{group.id}}/">Group Forums</a>
+    <li><a href="/groups/{{group.id}}/CreateRole/">Create a New Role</a>
+    <li><a href="#" onClick="toggle(0)">Add User</a>
+</ul>
+{% endblock%}
 {% block content %}
 <h2>{{ group }}</h2>
-<a href="/email/Group/{{group.id}}/">Email Group</a>
-<a href="/forum/{{group.id}}/">Group Forums</a>
 <p>{{ group.group_description }}</p>
 <hr />
+<div style="display:none" id="Add">
+<form method="post" >
+<fieldset><legend>Add User to Group</legend>
+{{ formAddUser.as_p }}
+{% csrf_token %}
+<input type="submit" value="Add New Member">
+<a href="#" onClick="toggle(1)">Cancel</a>
+</fieldset>
+</form>
+</div>
 {% for r in role %}
-{% for user in r.users.all %}
-{{ user }} 
+{% for usr in r.users.all %}
+{{ usr.username }} (
+{% if r.name != "Owner" %}
+<a href="/roles/EditPerms/{{r.id}}/">{{r.name}}</a>
+{% else %}
+{{r.name}}
+{% endif %}
+)
 <br/>
-{% endfor %}
-{% endfor %}
+<div style="margin-left:25px">
+<a href="/groups/{{group.id}}/EditRole/{{usr.id}}/">Change User Role</a>
+ | <a href="/groups/{{group.id}}/RemoveUser/{{usr.id}}/">Delete User</a>
+</div>
 
+{% endfor %}
+{% endfor %}
+<script type="text/javascript">
+function toggle(flag){
+    if(!flag){
+        document.getElementById("Add").style.display="block"
+    }
+    else{
+        document.getElementById("Add").style.display="none"
+    }
+}
+</script>
 {% endblock %}

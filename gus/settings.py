@@ -69,6 +69,13 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+    #   'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+    #   'EXTRA_SIGNALS': ['myproject.signals.MySignal'],
+    'HIDE_DJANGO_SQL': False,
+    #   'TAG': 'div',
+}
 
 MIDDLEWARE_CLASSES = [             
     'django.middleware.gzip.GZipMiddleware',         
@@ -105,6 +112,7 @@ INSTALLED_APPS = [
     'gus.gus_bill',
     'gus.gusTestSuite',
     'gus.gus_backend',
+	'gus.gus_news',
 ]
 
 # try to use PIL

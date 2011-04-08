@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>Uploaded News Item:</h4><br /><br />
+
+<form action="/news/edit" method="POST">
+{% csrf_token %}
+<h4>{{headline}}</h4>
+<i>{{date}}</i><br /><br />
+<i>{{shortdesc}}</i><br /><br />
+{{content}}
+</form>
+
+{% endblock content %}
+
+{% block pagetitle %}
+Calendar-Events
+{% endblock pagetitle %}

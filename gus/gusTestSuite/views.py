@@ -147,10 +147,18 @@ def editGroup(urlRequest, group_id):
 
 @login_required
 def viewGroup(urlRequest, group_id):
+    from gus.gusTestSuite.forms import SimpleAddUserToGroup
+
+    if urlRequest.method == 'POST':
+        usr = gus_user.objects.get(pk=int(urlRequest.POST['new_member']))
+        role = gus_role.objects.get(pk=int(urlRequest.POST['role']))
+        role.users.add(usr)
     group = gus_group.objects.get(pk=group_id)
+    form_addUser = SimpleAddUserToGroup(group)
     role = group.roles
     return render_to_response('groups/viewGroup.html',
-	{ 'group':group, 'role':role },
+	{ 'group':group, 'role':role, 
+          'formAddUser':form_addUser},
 	  context_instance=RequestContext(urlRequest)
 	  )
     #return HttpResponse("testing")
@@ -165,7 +173,7 @@ def deleteGroup(urlRequest, group_id):
     group = gus_group.objects.get(pk=group_id)
     try:
         if urlRequest.POST['confirm']:
-            group.delete();
+            group.delete()
             
             return HttpResponseRedirect('/groups/')
     except:
@@ -198,12 +206,25 @@ def deleteRole(urlRequest, role_id):
     return HttpResponseRedirect('/groups/%s/Edit'%g_id)
 
 @login_required
-def editRole(urlRequest, role_id):
-    role = gus_role.objects.get(pk=role_id)
-    
-    return render_to_response('groups/manageRole.html',
+def editRole(urlRequest, group_id, user_id):
+    try:
+        group = gus_group.objects.get(pk=group_id)
+        usr = gus_user.objects.get(pk=user_id)
+    except:
+	return HttpResponseRedirect('/groups/View/%s/'%group_id)
+
+    role = gus_role.objects.with_user_in_group(group, usr)
+
+    try:
+	if urlRequest.POST['newRole']:
+	    r2 = gus_role.objects.get(pk=int(urlRequest.POST['newRole']))
+	    role.users.remove(usr)
+	    r2.users.add(usr)
+	    return HttpResponseRedirect("/groups/View/%s/"%group_id)
+    except:
+        return render_to_response('groups/manageRole.html',
                        {
-                         'role':role,
+                         'role':role, 'usr':usr, 'group':group
                         
                        },context_instance=RequestContext(urlRequest)
                        )
@@ -264,6 +285,8 @@ def createRole(urlRequest,group_id):
 	    if form.cleaned_data['is_superUser'] == True:
 		role._role_permission_level = 1
 	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
+	    role.save()
+	    return HttpResponseRedirect("/groups/View/%s/"%group_id)
     else:
         form = RoleCreateForm({'id':group_id})
 	
@@ -290,7 +313,7 @@ def editRolePerms(urlRequest,role_id):
 	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
 	    role.save()
 	    g_id = role.group.id
-	    return HttpResponseRedirect("/groups/%s/Edit/"%g_id)
+	    return HttpResponseRedirect("/groups/View/%s/"%g_id)
     else:
 	if role._role_permission_level == 1:
 	    is_superUser = True
