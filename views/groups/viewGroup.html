@@ -12,7 +12,7 @@
 </ul>
 {% endblock%}
 {% block content %}
-{{ can }} {{ group }}
+
 <h2>{{ group }}</h2>
 <p>{{ group.group_description }}</p>
 <hr />
@@ -60,4 +60,8 @@ function toggle(flag){
     }
 }
 </script>
+
+{% comment %}
+{{ can }} {{ group }}
+{% endcomment %}
 {% endblock %}
