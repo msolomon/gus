@@ -4,9 +4,9 @@
 <div style="width:250px;float:right">
 <h3>Groups [<a href="/gus_test/Group/Add">Add</a> ]</h3>
 	{% for grp in groups %}
-	<div>{{grp}}<a href="/gus_test/Group/Delete/{{grp.id}}/">Delete</a>
-	 | <a href="/groups/{{grp.id}}/Edit/">Edit</a>
-	 | <a href="/gus_test/Group/View/{{grp.id}}/">View</a>
+	<div>{{grp}}
+	 
+	 [ <a href="/groups/{{grp.id}}/">View</a> ]
 	</div>
 	{% endfor %}
 </div>

@@ -8,9 +8,9 @@
 Are you sure you wish to delete {{ type }}: <i>{{ item }}</i>? <b>Warning: This cannot be undone!</b> To cancel, click the link below. Otherwise, if you really want to delete the {{ type }}, click 'Delete {{ type|capfirst }}' below.
 <br/><br/>
 
-<form action="" method="post">
+<form method="post">
   {% csrf_token %}
-  <input type="submit" value="Delete {{ type|capfirst }}"/>
+  <input name="confirm" type="submit" value="Delete {{ type|capfirst }}"/>
 </form>
 <br/>
 <a href="{{ cancel_url }}">Cancel</a>

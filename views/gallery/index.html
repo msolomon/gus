@@ -13,6 +13,11 @@
 {% for g in groups %}
   <b>{{ g.group_name }}</b> {% if g in can_add %}[<a href="/gallery/add/{{g.pk}}">Add Gallery</a>]{% endif %}
   <br/>
+  
+{% if galleries|length_is:0 %}
+None
+{% endif %}
+
   {% for gal in galleries %}
     {% if gal.group == g %}
       <a href="/gallery/{{gal.pk}}">{{ gal.name }}</a>

@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 <h4>Upload News Item</h4>
-
-<form action="/news/edit" method="POST">
+<script type="text/javascript">
+   $(function() {
+       $("#id_date").datepicker({ dateFormat: 'yy-mm-dd' });
+   });
+</script>
+<form action="." method="POST">
 {% csrf_token %}
-{{News_form.as_p}}
-<input type="submit" value="save">
+{{form.as_p}}
+<input type="submit" value="Save">
 </form>
 
 {% endblock content %}
 
 {% block pagetitle %}
-Calendar-Events
+Add News Item
 {% endblock pagetitle %}

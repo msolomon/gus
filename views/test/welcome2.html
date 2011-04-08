@@ -4,13 +4,17 @@
 {% block content %}
 <div style="width:450px;">
 <h3>Groups </h3>
-	{% for grp in groups %}
+	{% for g in groups %}
 	
-	<div>{{grp}}[ <a href="/gus_test/Group/Delete/{{grp.id}}/">Delete</a> ]
-	 [ <a href="/groups/{{grp.id}}/Edit/">Edit</a> ]
-	 [ <a href="/groups/View/{{grp.id}}/">View</a> ]
+	<div>
+	 <a href="/groups/{{g.group.id}}/">{{g.group.group_name}}</a> 
+	 {% if g.candeletegroup %}
+	 [ <a href="/gus_test/Group/Delete/{{g.group.id}}/">Delete</a> ]
+	 {% endif %}
+	 {% comment %}
 	 [ <a href="/gus_test/Group/Add">Add Subgroup</a> ]
 	 {% control user grp 'link_label' 'http://url' 'Can change user' %}
+	 {% endcomment %}
 	</div>
 	{% endfor %}
 </div>
