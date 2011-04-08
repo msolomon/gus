@@ -30,6 +30,13 @@ class News_upload_widget(models.Model):
         '''
         news.feed = self
         news.save()
+	
+	def get_all_news(self):
+		''' Return all news items.
+			@return News items
+			@rtype array
+		'''
+		return Gus_news.objects
     
 class News_item(models.Model):
     '''

@@ -12,8 +12,8 @@ def upload_form(request):
 		form = News_form(request.POST)
 		if form.is_valid():
 			# process the data in form.cleaned_data
-			# ...
-			#return HttpResponseRedirect('news/_test')
+			ni = form.save(commit=false)
+			ni.save()
 			
 			return render_to_response('news/upl-test.html', {
 				'headline':form.cleaned_data['headline'],
@@ -25,4 +25,13 @@ def upload_form(request):
 		form = News_form()
 	return render_to_response('news/upload.html', {
 		'form':form
+	}, context_instance=RequestContext(request))
+
+def all_news(request):
+	allnews = News_upload_widget.get_all_news()
+	r = ""
+	for ni in allnews.reverse():
+		r += "<h4>" +  ni.headline + "</h4><i>" + ni.date + "</i><br /><br /><i>" + ni.shortdesc + "</i><br /><br />" + ni.content + "<br /><br /><br />"
+	return render_to_response('news/show.html', {
+		'r':r
 	}, context_instance=RequestContext(request))
