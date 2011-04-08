@@ -47,7 +47,8 @@ def index2(urlRequest):
     usr=urlRequest.user
     grps = [r.group for r in gus_role.objects.with_user(usr)]
     data['user']=usr
-    data['groups']=grps
+    data['groups']=[{'group':g,'candeletegroup':usr.has_group_perm(g,'Can delete group')} for g in grps]
+    
     #return HttpResponse(data['groups'][0].group_name)
     return render_to_response('test/welcome2.html', data
          #'urls':{'delete':'/gus_test/Group/Delete/%s/'},
