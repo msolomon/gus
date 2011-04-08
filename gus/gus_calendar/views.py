@@ -57,6 +57,7 @@ def month(request, year=None, month=None, group=None):
      month_name = month_names[month-1]
 
 ## for months
+     user_groups = getGroupsWithUser(request.user)
      num_total_events = 0
      cal = calendar.Calendar()
      month_days = cal.itermonthdays(year, month)
@@ -71,12 +72,12 @@ def month(request, year=None, month=None, group=None):
         events = current = False
         if day:
             if group == None:
-                user_groups = getGroupsWithUser(request.user)
-                group_ids = [user_group.id for user_group in user_groups]
+                
+                ##group_ids = [user_group.id for user_group in user_groups]
                 events = Gus_event.objects.filter(start_date__year=year, 
                                                   start_date__month=month, 
                                                   start_date__day=day,
-                                                  Group__in=group_ids)
+                                                  Group__in=user_groups)
                     
                 num_total_events += len(events) 
                 if day == nday and year == nyear and month == nmonth: 
