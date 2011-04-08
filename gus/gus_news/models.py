@@ -65,5 +65,5 @@ class News_form(forms.Form):
 	headline = forms.CharField(max_length = 64)
 	shortdesc = forms.CharField(max_length=1000, widget=forms.Textarea)
 	content = forms.CharField(max_length=10000, widget=forms.Textarea)
-	date = forms.DateField('%b %d, %Y')
+	date = forms.DateField(required=False,widget = forms.DateTimeInput()) #'%b %d, %Y')
 	group = forms.ModelChoiceField(queryset=gus_group.objects.all())
