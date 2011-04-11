@@ -1,15 +1,17 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 
 from gus_news.models import *
 from gus.gus_groups.utils import *
 from gus_users.models import gus_user
 from django import forms
 
+@login_required
 def upload_form(request):
-	if not request.user.is_authenticated():
-		return HttpResponseRedirect('/login/')
+	#if not request.user.is_authenticated():
+	#	return HttpResponseRedirect('/login/')
 	form = News_form()
 	if request.method == 'POST':
 		form = News_form(request.POST)
@@ -35,12 +37,13 @@ def upload_form(request):
 		'form':form
 	}, context_instance=RequestContext(request))
 
+@login_required
 def all_news(request):
-	if not request.user.is_authenticated():
-		return HttpResponseRedirect('/login/')
+	#if not request.user.is_authenticated():
+	#	return HttpResponseRedirect('/login/')
 	user_groups = getGroupsWithUser(request.user) #[r.group for r in request.user.roles]
 	allnews = News_item.objects.filter(group__in = user_groups)
 	#allnews = News_item.objects.all()
 	return render_to_response('news/show.html', {
-		'r':allnews
+		'r':reversed(allnews)
 	}, context_instance=RequestContext(request))
