@@ -75,6 +75,8 @@ class bill(models.Model):
 
     objects = BillManager()
 
+    def makedollar(self, i):
+        return "$%.2f" % i
 
     def paid_balance(self):
         """
@@ -107,7 +109,7 @@ class bill(models.Model):
             x
         """
         #verify the ammount to be paid is not greater than the total balance
-        if(Bvalue + self.paid_balance() > self.value):
+        if(Bvalue + self.paid_balance() > self.value or Bvalue <= 0):
             return self.paid_balance()
         #create a payment object associated with this bill
         payment.objects.create(mybill = self, amtpaid = Bvalue)
@@ -141,10 +143,20 @@ class bill(models.Model):
       self.save()
       tempb.save()
 
+    def totalpaid(self):
+        return self.makedollar(self.paid_balance())
+
+    def outstanding(self):
+      return self.makedollar(self.value - self.paid_balance())
+
+    def totalvalue(self):
+        return self.makedollar(self.value)
+
     #used for the views output
     def __unicode__(self):
-	curr = self.value - self.paid_balance()
-	return "%s, %s: Total: $%.2f, Payments: $%.2f, Outstanding: $%.2f"%(self.user, self.name, self.value, self.paid_balance(), curr)
+        curr = self.value - self.paid_balance()
+        return "%s, %s: Total: $%.2f, Payments: $%.2f, Outstanding: $%.2f"%(self.user, self.name, self.value, self.paid_balance(), curr)
+
 
 
 

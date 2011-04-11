@@ -1,13 +1,19 @@
-{% extends "base.html" %}
+{% extends "gallery/base.html" %}
 {% block pagetitle %}Add Image Gallery{% endblock %}
 
 {% block content %}
 <h3>Add Image Gallery</h3>
 
+{% if error %}
+  <br/>
+  <b>There was an error creating a gallery. Please make sure you fill out all fields and try again!</b>
+  <br/><br/>
+{% endif %}
 <form action="" method="post">
   {{gallery_form.as_p}}
   {% csrf_token %}
   <input type="submit" value="Create Gallery"/>
 </form>
+<br/>
 <a href="/gallery">Cancel</a>
 {% endblock %}

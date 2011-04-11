@@ -1,36 +1,63 @@
 {% extends "base.html" %}
-{% block pagetitle %}Bills for the User{%endblock%}
+{% block pagetitle %}
+Bills
+{%endblock pagetitle%}
+
+{% block sidebar_top %}
+<h2>Bill Options</h2>
+<ul>
+ <li><a href="/groups">Return to Groups Page</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
-
-
-<p>
 {% if not bills %}
   No Bills associated with user: {{user.username|capfirst}}.
 {% endif %}
 
-<table>
+<table border="1" class="table" width="95%">
 {% for bill in bills %}
   <tr>
-  <th>{{bill.group.group_name|capfirst}}</th></tr>
-  <td></td>
-  <td>{{bill}}</td>
-  </tr>
+  <th align="center" >{{bill.group.group_name|capfirst}} </th>
+  <th align="center" ><b>User</th> 
+  <th align="center" ><b>Name</th> 
+  <th align="center" ><b>Total</th> 
+  <th align="center" ><b>Payments</th> 
+  <th align="center" ><b>Outstanding</th> </b>
+  <th></th>
+    <tr>
+    <td > </td>
+    <td align="center" >{{bill.user.username|capfirst}}</td> 
+    <td align="center" >{{bill.name}}</td>
+    <td align="center" >{{bill.totalvalue}}</td>
+    <td align="center" >{{bill.totalpaid}}</td>
+    <td align="center" >{{bill.outstanding}}</td>
+	<td></td>
+    </tr>
 {% endfor %}
-</table>
-</p>
 
-<p>
-<table>
 {% for group in adminGroups %}
   <tr>
-  <th>{{group.group_name|capfirst}} [<a  href='/bill/Add/{{group.id}}/'>Add</a>]</th></tr>
-  {% for bill in group.my_bills %}<tr>
-    <td> </td>
-    <td>{{bill}}</td><td> [<a href='/bill/Delete/{{bill.id}}'>Delete</a>]  [<a href='/bill/Payments/{{bill.id}}'>Payments</a>] [<a href='/bill/Archive/{{bill.id}}'>Renew</a>]</td>
+  <th align="center">{{group.group_name|capfirst}} : <a href='/bill/Add/{{group.id}}/'>Add</a></th> 
+  <th align="center"><b>User</th> 
+  <th align="center"><b>Name</th> 
+  <th align="center"><b>Total</th> 
+  <th align="center"><b>Payments</th> 
+  <th align="center"><b>Outstanding</th> </b>
+  <th></th>
+  {% for bill in group.my_bills %}
+  <tr>
+    <td align="center" ><a href='/bill/Delete/{{bill.id}}'>Delete</a></td> 
+    <td align="center" >{{bill.user.username|capfirst}}</td> 
+    <td align="center" >{{bill.name}}</td>
+    <td align="center" >{{bill.totalvalue}}</td>
+    <td align="center" >{{bill.totalpaid}}</td>
+    <td align="center" >{{bill.outstanding}}</td>
+    <td align="center" ><a href='/bill/Payments/{{bill.id}}'>Payments</a><br />
+    <a href='/bill/Archive/{{bill.id}}'>Renew</a></td>
     </tr>
   {% endfor %}
 {% endfor %}
 </table>
-</p>
 
 {%endblock%}

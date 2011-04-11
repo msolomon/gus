@@ -4,6 +4,9 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<title>{% block pagetitle %}Gus{% endblock %}</title>
 		<link rel="stylesheet" type="text/css" href="/include/css/default.css" media="screen"/>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+		<script type="text/javascript" src="/include/js/jquery-ui-1.8.11.custom.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/include/css/ui-lightness/jquery-ui-1.8.11.custom.css" media="screen"/>
 		{% block custom_header %}
 		{% endblock %}
 	</head>
@@ -14,11 +17,9 @@
 <div class="inner-container">
     <div class="header">
         <div class="title">
-            <span class="sitename">
-                {% block title %}
-                    <a href="/" class="header_image"><img src="/include/images/guspy.png"/></a>
-                {% endblock %}</td>
-            </span>
+            {% block title %}
+                <a href="/"><img src="/include/images/guspy.png"/></a>
+            {% endblock %}</td>
             <div class="slogan">{% block subtitle %}Groups in a University Setting{% endblock %}</div>
         </div>
     </div>
@@ -26,10 +27,12 @@
     <div class="topbar">
         {% block menu %}
             <a href="/gus_test/">Manage Groups and Users</a> | 
-            <a href="/calendar/">Calendar</a> | 
-            <a href="/email/">Email</a> | 
-            <a href="/bill/">Bill</a> | 
-            <a href="/gallery/">Gallery</a>
+            <a href="/groups/">My Groups</a> | 
+            <a href="/calendar/">My Calendar</a> | 
+            <a href="/email/">My Messages</a> | 
+            <a href="/bill/">My Bills</a> | 
+            <a href="/gallery/">My Galleries</a> |
+			<a href="/news/_all/">My News</a>
         {% endblock %}
     </div>
 
@@ -62,7 +65,7 @@
                 {% block sidebar_sidewide %}
                 <h2>Gus</h2>
                 <ul>
-                    <li><a href="https://github.com/arkenflame/gus">Reports</a></li>
+                    <li><a href="http://guspy.joranbeasley.com/reports/index.html">Reports</a></li>
                 </ul>
                 {% endblock %}
 

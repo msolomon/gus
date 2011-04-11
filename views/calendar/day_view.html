@@ -2,18 +2,21 @@
 {% block content %}
 
 <h3>Event: {{name}} </h3>
-<b>Creator:</b> {{creator}}
-<br>  
+<b>Creator:</b> {{creator.username}}
+<br> 
+<b>Group:</b> {{event_group.group_name}} 
+<br>
 <b> Start Date: </b> {{start_date}}
 <br>
 <b>Description:</b> {{description}}
 <br>
 <br>
 
+{% if auth_event_group == 1 %}
 <input type="button" 
 value="Edit" 
 onclick="location.href='/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event_id}}/'">
-
+{% endif %}
 
 
 {% endblock content %}

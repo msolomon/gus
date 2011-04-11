@@ -6,6 +6,7 @@ from imaplib import *
 from django.db import models
 from django.core import mail
 from gus import settings
+import datetime
 
 from gus.gus_widget.models import Widget
 from gus.gus_groups.models import gus_group
@@ -119,31 +120,113 @@ class Emailer(models.Model):
             except IndexError: continue
             
             # create the snippets
-            if self.user_email in to.translate(None, '\'"<>').split():
+            if self.user_email in to.translate(None, '\'"<>,').split():
                 try:
-                    date = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
-                    date = parse(date).strftime('%I:%M %p, %x')
-                except (IndexError, ValueError, TypeError): date = ''
+                    datestr = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
+                except (IndexError, AttributeError):
+                    datestr = ''
+                try:
+                    date = parse(datestr)
+                    datestr = date.strftime('%I:%M %p, %x')
+                except (ValueError, TypeError):
+                    time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
+                    date = parse(time)
+                    
                 try: frm = re.search('from:([^\n]*)\n', mes, re.I).group(1).strip()
-                except IndexError:  frm = ''    
+                except (IndexError, AttributeError):  frm = ''    
                 try:  sub = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
-                except IndexError: sub = ''   
+                except (IndexError, AttributeError): sub = ''   
                     
                 snippets.insert(0, {'id': id,
                                     'subject': sub,
                                     'from': frm,
-                                    'date': date
-                                    })      
+                                    'date': datestr,
+                                    'dateobj': date
+                                    })  
+                snippets = sorted(snippets,
+                                  key=lambda x: x['dateobj'],
+                                  reverse=True)    
             
         return snippets
     
+    def check_sent_email(self):
+        '''Check for sent email messages, and return a list of snippets
+            @return: [{uid, subject, to, date}...]
+        '''
+
+        server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
+        server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
+        
+        select_info = server.select_folder('INBOX')
+        
+        # get a list of messages prefiltered for this user
+        potentials = server.search([' NOT DELETED',
+                                  'FROM ' + self.user_email])
+        response = server.fetch(potentials, ['BODY.PEEK[HEADER]'])
+        server.logout()
+        
+        # perform more robust filtering of returned messages
+        snippets = []
+        for id, message in response.iteritems():
+            mes = message['BODY[HEADER]']
+            try:
+                frm = re.search('from:([^\n]*)\n', mes, re.IGNORECASE).group(1).strip()
+            except IndexError: continue
+            
+            # create the snippets
+            if self.user_email in frm.translate(None, '\'"<>,').split():
+                try:
+                    datestr = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
+                except (IndexError, AttributeError):
+                    datestr = ''
+                try:
+                    date = parse(datestr)
+                    datestr = date.strftime('%I:%M %p, %x')
+                except (ValueError, TypeError):
+                    time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
+                    date = parse(time)
+                    
+                try:
+                    to = re.search('to:([^\n]*)\n', mes, re.I).group(1).strip()
+                except (IndexError, AttributeError):  to = ''    
+                try:
+                    to += ' ' + re.search('cc:([^\n]*)\n', mes, re.I).group(1).strip()
+                except (IndexError, AttributeError): pass                   
+                try:  sub = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
+                except (IndexError, AttributeError): sub = ''   
+                    
+                snippets.insert(0, {'id': id,
+                                    'subject': sub,
+                                    'to': to,
+                                    'date': datestr,
+                                    'dateobj': date
+                                    })  
+                snippets = sorted(snippets,
+                                  key=lambda x: x['dateobj'],
+                                  reverse=True)    
+            
+        return snippets
+    
+    def delete_message(self, emailuid):
+        '''Delete a specified email message
+            @param int, the email UID to delete
+            @return: boolean success
+        '''        
+        server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
+        server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
+        
+        select_info = server.select_folder('INBOX')
+        success = server.add_flags([emailuid], '\Deleted')
+        server.logout()
+        
+        return success
+        
     def check_message(self, emailuid):
         '''Check for a specified email message and return it
             @param int, the email UID to get
             @return: mail.EmailMessage
         '''
-        notfound = 'This email message could not be found, ' + \
-                   ' or you do not have the rights to view it.'
+        
         server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
         server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
         
@@ -152,15 +235,16 @@ class Emailer(models.Model):
         # get a list of messages prefiltered for this user
         potential = server.search(['UID ' + emailuid])
         if len(potential) == 0:
-            return (False, notfound)
+            print potential
+            return (False, 'The message ID was not found on the messaging server.')
         
         # otherwise, get the message and log out
         messages = server.fetch(potential, ['BODY[HEADER]', 'BODY[TEXT]'])
         server.logout()
         
         # ensure there is exactly one message
-        if len(messages) != 1:
-            return (False, notfound)
+        if len(messages) < 1:
+            return (False, 'This message was not found on the messaging server.')
         
         # extract the message and put it into an EmailMessage object
         k = messages.keys()[0]
@@ -168,16 +252,24 @@ class Emailer(models.Model):
             message = self.parse_rfc822(messages[k]['BODY[HEADER]'],
                                         messages[k]['BODY[TEXT]'])
         except KeyError:
-            return (True, 'The email message could not be retrieved. Retrying...')
+            return (True, 'Still retrieving message from messaging server...')
         
-        # ensure the logged-in user was sent this email
-        dest = ' '.join(message.to + message.cc + message.bcc)
+        # print recipients
+        print message.recipients()
+        
+        # ensure the logged-in user sent or was sent this email
+        dest = ' '.join(message.to + message.cc + message.bcc + [message.from_email])
+        dest = dest.translate(None, '\'"<>,')
         dest = dest.split()
         
         if self.user_email not in dest:
-            return (False, notfound)
+            # print helpful message to console
+            print dest, self.user_email
+            return (False, 'You do not have permission to view this message.')
     
         return message 
+    
+
     
     def parse_rfc822(self, mes, body):
         ''' Parse a message in RFC822 format, split into header and body.
@@ -185,8 +277,6 @@ class Emailer(models.Model):
             @param body: the body (plain text)
             @return: EmailMessage object
         '''
-        ## TODO: Account for things like multiple recipients
-                ##     and, say, including other header info
         m = mes.split('\n')
         ## Get header fields
         def getrest(prefix):

@@ -37,6 +37,22 @@ def index(urlRequest):
          'groups':gus_group.objects.all(),
          },context_instance=RequestContext(urlRequest));
 
+@login_required
+def index2(urlRequest):
+    
+    #from django.contrib.auth.forms import UserCreationForm
+    #from gus.gusTestSuite.forms import SimpleAddUserToGroup
+    #return HttpResponse(SimpleGroupAddForm().as_p()) 
+    data ={}
+    usr=urlRequest.user
+    grps = [r.group for r in gus_role.objects.with_user(usr)]
+    data['user']=usr
+    data['groups']=[{'group':g,'candeletegroup':usr.has_group_perm(g,'Can delete group')} for g in grps]
+    
+    #return HttpResponse(data['groups'][0].group_name)
+    return render_to_response('test/welcome2.html', data
+         #'urls':{'delete':'/gus_test/Group/Delete/%s/'},
+         ,context_instance=RequestContext(urlRequest));
 def authUser(urlRequest):
     return render_to_response('users/info.html',{},
                               context_instance=RequestContext(urlRequest))
@@ -82,7 +98,7 @@ def editUser(urlRequest, user_id):
     usr = gus_user.objects.get(pk=user_id)
     #setup our form
     if urlRequest.method == 'POST': # If the form has been submitted...
-        form = SimpleUserAddForm(urlRequest.POST) # A form bound to the POST data
+        form = SimpleUserEditForm(urlRequest.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
@@ -93,7 +109,7 @@ def editUser(urlRequest, user_id):
                         
             return HttpResponseRedirect('/gus_test/') # Redirect after POST
     else:
-        form = SimpleUserAddForm({'username':usr.username,'email':usr.email
+        form = SimpleUserEditForm({'username':usr.username,'email':usr.email
                               ,'id':usr.id,'password':usr._user.password}) 
         # Default Edit Form
     
@@ -128,7 +144,35 @@ def editGroup(urlRequest, group_id):
           'formAddUser':form_addUser},
           context_instance=RequestContext(urlRequest)
           )
-    return HttpResponse('Manage Group : %s ' % group)
+    #return HttpResponse('Manage Group : %s ' % group)
+
+@login_required
+def viewGroup(urlRequest, group_id):
+    from gus.gusTestSuite.forms import SimpleAddUserToGroup
+
+    if urlRequest.method == 'POST':
+        usr = gus_user.objects.get(pk=int(urlRequest.POST['new_member']))
+        role = gus_role.objects.get(pk=int(urlRequest.POST['role']))
+        role.users.add(usr)
+    group = gus_group.objects.get(pk=group_id)
+    form_addUser = SimpleAddUserToGroup(group)
+    role=gus_role.objects.with_user_in_group(group,urlRequest.user)
+    roles = group.roles
+    
+    my_perms={
+           'adduser':urlRequest.user.has_group_perm(group,'Can add user'),
+           'deluser':urlRequest.user.has_group_perm(group,'Can delete user'),
+           'edituser':urlRequest.user.has_group_perm(group,'Can change user'),
+           'addrole':urlRequest.user.has_group_perm(group,'Can add gus_role'),
+           'delrole':urlRequest.user.has_group_perm(group,'Can delete gus_role'),
+           'editrole':urlRequest.user.has_group_perm(group,'Can change gus_role'),   
+              }
+    return render_to_response('groups/viewGroup.html',
+	{ 'group':group, 'role':role,'roles':roles,'can':my_perms, 
+          'formAddUser':form_addUser},
+	  context_instance=RequestContext(urlRequest)
+	  )
+    #return HttpResponse("testing")
 
 @login_required
 def deleteUser(urlRequest, user_id):
@@ -138,7 +182,17 @@ def deleteUser(urlRequest, user_id):
 @login_required
 def deleteGroup(urlRequest, group_id):
     group = gus_group.objects.get(pk=group_id)
-    return HttpResponse('Delete Group : %s ' % group)
+    try:
+        if urlRequest.POST['confirm']:
+            group.delete()
+            
+            return HttpResponseRedirect('/groups/')
+    except:
+        return render_to_response('generic/confirm_delete.html',
+                              {'type' : 'group',
+                               'item' : group.group_name,
+                               'cancel_url' : '/groups/%s/Edit'%group_id},
+                              context_instance = RequestContext(urlRequest))
 
 @login_required
 def removeUserFromRole(urlRequest, user_id, role_id):
@@ -163,12 +217,25 @@ def deleteRole(urlRequest, role_id):
     return HttpResponseRedirect('/groups/%s/Edit'%g_id)
 
 @login_required
-def editRole(urlRequest, role_id):
-    role = gus_role.objects.get(pk=role_id)
-    
-    return render_to_response('groups/manageRole.html',
+def editRole(urlRequest, group_id, user_id):
+    try:
+        group = gus_group.objects.get(pk=group_id)
+        usr = gus_user.objects.get(pk=user_id)
+    except:
+	return HttpResponseRedirect('/groups/%s/'%group_id)
+
+    role = gus_role.objects.with_user_in_group(group, usr)
+
+    try:
+	if urlRequest.POST['newRole']:
+	    r2 = gus_role.objects.get(pk=int(urlRequest.POST['newRole']))
+	    role.users.remove(usr)
+	    r2.users.add(usr)
+	    return HttpResponseRedirect("/groups/%s/"%group_id)
+    except:
+        return render_to_response('groups/manageRole.html',
                        {
-                         'role':role,
+                         'role':role, 'usr':usr, 'group':group
                         
                        },context_instance=RequestContext(urlRequest)
                        )
@@ -186,9 +253,7 @@ def addUser(urlRequest):
             # ...
             gus_user.objects.create_user(
                             form.cleaned_data['username'],
-                            # make the email based on the user
-                            form.cleaned_data['username'] + settings.EMAIL_SUFFIX,
-                            #form.cleaned_data['email'],
+                            form.cleaned_data['email'],
                             form.cleaned_data['password'],
                         )
             return HttpResponseRedirect('/gus_test/') # Redirect after POST
@@ -201,7 +266,7 @@ def addUser(urlRequest):
                                  'submiturl':'/gus_test/User/Add/',
                                  'encType':'multipart/form-data',
                                  'form':form,
-                                 'title':'Add New User',
+                                 'title':'Register New User',
                                  'btnlabel':'Create User',
                                 },
                                 context_instance=RequestContext(urlRequest)
@@ -231,6 +296,8 @@ def createRole(urlRequest,group_id):
 	    if form.cleaned_data['is_superUser'] == True:
 		role._role_permission_level = 1
 	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
+	    role.save()
+	    return HttpResponseRedirect("/groups/%s/"%group_id)
     else:
         form = RoleCreateForm({'id':group_id})
 	
@@ -257,7 +324,7 @@ def editRolePerms(urlRequest,role_id):
 	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
 	    role.save()
 	    g_id = role.group.id
-	    return HttpResponseRedirect("/groups/%s/Edit/"%g_id)
+	    return HttpResponseRedirect("/groups/%s/"%g_id)
     else:
 	if role._role_permission_level == 1:
 	    is_superUser = True

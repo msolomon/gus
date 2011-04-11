@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "gallery/base.html" %}
 {% block pagetitle %}Delete Image{% endblock %}
 
 {% block content %}
@@ -12,6 +12,7 @@ Are you sure you wish to delete the image: <i>{{image}}</i>? <b>Warning: This ca
   {% csrf_token %}
   <input type="submit" value="Delete Image"/>
 </form>
+<br/>
 <a href="/gallery/{{gallery.id}}">Cancel</a>
 
 {% endblock %}

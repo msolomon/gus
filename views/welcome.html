@@ -1,25 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Welcome to G.U.S.</h2>
-<hr/>
+
 {% if not user.is_anonymous %}
-You Are Logged in as {{ user.username }}, So you have a different welcome page that is comming soon
+<h2>My Groups</h2>
+<hr/>
+{% for role in user.roles %}
+{{role.group.group_name}} ({{ role.name }}) 
+[<a href="/groups/{{role.group.id}}/Edit">Visit</a>]
+<br/>
+
+{% endfor %}
 <br/><br/><br/>
-sincerly,<br/>
-Joran
+<br/>
+
 {% else %}
-<h3>What is Gus</h3><ul>
+<h2>G.U.S.</h2>
+<hr/>
+<h3>What is Gus?</h3><ul>
 <li>Set of group management tools</li>
 <li>Aimed at university-style groups </li>
-<li>Simple/Intuitive</li>
-<li>Easy to pick up, straight to the point<li>
+<li><strong>Simple</strong></li>
+<li>Easy to pick up, straight to the point</li>
 <li><strong>Modular</strong></li>
 <li>Modules: Calendar, Forum, Image Gallery...</li>
-<li> La Carte, only show what the group needs</li>
-
-<li><strong>Granular<strong></li>
-<li>Control who has what access to what information</li>
+<li><strong>Granular</strong></li>
+<li>Control who has access to specific information</li>
 </ul>
 {% endif %}
 {%  endblock %}

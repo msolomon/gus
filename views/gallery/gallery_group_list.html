@@ -1,0 +1,25 @@
+{% extends "gallery/base.html" %}
+{% block pagetitle %}Image Galleries - {{ the_group.group_name }}{% endblock %}
+
+{% block content %}
+<h3>Image Galleries - {{ the_group.group_name }}</h3>
+<br/>
+
+{% if can_add %}<a href="/gallery/add/{{the_group.pk}}">Add Gallery</a><br/><br/>
+{% endif %}
+
+{% if galleries|length_is:0 %}
+None
+{% endif %}
+
+{% for gal in galleries %}
+  <a href="/gallery/{{gal.pk}}">{{ gal.name }}</a>
+  {% if can_edit or can_delete %}[{% endif %}
+  {% if can_edit %}<a href="/gallery/edit/{{gal.pk}}">Edit</a> {% endif %}
+  {% if can_edit and can_delete %}/{% endif %}
+  {% if can_delete %}<a href="/gallery/delete/{{gal.pk}}">Delete</a>{% endif %}
+  {% if can_edit or can_delete %}]{% endif %}
+  <br/>
+{% endfor %}
+
+{% endblock %}

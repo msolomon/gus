@@ -10,7 +10,11 @@ This is the model document for the Gus_calendar and Gus_event classes.
 from django.db import models
 from gus.gus_widget.models import Widget #ok
 from gus.gus_users.models import gus_user #ok ignore aptana
+from gus.gus_groups.models import gus_group
 from django.forms import ModelForm
+from django.forms import ModelChoiceField
+from django.forms.extras.widgets import Select
+from gus.gus_groups.utils import *
 
 class Gus_calendar(Widget):
     """
@@ -57,7 +61,7 @@ class Gus_calendar(Widget):
         #super(Gus_calendar, self).delete()
         #self.delete() ##not working
         #events.delete()
-        self.delete()
+        #self.delete()
           
 class Gus_event(models.Model):
     """
@@ -65,12 +69,13 @@ class Gus_event(models.Model):
     
     """
 
-
+    auth_groups= []
     event_name = models.CharField(max_length=60)
     start_date = models.DateField(blank=True)
     description = models.CharField(max_length=1000, blank=True)
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     Delete = models.BooleanField(blank=True, null=False)
+    Group = models.ForeignKey(gus_group, null=True)
     #Attending = models.BooleanField(blank=True, null=False)
     #reminder = models.BooleanField(default=False)
     
@@ -97,10 +102,22 @@ class Gus_event(models.Model):
 
 
 class Event_form(ModelForm):
+ #   def add_groups(self, usr):
+        
+
+  #      groups = getGroupsWithUser(usr)
+        
+  #      gids = [g.id for g in groups if usr.has_group_perm(g, 'Can add gus_event')]
+   #     print gids
+
+    #    print gus_group.objects.filter(pk__in=gids)
+     #   self.fields['Groups'].queryset = gus_group.objects.filter(pk__in=gids)
+                   
     class Meta:
         model = Gus_event
-        exclude = ('start_date', 'creator',)
-        fields = ('event_name', 'description')
+        exclude = ('start_date', 'creator')
+        fields = ('event_name', 'description', 'Group')
+        
         
 class Event_form_edit(ModelForm):
     class Meta:

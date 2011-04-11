@@ -4,14 +4,22 @@
 {{group.group_name}} : {{forum.forum_name}} : {{thread.thread_name}} : Posts
 {% endblock pagetitle %}
 
-{% block content %}
-<a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a>
+{% block sidebar_top %}
+<h2>Forum Options</h2>
+<ul>
+ <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
+ <li><a href="/forum/{{group.id}}">Return to Forums</a></li>
+ <li><a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a></li>
+ <li><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a></li>
+</ul>
+{% endblock %}
 
-<table border="1" cellpadding="6">
+{% block content %}
+<table border="1" cellpadding="6" class="table" width="95%">
 {% for post in posts %}
 	<tr>
-	 <th><b><a href="">{{post.user.username|capfirst}}</a></th>
-	 <th colspan="2"></b>{{post.date_created}}</th>
+	 <th><b><a href="/users/profile">{{post.user.username|capfirst}}</a></th>
+	 <th colspan="2" align="right"></b>{{post.date_created}}</th>
 	</tr>
 	<tr colspan="3">
 	 <td colspan="3">{{post.post_text}}</td>

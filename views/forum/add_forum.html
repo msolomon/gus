@@ -4,12 +4,18 @@
 {{group.group_name}} : Forums : Add Forum
 {% endblock pagetitle %}
 
-{% block content %}
+{% block sidebar_top %}
+<h2>Forum Options</h2>
+<ul>
+ <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
+ <li><a href="/forum/{{group.id}}">Return to Forums</a></li>
+</ul>
+{% endblock %}
 
+{% block content %}
 <form method="POST">
  {%csrf_token%}
  {{form.as_p}}
  <input type="SUBMIT" value="Create Forum">
 </form>
-
 {% endblock content %}

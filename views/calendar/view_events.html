@@ -1,26 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
 <h4>Events on {{month_name}} {{day}}, {{year}}</h4>
-{% for event in events %}
+{% for events in total_day_events %}
+  {% for event in events %}
 
-
+<br>
 <h3>Event: {{event.event_name}} </h3>
-<b>Creator:</b> {{event.creator}}
-<br>  
+<b>Creator:</b> {{event.creator.username}}
+<br> 
+<b>Group:</b> {{event.Group.group_name}}
+<br>   
 <b> Start Date: </b> {{event.start_date}}
 <br>
 <b>Description:</b> {{event.description}}
 <br>
 <br>
-
+{% for group in auth_groups %}
+  {% if event.Group == group %}
 <input type="button" 
 value="Edit" 
 onclick="location.href='/calendar/{{year}}/{{month_name}}/_edit{{day}}/{{event.pk}}/'">
+{% endif %}
+{% endfor %}
+
 
 <br>
 <br>
 <br>
-
+{% endfor %}
 {% endfor %}
 {% endblock content %}
 

@@ -12,8 +12,11 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('gusTestSuite.views',
     # Example:
     # (r'^gus/', include('gus.foo.urls')),
+    (r'^$','index2'),
     (r'^([0-9]+)/CreateRole/', 'createRole'),
+    (r'^([0-9]+)/EditRole/([0-9]+)/', 'editRole'),
     (r'^([0-9]+)/Edit/', 'editGroup'),
+    (r'^([0-9]+)/$', 'viewGroup'),
     (r'^Add/', 'addGroup'),
     #(r'^EditPerms/(?P<role_id>\d+)/', 'editRolePerms'),
     (r'^([0-9]+)/RemoveUser/(\d+)/', 'removeUserFromGroup'),

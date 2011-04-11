@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style type="text/css">
+/* <!-- */
+	.ncExpand {
+		display: none;
+		position: fixed;
+		left: 10%;
+		right: 10%;
+		top: 10%;
+		width: 80%;
+		height: 80%;
+		background-color: #FFFFFF;
+		border: 1px solid #000000;
+		-moz-border-radius: 6px;
+		-webkit-border-radius: 6px;
+		border-radius: 6px;
+	}
+	
+	.ncContent h4 {
+		text-align: center;
+	}
+	
+	.ncContent {
+		padding-left: 10px;
+		padding-right: 10px;
+		/*padding-top: 30px;*/
+		padding-bottom: 10px;
+		/*top: 20px;*/
+		overflow-y: auto;
+		overflow-x: hidden;
+		/*bottom: 0px;*/
+		left: 0; right: 0; top: 0; bottom: 0;
+		margin-top: 30px;
+		display: block;
+		position: absolute;
+	}
+	.ncClose {
+		position: absolute;
+		width: 30px;
+		height: 24px;
+		right: -1px;
+		top: -1px;
+	}
+	.ncClose a {
+		display: block;
+		position: relative;
+		width: 30px;
+		height: 24px;
+		right: 0px;
+		top: 0px;
+		text-align: center;
+		vertical-align: mdidle;
+		padding-top: 5px;
+		font-weight: bold;
+		background-color: #000000;
+		color: #FFFFFF;
+		text-decoration: none;
+		-webkit-border-top-right-radius: 6px;
+		-webkit-border-bottom-left-radius: 6px;
+		-moz-border-radius-topright: 6px;
+		-moz-border-radius-bottomleft: 6px;
+		border-top-right-radius: 6px;
+		border-bottom-left-radius: 6px;
+	}
+	.ncClose a:hover, .ncClose a:active {
+		background-color: #FF0000;
+	}
+	#wbk {
+		background-color: #FFFFFF;
+		color: #FFFFFF;
+		position: fixed;
+		display: none;
+		left:0;
+		right:0;
+		top:0;
+		bottom:0;
+	}
+/* --> */
+</style>
+<script type="text/javascript">
+//<![CDATA[
+	var nc_flag = false;
+	var nc_item = "NONE";
+	function nc_show(id) {
+		if (nc_flag)
+			return;
+		nc_flag = true;
+		nc_item = ""+id;
+		$("#nc_"+id).fadeIn(500);
+		$("#wbk").fadeTo(500, 0.75);
+	}
+	function nc_collapse(id) {
+		nc_item = "NONE";
+		$("#nc_"+id).fadeOut(250);
+		$("#wbk").fadeOut(250);
+		setTimeout(function() {
+			nc_flag = false;
+		}, 250);
+	}
+	function nc_close() {
+		if (!nc_flag)
+			return;
+		nc_collapse(nc_item);
+	}
+//]]>
+</script>
+<div id="wbk" onClick="nc_close();"></div>
+{% for news in r %}
+<h4> {{ news.headline }}</h4>
+<i>{{ news.date }}</i>
+<br /><br />
+<i> {{ news.shortdesc }}</i>
+<br />
+<a href="javascript:void(0);" onclick="nc_show('{{ news.id }}');">Read Story</a>
+<div class="ncExpand" id="nc_{{ news.id }}">
+	<div class="ncClose">
+		<a href="javascript:void(0);" onclick="nc_collapse('{{ news.id }}');" title="Close">&nbsp; X &nbsp;</a>
+	</div>
+	<div class="ncContent">
+		<h4>{{ news.headline }}</h4>
+		<i>{{ news.date }}</i>
+		<br /><br />
+		{{ news.content }}
+	</div>
+</div>
+<br /><br /><br />
+<br /><br /><br />
+{% endfor %}
+<a href="/news/_add">Add News Item</a>
+
+{% endblock content %}
+
+{% block pagetitle %}
+All News
+{% endblock pagetitle %}

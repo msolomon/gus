@@ -4,17 +4,25 @@
 {{group.group_name}} : {{forum.forum_name}} : Threads
 {% endblock pagetitle %}
 
-{% block content %}
-<a href="/forum/{{group.id}}/{{forum.id}}/add_thread">New Thread</a>
+{% block sidebar_top %}
+<h2>Forum Options</h2>
+<ul>
+ <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
+ <li><a href="/forum/{{group.id}}">Return to Forums</a></li>
+ <li><a href="/forum/{{group.id}}/{{forum.id}}/add_thread">New Thread</a></li>
+ </ul>
+{% endblock %}
 
-<table border="1" cellpadding="6">
+{% block content %}
+<table border="1" cellpadding="6" class="table" width="95%">
+<th>Thread Name</th><th align="right">Last Post</th><th></th>
 {% for thread in threads %}
-	<tr>
+	<tr class="{% cycle 'odd' "even" %}">
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.thread_name}}</a></b><br />
-	  by <a href="">{{thread.user.username|capfirst}}</td> 
-	 <td>Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.LastPostThread.id}}">{{thread.LastPostDate}}</a><br />
-	  by <a href="">{{thread.LastPostUser.username|capfirst}}</a></td>
-	 <td> <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/delete_thread">Delete Thread</a>
+	  by <a href="/users/profile">{{thread.user.username|capfirst}}</td> 
+	 <td align="right">Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.LastPostDate}}</a><br />
+	  by <a href="/users/profile">{{thread.LastPostUser.username|capfirst}}</a></td>
+	 <td align="right"> <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/delete_thread">Delete Thread</a>
 	</tr>
 {% endfor %}
 </table>
