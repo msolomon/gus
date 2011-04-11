@@ -3,7 +3,7 @@
 
 {% block content %}
 <h3>{{gallery}} {% if can_add %}[<a href="/gallery/image/add/{{gallery.pk}}">Add Image</a>]{% endif %}</h3>
-Created by: <a href="#">{{gallery.user.username}}</a> on {{gallery.date_created|date:"l, F jS, Y"}}
+Created by: <b>{{gallery.user.username}}</b> on {{gallery.date_created|date:"l, F jS, Y"}}
 <br/><br/>
 
 {% for i in images %}
