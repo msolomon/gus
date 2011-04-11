@@ -11,7 +11,7 @@
 
 <!-- Print a list of the groups that the user belongs to, and each of the galleries for each group -->
 {% for g in groups %}
-  <b>{{ g.group_name }}</b> {% if g in can_add %}[<a href="/gallery/add/{{g.pk}}">Add Gallery</a>]{% endif %}
+  <b>{{ g.group_name }}</b> {% if g in can_add %}[ <a href="/gallery/add/{{g.pk}}">Add Gallery</a> ]{% endif %}
   <br/>
   
 {% if galleries|length_is:0 %}

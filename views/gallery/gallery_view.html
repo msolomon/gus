@@ -2,7 +2,7 @@
 {% block pagetitle %}{{gallery}} - Image Gallery{% endblock %}
 
 {% block content %}
-<h3>{{gallery}} {% if can_add %}[<a href="/gallery/image/add/{{gallery.pk}}">Add Image</a>]{% endif %}</h3>
+<h3>{{gallery}} {% if can_add %}[ <a href="/gallery/image/add/{{gallery.pk}}">Add Image</a> ]{% endif %}</h3>
 Created by: <b>{{gallery.user.username}}</b> on {{gallery.date_created|date:"l, F jS, Y"}}
 <br/><br/>
 
