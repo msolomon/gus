@@ -18,11 +18,9 @@ Profile
 		<p>Role: {{role.name}}</p>
 		<p>	
 		<a href="/bill">Bills:</a>
-		{% if not bill %}
-			No bills
-		{% else %}
-			{{bill}}
-		{% endif %}
+		{% for bill in role.group.my_bills %}
+			{{bill.outstanding}}
+		{% endfor %}
 		</p>
 		</td>
 	</tr>

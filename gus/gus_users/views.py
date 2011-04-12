@@ -68,8 +68,13 @@ def profile(urlRequest):
         my_role = gus_role.objects.with_user_in_group(my_group, my_self)
     except:
         my_role = None
-    my_bill = bill.objects.filter(user = my_self.id)
-    return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self, 'group':my_group, 'role':my_role, 'bill':my_bill}, context_instance=RequestContext(urlRequest))
+    #my_bill = bill.objects.filter(user = my_self.id)
+    my_bills = []
+    for a in my_roles:
+        AGRP = a.group
+        AGRP.my_bills  = bill.objects.filter(group = a.group)
+        my_bills.append(AGRP)
+    return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self, 'group':my_group, 'role':my_role, 'bills':my_bills}, context_instance=RequestContext(urlRequest))
     
     
 # Note to self: This function uncovered a naming inconsistency;
