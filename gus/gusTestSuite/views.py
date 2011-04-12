@@ -165,7 +165,10 @@ def viewGroup(urlRequest, group_id):
            'edituser':urlRequest.user.has_group_perm(group,'Can change user'),
            'addrole':urlRequest.user.has_group_perm(group,'Can add gus_role'),
            'delrole':urlRequest.user.has_group_perm(group,'Can delete gus_role'),
-           'editrole':urlRequest.user.has_group_perm(group,'Can change gus_role'),   
+           'editrole':urlRequest.user.has_group_perm(group,'Can change gus_role'),
+           'addgroup':urlRequest.user.has_group_perm(group,'Can add group'),
+           'delgroup':urlRequest.user.has_group_perm(group,'Can delete group'),
+           'editgroup':urlRequest.user.has_group_perm(group,'Can change group'),   
               }
     return render_to_response('groups/viewGroup.html',
 	{ 'group':group, 'role':role,'roles':roles,'can':my_perms, 

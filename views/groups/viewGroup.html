@@ -9,6 +9,9 @@
     {% if can.adduser %}
     <li><a href="#" onClick="toggle(0)">Add User</a>
     {% endif %}
+    {% if can.addgroup %}
+    <li><a href="/groups/{{group.id}}/Addsubgroup/">Add Subgroup</a>
+    {% endif %}
 </ul>
 {% endblock%}
 {% block content %}
