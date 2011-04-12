@@ -5,42 +5,30 @@ Profile
 
 {% block content %}
 
-{% if not roles %}
- 	<strong>You are not yet a member of any groups</strong>
- 	{% else %}
-<form name=groupsForm  method=POST>
-  {% csrf_token %}
- 	
-  <p>	Groups
-<!-- Switch to \{\{ form.as_p or somevariation of django forms\}\} -->
-  <select name=groupSelect size=1 onChange="groupsForm.submit();">
-    <option value="" SELECTED>Select a group
 
-    {% for role in roles %}
-    <option value={{role.group.id}}>{{role.group.group_name}}
-    {%endfor %}
 
-  </select>
-  </p>
-</form>
-{%endif%}
+<table width="95%">
+	{% for role in roles %}
+	<tr align="left">
+		<th>Group: {{role.group.group_name}}</th>
+	</tr>
+	<tr>
+		<td width="10%">
+		<p>Description - {{role.group.group_description}}</p>
+		<p>Role: {{role.name}}</p>
+		<p>	
+		<a href="/bill">Bills:</a>
+		{% if not bill %}
+			No bills
+		{% else %}
+			{{bill}}
+		{% endif %}
+		</p>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
 
-{% if group %}
-<h3>{{group.group_name}} Profile<hr/>
-<p></p>
-<h4>Group: {{group.group_name}}</h4>
-<p>Description - {{group.group_description}}</p>
-<p></p>
-
-<p>Role: {{role.name}}</p>
-<p>
-{% endif %}	
-{% if not bill %}
-	Bill: No bills
-{% else %}
-	{{bill}}
-{% endif %}
-</p>
 {% endblock content %}
 
 
