@@ -346,3 +346,38 @@ def editRolePerms(urlRequest,role_id):
                                 },
                                 context_instance=RequestContext(urlRequest)
                               )
+@login_required
+def AddSubgroup(urlRequest,group_id):
+    
+    try:
+        group=gus_group.objects.get(pk=group_id)
+        #ensure that we can add groups
+        if not urlRequest.user.has_group_perm(group,'Can add group'):
+            return HttpResponseRedirect('/groups/%s/'%group_id)
+    except:
+        return HttpResponseRedirect('/')
+    if urlRequest.method == 'POST':
+        form = SimpleSubGroupAddForm(urlRequest.POST)
+        if form.is_valid():
+            try:
+                grp = gus_group.objects.create_group(form.cleaned_data['group_name'],form.cleaned_data['group_description'],form.cleaned_data['group_image'] or "")
+                grp.parent_group=group
+                grp.save()
+            except:
+                pass
+            return HttpResponseRedirect('/groups/%s/'%group_id)
+    else:
+        form = SimpleSubGroupAddForm({'parent_group':group_id})
+    
+    return render_to_response('test/form.html',
+                                {
+                                 'submiturl':'/groups/%s/Addsubgroup/'%group_id,
+                                 'enctype':'multipart/form-data',
+                                 'form':form,
+                                 'title':'Add Subgroup to %s'%group.group_name,
+                                 'btnlabel':'Create Subgroup',
+                                },
+                                context_instance=RequestContext(urlRequest)
+            
+                                )
+        
