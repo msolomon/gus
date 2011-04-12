@@ -60,7 +60,34 @@ function toggle(flag){
     }
 }
 </script>
+{% for subgrp in group.getChildren %}
+<div>
+<h2>{{subgrp.group_name}}<h2>
+	<div style="margin-left:15px">
+	{% for r in subgrp.roles %}
+	{% for usr in r.users.all %}
+	{{ usr.username }} (
+	{% if r.name != "Owner" and can.editrole %}
+		<a href="/roles/EditPerms/{{r.id}}/">{{r.name}}</a>
+	{% else %}
+		{{r.name}}
+	{% endif %} 
+	<br/>
+<div style="margin-left:40px">
+{% if can.edituser %}
+<a href="/groups/{{group.id}}/EditRole/{{usr.id}}">Change User Role</a>
+{% endif %}
+{% if can.edituser and can.deluser and usr.id != user.id%} | {% endif %}
+{% if can.deluser and user.id != usr.id %}
+<a href="/groups/{{group.id}}/RemoveUser/{{usr.id}}/">Delete User</a>
+{% endif %}
+</div>
 
+{% endfor %}
+{% endfor %}
+</div>
+</div>	
+{% endfor %}
 {% comment %}
 {{ can }} {{ group }}
 {% endcomment %}
