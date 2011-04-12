@@ -5,7 +5,9 @@ Profile
 
 {% block content %}
 
-
+<h2>Welcome, {{usr.username}}<hr/>
+<h4></h4>
+<p>Email: {{usr.email}}</p>
 
 <table width="95%">
 	{% for role in roles %}
@@ -22,6 +24,9 @@ Profile
 			{{bill.outstanding}}
 		{% endfor %}
 		</p>
+		<a href="/gallery">Gallery</a>
+		<p></p>
+		<a href="/forum/{{role.group.id}}">Forums</a>
 		</td>
 	</tr>
 	{% endfor %}
