@@ -54,7 +54,7 @@ def addGroup(urlRequest):
 
     return render_to_response('test/form.html',
                                 {
-                                 'submiturl':'/gus_test/Group/Add/',
+                                 'submiturl':'/groups/Add/',
                                  'enctype':'multipart/form-data',
                                  'form':form,
                                  'title':'Add New Group',
@@ -155,6 +155,30 @@ def AddSubgroup(urlRequest,group_id):
                                 context_instance=RequestContext(urlRequest)
 
                                 )
+
+@login_required
+def removeUserFromRole(urlRequest, user_id, role_id):
+    user = gus_user.objects.get(pk=user_id)
+    role = gus_role.objects.get(pk=role_id)
+    g_id = role.group.id
+    role.users.remove(user)
+    return HttpResponseRedirect('/groups/%s/'%g_id)
+
+@login_required
+def removeUserFromGroup(urlRequest, group_id, user_id):
+    group = gus_group.objects.get(pk=group_id)
+    user = gus_user.objects.get(pk=user_id)
+    r = gus_role.objects.with_user_in_group(group,user)
+    return removeUserFromRole(urlRequest, user_id, r.id)
+
+@login_required
+def deleteRole(urlRequest, role_id):
+    role = gus_role.objects.get(pk=role_id)
+    g_id = role.group.id
+    role.delete()
+    return HttpResponseRedirect('/groups/%s/'%g_id)
+
+
 @login_required
 def editRole(urlRequest, group_id, user_id):
     try:
@@ -203,7 +227,7 @@ def editRolePerms(urlRequest,role_id):
 
     return render_to_response('test/form.html',
                                 {
-                                 'submiturl':('/gus_test/Role/EditPerms/%s/'%role_id),
+                                 'submiturl':('/groups/EditPerms/%s/'%role_id),
                                  'encType':'multipart/form-data',
                                  'form':form,
                                  'title':'Edit Permissions For Role %s'%role.name,
