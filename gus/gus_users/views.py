@@ -70,10 +70,10 @@ def profile(urlRequest):
     my_images = []
     temp = []
     for b in my_roles:
-        AGRP = b.group
+        IMGS = b.group
         temp = gus_gallery.objects.filter(group = b.group)
-        AGRP.my_images = temp.filter(user = my_self)
-        my_images.append(len(AGRP.my_images))
+        IMGS.my_images = len(temp.filter(user = my_self))
+        my_images.append(IMGS)
     
     try:
         my_role = gus_role.objects.with_user_in_group(my_group, my_self)
