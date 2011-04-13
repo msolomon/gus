@@ -23,7 +23,7 @@ def index(urlRequest):
     data['groups']=[{'group':g,'candeletegroup':usr.has_group_perm(g,'Can delete group')} for g in grps]
 
     #return HttpResponse(data['groups'][0].group_name)
-    return render_to_response('test/welcome2.html', data
+    return render_to_response('groups/index.html', data
          #'urls':{'delete':'/gus_test/Group/Delete/%s/'},
          ,context_instance=RequestContext(urlRequest));
 

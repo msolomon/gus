@@ -1,8 +1,22 @@
 {% extends "base.html" %}
-{% block pagetitle %}Gus: Groups{%endblock%}
+{% load control_manager  %}
+{% block pagetitle %}My Groups{% endblock %}
 {% block content %}
-{% for group in groups %}
-<a href="groups/{{group.id}}/Edit/">{{group}}</a><br>
-{% endfor %}
-{% endblock %}
-
+<div style="width:450px;">
+<h3>Groups </h3>
+	{% for g in groups %}
+	
+	<div>
+	 <a href="/groups/{{g.group.id}}/">{{g.group.group_name}}</a> 
+	 {% if g.candeletegroup %}
+	 [ <a href="/gus_test/Group/Delete/{{g.group.id}}/">Delete</a> ]
+	 [ <a href="/groups/{{g.group.id}}/RemoveUser/{{user.id}}/">Leave Group</a> ]
+	 {% endif %}
+	 {% comment %}
+	 [ <a href="/gus_test/Group/Add">Add Subgroup</a> ]
+	 {% control user grp 'link_label' 'http://url' 'Can change user' %}
+	 {% endcomment %}
+	</div>
+	{% endfor %}
+</div>
+{%endblock%}
