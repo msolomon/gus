@@ -13,7 +13,7 @@ class new_forum_form (forms.Form):
 #End
 
 class new_thread_form (forms.Form):
-	Name = forms.CharField(max_length = 25)
+	Name = forms.CharField(max_length = 128)
 	Text = forms.CharField(widget = forms.Textarea)
 #End
 
