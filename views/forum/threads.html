@@ -9,7 +9,9 @@
 <ul>
  <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
  <li><a href="/forum/{{group.id}}">Return to Forums</a></li>
- <li><a href="/forum/{{group.id}}/{{forum.id}}/add_thread">New Thread</a></li>
+ {% if can.addthread %}
+  <li><a href="/forum/{{group.id}}/{{forum.id}}/add_thread">New Thread</a></li>
+ {% endif %}
  </ul>
 {% endblock %}
 
@@ -19,10 +21,14 @@
 {% for thread in threads %}
 	<tr class="{% cycle 'odd' "even" %}">
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.thread_name}}</a></b><br />
-	  by <a href="/users/profile">{{thread.user.username|capfirst}}</td> 
+	  by <!--<a href="">-->{{thread.user.username|capfirst}}<!--</td>--> 
 	 <td align="right">Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.LastPostDate}}</a><br />
-	  by <a href="/users/profile">{{thread.LastPostUser.username|capfirst}}</a></td>
-	 <td align="right"> <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/delete_thread">Delete Thread</a>
+	  by <!--<a href="">-->{{thread.LastPostUser.username|capfirst}}<!--</a>--></td>
+	 <td align="right"> <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/delete_thread">
+	 {% if can.deletethread %}
+	  Delete Thread
+	 {% endif %}
+	 </a>
 	</tr>
 {% endfor %}
 </table>

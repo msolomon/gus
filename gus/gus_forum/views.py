@@ -36,8 +36,14 @@ def index(request, group_id):
 	#End
 
 	groups_forums = forum.objects.filter(group = request_for_group)
-	
-	return render_to_response('forum/forums.html', {"forums":groups_forums, "group":request_for_group}, context_instance=RequestContext(request))
+
+	my_perms={
+	'addforum':request.user.has_group_perm(request_for_group, 'Can add forum'),
+	'editforum':request.user.has_group_perm(request_for_group, 'Can change forum'),
+	'deleteforum':request.user.has_group_perm(request_for_group, 'Can delete forum'),
+	}
+
+	return render_to_response('forum/forums.html', {"can":my_perms, "forums":groups_forums, "group":request_for_group}, context_instance=RequestContext(request))
 #End
 
 def view_threads(request, group_id, forum_id):
@@ -58,7 +64,12 @@ def view_threads(request, group_id, forum_id):
 
 	forums_threads = forum_thread.objects.filter(forum = request_for_forum)
 
-	return render_to_response('forum/threads.html', {"threads": forums_threads, "forum":request_for_forum, "group":request_for_group}, context_instance=RequestContext(request))
+	my_perms={
+	'addthread':request.user.has_group_perm(request_for_group, 'Can add forum_thread'),
+	'deletethread':request.user.has_group_perm(request_for_group, 'Can delete forum_thread'),
+	}
+
+	return render_to_response('forum/threads.html', {"can":my_perms, "threads": forums_threads, "forum":request_for_forum, "group":request_for_group}, context_instance=RequestContext(request))
 #End
 
 def view_posts(request, group_id, forum_id, thread_id):
@@ -83,7 +94,13 @@ def view_posts(request, group_id, forum_id, thread_id):
 
 	threads_posts = forum_post.objects.filter(thread = request_for_thread)
 
-	return render_to_response('forum/posts.html', {"posts": threads_posts, "thread": request_for_thread, "forum":request_for_forum, "group":request_for_group}, context_instance=RequestContext(request))
+	my_perms={
+	'addpost':request.user.has_group_perm(request_for_group, 'Can add forum_post'),
+	'editpost':request.user.has_group_perm(request_for_group, 'Can change forum_post'),
+	'deletepost':request.user.has_group_perm(request_for_group, 'Can delete forum_post'),
+	}
+
+	return render_to_response('forum/posts.html', {"can":my_perms, "posts": threads_posts, "thread": request_for_thread, "forum":request_for_forum, "group":request_for_group}, context_instance=RequestContext(request))
 #End
 
 @login_required
@@ -318,14 +335,16 @@ def edit_forum(request, group_id, forum_id):
 	#End
 
 	if request.method == "POST":
-		form = new_forum_form(request.POST, instance=request_for_forum)
+		form = new_forum_form(request.POST)
 		if form.is_valid():
-			forum = form.save(commit=False)
+			request_for_forum.forum_name = form.cleaned_data["Name"]
+			request_for_forum.forum_description = form.cleaned_data["Description"]
+			request_for_forum.save()
 			return HttpResponseRedirect('/forum/%s' %group_id)
 		#End
 	#End
 	else:
-		form = new_forum_form()
+		form = new_forum_form({"Name":request_for_forum.forum_name, "Description":request_for_forum.forum_description})
 	#End
 
 	return render_to_response('forum/edit_forum.html', {"group":request_for_group, "forum":request_for_forum, "form":form}, context_instance=RequestContext(request))
@@ -364,14 +383,15 @@ def edit_post(request, group_id, forum_id, thread_id, post_id):
 	#End
 
 	if request.method == "POST":
-		form = new_post_form(request.POST, instance=request_for_post)
+		form = new_post_form(request.POST)
 		if form.is_valid():
-			post = form.save()
-			return HttpResponseRedirect('/forum/%s/%s/%s/' % (group_id, forum_id, post_id))
+			request_for_post.post_text = form.cleaned_data["Text"]
+			request_for_post.save()
+			return HttpResponseRedirect('/forum/%s/%s/%s/' % (group_id, forum_id, thread_id))
 		#End
 	#End
 	else:
-		form = new_post_form()
+		form = new_post_form({"Text":request_for_post.post_text})
 	#End
 
 	return render_to_response('forum/edit_post.html', {"group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "post":request_for_post, "form":form}, context_instance=RequestContext(request))

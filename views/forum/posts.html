@@ -10,7 +10,9 @@
  <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
  <li><a href="/forum/{{group.id}}">Return to Forums</a></li>
  <li><a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a></li>
- <li><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a></li>
+ {% if can.addpost %}
+  <li><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a></li>
+ {% endif %}
 </ul>
 {% endblock %}
 
@@ -18,16 +20,28 @@
 <table border="1" cellpadding="6" class="table" width="95%">
 {% for post in posts %}
 	<tr>
-	 <th><b><a href="/users/profile">{{post.user.username|capfirst}}</a></th>
+	 <th><b><!--<a href="">-->{{post.user.username|capfirst}}<!--</a>--></th>
 	 <th colspan="2" align="right"></b>{{post.date_created}}</th>
 	</tr>
 	<tr colspan="3">
 	 <td colspan="3">{{post.post_text}}</td>
 	</tr>
 	<tr colspan="2">
-	 <td><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a></td>
-	 <td><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/edit_post">Edit Post</a></td>
-	 <td><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/delete_post">Delete Post</a></td>
+	<td align="center"><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">
+	{% if can.addpost %}
+	 Post Reply
+	{% endif %}
+	</a></td>
+	<td align="center"><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/edit_post">
+	{% if can.editpost %}
+	 Edit Post
+	{% endif %}
+	</a></td>
+	<td align="center"><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/delete_post">
+	{% if can.deletepost %}
+	 Delete Post
+	{% endif %}
+	</a></td>
 	</tr>
 {% endfor %}
 </table>

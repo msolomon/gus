@@ -8,7 +8,9 @@
 <h2>Forum Options</h2>
 <ul>
  <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
- <li><a href="/forum/{{group.id}}/add_forum">Add Forum</a></li>
+ {% if can.addforum %}
+	<li><a href="/forum/{{group.id}}/add_forum">Add Forum</a></li>
+ {% endif %}
 </ul>
 {% endblock %}
 
@@ -20,11 +22,19 @@
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}">{{forum.forum_name}}</a></b><br />
 	  <p>{{forum.forum_description}}</p></td>
 	 <td align="right">Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostDate}}</a><br />
-	  by <a href="/users/profile">{{forum.LastPostUser.username|capfirst}}</a>
+	  by <!--<a href="">-->{{forum.LastPostUser.username|capfirst}}<!--</a>-->
 	  in <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostThread.thread_name}}</a>
 	 </td>
-	 <td align="right"> <a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">Edit Forum</a><br />
-	  <a href="/forum/{{group.id}}/{{forum.id}}/delete_forum">Delete Forum</a>
+	 <td align="right"> <a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">
+	 {% if can.editforum %}
+	  Edit Forum
+	 {% endif %}
+	 </a><br />
+	 <a href="/forum/{{group.id}}/{{forum.id}}/delete_forum">
+	 {% if can.deleteforum %}
+	  Delete Forum
+	 {% endif %}
+	 </a>
 	</tr>
 {% endfor %}
 </table>
