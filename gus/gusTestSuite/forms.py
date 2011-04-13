@@ -64,7 +64,15 @@ class SimpleAddUserToGroup(forms.Form):
         self.fields['group'].initial = group.id
         self.fields['role'].queryset = gus_role.objects.filter(_role_group=group)
                             
-                    
+class SimpleSubGroupAddForm(forms.Form):
+    """
+    This Form Allows the adding of new subgroups to a supergroup
+    """
+    group_name = forms.CharField(max_length=100)
+    group_description=forms.CharField(widget=forms.Textarea,required=False)
+    group_image = forms.FileField(required=False)
+    parent_group=forms.IntegerField(widget=forms.HiddenInput)
+                        
 class SimpleGroupAddForm(forms.Form):
     """
     This is the form that allows you to add a new group
