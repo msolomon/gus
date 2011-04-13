@@ -36,7 +36,7 @@ def index(urlRequest):
          'users':gus_user.objects.all(),
          'groups':gus_group.objects.all(),
          },context_instance=RequestContext(urlRequest));
-
+"""
 @login_required
 def index2(urlRequest):
     
@@ -53,10 +53,11 @@ def index2(urlRequest):
     return render_to_response('test/welcome2.html', data
          #'urls':{'delete':'/gus_test/Group/Delete/%s/'},
          ,context_instance=RequestContext(urlRequest));
+"""
 def authUser(urlRequest):
     return render_to_response('users/info.html',{},
                               context_instance=RequestContext(urlRequest))
-
+"""
 @login_required
 def addGroup(urlRequest):
     
@@ -91,7 +92,7 @@ def addGroup(urlRequest):
                                 },
                                 context_instance=RequestContext(urlRequest)
                               );
-
+"""
 @login_required
 def editUser(urlRequest, user_id):
     #get our user
@@ -126,7 +127,7 @@ def editUser(urlRequest, user_id):
                                 context_instance=RequestContext(urlRequest)
                               );
 
-
+"""
 @login_required
 def editGroup(urlRequest, group_id):
     from gus.gus_groups.utils import getGroupRoles
@@ -176,12 +177,12 @@ def viewGroup(urlRequest, group_id):
 	  context_instance=RequestContext(urlRequest)
 	  )
     #return HttpResponse("testing")
-
+"""
 @login_required
 def deleteUser(urlRequest, user_id):
     user = gus_user.objects.get(pk=user_id)
     return HttpResponse('Delete User : %s ' % user)
-
+"""
 @login_required
 def deleteGroup(urlRequest, group_id):
     group = gus_group.objects.get(pk=group_id)
@@ -242,7 +243,7 @@ def editRole(urlRequest, group_id, user_id):
                         
                        },context_instance=RequestContext(urlRequest)
                        )
-
+"""
  
  
 #@login_required # you need to be able to register without being logged in
@@ -274,7 +275,7 @@ def addUser(urlRequest):
                                 },
                                 context_instance=RequestContext(urlRequest)
                               );
-                              
+"""                              
 @login_required
 def viewUser(urlRequest,user_id):
     try:
@@ -383,4 +384,4 @@ def AddSubgroup(urlRequest,group_id):
                                 context_instance=RequestContext(urlRequest)
             
                                 )
-        
+"""        
