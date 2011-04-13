@@ -8,6 +8,8 @@ from django.template import RequestContext
 from gus_roles.models import gus_role
 from gus_users.models import gus_user
 from gus_groups.models import gus_group
+from gus_gallery.models import gus_gallery
+from gus_gallery.models import gus_image
 from gus_bill.models import bill
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.views import logout_then_login
@@ -64,17 +66,25 @@ def profile(urlRequest):
     
     my_self = urlRequest.user
     my_roles = gus_role.objects.with_user(my_self)
+    
+    my_images = []
+    temp = []
+    for b in my_roles:
+        IMGS = b.group
+        temp = gus_gallery.objects.filter(group = b.group)
+        IMGS.my_images = len(temp.filter(user = my_self))
+        my_images.append(IMGS)
+    
     try:
         my_role = gus_role.objects.with_user_in_group(my_group, my_self)
     except:
         my_role = None
-    #my_bill = bill.objects.filter(user = my_self.id)
     my_bills = []
     for a in my_roles:
         AGRP = a.group
         AGRP.my_bills  = bill.objects.filter(group = a.group)
         my_bills.append(AGRP)
-    return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self, 'group':my_group, 'role':my_role, 'bills':my_bills}, context_instance=RequestContext(urlRequest))
+    return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self, 'group':my_group, 'role':my_role, 'bills':my_bills, 'images':my_images}, context_instance=RequestContext(urlRequest))
     
     
 # Note to self: This function uncovered a naming inconsistency;

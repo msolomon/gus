@@ -16,7 +16,6 @@ Bills
 {% endif %}
 
 <table border="1" class="table" width="95%">
-{% for bill in bills %}
   <tr>
   <th align="center" >{{bill.group.group_name|capfirst}} </th>
   <th align="center" ><b>User</th> 
@@ -25,6 +24,7 @@ Bills
   <th align="center" ><b>Payments</th> 
   <th align="center" ><b>Outstanding</th> </b>
   <th></th>
+{% for bill in bills %}
     <tr>
     <td > </td>
     <td align="center" >{{bill.user.username|capfirst}}</td> 
@@ -35,8 +35,9 @@ Bills
 	<td></td>
     </tr>
 {% endfor %}
+</table>
 
-{% for group in adminGroups %}
+<table border="1" class="table" width="95%">
   <tr>
   <th align="center">{{group.group_name|capfirst}} : <a href='/bill/Add/{{group.id}}/'>Add</a></th> 
   <th align="center"><b>User</th> 
@@ -45,7 +46,7 @@ Bills
   <th align="center"><b>Payments</th> 
   <th align="center"><b>Outstanding</th> </b>
   <th></th>
-  {% for bill in group.my_bills %}
+{% for bill in adminGroups %}
   <tr>
     <td align="center" ><a href='/bill/Delete/{{bill.id}}'>Delete</a></td> 
     <td align="center" >{{bill.user.username|capfirst}}</td> 
@@ -56,7 +57,6 @@ Bills
     <td align="center" ><a href='/bill/Payments/{{bill.id}}'>Payments</a><br />
     <a href='/bill/Archive/{{bill.id}}'>Renew</a></td>
     </tr>
-  {% endfor %}
 {% endfor %}
 </table>
 
