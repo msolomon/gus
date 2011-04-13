@@ -9,28 +9,28 @@ Profile
 <h4></h4>
 <p>Email: {{usr.email}}</p>
 
-<table width="95%">
-	{% for role in roles %}
-	<tr align="left">
-		<th>Group: {{role.group.group_name}}</th>
-	</tr>
-	<tr>
-		<td width="10%">
-		<p>Description - {{role.group.group_description}}</p>
-		<p>Role: {{role.name}}</p>
-		<p>	
-		<a href="/bill">Bills:</a>
-		{% for bill in role.group.my_bills %}
-			{{bill.outstanding}}
-		{% endfor %}
-		</p>
-		<a href="/gallery">Gallery</a>
-		<p></p>
-		<a href="/forum/{{role.group.id}}">Forums</a>
-		</td>
-	</tr>
-	{% endfor %}
-</table>
+{% for role in roles %}
+  <table width="95%">
+	  <tr align="left">
+		  <th>Group: {{role.group.group_name}}</th>
+	  </tr>
+  	<tr>
+		  <td width="10%">
+		  <p>Description - {{role.group.group_description}}</p>
+		  <p>Role: {{role.name}}</p>
+		  <p>	
+		  <a href="/bill">Bills:</a>
+		  {% for bill in role.group.my_bills %}
+		  	{{bill.outstanding}}
+		  {% endfor %}
+		  </p>
+		  <a href="/gallery">Gallery</a>
+		  <p></p>
+		  <a href="/forum/{{role.group.id}}">Forums</a>
+		  </td>
+	  </tr>
+  </table>
+{% endfor %}
 
 {% endblock content %}
 
