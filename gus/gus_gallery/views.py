@@ -329,7 +329,7 @@ def image_edit(urlRequest, image_id):
         # If the user just posted data to the form, and it validates, update it
         the_form = image_edit_form(urlRequest.POST, instance=image)
         if the_form.is_valid():
-            the_form.save(commit=False)
+            the_form.save()
             return HttpResponseRedirect('/gallery/' + `gallery.id`)
         else:
             error = True
