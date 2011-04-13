@@ -64,10 +64,10 @@ class gus_image(models.Model):
     A single image belonging to a gus_gallery.
     """
     date_created = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=1000, blank=True, null=True)
+    description = models.CharField(max_length=1000, blank=True, required=False, default='')
     gallery = models.ForeignKey(gus_gallery)
     image = models.ImageField(upload_to='gallery/%Y/%m')
-    name = models.CharField(max_length=500, blank=True, null=True)
+    name = models.CharField(max_length=500, blank=True, required=False, default='')
     user = models.ForeignKey(gus_user)
     
     def __unicode__(self):
