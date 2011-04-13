@@ -9,7 +9,7 @@
 	<div>
 	 <a href="/groups/{{g.group.id}}/">{{g.group.group_name}}</a> 
 	 {% if g.candeletegroup %}
-	 [ <a href="/gus_test/Group/Delete/{{g.group.id}}/">Delete</a> ]
+	 [ <a href="/groups/Delete/{{g.group.id}}/">Delete</a> ]
 	 [ <a href="/groups/{{g.group.id}}/RemoveUser/{{user.id}}/">Leave Group</a> ]
 	 {% endif %}
 	 {% comment %}
