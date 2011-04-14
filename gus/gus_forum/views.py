@@ -8,7 +8,7 @@ from gus_users.models import *
 from gus_roles.models import *
 
 class new_forum_form (forms.Form): 
-	Name = forms.CharField(max_length = 25)
+	Name = forms.CharField(max_length = 32)
 	Description = forms.CharField(widget = forms.Textarea)
 #End
 
@@ -43,7 +43,7 @@ def index(request, group_id):
 	'deleteforum':request.user.has_group_perm(request_for_group, 'Can delete forum'),
 	}
 
-	return render_to_response('forum/forums.html', {"can":my_perms, "forums":groups_forums, "group":request_for_group}, context_instance=RequestContext(request))
+	return render_to_response('forum/forums.html', {"can":my_perms, "group":request_for_group, "forums":groups_forums}, context_instance=RequestContext(request))
 #End
 
 def view_threads(request, group_id, forum_id):
@@ -69,7 +69,7 @@ def view_threads(request, group_id, forum_id):
 	'deletethread':request.user.has_group_perm(request_for_group, 'Can delete forum_thread'),
 	}
 
-	return render_to_response('forum/threads.html', {"can":my_perms, "threads": forums_threads, "forum":request_for_forum, "group":request_for_group}, context_instance=RequestContext(request))
+	return render_to_response('forum/threads.html', {"can":my_perms, "group":request_for_group, "forum":request_for_forum, "threads":forums_threads}, context_instance=RequestContext(request))
 #End
 
 def view_posts(request, group_id, forum_id, thread_id):
@@ -95,12 +95,13 @@ def view_posts(request, group_id, forum_id, thread_id):
 	threads_posts = forum_post.objects.filter(thread = request_for_thread)
 
 	my_perms={
+	'deletethread':request.user.has_group_perm(request_for_group, 'Can delete forum_thread'),
 	'addpost':request.user.has_group_perm(request_for_group, 'Can add forum_post'),
 	'editpost':request.user.has_group_perm(request_for_group, 'Can change forum_post'),
 	'deletepost':request.user.has_group_perm(request_for_group, 'Can delete forum_post'),
 	}
 
-	return render_to_response('forum/posts.html', {"can":my_perms, "posts": threads_posts, "thread": request_for_thread, "forum":request_for_forum, "group":request_for_group}, context_instance=RequestContext(request))
+	return render_to_response('forum/posts.html', {"can":my_perms, "group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "posts":threads_posts}, context_instance=RequestContext(request))
 #End
 
 @login_required
@@ -134,7 +135,7 @@ def add_forum(request, group_id):
 		form = new_forum_form() 
 	#End
 
-	return render_to_response('forum/add_forum.html', {"group":request_for_group, "form":form}, context_instance=RequestContext(request))
+	return render_to_response('forum/add_forum.html', {"form":form, "group":request_for_group}, context_instance=RequestContext(request))
 #End
 
 @login_required
@@ -177,7 +178,7 @@ def add_thread(request, group_id, forum_id):
 		form = new_thread_form() 
 	#End
 
-	return render_to_response('forum/add_thread.html', {"group":request_for_group, "forum":request_for_forum, "form":form}, context_instance=RequestContext(request))
+	return render_to_response('forum/add_thread.html', {"form":form, "group":request_for_group, "forum":request_for_forum}, context_instance=RequestContext(request))
 #End
 
 @login_required
@@ -216,7 +217,7 @@ def add_post(request, group_id, forum_id, thread_id):
 		form = new_post_form() 
 	#End
 
-	return render_to_response('forum/add_post.html', {"group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "form":form}, context_instance=RequestContext(request))
+	return render_to_response('forum/add_post.html', {"form":form, "group":request_for_group, "forum":request_for_forum, "thread":request_for_thread}, context_instance=RequestContext(request))
 #End
 
 @login_required
@@ -303,7 +304,8 @@ def delete_post(request, group_id, forum_id, thread_id, post_id):
 		form = delete_post_form(request.POST)
 		if form.is_valid():
 			form.cleaned_data["Reason"]
-			request_for_post.EditPost("Post Deleted by %s. Reason: %s" % (request.user.username, form.cleaned_data["Reason"]))
+			request_for_post.post_text = "Post Deleted by %s. Reason: %s" % (request.user.username, form.cleaned_data["Reason"])
+			request_for_post.save()
 			return HttpResponseRedirect('/forum/%s/%s/%s' % (group_id, forum_id, thread_id))
 		#End
 	#End
@@ -311,7 +313,7 @@ def delete_post(request, group_id, forum_id, thread_id, post_id):
 		form = delete_post_form()
 	#End
 
-	return render_to_response('forum/delete_post.html', {"group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "post":request_for_post, "form":form}, context_instance=RequestContext(request))
+	return render_to_response('forum/delete_post.html', {"form":form, "group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "post":request_for_post}, context_instance=RequestContext(request))
 #End
 
 @login_required
@@ -347,7 +349,7 @@ def edit_forum(request, group_id, forum_id):
 		form = new_forum_form({"Name":request_for_forum.forum_name, "Description":request_for_forum.forum_description})
 	#End
 
-	return render_to_response('forum/edit_forum.html', {"group":request_for_group, "forum":request_for_forum, "form":form}, context_instance=RequestContext(request))
+	return render_to_response('forum/edit_forum.html', {"form":form, "group":request_for_group, "forum":request_for_forum}, context_instance=RequestContext(request))
 #End
 
 @login_required
@@ -377,7 +379,7 @@ def edit_post(request, group_id, forum_id, thread_id, post_id):
 	except:
 		return HttpResponse('Post Not Found!')
 	#End
-	
+
 	if not request.user == request_for_post.user:
 		return HttpResponse("You are only allowed to edit your own posts.")
 	#End
@@ -394,5 +396,5 @@ def edit_post(request, group_id, forum_id, thread_id, post_id):
 		form = new_post_form({"Text":request_for_post.post_text})
 	#End
 
-	return render_to_response('forum/edit_post.html', {"group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "post":request_for_post, "form":form}, context_instance=RequestContext(request))
+	return render_to_response('forum/edit_post.html', {"form":form, "group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "post":request_for_post}, context_instance=RequestContext(request))
 #End

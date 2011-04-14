@@ -10,7 +10,7 @@ class ForumManager(models.Manager):
 
 	def create_forum(self, Name, Description, Group):
 		"""
-		This will create a new forum.
+		This will create a new forum tied to a group.
 		
 		@type Name: models.CharField()
 		@param Name: The name of the forum being created.
@@ -30,7 +30,7 @@ class ForumManager(models.Manager):
 		return super(ForumManager, self).get_query_set().create(forum_name = Name, forum_description = Description, group = Group)
 	#End
 #End
-			
+
 class forum(models.Model):
 	"""
 	class forum is our model of a forum.
@@ -41,17 +41,17 @@ class forum(models.Model):
 	forum_name = models.CharField(max_length=25)#The forum's name.
 	forum_description = models.TextField()		#The forum's description.
 
-	def EditForumDescription(self, Description):
-		"""
-		This allows the forum's description to be changed.
-		
-		@type Description: models.TextField()
-		@param Description: The description to replace the current description.
-		"""
-
-		self.forum_description = Description
-		self.save()
-	#End
+#	def EditForumDescription(self, Description):
+#		"""
+#		This allows the forum's description to be changed.
+#		
+#		@type Description: models.TextField()
+#		@param Description: The description to replace the current description.
+#		"""
+#
+#		self.forum_description = Description
+#		self.save()
+#	#End
 
 	def LastPostDate(self):
 		"""
@@ -126,22 +126,22 @@ class forum(models.Model):
 		forum_thread.objects.create(thread_name = Threadname, user = User, thread_text = Text, forum = Forum)
 	#End
 
-	def DeleteThread(self, Thread):
-		"""
-		Allows for the deletion of a thread in this forum as long as the user has admin permissions.
-		
-		@type Thread: forum_thread
-		@param Thread: The thread to be found and deleted.
-		"""
-
-		threads = forum_thread.objects.filter(pk = Thread.id)
-		if(len(threads) > 0):
-			threads[0].delete()
-		#End
-		else:
-			raise Exception("Threads Empty", "List of Threads are Empty.")
-		#End
-	#End
+#	def DeleteThread(self, Thread):
+#		"""
+#		Allows for the deletion of a thread in this forum as long as the user has admin permissions.
+#		
+#		@type Thread: forum_thread
+#		@param Thread: The thread to be found and deleted.
+#		"""
+#
+#		threads = forum_thread.objects.filter(pk = Thread.id)
+#		if(len(threads) > 0):
+#			threads[0].delete()
+#		#End
+#		else:
+#			raise Exception("Threads Empty", "List of Threads are Empty.")
+#		#End
+#	#End
 #End
 
 class forum_thread(models.Model):
@@ -216,22 +216,22 @@ class forum_thread(models.Model):
 		forum_post.objects.create(user = User, thread = self, post_text = Text)
 	#End
 
-	def DeletePost(self, Post):
-		"""
-		Allows for the deletion of a post in this thread.
-		
-		@type Post: forum_post
-		@param Post: The post to be found and deleted.
-		"""
-
-		posts = forum_post.objects.filter(pk = Post)
-		if(len(posts) > 0):
-			posts[0].delete()
-		#End
-		else:
-			raise Exception("Posts Empty", "The list of posts is empty.")
-		#End
-	#End
+#	def DeletePost(self, Post):
+#		"""
+#		Allows for the deletion of a post in this thread.
+#		
+#		@type Post: forum_post
+#		@param Post: The post to be found and deleted.
+#		"""
+#
+#		posts = forum_post.objects.filter(pk = Post)
+#		if(len(posts) > 0):
+#			posts[0].delete()
+#		#End
+#		else:
+#			raise Exception("Posts Empty", "The list of posts is empty.")
+#		#End
+#	#End
 #End
 
 class forum_post(models.Model):
@@ -244,15 +244,15 @@ class forum_post(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True, blank=True)#The date this post was created.
 	post_text = models.TextField()				#The content of this post.
 
-	def EditPost(self, Text):
-		"""
-		This allows the post's text to be changed.
-		
-		@type Text: models.TextField()
-		@param Text: The text to replace the current text.
-		"""
-
-		self.post_text = Text
-		self.save()
-    #End
+#	def EditPost(self, Text):
+#		"""
+#		This allows the post's text to be changed.
+#		
+#		@type Text: models.TextField()
+#		@param Text: The text to replace the current text.
+#		"""
+#
+#		self.post_text = Text
+#		self.save()
+#    #End
 #End

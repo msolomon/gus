@@ -15,8 +15,12 @@
 {% endblock %}
 
 {% block content %}
+{% if forums|length > 0 %}
 <table border="1" cellpadding="6" class="table" width="95%">
-<th>Forum</th><th align="right">Last Post</th><th></th>
+<th>Forum</th><th align="right">Last Post</th>
+{% if can.editforum or can.deleteforum %}
+ <th></th>
+{% endif %}
 {% for forum in forums %}
 	<tr class="{% cycle 'odd' "even" %}">
 	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}">{{forum.forum_name}}</a></b><br />
@@ -25,17 +29,23 @@
 	  by <!--<a href="">-->{{forum.LastPostUser.username|capfirst}}<!--</a>-->
 	  in <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostThread.thread_name}}</a>
 	 </td>
-	 <td align="right"> <a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">
+	 {% if can.editforum or can.deleteforum %}
+	  <td align="right"> 
+	 {% endif %}
 	 {% if can.editforum %}
-	  Edit Forum
+	  <a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">Edit Forum</a><br />
 	 {% endif %}
-	 </a><br />
-	 <a href="/forum/{{group.id}}/{{forum.id}}/delete_forum">
 	 {% if can.deleteforum %}
-	  Delete Forum
+	  <a href="/forum/{{group.id}}/{{forum.id}}/delete_forum">Delete Forum</a>
 	 {% endif %}
-	 </a>
 	</tr>
 {% endfor %}
 </table>
+{% endif %}
+{% if forums|length == 0 %}
+ <p>Your group currently has no forums.</p>
+ {% if can.addforum %}
+  <a href="/forum/{{group.id}}/add_forum">Add Forum</a>
+ {% endif %}
+{% endif %}
 {% endblock content %}
