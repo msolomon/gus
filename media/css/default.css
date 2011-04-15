@@ -157,7 +157,7 @@ a .header_image{
 
 /* main */
 .main {
-	background: url(img/main.gif) repeat-y;
+	/* background: url(img/main.gif) repeat-y; */
 	border-top: 4px solid #FFF;
 	padding: 8px 12px 0 0;
 }
