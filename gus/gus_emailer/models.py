@@ -60,15 +60,16 @@ class DBEmail(models.Model):
                             username__iexact=sender[:-len(settings.EMAIL_SUFFIX)]))
             except: pass
         self.recipients = recipients
+        self.save() # to establish primary key
         for r in gus_recipients:
             try:
-                self.save() # to establish primary key
                 self.gus_receivers.add(
                     gus_user.objects.get(
                         _user=User.objects.get(username__iexact=r)
                         )
                     )
             except: pass
+        self.save(pk=self.pk)
     
     def delete(self, user):
         self.deleted.add(user)
@@ -166,7 +167,6 @@ class Emailer():
             em = DBEmail()
             em.fill(v['BODY[HEADER]'], v['BODY[TEXT]'], date,
                     message.from_email, recip, gus_recip)
-            em.save()
             
             # now delete from server
             server.add_flags(k, ['\Deleted'])
@@ -197,7 +197,6 @@ class Emailer():
                 date = parse(time)
             t = date.utcoffset()
             date = date.replace(tzinfo=None) - t            
-            print date.tzinfo
             
             frm, frm_address = self.get_from_with_link(message)
                 
