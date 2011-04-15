@@ -131,6 +131,9 @@ class Emailer():
         self.imap_password = password #models.CharField(password)
         
     def update_email(self):
+        '''
+        Fetch email messages from the IMAP server and store them
+        '''
         server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
         server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
         
@@ -155,6 +158,7 @@ class Emailer():
             try:
                 date = parse(re.search('date:([^\n]*)\n', 
                                  v['BODY[HEADER]'], re.I).group(1).strip())
+                date.replace(tzinfo=None)
             except:
                 date = None
             
@@ -192,6 +196,7 @@ class Emailer():
             except:
                 time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
                 date = parse(time)
+            date.replace(tzinfo=None)
             
             frm, frm_address = self.get_from_with_link(message)
                 
@@ -217,7 +222,8 @@ class Emailer():
     
     def fetch_messages(self):
         '''
-        Fetch email messages from the IMAP server and store them
+        Fetch email messages from the IMAP server and store them. This has
+        error handling update_email lacks.
         '''
         # double-check email, if fails the first time
         for _ in range(2):
@@ -266,7 +272,7 @@ class Emailer():
             except:
                 time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
                 date = parse(time)
-             
+            date.replace(tzinfo=None)
                 
             try:  subject = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
             except (IndexError, AttributeError): subject = ''      
