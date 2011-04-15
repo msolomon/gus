@@ -9,8 +9,9 @@
 {% for year, months in years %}
 <center>
 <table cellpadding="10" cellspacing="3" class="calendar">
-
+<tr></tr>
        <div class="year">
+         <td bgcolor="#ffffff"> Previous</td>
    {% for month in months %}
         {% if month.current %}
              {% if group %}
@@ -32,8 +33,9 @@
 
     
        {% endfor %}
+       <td> Next</td>
        </div>
-
+</td>
      </table>
      </center>
 {% endfor %}
