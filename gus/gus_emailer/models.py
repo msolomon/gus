@@ -54,7 +54,9 @@ class DBEmail(models.Model):
     def fill(self, header, body, date, sender, recipients, gus_recipients):
         h = hashlib.md5()
         h.update(body)
-        h.update(date.ctime())
+        try:
+            h.update(date.ctime())
+        except: pass
         h.update(str(sender))
         h.update(str(recipients))
         h.update(str(gus_recipients))
@@ -257,7 +259,7 @@ class Emailer():
             try: self.update_email()
             except Exception, e:
                 logging.debug(e)
-                #print e
+                print e
                 continue
             break
 
