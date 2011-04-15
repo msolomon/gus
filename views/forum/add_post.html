@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
 {% block pagetitle %}
-{{group.group_name}} : {{forum.forum_name}} : {{thread.thread_name}} : Posts : New Post
+	{{group.group_name}} : {{forum.forum_name}} : {{thread.thread_name}} : Posts : New Post
 {% endblock pagetitle %}
 
 {% block sidebar_top %}
-<h2>Forum Options</h2>
-<ul>
- <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
- <li><a href="/forum/{{group.id}}">Return to Forums</a></li>
- <li><a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a></li>
- <li><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">Return to Posts</a></li>
-</ul>
+	<h2>Forum Options</h2>
+	<ul>
+		<li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
+		<li><a href="/forum/{{group.id}}">Return to Forums</a></li>
+		<li><a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a></li>
+		<li><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">Return to Posts</a></li>
+	</ul>
 {% endblock %}
 
 {% block content %}
- <form method="POST">
-  {%csrf_token%}
-  {{form.as_p}}
-  <input type="SUBMIT" value="Post Reply">
- </form>
+	<form method="POST">
+		{%csrf_token%}
+		{{form.as_p}}
+		<input type="SUBMIT" value="Post Reply">
+	</form>
 {% endblock content %}

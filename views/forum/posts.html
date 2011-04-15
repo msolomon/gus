@@ -1,50 +1,59 @@
 {% extends "base.html" %}
 
 {% block pagetitle %}
-{{group.group_name}} : {{forum.forum_name}} : {{thread.thread_name}} : Posts
+	{{group.group_name}} : {{forum.forum_name}} : {{thread.thread_name}} : Posts
 {% endblock pagetitle %}
 
 {% block sidebar_top %}
-<h2>Forum Options</h2>
-<ul>
- <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
- <li><a href="/forum/{{group.id}}">Return to Forums</a></li>
- <li><a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a></li>
- {% if can.addpost %}
-  <li><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a></li>
- {% endif %}
-</ul>
+	<h2>Forum Options</h2>
+	<ul>
+		<li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
+		<li><a href="/forum/{{group.id}}">Return to Forums</a></li>
+		<li><a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a></li>
+		{% if can.addpost %}
+			<li><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a></li>
+		{% endif %}
+	</ul>
 {% endblock %}
 
 {% block content %}
-<table border="1" cellpadding="6" class="table" width="95%">
-<th colspan="3">{{thread.thread_name}}</th>
-{% for post in posts %}
-	<tr>
-	 <th><b><!--<a href="">-->{{post.user.username|capfirst}}<!--</a>--></th>
-	 <th colspan="2" align="right"></b>{{post.date_created}}</th>
-	</tr>
-	<tr colspan="3">
-	 <td colspan="3">{{post.post_text}}</td>
-	</tr>
-	<tr colspan="2">
-	<td align="center"><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">
-	{% if can.addpost %}
-	 Post Reply
+	{% if posts|length > 0 %}
+		<table border="1" cellpadding="6" class="table" width="95%">
+		<th colspan="3">{{thread.thread_name}}</th>
+		{% for post in posts %}
+			<tr>
+				<th><b><!--<a href="">-->{{post.user.username|capfirst}}<!--</a>--></b></th>
+				<th colspan="2" align="right">{{post.date_created}}</th>
+			</tr>
+			<tr colspan="3">
+				<td colspan="3">{{post.post_text}}</td>
+			</tr>
+			{% if can.addpost or can.editpost or can.deletepost %}
+				<tr colspan="2">
+					<td align="center">
+						{% if can.addpost %}
+							<a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/add_post">Post Reply</a>
+						{% endif %}
+					</td>
+					<td align="center">
+						{% if can.editpost %}
+							<a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/edit_post">Edit Post</a>
+						{% endif %}
+					</td>
+					<td align="center">
+					{% if can.deletepost %}
+						<a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/delete_post">Delete Post</a>
+					{% endif %}
+					</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
+		</table>
 	{% endif %}
-	</a></td>
-	<td align="center"><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/edit_post">
-	{% if can.editpost %}
-	 Edit Post
+	{% if posts|length == 0 %}
+		<p>Somehow this thread has no posts! You should report this to an admin!</p>
+		{% if can.deletethread %}
+			<p>You should <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/delete_thread">delete</a> this thread.</p>
+		{% endif %}
 	{% endif %}
-	</a></td>
-	<td align="center"><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/delete_post">
-	{% if can.deletepost %}
-	 Delete Post
-	{% endif %}
-	</a></td>
-	</tr>
-{% endfor %}
-</table>
-
 {% endblock content %}

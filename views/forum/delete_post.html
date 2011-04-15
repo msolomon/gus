@@ -1,26 +1,26 @@
 {% extends "base.html" %}
 
 {% block pagetitle %}
-{{group.group_name}} : {{forum.forum_name}} : {{thread.thread_name}} : {{post.user.username|capfirst}}'s Post : Delete Post
+	{{group.group_name}} : {{forum.forum_name}} : {{thread.thread_name}} : {{post.user.username|capfirst}}'s Post : Delete Post
 {% endblock pagetitle %}
 
 {% block sidebar_top %}
-<h2>Forum Options</h2>
-<ul>
- <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
- <li><a href="/forum/{{group.id}}">Return to Forums</a></li>
- <li><a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a></li>
- <li><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">Return to Posts</a></li>
-</ul>
+	<h2>Forum Options</h2>
+	<ul>
+		<li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
+		<li><a href="/forum/{{group.id}}">Return to Forums</a></li>
+		<li><a href="/forum/{{group.id}}/{{forum.id}}">Return to Threads</a></li>
+		<li><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">Return to Posts</a></li>
+	</ul>
 {% endblock %}
 
 {% block content %}
-<p>
-Warning! This will overwrite the old post. Please give a reason below.
-</p>
- <form method="POST">
-  {%csrf_token%}
-  {{form.as_p}}
-  <input type="SUBMIT" value="Delete Post">
- </form>
+	<p>
+		Warning! This will overwrite the old post. Please give a reason below.
+	</p>
+	<form method="POST">
+		{%csrf_token%}
+		{{form.as_p}}
+		<input type="SUBMIT" value="Delete Post">
+	</form>
 {% endblock content %}
