@@ -5,9 +5,11 @@ Profile
 
 {% block content %}
 
-<h2>Welcome, {{usr.username}}<hr/>
+<h2>Welcome, {{usr.get_full_name}} ({{usr.username}})<hr/>
 <h4></h4>
-<p>Email: {{usr.email}}</p>
+<p>Email: {{usr.email}}
+	<br>
+<a href="/email/check">{{unread_emails}} unread messsages</a></p>
 
 {% for role in roles %}
   <table width="95%">

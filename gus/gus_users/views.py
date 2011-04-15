@@ -11,6 +11,7 @@ from gus_groups.models import gus_group
 from gus_gallery.models import gus_gallery
 from gus_gallery.models import gus_image
 from gus_bill.models import bill
+from gus_emailer.models import DBEmail, Emailer
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.views import logout_then_login
 
@@ -87,7 +88,22 @@ def profile(urlRequest):
         AGRP = a.group
         AGRP.my_bills  = bill.objects.filter(group = a.group)
         my_bills.append(AGRP)
-    return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self, 'group':my_group, 'role':my_role, 'bills':my_bills, 'images':my_images}, context_instance=RequestContext(urlRequest))
+        
+    for _ in range(2):
+        try: self.update_email()
+        except: continue
+        break
+    
+    unread_emails = DBEmail.objects.filter(gus_receivers=my_self).exclude(viewed=my_self).count()
+    return render_to_response('users/profile.html',
+                              {'roles':my_roles, 
+                               'usr':my_self, 
+                               'group':my_group, 
+                               'role':my_role,
+                               'bills':my_bills, 
+                               'images':my_images,
+                               'unread_emails': unread_emails}, 
+                               context_instance=RequestContext(urlRequest))
     
     
 # Note to self: This function uncovered a naming inconsistency;
