@@ -21,7 +21,10 @@ class loginForm(forms.Form):
 def index(request):
     return HttpResponse('Hello World')
 def welcome(request):
-    return render_to_response('welcome.html',{},context_instance=RequestContext(request))
+    if request.user.is_anonymous():
+        return render_to_response('welcome.html',{},context_instance=RequestContext(request))
+    else:
+        return HttpResponseRedirect('/users/profile')
 
 def logoutView(request):
     return logout_then_login(request,'/login/')
