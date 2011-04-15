@@ -38,7 +38,6 @@ class DBEmail(models.Model):
     An actual email stored in the database
     '''
 
-    uid = models.IntegerField(null=True, blank=True, unique=True)
     date = models.DateTimeField(null=True, blank=True)
     header = models.CharField(max_length=1000)
     body = models.CharField(max_length=10000)
@@ -165,7 +164,6 @@ class Emailer():
             
             # store the email in the DB
             em = DBEmail()
-            em.uid = k
             em.fill(v['BODY[HEADER]'], v['BODY[TEXT]'], date,
                     message.from_email, recip, gus_recip)
             em.save()
