@@ -55,8 +55,7 @@ def index2(urlRequest):
          ,context_instance=RequestContext(urlRequest));
 """
 def authUser(urlRequest):
-    return render_to_response('users/info.html',{},
-                              context_instance=RequestContext(urlRequest))
+    return HttpResponseRedirect('/users/profile')
 """
 @login_required
 def addGroup(urlRequest):
