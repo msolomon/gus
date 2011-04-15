@@ -27,10 +27,10 @@ def month(request, year=None, month=None):
      if not request.user.is_authenticated():
          return HttpResponseRedirect('/login/')
      #groups = getGroupsWithUser(request.user)
-    
+
      if year: year = int(year)
      else: year = time.localtime()[0]
-     
+
      current_year, current_month = time.localtime()[:2]
      if month:
          month_name = month
@@ -88,11 +88,13 @@ def month(request, year=None, month=None):
              list.append([])
              week = week + 1
         total_events = []
-     year = time.localtime()[0]
-    
+     #year = time.localtime()[0]
+     
     
      return render_to_response("calendar/month_view.html",
-                               {'year': year, 
+                               {'year': year,
+                                'yearminus': (year-1),
+                                'yearplus': (year+1), 
                                 'years': years, 
                                 'month_name': month_name, 
                                 'month_days': list,
@@ -260,7 +262,7 @@ def group_month(request, group_id, year=None, month=None):
      except:
         return HttpResponse('Group Not Found.')
         
-     print "hooray"
+
      if year: year = int(year)
      else: year = time.localtime()[0]
      
@@ -317,14 +319,16 @@ def group_month(request, group_id, year=None, month=None):
              list.append([])
              week = week + 1
         total_events = []
-     year = time.localtime()[0]
+#     year = time.localtime()[0]
     
     
      return render_to_response("calendar/month_view.html",
                                {'group': True, ## yes, this is a group calendar
                                 'group_name':group.group_name,
                                 'group_id':group_id,
-                                'year': year, 
+                                'year': year,
+                                'yearminus': (year-1),
+                                'yearplus': (year+1), 
                                 'years': years, 
                                 'month_name': month_name, 
                                 'month_days': list,

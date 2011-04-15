@@ -9,9 +9,11 @@
 {% for year, months in years %}
 <center>
 <table cellpadding="10" cellspacing="3" class="calendar">
-<tr></tr>
+
        <div class="year">
-         <td bgcolor="#ffffff"> Previous</td>
+
+         <td><a href="/calendar/{{yearminus}}/December/"><< {{yearminus}}</a></td>
+
    {% for month in months %}
         {% if month.current %}
              {% if group %}
@@ -33,7 +35,9 @@
 
     
        {% endfor %}
-       <td> Next</td>
+
+       <td><a href="/calendar/{{yearplus}}/January/">{{yearplus}}  >></a></td>
+
        </div>
 </td>
      </table>
@@ -43,7 +47,7 @@
 
 <div class="month">
   <center>
-    <table border="1" bordercolor="#ced9fe"class="month">
+    <table border="1" bordercolor="#ced9fe">
 
     <tr align="center">
         <th>Monday</th>
@@ -61,9 +65,11 @@
 
     
             <td height="70" width="75"
-
+                  {% if current %}
+                      backgroundColor="#0000FF" 
+                  {% endif %}
             {% if day != 0 and not group %}
-            
+              
               valign="top"
               onmouseover=this.style.backgroundColor="#dce4cc";this.style.cursor='pointer'
               onmouseout=this.style.backgroundColor="#e8edff" 
@@ -79,7 +85,12 @@
               
               
               {% if day != 0 %}
+            
+              {% if current %}
+              <b> <font color="#1B5782">{{ day }} </font></b>
+              {% else %}
                 {{ day }}
+                {% endif %}
                 <br>
                
                {% if num_total_events > 2 %} 
