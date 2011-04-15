@@ -6,7 +6,7 @@ from imaplib import *
 from django.db import models
 from django.core import mail
 from gus import settings
-import datetime
+import datetime, logging
 
 from django.contrib.auth.models import User
 from gus.gus_widget.models import Widget
@@ -174,12 +174,9 @@ class Emailer():
             @return: [{uid, subject, from, date}...]
         '''
         
-        # double-check email, if fails the first time
-        for _ in range(2):
-            try: self.update_email()
-            except: continue
-            break
-
+        # get new messages
+        self.fetch_messages()
+        
         messages = DBEmail.objects.filter(gus_receivers=self.user). \
                                     exclude(deleted=self.user).order_by('date')
 
@@ -217,6 +214,19 @@ class Emailer():
                                 })   
         
         return snippets
+    
+    def fetch_messages(self):
+        '''
+        Fetch email messages from the IMAP server and store them
+        '''
+        # double-check email, if fails the first time
+        for _ in range(2):
+            try: self.update_email()
+            except Exception, e:
+                logging.debug(e)
+                continue
+            break
+
     
     def get_from_with_link(self, message):
         # determine the sender to print
