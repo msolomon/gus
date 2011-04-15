@@ -6,7 +6,7 @@ from imaplib import *
 from django.db import models
 from django.core import mail
 from gus import settings
-import datetime, logging
+import datetime, logging, hashlib
 
 from django.contrib.auth.models import User
 from gus.gus_widget.models import Widget
@@ -43,36 +43,53 @@ class DBEmail(models.Model):
     body = models.CharField(max_length=10000)
     sender = models.CharField(max_length=100)
     recipients = models.CharField(max_length=1000)
+    hash = models.CharField(max_length=130)
     gus_receivers = models.ManyToManyField(gus_user)
     gus_sender = models.ForeignKey(gus_user, null=True, blank=True,
                                       related_name='gus_user.dbemail.gus_sender')
     deleted = models.ManyToManyField(gus_user, related_name='gus_user.dbemail.deleted')
     viewed = models.ManyToManyField(gus_user, related_name='gus_user.dbemail.viewed')
     
-    def fill(self, header, body, date, sender, recipients, gus_recipients):
-        self.header = header
-        self.body = body
-        self.date = date
-        self.sender = sender
-        if sender.endswith(settings.EMAIL_SUFFIX):
-            try:
-                self.gus_sender = gus_user.objects.get(_user=User.objects.get(
-                            username__iexact=sender[:-len(settings.EMAIL_SUFFIX)]))
-            except: pass
-        self.recipients = recipients
-        self.save() # to establish primary key
-        print self.id
-        for r in gus_recipients:
-            try:
-                self.gus_receivers.add(
-                    gus_user.objects.get(
-                        _user=User.objects.get(username__iexact=r)
-                        )
-                    )
-            except: pass
-        self.save(force_update=True)
     
-    def delete(self, user):
+    def fill(self, header, body, date, sender, recipients, gus_recipients):
+        h = hashlib.md5()
+        h.update(body)
+        h.update(date.ctime())
+        h.update(str(sender))
+        h.update(str(recipients))
+        h.update(str(gus_recipients))
+        self.hash = h.hexdigest()
+        try:
+            #print 'fill'
+            DBEmail.objects.get(hash=self.hash)
+        except:
+            #print 'unique', hash
+            self.header = header
+            self.body = body
+            self.date = date
+            self.sender = sender
+            if sender.endswith(settings.EMAIL_SUFFIX):
+                try:
+                    self.gus_sender = gus_user.objects.get(_user=User.objects.get(
+                                username__iexact=sender[:-len(settings.EMAIL_SUFFIX)]))
+                except: pass
+            self.recipients = recipients
+            self.save() # to establish primary key
+            for r in gus_recipients:
+                try:
+                    self.gus_receivers.add(
+                        gus_user.objects.get(
+                            _user=User.objects.get(username__iexact=r)
+                            )
+                        )
+                except: pass
+            self.save(force_update=True)
+            return
+        # if we got here, this message was not unique
+        #print 'deleting', hash
+        #self.delete()
+    
+    def delete_email(self, user):
         self.deleted.add(user)
     
     def view(self, user):
@@ -240,6 +257,7 @@ class Emailer():
             try: self.update_email()
             except Exception, e:
                 logging.debug(e)
+                #print e
                 continue
             break
 
@@ -322,7 +340,7 @@ class Emailer():
         '''        
         try:
             message = DBEmail.objects.get(id=emailid)
-            message.delete(self.user)
+            message.delete_email(self.user)
         except:
             return False
         
