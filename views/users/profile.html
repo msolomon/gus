@@ -12,10 +12,11 @@ Profile
 {% for role in roles %}
   <table width="95%">
 	  <tr align="left">
-		  <th>Group: {{role.group.group_name}}</th>
+		  <th>Group: {{role.group.group_name}} [ <a href="/groups/{{role.group.id}}/RemoveUser/{{user.id}}/">Leave Group</a> ]</th>
 	  </tr>
   	<tr>
 		  <td width="10%">
+		  <p><a href="/groups/{{role.group.id}}/">Go to {{role.group.group_name}}</a>
 		  <p>Description - {{role.group.group_description}}</p>
 		  <p>Role: {{role.name}}</p>
 		  <p>	
