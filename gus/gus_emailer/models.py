@@ -61,6 +61,7 @@ class DBEmail(models.Model):
             except: pass
         self.recipients = recipients
         self.save() # to establish primary key
+        print self.id
         for r in gus_recipients:
             try:
                 self.gus_receivers.add(
@@ -69,7 +70,7 @@ class DBEmail(models.Model):
                         )
                     )
             except: pass
-        self.save(pk=self.pk)
+        self.save(force_update=True)
     
     def delete(self, user):
         self.deleted.add(user)
@@ -217,6 +218,15 @@ class Emailer():
                                 'date': date.strftime('%I:%M %p, %x'), 
                                 'unviewed': unviewed                             
                                 })   
+#        
+#        # remove IMAP copies of emails to distinct gus users
+#        uniq = []
+#        for snip in snippets:
+#            o = {}
+#            for k, v in snippet:
+#                if k != 'id':
+#                    o[v] = v
+            
         
         return snippets
     
