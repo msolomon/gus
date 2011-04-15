@@ -16,6 +16,9 @@
 <div class="outer-container">
 <div class="inner-container">
     <div class="header">
+    	  <div style="float:left">
+    	  	<a href="http://bugs.joranbeasley.com/GUS/"><img src="/include/images/css_img/beta.png" /></a> 
+    	  	</div>
         <div class="title">
             {% block title %}
                 <a href="/"><img src="/include/images/guspy.png"/></a>
@@ -26,8 +29,10 @@
 
     <div class="topbar">
         {% block menu %}
+	{% comment %}
             <a href="/gus_test/">Manage Groups and Users</a> | 
             <a href="/groups/">My Groups</a> | 
+	{% endcomment %}
             <a href="/calendar/">My Calendar</a> | 
             <a href="/email/">My Messages</a> | 
             <a href="/bill/">My Bills</a> | 
@@ -65,7 +70,7 @@
                 {% block sidebar_sidewide %}
                 <h2>Gus</h2>
                 <ul>
-                    <li><a href="http://guspy.joranbeasley.com/reports/index.html">Reports</a></li>
+                    <li><a href="https://docs.google.com/document/pub?id=1uWUyukRuzSW0uTwWk9wjTEQqmqnxjEoYgT2F5STrg4Q&pli=1">Help</a></li>
                 </ul>
                 {% endblock %}
 
