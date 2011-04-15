@@ -107,7 +107,7 @@ def editUser(urlRequest, user_id):
             usr.save()
             usr.set_password(form.cleaned_data['password'])
                         
-            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+            return HttpResponseRedirect('/users/profile') # Redirect after POST
     else:
         form = SimpleUserEditForm({'username':usr.username,'email':usr.email
                               ,'id':usr.id,'password':usr._user.password}) 
@@ -261,7 +261,7 @@ def addUser(urlRequest):
                         )
             usr._user.first_name=form.cleaned_data['real_name']
             usr._user.save()
-            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+            return HttpResponseRedirect('/users/profile') # Redirect after POST
     else:
         form = SimpleUserAddForm() # An unbound form
 

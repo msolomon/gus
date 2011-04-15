@@ -9,6 +9,7 @@ from gus_emailer.models import Emailer
 from gus_users.models import gus_user
 from gus_groups.utils import *
 from gus_roles.models import gus_role
+from gus_groups.models import gus_group
 from django import forms
 
 class SendForm(forms.Form):
@@ -58,7 +59,7 @@ def check(request, pagenum=1):
         page = paginator.page(paginator.num_pages)
     
     return render_to_response('email/check.html',
-                              {'username':request.user.username,
+                              {'username':request.user.get_full_name(),
                                'useremail':request.user.getEmail(),
                                'page': page,
                                },
@@ -121,16 +122,30 @@ def check_message(request, uid):
                           {'email': message
                            },
                           context_instance=RequestContext(request))
+
 @login_required
-def send(request, user_ids=[]):
-    # check if we are sending to a user
-    if len(user_ids) > 0:
-        try:
-            usrs = [gus_user.objects.get(pk=user_id).email for id in user_ids]
-        except:
-            pass
+def send_group(request, groupid):
+    # TODO: make this a little more user friendly
+    try:
+        group = gus_group.objects.get(id=groupid)
+        memids = [str(u.id) for u in gus_role.objects.users_with_group(group)]
+        return HttpResponseRedirect('/email/send/%s' % (','.join(memids)))
+    except:
+        return HttpResponseRedirect('/email/send/')
+
+@login_required
+def send(request, user_ids):
+    # check if we are sending to users
+    if request.method == 'GET':
+        usrs = user_ids.split(',')
+        if len(user_ids) > 0:
+            try:
+                usrs = ['"%s" %s' %(u.get_full_name(), u.getEmail())
+                         for u in gus_user.objects.filter(pk__in=usrs)]
+            except: pass
 
     if request.method == 'POST': # If the form has been submitted...
+
         form = SendForm(request.POST) # A form bound to the POST data
         form.add_emails(request.user)
         if form.is_valid(): # All validation rules pass
@@ -142,14 +157,11 @@ def send(request, user_ids=[]):
                     if len(email[key].strip()) == 0: continue
                     for address in eval(email[key]):
                         email['recipients'] += ' %s' % address
-                                            
-            print email['recipients']
 
             em = Emailer(request.user)
             try:
                 em.send_message(email['subject'],
                                 email['message'],
-                                # TODO: sanitize email recipient list
                                 email['recipients'].split()
                                 )
             except SMTPException, e:
@@ -168,7 +180,7 @@ def send(request, user_ids=[]):
     
     form.add_emails(request.user)
 
-    return render_to_response('email/index.html', {
+    return render_to_response('email/send.html', {
         'email_form': form, 
     }, context_instance=RequestContext(request))
 

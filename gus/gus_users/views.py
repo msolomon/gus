@@ -11,8 +11,10 @@ from gus_groups.models import gus_group
 from gus_gallery.models import gus_gallery
 from gus_gallery.models import gus_image
 from gus_bill.models import bill
+from gus_emailer.models import DBEmail, Emailer
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.views import logout_then_login
+import logging
 
 class loginForm(forms.Form):
     user = forms.CharField(max_length=100)
@@ -87,9 +89,34 @@ def profile(urlRequest):
         AGRP = a.group
         AGRP.my_bills  = bill.objects.filter(group = a.group)
         my_bills.append(AGRP)
-    return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self, 'group':my_group, 'role':my_role, 'bills':my_bills, 'images':my_images}, context_instance=RequestContext(urlRequest))
+        
+    em = Emailer(my_self)
+    for _ in range(2):
+        try: em.update_email()
+        except Exception, e:
+            logging.debug(e)
+            continue
+        break
     
+    unread_emails = DBEmail.objects.filter(gus_receivers=my_self).exclude(viewed=my_self).count()
+    return render_to_response('users/profile.html',
+                              {'roles':my_roles, 
+                               'usr':my_self, 
+                               'group':my_group, 
+                               'role':my_role,
+                               'bills':my_bills, 
+                               'images':my_images,
+                               'unread_emails': unread_emails}, 
+                               context_instance=RequestContext(urlRequest))
     
+def listing(urlRequest):
+	return render_to_response('users/listing.html', {
+         'users':gus_user.objects.all(),
+         'groups':gus_group.objects.all(),
+         },context_instance=RequestContext(urlRequest));
+
+
+
 # Note to self: This function uncovered a naming inconsistency;
 #    the group name is group_name, the user name is username, and the role name is just "name"
 #    Bring up at next meeting

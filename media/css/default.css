@@ -92,10 +92,17 @@ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
 	padding-bottom: 64px;
 }
 
+.beta{
+float:left;
+position:absolute;
+}
+
 a .header_image{
 	text-decoration:none;
 	outline:none;
 	background:none;
+	margin:auto;
+	display:block;
 }
 
 /* header & title */
