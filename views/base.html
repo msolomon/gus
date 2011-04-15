@@ -6,6 +6,8 @@
 		<link rel="stylesheet" type="text/css" href="/include/css/default.css" media="screen"/>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
 		<script type="text/javascript" src="/include/js/jquery-ui-1.8.11.custom.min.js"></script>
+		<script type="text/javascript" src="/include/js/tiny_mce/tiny_mce.js"></script>
+		<script type="text/javascript" src="/include/js/mce.js"></script>
 		<link rel="stylesheet" type="text/css" href="/include/css/ui-lightness/jquery-ui-1.8.11.custom.css" media="screen"/>
 		{% block custom_header %}
 		{% endblock %}
@@ -16,9 +18,12 @@
 <div class="outer-container">
 <div class="inner-container">
     <div class="header">
+    	<div class="beta">
+     		<a href="http://bugs.joranbeasley.com/GUS/"><img src="/include/images/css_img/beta.png" /></a> 
+    	</div>
         <div class="title">
             {% block title %}
-                <a href="/"><img src="/include/images/guspy.png"/></a>
+                <a href="/"><img class="header_image" src="/include/images/guspy.png"/></a>
             {% endblock %}</td>
             <div class="slogan">{% block subtitle %}Groups in a University Setting{% endblock %}</div>
         </div>
@@ -67,8 +72,15 @@
                 {% block sidebar_sidewide %}
                 <h2>Gus</h2>
                 <ul>
-                    <li><a href="http://guspy.joranbeasley.com/reports/index.html">Reports</a></li>
+                    <li><a href="https://docs.google.com/document/pub?id=1uWUyukRuzSW0uTwWk9wjTEQqmqnxjEoYgT2F5STrg4Q&pli=1">Help</a></li>
                 </ul>
+
+
+				  <ul>
+	                   <li><a href="/listing">All Groups</a></li>
+	              </ul>
+
+
                 {% endblock %}
 
                 {% block sidebar_bottom %}

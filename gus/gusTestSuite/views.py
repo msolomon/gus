@@ -55,8 +55,7 @@ def index2(urlRequest):
          ,context_instance=RequestContext(urlRequest));
 """
 def authUser(urlRequest):
-    return render_to_response('users/info.html',{},
-                              context_instance=RequestContext(urlRequest))
+    return HttpResponseRedirect('/users/profile')
 """
 @login_required
 def addGroup(urlRequest):
@@ -108,7 +107,7 @@ def editUser(urlRequest, user_id):
             usr.save()
             usr.set_password(form.cleaned_data['password'])
                         
-            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+            return HttpResponseRedirect('/users/profile') # Redirect after POST
     else:
         form = SimpleUserEditForm({'username':usr.username,'email':usr.email
                               ,'id':usr.id,'password':usr._user.password}) 
@@ -262,7 +261,7 @@ def addUser(urlRequest):
                         )
             usr._user.first_name=form.cleaned_data['real_name']
             usr._user.save()
-            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+            return HttpResponseRedirect('/users/profile') # Redirect after POST
     else:
         form = SimpleUserAddForm() # An unbound form
 

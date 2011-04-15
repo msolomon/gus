@@ -5,9 +5,15 @@ Profile
 
 {% block content %}
 
+<<<<<<< HEAD
 <h2>Welcome, {{usr.real_name}}<hr/>
+=======
+<h2>Welcome, {{usr.get_full_name}} ({{usr.username}})<hr/>
+>>>>>>> db751d7b017157da1e8368ac62c8f856f9792d7c
 <h4></h4>
-<p>Email: {{usr.email}}</p>
+<p>Email: {{usr.email}}
+	<br>
+<a href="/email/check">{{unread_emails}} unread messsages</a></p>
 
 {% for role in roles %}
   <table width="95%">
@@ -26,9 +32,11 @@ Profile
 		  {% endfor %}
 		  </p>
 		  <p>
+      <a href="/calendar/group{{role.group.id}}/">Calendar</a>
+      </p>
+		  <p>
 		  <a href="/gallery">Gallery</a> - {{role.group.my_images}} images uploaded by you
 		  </p>
-		  <p></p>
 		  <a href="/forum/{{role.group.id}}">Forums</a>
 		  </td>
 	  </tr>

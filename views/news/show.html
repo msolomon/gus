@@ -111,7 +111,7 @@
 <h4> {{ news.headline }}</h4>
 <i>{{ news.date }}</i>
 <br /><br />
-<i> {{ news.shortdesc }}</i>
+<i> {{ news.shortdesc|safe }}</i>
 <br />
 <a href="javascript:void(0);" onclick="nc_show('{{ news.id }}');">Read Story</a>
 <div class="ncExpand" id="nc_{{ news.id }}">
@@ -122,7 +122,7 @@
 		<h4>{{ news.headline }}</h4>
 		<i>{{ news.date }}</i>
 		<br /><br />
-		{{ news.content }}
+		{{ news.content|safe }}
 	</div>
 </div>
 <br /><br /><br />

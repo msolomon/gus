@@ -30,7 +30,12 @@
 			</td>
 			<td align="right">
 				Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.LastPostDate}}</a><br />
-				by <!--<a href="">-->{{thread.LastPostUser.username|capfirst}}<!--</a>-->
+				by 
+				{% if thread.LastPostUser != 'Nobody' %}
+					<!--<a href="">-->{{thread.LastPostUser.username|capfirst}}<!--</a>-->
+				{% else %}
+					Nobody
+				{% endif %}
 			</td>
 			{% if can.deletethread %}
 				<td align="right">
