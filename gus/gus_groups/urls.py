@@ -9,14 +9,17 @@ from django.conf.urls.defaults import *
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('gusTestSuite.views',
+urlpatterns = patterns('gus_groups.views',
     # Example:
     # (r'^gus/', include('gus.foo.urls')),
-    (r'^$','index2'),
+    (r'^$','index'),
     (r'^([0-9]+)/CreateRole/', 'createRole'),
+    (r'^EditPerms/([0-9]+)/', 'editRolePerms'),
     (r'^([0-9]+)/EditRole/([0-9]+)/', 'editRole'),
     (r'^([0-9]+)/Edit/', 'editGroup'),
+    (r'^Delete/([0-9]+)/', 'deleteGroup'),
     (r'^([0-9]+)/$', 'viewGroup'),
+    (r'^([0-9]+)/Addsubgroup/', 'AddSubgroup'),
     (r'^Add/', 'addGroup'),
     #(r'^EditPerms/(?P<role_id>\d+)/', 'editRolePerms'),
     (r'^([0-9]+)/RemoveUser/(\d+)/', 'removeUserFromGroup'),

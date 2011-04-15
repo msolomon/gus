@@ -157,7 +157,7 @@ a .header_image{
 
 /* main */
 .main {
-	background: url(img/main.gif) repeat-y;
+	/* background: url(img/main.gif) repeat-y; */
 	border-top: 4px solid #FFF;
 	padding: 8px 12px 0 0;
 }
@@ -166,7 +166,7 @@ a .header_image{
 .calendar
 {
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-  margin: 45px;
+  margin: 20px;
   width: 500px;
   text-align: left;
   border-collapse: collapse;
@@ -187,7 +187,7 @@ a .header_image{
 .month
 {
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-  margin: 45px;
+  margin: 10px;
   text-align: left;
   border-collapse: collapse;
 }

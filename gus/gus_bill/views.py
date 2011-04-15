@@ -47,7 +47,32 @@ def index(request):
 		
 
 	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":adgroups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
+
+@login_required
+def group_view(request, group_id=-1):
+	try:
+	  group = gus_group.objects.get(pk=group_id)
+	except:
+	  return HttpResponseRedirect('/bill/')
+
+	usr = request.user
+	bills = bill.objects.filter(user = usr.id, group = group).exclude(name__contains="_archive")
+	#returns all the roles which the usr is an Owner
 	
+	form = new_bill_form()
+	
+	#roles = gus_role.objects.with_user(usr).filter(_role_name = "Owner")
+	#roles = [r in usr.roles if usr.has_group_perm(r.group,'Can add gus_bill')]
+	admin_bills=None
+	perm=usr.has_group_perm(group,'Can add gus_bill')
+	if perm: admin_bills=bill.objects.filter(group = group)
+		
+		
+		
+
+	return render_to_response('bill/index2.html', {"bills":bills,'group_name':group.group_name, "adminBills":admin_bills, "formFint":form, "user":usr}, context_instance=RequestContext(request))
+
+
 #AddBill
 @login_required
 def AddBill(request,group_id=-1):

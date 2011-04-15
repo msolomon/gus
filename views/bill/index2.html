@@ -14,39 +14,41 @@ Bills
 {% if not bills %}
   No Bills associated with user: {{user.username|capfirst}}.
 {% endif %}
-
+<h2>{{group_name|capfirst}}</h2>
 <table border="1" class="table" width="95%">
   <tr>
-  <th align="center" ><b>Group</b></th>
+  <th></th>
   <th align="center" ><b>User</th> 
   <th align="center" ><b>Name</th> 
   <th align="center" ><b>Total</th> 
   <th align="center" ><b>Payments</th> 
   <th align="center" ><b>Outstanding</th> </b>
+  <th></th>
   </tr>
 {% for bill in bills %}
-  <tr>
-  <td align="center" ><b>{{bill.group.group_name|capfirst}} </b></td>
+    <tr>
+    <td > </td>
     <td align="center" >{{bill.user.username|capfirst}}</td> 
     <td align="center" >{{bill.name}}</td>
     <td align="center" >{{bill.totalvalue}}</td>
     <td align="center" >{{bill.totalpaid}}</td>
     <td align="center" >{{bill.outstanding}}</td>
+	<td></td>
     </tr>
 {% endfor %}
-</table>
-<br><br>
+</table><br><br>
+<h2>{{group_name|capfirst}} : <a href='/bill/Add/{{group.id}}/'>Add</a></h2>
 <table border="1" class="table" width="95%">
-{% for group in adminGroups %}
-  <tr>
-  <th align="center">{{group.group_name|capfirst}} : <a href='/bill/Add/{{group.id}}/'>Add</a></th> 
+<tr>
+  <th></th>
   <th align="center"><b>User</th> 
   <th align="center"><b>Name</th> 
   <th align="center"><b>Total</th> 
   <th align="center"><b>Payments</th> 
   <th align="center"><b>Outstanding</th> </b>
   <th></th>
-  {% for bill in group.my_bills %}
+  </tr>
+{% for bill in adminBills %}
   <tr>
     <td align="center" ><a href='/bill/Delete/{{bill.id}}'>Delete</a></td> 
     <td align="center" >{{bill.user.username|capfirst}}</td> 
@@ -57,7 +59,6 @@ Bills
     <td align="center" ><a href='/bill/Payments/{{bill.id}}'>Payments</a><br />
     <a href='/bill/Archive/{{bill.id}}'>Renew</a></td>
     </tr>
-  {% endfor %}
 {% endfor %}
 </table>
 
