@@ -6,8 +6,8 @@
 {% csrf_token %} -->
 <h4>{{headline}}</h4>
 <i>{{date}}</i><br /><br />
-<i>{{shortdesc}}</i><br /><br />
-{{content}}
+<i>{{shortdesc|safe}}</i><br /><br />
+{{content|safe}}
 <!-- </form> -->
 <br /><br /><br />
 <a href="/news/_all/">View All News</a>
