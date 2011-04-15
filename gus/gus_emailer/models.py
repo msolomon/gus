@@ -158,7 +158,8 @@ class Emailer():
             try:
                 date = parse(re.search('date:([^\n]*)\n', 
                                  v['BODY[HEADER]'], re.I).group(1).strip())
-                date.replace(tzinfo=None)
+                t = date.utcoffset()
+                date = date.replace(tzinfo=None) - t
             except:
                 date = None
             
@@ -196,7 +197,9 @@ class Emailer():
             except:
                 time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
                 date = parse(time)
-            date.replace(tzinfo=None)
+            t = date.utcoffset()
+            date = date.replace(tzinfo=None) - t            
+            print date.tzinfo
             
             frm, frm_address = self.get_from_with_link(message)
                 
@@ -272,7 +275,8 @@ class Emailer():
             except:
                 time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
                 date = parse(time)
-            date.replace(tzinfo=None)
+            t = date.utcoffset()
+            date = date.replace(tzinfo=None) - t
                 
             try:  subject = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
             except (IndexError, AttributeError): subject = ''      
