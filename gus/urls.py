@@ -23,5 +23,6 @@ urlpatterns = patterns('',
 	(r'^include/(.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, '..', 'media')}),
     (r'^users/',include('gus.gus_users.urls')),
     (r'^profile/','gus.gus_users.views.profile'),
+	(r'^listing/','gus.gus_users.views.listing'),
 	(r'^news/',include('gus.gus_news.urls')),
 )

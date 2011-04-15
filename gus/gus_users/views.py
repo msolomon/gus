@@ -86,7 +86,14 @@ def profile(urlRequest):
         my_bills.append(AGRP)
     return render_to_response('users/profile.html', {'roles':my_roles, 'usr':my_self, 'group':my_group, 'role':my_role, 'bills':my_bills, 'images':my_images}, context_instance=RequestContext(urlRequest))
     
-    
+def listing(urlRequest):
+	return render_to_response('users/listing.html', {
+         'users':gus_user.objects.all(),
+         'groups':gus_group.objects.all(),
+         },context_instance=RequestContext(urlRequest));
+
+
+
 # Note to self: This function uncovered a naming inconsistency;
 #    the group name is group_name, the user name is username, and the role name is just "name"
 #    Bring up at next meeting
