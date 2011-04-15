@@ -286,7 +286,7 @@ class gus_user(models.Model):
         return self._user.last_name
     def getRealName(self):
         if self._user.first_name : return self._user.first_name
-        else return self.username
+        else: return self.username
     #GETTER/SETTER enabled ... hackish
     #GETTERS AND SETTERS WILL BE USED (!Include simillar code in all classes)
     #getter and setter hooks , these must be setup if you wish to 
