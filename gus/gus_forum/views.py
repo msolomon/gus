@@ -37,11 +37,14 @@ def index(request, group_id):
 
 	groups_forums = forum.objects.filter(group = request_for_group)
 
-	my_perms={
-	'addforum':request.user.has_group_perm(request_for_group, 'Can add forum'),
-	'editforum':request.user.has_group_perm(request_for_group, 'Can change forum'),
-	'deleteforum':request.user.has_group_perm(request_for_group, 'Can delete forum'),
-	}
+	my_perms = {'addforum':False, 'editforum':False, 'deleteforum':False}
+	if not request.user.is_anonymous():
+		my_perms={
+		'addforum':request.user.has_group_perm(request_for_group, 'Can add forum'),
+		'editforum':request.user.has_group_perm(request_for_group, 'Can change forum'),
+		'deleteforum':request.user.has_group_perm(request_for_group, 'Can delete forum'),
+		}
+	#End
 
 	return render_to_response('forum/forums.html', {"can":my_perms, "group":request_for_group, "forums":groups_forums}, context_instance=RequestContext(request))
 #End
@@ -64,10 +67,13 @@ def view_threads(request, group_id, forum_id):
 
 	forums_threads = forum_thread.objects.filter(forum = request_for_forum)
 
-	my_perms={
-	'addthread':request.user.has_group_perm(request_for_group, 'Can add forum_thread'),
-	'deletethread':request.user.has_group_perm(request_for_group, 'Can delete forum_thread'),
-	}
+	my_perms = {'addthread':False, 'deletethread':False}
+	if not request.user.is_anonymous():
+		my_perms={
+		'addthread':request.user.has_group_perm(request_for_group, 'Can add forum_thread'),
+		'deletethread':request.user.has_group_perm(request_for_group, 'Can delete forum_thread'),
+		}
+	#End
 
 	return render_to_response('forum/threads.html', {"can":my_perms, "group":request_for_group, "forum":request_for_forum, "threads":forums_threads}, context_instance=RequestContext(request))
 #End
@@ -94,12 +100,15 @@ def view_posts(request, group_id, forum_id, thread_id):
 
 	threads_posts = forum_post.objects.filter(thread = request_for_thread)
 
-	my_perms={
-	'deletethread':request.user.has_group_perm(request_for_group, 'Can delete forum_thread'),
-	'addpost':request.user.has_group_perm(request_for_group, 'Can add forum_post'),
-	'editpost':request.user.has_group_perm(request_for_group, 'Can change forum_post'),
-	'deletepost':request.user.has_group_perm(request_for_group, 'Can delete forum_post'),
-	}
+	my_perms = {'deletethread':False, 'addpost':False, 'editpost':False, 'deletepost':False}
+	if not request.user.is_anonymous():
+		my_perms={
+		'deletethread':request.user.has_group_perm(request_for_group, 'Can delete forum_thread'),
+		'addpost':request.user.has_group_perm(request_for_group, 'Can add forum_post'),
+		'editpost':request.user.has_group_perm(request_for_group, 'Can change forum_post'),
+		'deletepost':request.user.has_group_perm(request_for_group, 'Can delete forum_post'),
+		}
+	#End
 
 	return render_to_response('forum/posts.html', {"can":my_perms, "group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "posts":threads_posts}, context_instance=RequestContext(request))
 #End

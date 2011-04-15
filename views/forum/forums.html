@@ -28,8 +28,18 @@
 					<p>{{forum.forum_description}}</p>
 				</td>
 				<td align="right">Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostDate}}</a><br />
-					by <!--<a href="">-->{{forum.LastPostUser.username|capfirst}}<!--</a>-->
-					in <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostThread.thread_name}}</a>
+					by 
+					{% if forum.LastPostUser != 'Nobody' %}
+						<!--<a href="">-->{{forum.LastPostUser.username|capfirst}}<!--</a>-->
+					{% else %}
+						Nobody
+					{% endif %}
+					in 
+					{% if forum.LastPostThread != 'None' %}
+						<a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostThread.thread_name}}</a>
+					{% else %}
+						None
+					{% endif %}
 				</td>
 				{% if can.editforum or can.deleteforum %}
 					<td align="right"> 

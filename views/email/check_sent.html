@@ -32,7 +32,14 @@
 			{{email.date}}
 		</td>
 		<td width="30%">
-			<a href="{{email.to}}">{{email.to}}</a> <br>
+			{% for name, link in email.to %}
+			{% if not link %}
+			{{ name|urlize }}
+			{% else %}
+			<a href="{{link}}">{{name}}</a>
+			{% endif %}
+			{% endfor %}
+			<br>
 		</td>
 		<td width="50%">
 			<a href="/email/check/message/{{email.id}}">{{email.subject}}

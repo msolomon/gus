@@ -284,7 +284,9 @@ class gus_user(models.Model):
         return self._user.first_name
     def getLN(self):
         return self._user.last_name
-    
+    def getRealName(self):
+        if self._user.first_name : return self._user.first_name
+        else: return self.username
     #GETTER/SETTER enabled ... hackish
     #GETTERS AND SETTERS WILL BE USED (!Include simillar code in all classes)
     #getter and setter hooks , these must be setup if you wish to 
@@ -299,4 +301,5 @@ class gus_user(models.Model):
     email = property(getEmail, setEmail)
     first_name = property(getFN, setFN)
     last_name = property(getLN, setLN)
+    real_name = first_name
     roles = property(getRoles, None)

@@ -5,17 +5,20 @@ Profile
 
 {% block content %}
 
-<h2>Welcome, {{usr.username}}<hr/>
+<h2>Welcome, {{usr.get_full_name}} ({{usr.username}})<hr/>
 <h4></h4>
-<p>Email: {{usr.email}}</p>
+<p>Email: {{usr.email}}
+	<br>
+<a href="/email/check">{{unread_emails}} unread messsages</a></p>
 
 {% for role in roles %}
   <table width="95%">
 	  <tr align="left">
-		  <th>Group: {{role.group.group_name}}</th>
+		  <th>Group: {{role.group.group_name}} [ <a href="/groups/{{role.group.id}}/RemoveUser/{{user.id}}/">Leave Group</a> ]</th>
 	  </tr>
   	<tr>
 		  <td width="10%">
+		  <p><a href="/groups/{{role.group.id}}/">Go to {{role.group.group_name}}</a>
 		  <p>Description - {{role.group.group_description}}</p>
 		  <p>Role: {{role.name}}</p>
 		  <p>	
