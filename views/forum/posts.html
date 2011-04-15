@@ -26,7 +26,7 @@
 				<th colspan="2" align="right">{{post.date_created}}</th>
 			</tr>
 			<tr colspan="3">
-				<td colspan="3">{{post.post_text}}</td>
+				<td colspan="3">{{post.post_text|safe}}</td>
 			</tr>
 			{% if can.addpost or can.editpost or can.deletepost %}
 				<tr colspan="2">
@@ -38,8 +38,8 @@
 					<td align="center">
 						{% if can.editpost %}
 							<a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/edit_post">Edit Post</a>
+							</td>
 						{% endif %}
-					</td>
 					<td align="center">
 					{% if can.deletepost %}
 						<a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}/{{post.id}}/delete_post">Delete Post</a>
