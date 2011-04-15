@@ -174,7 +174,6 @@ a .header_image{
 {
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
   margin: 20px;
-  width: 500px;
   text-align: left;
   border-collapse: collapse;
   border-bottom: 1px solid #ced9fe;
@@ -202,19 +201,12 @@ a .header_image{
 .month tr td
 {
   padding: 8px;
-  background: #e8edff;
+
   border-bottom: 1px solid #ced9fe;
   color: #669;
   border-top: 1px solid transparent;
 }
-.month tr.odd td
-{
-  padding: 8px;
-  background: #ccddff;
-  border-bottom: 1px solid #fff;
-  color: #669;
-  border-top: 1px solid transparent;
-}
+
 .calendar td:hover td
 {
   background: #2E8B57;
