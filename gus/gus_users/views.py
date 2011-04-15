@@ -14,6 +14,7 @@ from gus_bill.models import bill
 from gus_emailer.models import DBEmail, Emailer
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.views import logout_then_login
+import logging
 
 class loginForm(forms.Form):
     user = forms.CharField(max_length=100)
@@ -89,9 +90,12 @@ def profile(urlRequest):
         AGRP.my_bills  = bill.objects.filter(group = a.group)
         my_bills.append(AGRP)
         
+    em = Emailer(my_self)
     for _ in range(2):
-        try: self.update_email()
-        except: continue
+        try: em.update_email()
+        except Exception, e:
+            logging.debug(e)
+            continue
         break
     
     unread_emails = DBEmail.objects.filter(gus_receivers=my_self).exclude(viewed=my_self).count()
