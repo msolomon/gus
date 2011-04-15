@@ -25,41 +25,54 @@ class new_bill_form(forms.Form):
   #	      self.fields['role'].queryset = gus_role.objects.filter(_role_group=group)
 
 @login_required
-def index(request,group_id=-1):
+def index(request):
 	usr = request.user
-	try:
-	  group = gus_group.objects.filter(group_id = group_id)
-	  bills = bill.objects.filter(user = usr.id, group = group).exclude(name__contains="_archive")
+	bills = bill.objects.filter(user = usr.id).exclude(name__contains="_archive")
 	#returns all the roles which the usr is an Owner
-	except:
-	  try:
-	    bills = bill.objects.filter(user = usr.id).exclude(name__contains="_archive")
-	  except:
-	    return HttpResponseRedirect('/')
-	  
+	
 	form = new_bill_form()
+	
+	roles = gus_role.objects.with_user(usr).filter(_role_name = "Owner")
 	adgroups = []
 	adbills = []
 	adbillsbygroup = []
-	rles = []
-	users = []
-
-	if request.user.has_group_perm(group, 'Can add bill'):
-	  for r in group.roles:
-	    for u in r.users.all():
-	      users.append(u)
-	    
-	  for u in users:
-		  #a.getGroup() returns the group
-		  #bill.objects.filter(group) returns the bills associated with that group
-		  #adbills will be a list of all the bills which the current user is an owner
-	    billU = bill.objects.filter(user = u, group = group)
-	    adgroups.append(billU)
+	for a in roles:
+		#a.getGroup() returns the group
+		#bill.objects.filter(group) returns the bills associated with that group
+		#adbills will be a list of all the bills which the current user is an owner
+		AGRP = a.group
+		AGRP.my_bills  = bill.objects.filter(group = a.group)
+		adgroups.append(AGRP)
 		
 		
 
 	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":adgroups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
+
+@login_required
+def group_view(request, group_id=-1):
+	try:
+	  group = gus_group.objects.get(pk=group_id)
+	except:
+	  return HttpResponseRedirect('/bill/')
+
+	usr = request.user
+	bills = bill.objects.filter(user = usr.id, group = group).exclude(name__contains="_archive")
+	#returns all the roles which the usr is an Owner
 	
+	form = new_bill_form()
+	
+	#roles = gus_role.objects.with_user(usr).filter(_role_name = "Owner")
+	#roles = [r in usr.roles if usr.has_group_perm(r.group,'Can add gus_bill')]
+	admin_bills=None
+	perm=usr.has_group_perm(group,'Can add gus_bill')
+	if perm: admin_bills=bill.objects.filter(group = group)
+		
+		
+		
+
+	return render_to_response('bill/index2.html', {"bills":bills,'group_name':group.group_name, "adminBills":admin_bills, "formFint":form, "user":usr}, context_instance=RequestContext(request))
+
+
 #AddBill
 @login_required
 def AddBill(request,group_id=-1):

@@ -255,11 +255,13 @@ def addUser(urlRequest):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            gus_user.objects.create_user(
+            usr = gus_user.objects.create_user(
                             form.cleaned_data['username'],
                             form.cleaned_data['email'],
                             form.cleaned_data['password'],
                         )
+            usr._user.first_name=form.cleaned_data['real_name']
+            usr._user.save()
             return HttpResponseRedirect('/gus_test/') # Redirect after POST
     else:
         form = SimpleUserAddForm() # An unbound form
