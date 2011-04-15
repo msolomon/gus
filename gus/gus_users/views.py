@@ -100,6 +100,3 @@ def users_groups(urlRequest,user_id):
     my_roles=gus_role.objects.with_user(usr)
     # Note to self: always include that last argument "context_instance=RequestContext(urlRequest)"
     return render_to_response('users/grouplisting.html', {'roles':my_roles}, context_instance=RequestContext(urlRequest))
-
-def profile(request):
-    return render_to_response('users/grouplisting.html', {'roles':my_roles}, context_instance=RequestContext(urlRequest))
