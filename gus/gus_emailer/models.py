@@ -56,7 +56,8 @@ class DBEmail(models.Model):
         h.update(body)
         try:
             h.update(date.ctime())
-        except: pass
+        except Exception, e:
+            logging.debug(e)
         h.update(str(sender))
         h.update(str(recipients))
         h.update(str(gus_recipients))
@@ -64,7 +65,8 @@ class DBEmail(models.Model):
         try:
             #print 'fill'
             DBEmail.objects.get(hash=self.hash)
-        except:
+        except Exception, e:
+            logging.debug(e)
             #print 'unique', hash
             self.header = header
             self.body = body
@@ -84,7 +86,8 @@ class DBEmail(models.Model):
                             _user=User.objects.get(username__iexact=r)
                             )
                         )
-                except: pass
+                except Exception, e:
+                    logging.debug(e)
             self.save(force_update=True)
             return
         # if we got here, this message was not unique
@@ -180,7 +183,8 @@ class Emailer():
                                  v['BODY[HEADER]'], re.I).group(1).strip())
                 t = date.utcoffset()
                 date = date.replace(tzinfo=None) - t
-            except:
+            except Exception, e:
+                logging.debug(e)
                 date = None
             
             # store the email in the DB
@@ -212,7 +216,8 @@ class Emailer():
             try:
                 datestr = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
                 date = parse(datestr)
-            except:
+            except Exception, e:
+                logging.debug(e)
                 time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
                 date = parse(time)
             t = date.utcoffset()
@@ -221,13 +226,16 @@ class Emailer():
             frm, frm_address = self.get_from_with_link(message)
                 
             try:  subject = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
-            except (IndexError, AttributeError): subject = ''      
+            except (IndexError, AttributeError), e:
+                logging.debug(e)
+                subject = ''      
             
             try:
                 if message.viewed.filter(dbemail__viewed=self.user):
                     unviewed = False
                 else: unviewed = True
-            except:
+            except Exception, e:
+                logging.debug(e)
                 unviewed = True
 
             snippets.insert(0, {'id': message.id,
@@ -281,7 +289,9 @@ class Emailer():
         # double-check email, if fails the first time
         for _ in range(2):
             try: self.update_email()
-            except: continue
+            except Exception, e:
+                logging.debug(e)
+                continue
             break
 
         messages = DBEmail.objects.filter(gus_sender=self.user). \
@@ -299,14 +309,17 @@ class Emailer():
             try:
                 datestr = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
                 date = parse(datestr)
-            except:
+            except Exception, e:
+                logging.debug(e)
                 time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
                 date = parse(time)
             t = date.utcoffset()
             date = date.replace(tzinfo=None) - t
                 
             try:  subject = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
-            except (IndexError, AttributeError): subject = ''      
+            except (IndexError, AttributeError), e:
+                logging.debug(e)
+                subject = ''      
 
             snippets.insert(0, {'id': message.id,
                                 'subject': subject,
@@ -331,7 +344,8 @@ class Emailer():
         try:
             for r in eval(message.recipients):
                 if r not in not_here: to_l.append((r,None))
-        except: pass
+        except Exception, e:
+            logging.debug(e)
         
         return to_l   
     
@@ -365,19 +379,22 @@ class Emailer():
             if self.user in message.gus_receivers.all():
                 pass # user was sent this message
             else: raise SecurityException # cannot view message
-        except Exception:
+        except Exception, e:
+            logging.debug(e)
             return (False, 'You do not have permission to view this message.')
         
         # parse the message and return it
         try:
             em = self.parse_rfc822(message.header, message.body)
-        except KeyError:
+        except KeyError, e:
+            logging.debug(e)
             return (True, 'Still retrieving message from messaging server...')
         
         # mark the message as viewed
         try:
             message.view(self.user)
-        except: pass
+        except Exception, e:
+            logging.debug(e)
         
         return em  
     
