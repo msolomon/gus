@@ -39,8 +39,8 @@ class DBEmail(models.Model):
     '''
 
     date = models.DateTimeField(null=True, blank=True)
-    header = models.CharField(max_length=1000)
-    body = models.CharField(max_length=10000)
+    header = models.TextField()
+    body = models.TextField()
     sender = models.CharField(max_length=100)
     recipients = models.CharField(max_length=1000)
     hash = models.CharField(max_length=130)
@@ -267,7 +267,6 @@ class Emailer():
             try: self.update_email()
             except Exception, e:
                 logging.debug(e)
-                print e
                 continue
             break
 
