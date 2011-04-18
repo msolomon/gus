@@ -275,7 +275,7 @@ class Emailer():
             frm = message.sender
             frm_address = 'mailto:%s' % frm
         else:
-            frm = message.gus_sender.get_full_name()
+            frm = '%s (%s)' % (message.gus_sender.get_full_name(), message.gus_sender.username)
             frm_address = '/email/send/%s' % message.gus_sender.pk
         return (frm, frm_address)
     
@@ -336,11 +336,12 @@ class Emailer():
         not_here = []
         for r in message.gus_receivers.all():
             name = r.get_full_name()
-            email = r.getEmail()
-            to_l.append(('"%s" <%s>' % (name, email),
+            username = r.username
+            to_l.append(('%s (%s)' % (name, username),
                          '/email/send/%s' % r.pk))
             not_here.extend(name.split())
-            not_here.extend(email.split())
+            not_here.extend(username.split())
+            not_here.extend(r.getEmail().split())
         
         # mailto: or no links for non-gus users
         try:
@@ -372,18 +373,10 @@ class Emailer():
         
         # get the message from the DB
         try:
-            message = DBEmail.objects.get(id=emailid)
-        except Exception, e:
-            return (False, 'This message could not be found on the server.')
-        
-        # check if user was sent this message
-        try:
-            if self.user in message.gus_receivers.all():
-                pass # user was sent this message
-            else: raise SecurityException # cannot view message
+            message = DBEmail.objects.filter(gus_receivers=self.user).get(id=emailid)
         except Exception, e:
             logging.debug(e)
-            return (False, 'You do not have permission to view this message.')
+            return (False, 'This message could not be found on the server, or you do not have permission to view it.')
         
         # parse the message and return it
         try:
