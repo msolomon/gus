@@ -156,6 +156,7 @@ class Emailer():
     def update_email(self):
         '''
         Fetch email messages from the IMAP server and store them
+        @return: None
         '''
         server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
         server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
@@ -228,7 +229,7 @@ class Emailer():
             try:  subject = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
             except (IndexError, AttributeError), e:
                 logging.debug(e)
-                subject = ''      
+                subject = '(no subject)'      
             
             try:
                 if message.viewed.filter(dbemail__viewed=self.user):
@@ -244,16 +245,7 @@ class Emailer():
                                 'from_address': frm_address,
                                 'date': date.strftime('%I:%M %p, %x'), 
                                 'unviewed': unviewed                             
-                                })   
-#        
-#        # remove IMAP copies of emails to distinct gus users
-#        uniq = []
-#        for snip in snippets:
-#            o = {}
-#            for k, v in snippet:
-#                if k != 'id':
-#                    o[v] = v
-            
+                                })            
         
         return snippets
     
@@ -261,6 +253,7 @@ class Emailer():
         '''
         Fetch email messages from the IMAP server and store them. This has
         error handling update_email lacks.
+        @return: None
         '''
         # double-check email, if fails the first time
         for _ in range(2):
@@ -272,6 +265,11 @@ class Emailer():
 
     
     def get_from_with_link(self, message):
+        '''
+        Return tuples of prettified senders with appropriate links
+        @param DBEmail, the email 
+        @return: [(link_text, destination), ...]
+        '''
         # determine the sender to print
         if message.gus_sender == None:    
             frm = message.sender
@@ -318,7 +316,7 @@ class Emailer():
             try:  subject = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
             except (IndexError, AttributeError), e:
                 logging.debug(e)
-                subject = ''      
+                subject = '(no subject)'      
 
             snippets.insert(0, {'id': message.id,
                                 'subject': subject,
@@ -328,6 +326,11 @@ class Emailer():
         return snippets
     
     def get_to_with_links(self, message):
+        '''
+        Return tuples of prettified recipients with appropriate links
+        @param DBEmail, the email 
+        @return: [(link_text, destination), ...]
+        '''
         # get to addresses and hyperlink
         to_l =[]
         not_here = []
