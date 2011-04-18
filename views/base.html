@@ -48,7 +48,7 @@
                 {% if user.is_anonymous %}
                     Not Logged In. <a href="/login/">Login</a> | <a href="/register/">Register</a>
                 {% else %}
-                    Logged in as <strong>{{ user.username|capfirst }}</strong>. <a href="/users/profile">My Profile</a> | <a href="/logout/">Logout</a> 
+                    Logged in as <strong>{{ user.get_full_name }} ({{ user.username }})</strong>. <a href="/users/profile">My Profile</a> | <a href="/logout/">Logout</a> 
                 {% endif %}
         {% endblock %}
     </div>
