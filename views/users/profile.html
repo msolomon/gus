@@ -22,7 +22,7 @@ Profile
 		  <p>Description - {{role.group.group_description}}</p>
 		  <p>Role: {{role.name}}</p>
 		  <p>	
-		  <a href="/bill">Bills:</a>
+		  <a href="/bill/{{role.group.id}}">Bills:</a>
 		  {% for bill in role.group.my_bills %}
 		  	{{bill.outstanding}}
 		  {% endfor %}
@@ -31,7 +31,7 @@ Profile
       <a href="/calendar/group{{role.group.id}}/">Calendar</a>
       </p>
 		  <p>
-		  <a href="/gallery">Gallery</a> - {{role.group.my_images}} images uploaded by you
+		  <a href="/gallery/group/{{role.group.id}}">Gallery</a> - {{role.group.my_images}} images uploaded by you
 		  </p>
 		  <a href="/forum/{{role.group.id}}">Forums</a>
 		  </td>

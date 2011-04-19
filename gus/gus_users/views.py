@@ -90,13 +90,7 @@ def profile(urlRequest):
         AGRP.my_bills  = bill.objects.filter(group = a.group)
         my_bills.append(AGRP)
         
-    em = Emailer(my_self)
-    for _ in range(2):
-        try: em.update_email()
-        except Exception, e:
-            logging.debug(e)
-            continue
-        break
+    Emailer(my_self).fetch_messages()
     
     unread_emails = DBEmail.objects.filter(gus_receivers=my_self).exclude(viewed=my_self).count()
     return render_to_response('users/profile.html',

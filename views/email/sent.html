@@ -11,7 +11,7 @@
 <br>
 <h2>{{ email.subject }}</h2>
 <p>
-	{{ email.message }}
+	{{ email.message|safe }}
 </p>
 {% else %}
 <h1>Error: your message could not be sent</h1>

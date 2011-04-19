@@ -6,7 +6,7 @@ from imaplib import *
 from django.db import models
 from django.core import mail
 from gus import settings
-import datetime
+import datetime, logging, hashlib
 
 from django.contrib.auth.models import User
 from gus.gus_widget.models import Widget
@@ -38,40 +38,63 @@ class DBEmail(models.Model):
     An actual email stored in the database
     '''
 
-    uid = models.IntegerField(null=True, blank=True, unique=True)
     date = models.DateTimeField(null=True, blank=True)
-    header = models.CharField(max_length=1000)
-    body = models.CharField(max_length=10000)
+    header = models.TextField()
+    body = models.TextField()
     sender = models.CharField(max_length=100)
     recipients = models.CharField(max_length=1000)
+    hash = models.CharField(max_length=130)
     gus_receivers = models.ManyToManyField(gus_user)
     gus_sender = models.ForeignKey(gus_user, null=True, blank=True,
                                       related_name='gus_user.dbemail.gus_sender')
     deleted = models.ManyToManyField(gus_user, related_name='gus_user.dbemail.deleted')
     viewed = models.ManyToManyField(gus_user, related_name='gus_user.dbemail.viewed')
     
-    def fill(self, header, body, date, sender, recipients, gus_recipients):
-        self.header = header
-        self.body = body
-        self.date = date
-        self.sender = sender
-        if sender.endswith(settings.EMAIL_SUFFIX):
-            try:
-                self.gus_sender = gus_user.objects.get(_user=User.objects.get(
-                            username__iexact=sender[:-len(settings.EMAIL_SUFFIX)]))
-            except: pass
-        self.recipients = recipients
-        for r in gus_recipients:
-            try:
-                self.save() # to establish primary key
-                self.gus_receivers.add(
-                    gus_user.objects.get(
-                        _user=User.objects.get(username__iexact=r)
-                        )
-                    )
-            except: pass
     
-    def delete(self, user):
+    def fill(self, header, body, date, sender, recipients, gus_recipients):
+        h = hashlib.md5()
+        h.update(body)
+        try:
+            h.update(date.ctime())
+        except Exception, e:
+            logging.debug(e)
+        h.update(str(sender))
+        h.update(str(recipients))
+        h.update(str(gus_recipients))
+        self.hash = h.hexdigest()
+        try:
+            #print 'fill'
+            DBEmail.objects.get(hash=self.hash)
+        except Exception, e:
+            logging.debug(e)
+            #print 'unique', hash
+            self.header = header
+            self.body = body
+            self.date = date
+            self.sender = sender
+            if sender.endswith(settings.EMAIL_SUFFIX):
+                try:
+                    self.gus_sender = gus_user.objects.get(_user=User.objects.get(
+                                username__iexact=sender[:-len(settings.EMAIL_SUFFIX)]))
+                except: pass
+            self.recipients = recipients
+            self.save() # to establish primary key
+            for r in gus_recipients:
+                try:
+                    self.gus_receivers.add(
+                        gus_user.objects.get(
+                            _user=User.objects.get(username__iexact=r)
+                            )
+                        )
+                except Exception, e:
+                    logging.debug(e)
+            self.save(force_update=True)
+            return
+        # if we got here, this message was not unique
+        #print 'deleting', hash
+        #self.delete()
+    
+    def delete_email(self, user):
         self.deleted.add(user)
     
     def view(self, user):
@@ -131,6 +154,10 @@ class Emailer():
         self.imap_password = password #models.CharField(password)
         
     def update_email(self):
+        '''
+        Fetch email messages from the IMAP server and store them
+        @return: None
+        '''
         server = IMAPClient(settings.IMAP_HOST, use_uid=False, ssl=True)
         server.login(settings.IMAP_HOST_USER, settings.IMAP_HOST_PASSWORD)
         
@@ -155,15 +182,16 @@ class Emailer():
             try:
                 date = parse(re.search('date:([^\n]*)\n', 
                                  v['BODY[HEADER]'], re.I).group(1).strip())
-            except:
+                t = date.utcoffset()
+                date = date.replace(tzinfo=None) - t
+            except Exception, e:
+                logging.debug(e)
                 date = None
             
             # store the email in the DB
             em = DBEmail()
-            em.uid = k
             em.fill(v['BODY[HEADER]'], v['BODY[TEXT]'], date,
                     message.from_email, recip, gus_recip)
-            em.save()
             
             # now delete from server
             server.add_flags(k, ['\Deleted'])
@@ -174,12 +202,9 @@ class Emailer():
             @return: [{uid, subject, from, date}...]
         '''
         
-        # double-check email, if fails the first time
-        for _ in range(2):
-            try: self.update_email()
-            except: continue
-            break
-
+        # get new messages
+        self.fetch_messages()
+        
         messages = DBEmail.objects.filter(gus_receivers=self.user). \
                                     exclude(deleted=self.user).order_by('date')
 
@@ -192,20 +217,26 @@ class Emailer():
             try:
                 datestr = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
                 date = parse(datestr)
-            except:
+            except Exception, e:
+                logging.debug(e)
                 time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
                 date = parse(time)
+            t = date.utcoffset()
+            date = date.replace(tzinfo=None) - t            
             
             frm, frm_address = self.get_from_with_link(message)
                 
             try:  subject = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
-            except (IndexError, AttributeError): subject = ''      
+            except (IndexError, AttributeError), e:
+                logging.debug(e)
+                subject = '(no subject)'      
             
             try:
                 if message.viewed.filter(dbemail__viewed=self.user):
                     unviewed = False
                 else: unviewed = True
-            except:
+            except Exception, e:
+                logging.debug(e)
                 unviewed = True
 
             snippets.insert(0, {'id': message.id,
@@ -214,17 +245,37 @@ class Emailer():
                                 'from_address': frm_address,
                                 'date': date.strftime('%I:%M %p, %x'), 
                                 'unviewed': unviewed                             
-                                })   
+                                })            
         
         return snippets
     
+    def fetch_messages(self):
+        '''
+        Fetch email messages from the IMAP server and store them. This has
+        error handling update_email lacks.
+        @return: None
+        '''
+        # double-check email, if fails the first time
+        for _ in range(2):
+            try: self.update_email()
+            except Exception, e:
+                logging.debug(e)
+                continue
+            break
+
+    
     def get_from_with_link(self, message):
+        '''
+        Return tuples of prettified senders with appropriate links
+        @param DBEmail, the email 
+        @return: [(link_text, destination), ...]
+        '''
         # determine the sender to print
         if message.gus_sender == None:    
             frm = message.sender
             frm_address = 'mailto:%s' % frm
         else:
-            frm = message.gus_sender.get_full_name()
+            frm = '%s (%s)' % (message.gus_sender.get_full_name(), message.gus_sender.username)
             frm_address = '/email/send/%s' % message.gus_sender.pk
         return (frm, frm_address)
     
@@ -235,7 +286,9 @@ class Emailer():
         # double-check email, if fails the first time
         for _ in range(2):
             try: self.update_email()
-            except: continue
+            except Exception, e:
+                logging.debug(e)
+                continue
             break
 
         messages = DBEmail.objects.filter(gus_sender=self.user). \
@@ -253,13 +306,17 @@ class Emailer():
             try:
                 datestr = re.search('date:([^\n]*)\n', mes, re.I).group(1).strip()
                 date = parse(datestr)
-            except:
+            except Exception, e:
+                logging.debug(e)
                 time = datetime.datetime.utcnow().isoformat(' ') + ' -0000'
                 date = parse(time)
-             
+            t = date.utcoffset()
+            date = date.replace(tzinfo=None) - t
                 
             try:  subject = re.search('subject:([^\n]*)\n', mes, re.I).group(1).strip()
-            except (IndexError, AttributeError): subject = ''      
+            except (IndexError, AttributeError), e:
+                logging.debug(e)
+                subject = '(no subject)'      
 
             snippets.insert(0, {'id': message.id,
                                 'subject': subject,
@@ -269,22 +326,29 @@ class Emailer():
         return snippets
     
     def get_to_with_links(self, message):
+        '''
+        Return tuples of prettified recipients with appropriate links
+        @param DBEmail, the email 
+        @return: [(link_text, destination), ...]
+        '''
         # get to addresses and hyperlink
         to_l =[]
         not_here = []
         for r in message.gus_receivers.all():
             name = r.get_full_name()
-            email = r.getEmail()
-            to_l.append(('"%s" <%s>' % (name, email),
+            username = r.username
+            to_l.append(('%s (%s)' % (name, username),
                          '/email/send/%s' % r.pk))
             not_here.extend(name.split())
-            not_here.extend(email.split())
+            not_here.extend(username.split())
+            not_here.extend(r.getEmail().split())
         
         # mailto: or no links for non-gus users
         try:
             for r in eval(message.recipients):
                 if r not in not_here: to_l.append((r,None))
-        except: pass
+        except Exception, e:
+            logging.debug(e)
         
         return to_l   
     
@@ -295,7 +359,7 @@ class Emailer():
         '''        
         try:
             message = DBEmail.objects.get(id=emailid)
-            message.delete(self.user)
+            message.delete_email(self.user)
         except:
             return False
         
@@ -309,28 +373,23 @@ class Emailer():
         
         # get the message from the DB
         try:
-            message = DBEmail.objects.get(id=emailid)
+            message = DBEmail.objects.filter(gus_receivers=self.user).get(id=emailid)
         except Exception, e:
-            return (False, 'This message could not be found on the server.')
-        
-        # check if user was sent this message
-        try:
-            if self.user in message.gus_receivers.all():
-                pass # user was sent this message
-            else: raise SecurityException # cannot view message
-        except Exception:
-            return (False, 'You do not have permission to view this message.')
+            logging.debug(e)
+            return (False, 'This message could not be found on the server, or you do not have permission to view it.')
         
         # parse the message and return it
         try:
             em = self.parse_rfc822(message.header, message.body)
-        except KeyError:
+        except KeyError, e:
+            logging.debug(e)
             return (True, 'Still retrieving message from messaging server...')
         
         # mark the message as viewed
         try:
             message.view(self.user)
-        except: pass
+        except Exception, e:
+            logging.debug(e)
         
         return em  
     
