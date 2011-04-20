@@ -252,8 +252,14 @@ def delete_forum(request, group_id, forum_id):
 		return HttpResponse('Forum Not Found!')
 	#End
 
-	request_for_forum.delete()
-	return HttpResponseRedirect('/forum/%s/' % group_id)
+	try:
+		if request.POST['confirm']:
+			request_for_forum.delete()
+			return HttpResponseRedirect('/forum/%s/' % group_id) 
+		#End
+	except:
+		return render_to_response('generic/confirm_delete.html', {'type':'forum', 'item':request_for_forum.forum_name, 'cancel_url':'/forum/%s/' % group_id}, context_instance = RequestContext(request))
+	#End
 #End
 
 @login_required
@@ -280,8 +286,14 @@ def delete_thread(request, group_id, forum_id, thread_id):
 		return HttpResponse('Thread Not Found!')
 	#End
 
-	request_for_thread.delete()
-	return HttpResponseRedirect('/forum/%s/%s/' % (group_id, forum_id))
+	try:
+		if request.POST['confirm']:
+			request_for_thread.delete()
+			return HttpResponseRedirect('/forum/%s/%s/' % (group_id, forum_id)) 
+		#End
+	except:
+		return render_to_response('generic/confirm_delete.html', {'type':'thread', 'item':request_for_thread.thread_name, 'cancel_url':'/forum/%s/%s' % (group_id, forum_id)}, context_instance = RequestContext(request))
+	#End
 #End
 
 @login_required

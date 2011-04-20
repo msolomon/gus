@@ -25,7 +25,7 @@
 			<tr class="{% cycle 'odd' "even" %}">
 				<td>
 					<b><a href="/forum/{{group.id}}/{{forum.id}}">{{forum.forum_name}}</a></b><br />
-					<p>{{forum.forum_description}}</p>
+					<p>{{forum.forum_description|safe}}</p>
 				</td>
 				<td align="center">
 					{{forum.numThreads}}
