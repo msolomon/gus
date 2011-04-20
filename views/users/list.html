@@ -7,13 +7,11 @@
 	
 		{% for grp in groups %}
 		<tr>
-		  <td width="10%">
-
-			 [ <a href="/groups/{{grp.id}}/">{{grp}}</a> ] 
+		  <td>
+			 <a href="/groups/{{grp.id}}/">{{grp.group_name}}</a>
 		  </td>
 		</tr>
 		{% endfor %}
-	
 
 	  </tr>
   </table>
