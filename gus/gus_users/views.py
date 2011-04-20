@@ -25,7 +25,7 @@ def index(request):
 def welcome(request):
     if request.user.is_anonymous():
         return render_to_response('welcome.html',{
-                                                  'groups':gus_group.objects.all().order_by('group_name')
+                                                  'groups':gus_group.objects.filter(parent_group=None).order_by('group_name')
                                                   },
                                                   context_instance=RequestContext(request))
     else:
