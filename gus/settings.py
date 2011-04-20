@@ -66,6 +66,9 @@ ADMIN_MEDIA_PREFIX = 'media/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '^nat@lnqd0wmfr9gyw8&o_l(v2=uwr+524(1g!a!@!thf17m&k'
 
+# Make sessions time out after # of seconds
+SESSION_COOKIE_AGE = 2 * 60 * 60  # 2 hours
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -163,6 +166,5 @@ IMAP_PORT = 25
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = '[gus] '
-
 # the default email suffix
 EMAIL_SUFFIX = '@guspy.joranbeasley.com'
