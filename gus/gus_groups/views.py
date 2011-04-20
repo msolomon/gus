@@ -80,7 +80,7 @@ def editGroup(urlRequest, group_id):
           'formAddUser':form_addUser},
           context_instance=RequestContext(urlRequest)
           )
-@login_required
+
 def viewGroup(urlRequest, group_id):
     from gus.gusTestSuite.forms import SimpleAddUserToGroup
 
@@ -93,7 +93,8 @@ def viewGroup(urlRequest, group_id):
     role=gus_role.objects.with_user_in_group(group,urlRequest.user)
     roles = group.roles
 
-    my_perms={
+    if urlRequest.user.is_authenticated():
+        my_perms={
            'adduser':urlRequest.user.has_group_perm(group,'Can add user'),
            'deluser':urlRequest.user.has_group_perm(group,'Can delete user'),
            'edituser':urlRequest.user.has_group_perm(group,'Can change user'),
@@ -103,7 +104,20 @@ def viewGroup(urlRequest, group_id):
            'editgroup':urlRequest.user.has_group_perm(group,'Can change group'),
            'addgroup':urlRequest.user.has_group_perm(group,'Can add group'),
            'delgroup':urlRequest.user.has_group_perm(group,'Can delete group'),
-              }
+        }
+    else:
+        # no permissions for anonymous users
+        my_perms = {
+                    'adduser': False,
+                    'deluser': False,
+                    'edituser': False,
+                    'addrole': False,
+                    'delrole': False,
+                    'editrole': False,
+                    'editgroup': False,
+                    'addgroup': False,
+                    'delgroup': False
+                    }
     return render_to_response('groups/viewGroup.html',
         { 'group':group, 'role':role,'roles':roles,'can':my_perms,
           'formAddUser':form_addUser},
