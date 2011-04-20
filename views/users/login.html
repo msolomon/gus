@@ -6,7 +6,7 @@ Login
 {% block content %}
 <form method="post">
 <!--Print Login Form -->
-{% if not fail %}
+{% if fail %}
 <p><strong>Username or Password is incorrect.</strong></p>
 {% endif %}
 {{ form.as_p }}

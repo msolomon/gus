@@ -54,7 +54,7 @@ def loginView(request, fail=''):
         form = loginForm()
 
     return render_to_response("users/login.html",{"form":form,
-                                                  'fail': False if len(fail) > 0 else True},
+                                                  'fail': True if len(fail) > 0 else False},
                                                   context_instance=RequestContext(request))
     
 def register(request):    
