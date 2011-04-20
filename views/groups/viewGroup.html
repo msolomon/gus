@@ -22,7 +22,7 @@
 {% block content %}
 
 <h2>{{ group }}</h2>
-<p>{{ group.group_description }}</p>
+<p>{{ group.group_description|safe }}</p>
 <hr />
 {% if can.adduser %}
 <div style="display:none" id="Add">
@@ -70,7 +70,7 @@ function toggle(flag){
 </script>
 {% for subgrp in group.getChildren %}
 <div>
-<h2>{{subgrp.group_name}}<h2>
+<h2>{{subgrp.group_name}} <a href="/groups/{{subgrp.id}}/">[]<h2>
 	<div style="margin-left:15px">
 	{% for r in subgrp.roles %}
 	{% for usr in r.users.all %}

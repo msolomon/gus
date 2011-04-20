@@ -24,7 +24,10 @@ def index(request):
     return HttpResponse('Hello World')
 def welcome(request):
     if request.user.is_anonymous():
-        return render_to_response('welcome.html',{},context_instance=RequestContext(request))
+        return render_to_response('welcome.html',{
+                                                  'groups':gus_group.objects.all().order_by('group_name')
+                                                  },
+                                                  context_instance=RequestContext(request))
     else:
         return HttpResponseRedirect('/users/profile')
 
@@ -105,8 +108,7 @@ def profile(urlRequest):
     
 def listing(urlRequest):
 	return render_to_response('users/listing.html', {
-         'users':gus_user.objects.all(),
-         'groups':gus_group.objects.all(),
+         'groups':gus_group.objects.filter(parent_group=None).order_by('group_name'),
          },context_instance=RequestContext(urlRequest));
 
 
