@@ -26,7 +26,7 @@ class GroupManager(models.Manager):
         from utils import makeSlug
         return super(GroupManager, self).get_query_set().create(
             group_name=groupname, group_description=description,
-            group_image=image, group_slug=makeSlug(groupname)                                                   
+            group_image=image, group_slug=makeSlug(groupname), group_activated=False
             )
     def has_member(self, gusUser):
         """
@@ -57,6 +57,9 @@ class gus_group(models.Model):
     group_description = models.TextField()         #the group description
     group_image = models.CharField(max_length=50)
     parent_group=models.ForeignKey('gus_group',blank=True,null=True)
+    
+    group_activated = models.BooleanField()
+    
     def getParents(self):
         groups=[]
         p=self.parent_group
@@ -109,6 +112,9 @@ class gus_group(models.Model):
             self.group_description or "(None)",
             self.group_image or "(None)",
             )
+    def approveGroup(self):
+        self.group_activated=True
+        return self
     def getRoles(self):
         """
         return all roles of this group

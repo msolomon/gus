@@ -18,7 +18,7 @@
 {% block content %}
 	{% if threads|length > 0 %}
 		<table border="1" cellpadding="6" class="table" width="95%">
-		<th>Thread Name</th><th align="right">Last Post</th>
+		<th>Thread Name</th><th align="center">Replies</th><th align="center">Views</th><th align="right">Last Post</th>
 		{% if can.deletethread %}
 			<th></th>
 		{% endif %}
@@ -27,6 +27,12 @@
 			<td>
 				<b><a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.thread_name}}</a></b><br />
 				by <!--<a href="">-->{{thread.user.username|capfirst}}<!--</a>--> 
+			</td>
+			<td align="center">
+				{{thread.numReplies}}
+			</td>
+			<td align="center">
+				{{thread.numViews}}
 			</td>
 			<td align="right">
 				Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{thread.id}}">{{thread.LastPostDate}}</a><br />
