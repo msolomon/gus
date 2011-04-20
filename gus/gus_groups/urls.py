@@ -23,7 +23,7 @@ urlpatterns = patterns('gus_groups.views',
     (r'^Add/', 'addGroup'),
     #(r'^EditPerms/(?P<role_id>\d+)/', 'editRolePerms'),
     (r'^([0-9]+)/RemoveUser/(\d+)/', 'removeUserFromGroup'),
-    (r'^ApproveGroup/','ApproveGroup')
+    (r'^ApproveGroup/','ApproveGroup'),
     #(r'^', 'index'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
