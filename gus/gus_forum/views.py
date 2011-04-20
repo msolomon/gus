@@ -110,6 +110,9 @@ def view_posts(request, group_id, forum_id, thread_id):
 		}
 	#End
 
+	request_for_thread.numViews += 1
+	request_for_thread.save()
+
 	return render_to_response('forum/posts.html', {"can":my_perms, "group":request_for_group, "forum":request_for_forum, "thread":request_for_thread, "posts":threads_posts}, context_instance=RequestContext(request))
 #End
 
