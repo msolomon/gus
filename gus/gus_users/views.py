@@ -34,8 +34,7 @@ def welcome(request):
 def logoutView(request):
     return logout_then_login(request,'/login/')
     
-def loginView(request):    
-
+def loginView(request, fail=''):
     if request.method == 'POST': # If the form has been submitted...
         form = loginForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
@@ -49,12 +48,14 @@ def loginView(request):
                 login(request, user)
                 try:
                     return HttpResponseRedirect(request.GET['next'])                    
-                except:
-                    return HttpResponseRedirect('/gus_test/User/Auth_Test/')
+                except: pass    
+            return HttpResponseRedirect('fail')
     else:
         form = loginForm()
 
-    return render_to_response("users/login.html",{"form":form},context_instance=RequestContext(request))
+    return render_to_response("users/login.html",{"form":form,
+                                                  'fail': False if len(fail) > 0 else True},
+                                                  context_instance=RequestContext(request))
     
 def register(request):    
     return render_to_response("users/register.html")
