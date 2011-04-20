@@ -135,7 +135,7 @@ def deleteGroup(urlRequest, group_id):
         return render_to_response('generic/confirm_delete.html',
                               {'type' : 'group',
                                'item' : group.group_name,
-                               'cancel_url' : '/groups/%s/Edit'%group_id},
+                               'cancel_url' : '/groups/%s/'%group_id},
                               context_instance = RequestContext(urlRequest))
 
 @login_required
