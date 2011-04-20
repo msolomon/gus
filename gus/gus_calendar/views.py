@@ -254,8 +254,6 @@ def day_edit(request, year, month, day, event_id): #, group_id):
     
     
 def group_month(request, group_id, year=None, month=None):
-     if not request.user.is_authenticated():
-         return HttpResponseRedirect('/login/')
      try:
         group = gus_group.objects.get(pk = group_id) ## if there is a group
         print group

@@ -41,6 +41,35 @@ class forum(models.Model):
 	forum_name = models.CharField(max_length=25)#The forum's name.
 	forum_description = models.TextField()		#The forum's description.
 
+	def numThreads(self):
+		"""
+		Returns the number of threads associated with this forum.
+
+		@rtype: integer
+		@return: The number of threads associated with this forum.
+		"""
+
+		return len(forum_thread.objects.filter(forum = self))
+	#End
+
+	def numPosts(self):
+		"""
+		Returns the number of posts associtaed with this forum.
+
+		@rtype: integer
+		@return: The number of posts associated with this forum.
+		"""
+
+		forums_threads = forum_thread.objects.filter(forum = self)
+		numPosts = 0
+
+		for for_thr in forums_threads:
+			numPosts += len(forum_post.objects.filter(thread = for_thr))
+		#End
+
+		return numPosts
+	#End
+
 	def LastPostDate(self):
 		"""
 		Returns the date of the last post made in this forum's threads.
@@ -111,7 +140,7 @@ class forum(models.Model):
 		@param Forum: The forum to assosciate the thread with.
 		"""
 
-		forum_thread.objects.create(thread_name = Threadname, user = User, thread_text = Text, forum = Forum)
+		forum_thread.objects.create(thread_name = Threadname, user = User, thread_text = Text, forum = Forum, numViews = 0)
 	#End
 #End
 
@@ -125,6 +154,24 @@ class forum_thread(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True, blank=True)#The thread's creation date.
 	thread_name = models.CharField(max_length=25)	#The thread's name.
 	thread_text = models.TextField()				#The thread's content.
+	numViews = models.IntegerField()				#Number of views for this thread.
+
+	def numReplies(self):
+		"""
+		Returns the number of replies to this thread.
+
+		@rtype: integer
+		@return: The number of replies to this thread.
+		"""
+
+		numPosts = len(forum_post.objects.filter(thread = self))
+
+		if numPosts == 0:
+			return 0
+		#End
+
+		return numPosts - 1
+	#End
 
 	def LastPostDate(self):
 		"""
