@@ -1,0 +1,23 @@
+{% block content %}
+
+<table width="95%">
+	  <tr align="left">
+		  <th>All Groups </th>
+	  </tr>
+	
+		{% for grp in groups %}
+		<tr>
+		  <td width="10%">
+
+			 [ <a href="/groups/{{grp.id}}/">{{grp}}</a> ] 
+		  </td>
+		</tr>
+		{% endfor %}
+	
+
+	  </tr>
+  </table>
+{% endblock content %}
+
+
+
