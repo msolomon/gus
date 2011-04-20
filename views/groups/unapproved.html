@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block pagetitle %}
+Unapproved Groups
+{% endblock pagetitle %}
+
+{% block content %}
+
+<h2>Unapproved Groups Requiring the Attention of an Admin:<hr/>
+<h4></h4>
+
+{% for g in groups %}
+	
+  <table width="95%">
+	  <tr align="left">
+		  <th>Group: {{g.group.group_name}}</th>
+		  <td>Active <form method="post">
+		{{ g.form.as_p }}<input type="submit" value="set active"/>
+	</form>
+	  </tr>
+  	<tr>
+		  <td width="10%">
+		  <p><a href="/groups/{{g.group.id}}/">Go to {{g.group.group_name}}</a>
+		  <p>Description - {{g.group.group_description}}</p>
+		  </td>
+	  </tr>
+  </table>
+{% endfor %}
+
+{% endblock content %}

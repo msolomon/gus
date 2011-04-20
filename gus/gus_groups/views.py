@@ -264,3 +264,14 @@ def createRole(urlRequest,group_id):
                                 },
                                 context_instance=RequestContext(urlRequest)
                               )
+
+@login_required
+def ApproveGroup(urlRequest):
+    if urlRequest.user.user_level<11:
+        return HttpResponse('')
+    groups = gus_group.objects.filter(group_activated=False)
+    forms = [{'group':g,'form':g,ApprovalForm({'group_id':g.id})} for g in groups]
+    return render_to_response('groups/unapproved.html',
+                              {'groups':groups,
+                               }
+                              context_instance=RequestContext(urlRequest))

@@ -108,6 +108,10 @@ class ContactForm(forms.Form):
     message = forms.CharField()
     sender = forms.EmailField()
     cc_myself = forms.BooleanField(required=False)
+    
+class ApprovalForm(forms.Form):
+    group_id = forms.IntegerField(widget=forms.HiddenInput())
+    is_active = forms.BooleanField(default=False)
 
 class RolePermissionForm(forms.Form):
     is_superUser=forms.BooleanField(required=False)
