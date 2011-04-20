@@ -68,9 +68,11 @@ function toggle(flag){
     }
 }
 </script>
+
+{% if group.getChildren %} <h2>Subgroups:</h3> {% endif %}
 {% for subgrp in group.getChildren %}
 <div>
-<h2>{{subgrp.group_name}} <a href="/groups/{{subgrp.id}}/">[]<h2>
+<a href="/groups/{{subgrp.id}}/"><h3>{{subgrp.group_name}}</h3></a>
 	<div style="margin-left:15px">
 	{% for r in subgrp.roles %}
 	{% for usr in r.users.all %}
