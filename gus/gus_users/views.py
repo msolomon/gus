@@ -41,7 +41,7 @@ def loginView(request):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            un=form.cleaned_data['user']
+            un=form.cleaned_data['user'].lower()
             pw=form.cleaned_data['password']
             user = authenticate(username=un,
                                 password=pw)

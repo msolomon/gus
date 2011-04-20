@@ -7,7 +7,7 @@ they are not responsible for the data processing nor the submission of data
 all forms require a cross site request forgery token provided by django
 {% csrf_token %}
 """
-
+import re
 from django import forms
 from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
@@ -29,12 +29,14 @@ class SimpleUserAddForm(forms.Form):
         '''
         Ensure the chosen username is unique
         '''
-        data = self.cleaned_data['username']
+        data = self.cleaned_data['username'].lower()
         try:
             User.objects.get(username=data)
         except:
+            data = validate_username_chars(self)
             return data
         raise forms.ValidationError('This username is already taken')
+    
     
 class SimpleUserEditForm(forms.Form):
     """
@@ -45,6 +47,19 @@ class SimpleUserEditForm(forms.Form):
     
     email = forms.EmailField(label='Contact e-mail:')
     id  = forms.IntegerField(required=False,widget=forms.HiddenInput())
+    
+    def clean_username(self):
+        return validate_username_chars(self)
+    
+def validate_username_chars(self):
+    '''
+    Ensure a username only has alphanumeric and underscore characters
+    '''
+    uname = self.cleaned_data['username'].lower()
+    cleaned = re.sub('\W', '', uname)
+    if cleaned != uname:
+        raise forms.ValidationError('Usernames may only contain underscores and alphanumerics')
+    return uname
 
 class SimpleAddUserToGroup(forms.Form):
     """
@@ -111,7 +126,7 @@ class ContactForm(forms.Form):
     
 class ApprovalForm(forms.Form):
     group_id = forms.IntegerField(widget=forms.HiddenInput())
-    is_active = forms.BooleanField(default=False)
+    is_active = forms.BooleanField(required=False)
 
 class RolePermissionForm(forms.Form):
     is_superUser=forms.BooleanField(required=False)
