@@ -13,7 +13,7 @@ Unapproved Groups
   <table width="95%">
 	  <tr align="left">
 		  <th>Group: {{g.group.group_name}}</th>
-		  <td>Active <form method="post">
+		  <td>Active <form method="post">{%csrf_token%}
 		{{ g.form.as_p }}<input type="submit" value="set active"/>
 	</form>
 	  </tr>
