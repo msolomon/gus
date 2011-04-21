@@ -17,7 +17,7 @@ from django.contrib.auth.views import logout_then_login
 import logging
 
 class loginForm(forms.Form):
-    user = forms.CharField(max_length=100)
+    user = forms.CharField(max_length=100, label="Username")
     password = forms.CharField(widget=forms.PasswordInput())
     
 class resetForm(forms.Form):
@@ -60,7 +60,7 @@ def loginView(request, fail=''):
                 try:
                     return HttpResponseRedirect(request.GET['next'])                    
                 except: 
-		    return HttpResponseRedirect('/users/profile')
+		            return HttpResponseRedirect('/users/profile')
 
             return HttpResponseRedirect('fail')
     else:

@@ -168,6 +168,56 @@ a .header_image{
 	border-top: 4px solid #FFF;
 	padding: 8px 12px 0 0;
 }
+/* login and register tables */
+.login_register
+{
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 85%;
+  margin: 25px;
+  text-align: left;
+  border-collapse: collapse;
+  border-bottom: 2px solid #ffffff
+}
+.login_register th
+{
+  font-size: 130%;
+  font-weight: normal;
+  padding: 8px;
+  background: #ffffff;
+  border-top: 4px solid #ffffff;
+  border-bottom: 1px solid #fff;
+  color: #039;
+}
+.login_register tr td
+{
+  padding: 8px;
+  background: #ffffff; 
+  border-bottom: 1px solid #fff;
+  color: #669;
+  border-top: 1px solid transparent;
+}
+.login_register tr.odd td
+{
+  padding: 8px;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+  border-top: 1px solid transparent;
+}
+.login_register td:hover td
+{
+  background: #ffffff;
+  color: #fff;
+}
+.login_register td.odd:hover td
+{
+  background: #ffffff;
+  color: #fff;
+}
+
+
+
+
 
 /* calendar table */
 .calendar
