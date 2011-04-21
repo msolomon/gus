@@ -19,29 +19,39 @@ import logging
 class loginForm(forms.Form):
     user = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput())
+    
+class resetForm(forms.Form):
+    email = forms.CharField(max_length=100)
+
 
 def index(request):
     return HttpResponse('Hello World')
 def welcome(request):
-    if request.user.is_anonymous():
+    try:
+        if request.user.is_anonymous():
+            return render_to_response('welcome.html',{
+                                                      'groups':gus_group.objects.filter(parent_group=None,group_activated=1).exclude(id=2).order_by('group_name')
+                                                      },
+                                                      context_instance=RequestContext(request))
+        else:
+            return HttpResponseRedirect('/users/profile')
+    except:
         return render_to_response('welcome.html',{
-                                                  'groups':gus_group.objects.all().order_by('group_name')
-                                                  },
-                                                  context_instance=RequestContext(request))
-    else:
-        return HttpResponseRedirect('/users/profile')
+                                                      'groups':gus_group.objects.filter(parent_group=None,group_activated=1).exclude(id=2).order_by('group_name')
+                                                      },
+                                                      context_instance=RequestContext(request))
+        
 
 def logoutView(request):
     return logout_then_login(request,'/login/')
     
-def loginView(request):    
-
+def loginView(request, fail=''):
     if request.method == 'POST': # If the form has been submitted...
         form = loginForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            un=form.cleaned_data['user']
+            un=form.cleaned_data['user'].lower()
             pw=form.cleaned_data['password']
             user = authenticate(username=un,
                                 password=pw)
@@ -49,12 +59,16 @@ def loginView(request):
                 login(request, user)
                 try:
                     return HttpResponseRedirect(request.GET['next'])                    
-                except:
-                    return HttpResponseRedirect('/gus_test/User/Auth_Test/')
+                except: 
+		    return HttpResponseRedirect('/users/profile')
+
+            return HttpResponseRedirect('fail')
     else:
         form = loginForm()
 
-    return render_to_response("users/login.html",{"form":form},context_instance=RequestContext(request))
+    return render_to_response("users/login.html",{"form":form,
+                                                  'fail': True if len(fail) > 0 else False},
+                                                  context_instance=RequestContext(request))
     
 def register(request):    
     return render_to_response("users/register.html")
@@ -108,7 +122,7 @@ def profile(urlRequest):
     
 def listing(urlRequest):
 	return render_to_response('users/listing.html', {
-         'groups':gus_group.objects.filter(parent_group=None).order_by('group_name'),
+         'groups':gus_group.objects.filter(parent_group=None,group_activated=1).exclude(group_name='SuperAdmins').order_by('group_name'),
          },context_instance=RequestContext(urlRequest));
 
 
@@ -126,3 +140,38 @@ def users_groups(urlRequest,user_id):
     my_roles=gus_role.objects.with_user(usr)
     # Note to self: always include that last argument "context_instance=RequestContext(urlRequest)"
     return render_to_response('users/grouplisting.html', {'roles':my_roles}, context_instance=RequestContext(urlRequest))
+
+#Jacob Flynn Did This part.
+def passReset(urlRequest):
+  if urlRequest.method == 'POST': # If the form has been submitted...
+      form = resetForm(urlRequest.POST) # A form bound to the POST data
+      if form.is_valid(): # All validation rules pass
+	  # Process the data in form.cleaned_data
+	  # ...
+	  user_email = form.cleaned_data['email']
+	  try:
+	    usr = User.objects.get(email=user_email)
+	    return HttpResponse(usr)
+	    guser = gus_user.objects.get(_user=usr)
+	  except:
+	    return HttpResponseRedirect('/login/reset/t')
+	  password = GenPasswd()
+	  guser.set_password(password)
+	  Emailer().send_message("GUS Password Reset", "Your temporary password is %s.  Please reset it as soon as possible by logging into GUS and going to your Profile.  Thanks!"%password, [guser.email])
+	  return HttpResponseRedirect('/lobin/')
+#    def send_message(self, subject, message, recipient_list, connection=None)	
+  else:
+        form = resetForm()
+
+  return render_to_response('users/reset.html',{"form":form},context_instance=RequestContext(urlRequest))
+  
+#The internet did this part.
+def GenPasswd():
+    chars = string.letters + string.digits
+    for i in range(8):
+        newpasswd = newpasswd + choice(chars)
+    return newpasswd
+
+
+
+

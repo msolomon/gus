@@ -1,0 +1,14 @@
+
+{% extends "base.html" %}
+{% block pagetitle %}
+Password Reset
+{% endblock pagetitle %}
+
+{% block content %}
+<form method="post">
+{{ form.as_p }}
+{% csrf_token %}
+<input type="submit" value="Submit">
+</form>
+{% endblock content %}
+

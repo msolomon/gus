@@ -6,9 +6,15 @@ Login
 {% block content %}
 <form method="post">
 <!--Print Login Form -->
+{% if fail %}
+<p><strong>Username or Password is incorrect.</strong></p>
+{% endif %}
 {{ form.as_p }}
 <!-- add cross site request forgery safety key(reqd for all forms) --> 
 {% csrf_token %}
 <input type="submit" value="Login">
 </form>
+<br>
+<a href="/login/reset/">Forgot Password</a>
+
 {% endblock content %}

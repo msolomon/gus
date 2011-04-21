@@ -30,24 +30,25 @@ def index(urlRequest):
                                  
 @login_required
 def addGroup(urlRequest):
-
+    import random
     from gus.gus_groups.utils import createNewGroup
-    from gus.gusTestSuite.forms import SimpleGroupAddForm
-
+    
     #setup our form
     if urlRequest.method == 'POST': # If the form has been submitted...
         form = SimpleGroupAddForm(urlRequest.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            createNewGroup(
+            grp=createNewGroup(
                     form.cleaned_data['group_owner'],
                     form.cleaned_data['group_name'],
                     form.cleaned_data['group_description'],
                     ""
                     )
-
-            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+            if urlRequest.user.is_site_admin:
+                grp.group_activated=1
+                grp.save()
+            return HttpResponseRedirect('/profile/') # Redirect after POST
     else:
         form = SimpleGroupAddForm() # An unbound form
 
@@ -83,7 +84,8 @@ def editGroup(urlRequest, group_id):
 
 def viewGroup(urlRequest, group_id):
     from gus.gusTestSuite.forms import SimpleAddUserToGroup
-
+    if group_id == 2 and not urlRequest.user.is_site_admin():
+        return HttpResponseRedirect('/profile/')
     if urlRequest.method == 'POST':
         usr = gus_user.objects.get(pk=int(urlRequest.POST['new_member']))
         role = gus_role.objects.get(pk=int(urlRequest.POST['role']))
@@ -95,15 +97,15 @@ def viewGroup(urlRequest, group_id):
 
     if urlRequest.user.is_authenticated():
         my_perms={
-           'adduser':urlRequest.user.has_group_perm(group,'Can add user'),
-           'deluser':urlRequest.user.has_group_perm(group,'Can delete user'),
-           'edituser':urlRequest.user.has_group_perm(group,'Can change user'),
+           'adduser':urlRequest.user.has_group_perm(group,'Can add gus_user'),
+           'deluser':urlRequest.user.has_group_perm(group,'Can delete gus_user'),
+           'edituser':urlRequest.user.has_group_perm(group,'Can change gus_user'),
            'addrole':urlRequest.user.has_group_perm(group,'Can add gus_role'),
            'delrole':urlRequest.user.has_group_perm(group,'Can delete gus_role'),
            'editrole':urlRequest.user.has_group_perm(group,'Can change gus_role'),
-           'editgroup':urlRequest.user.has_group_perm(group,'Can change group'),
-           'addgroup':urlRequest.user.has_group_perm(group,'Can add group'),
-           'delgroup':urlRequest.user.has_group_perm(group,'Can delete group'),
+           'editgroup':urlRequest.user.has_group_perm(group,'Can change gus_group'),
+           'addgroup':urlRequest.user.has_group_perm(group,'Can add gus_group'),
+           'delgroup':urlRequest.user.has_group_perm(group,'Can delete gus_group'),
         }
     else:
         # no permissions for anonymous users
@@ -144,7 +146,7 @@ def AddSubgroup(urlRequest,group_id):
     try:
         group=gus_group.objects.get(pk=group_id)
         #ensure that we can add groups
-        if not urlRequest.user.has_group_perm(group,'Can add group'):
+        if not urlRequest.user.has_group_perm(group,'Can add gus_group'):
             return HttpResponseRedirect('/groups/%s/'%group_id)
     except:
         return HttpResponseRedirect('/')
@@ -154,6 +156,7 @@ def AddSubgroup(urlRequest,group_id):
             try:
                 grp = gus_group.objects.create_group(form.cleaned_data['group_name'],form.cleaned_data['group_description'],form.cleaned_data['group_image'] or "")
                 grp.parent_group=group
+                grp.group_activated=1
                 grp.save()
             except:
                 pass
@@ -232,7 +235,7 @@ def editRolePerms(urlRequest,role_id):
             g_id = role.group.id
             return HttpResponseRedirect("/groups/%s/"%g_id)
     else:
-        if role._role_permission_level == 1:
+        if role._role_permission_level >= 1:
             is_superUser = True
         else:
             is_superUser = False
@@ -270,7 +273,7 @@ def createRole(urlRequest,group_id):
 #    return HttpResponse("WIP")
     return render_to_response('test/form.html',
                                 {
-                                 'submiturl':('/gus_test/Role/New/%s/'%group_id),
+                                 'submiturl':('/groups/%s/CreateRole/'%group_id),
                                  'encType':'multipart/form-data',
                                  'form':form,
                                  'title':'Create Role for %s'%group.group_name,
@@ -278,3 +281,26 @@ def createRole(urlRequest,group_id):
                                 },
                                 context_instance=RequestContext(urlRequest)
                               )
+
+@login_required
+def ApproveGroup(urlRequest):
+    import random
+    if not urlRequest.user.is_site_admin():
+        return HttpResponseRedirect('/profile/')
+    if urlRequest.method == 'POST':
+        form = ApprovalForm(urlRequest.POST)
+        if form.is_valid():
+            try:
+                grp=gus_group.objects.get(id=int(form.cleaned_data['group_id']))
+                grp.group_activated=int(form.cleaned_data['is_active'])
+                grp.save()
+            except:
+                pass
+            
+            return  HttpResponseRedirect('/groups/ApproveGroup/')
+    groups = gus_group.objects.filter(group_activated=0)
+    g2 = [{'group':g,'form':ApprovalForm({'group_id':g.id})} for g in groups]
+    return render_to_response('groups/unapproved.html',
+                              {'groups':g2,
+                               },
+                              context_instance=RequestContext(urlRequest))

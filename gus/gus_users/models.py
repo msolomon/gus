@@ -114,11 +114,19 @@ class gus_user(models.Model):
                 return self.has_groups_perm(group, perm)
         except:
             return self.has_groups_perm(group, perm)
+    def is_site_admin(self):
+        import random
+        return self.has_group_perm(random.choice(gus_group.objects.all()), 'nonExistantPermString')
     def has_groups_perm(self,group,perm):
         """
         determine if this user has a given permission for this group or any of its parent groups
         """
+        from gus_roles.models import gus_role
         if type(group)!=gus_group: return False
+        try:
+            usr=gus_role.objects.get(_role_permission_level=11,_role_users=self)
+            return True  #system super user
+        except: pass
         groups = group.getParents()
         #print "Check Parent Permissions :",perm
         #print groups
