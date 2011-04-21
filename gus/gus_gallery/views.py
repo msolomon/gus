@@ -352,7 +352,7 @@ def public_group(urlRequest, group_id):
     """
     # See if the group is valid, if not return to a list of all public galleries
     try:
-        the_group = gus_group.objects.filter(pk = group_id)
+        the_group = gus_group.objects.filter(pk = group_id)[0]
     except:
         return HttpResponseRedirect('/gallery/public')
 
