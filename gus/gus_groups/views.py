@@ -96,15 +96,15 @@ def viewGroup(urlRequest, group_id):
 
     if urlRequest.user.is_authenticated():
         my_perms={
-           'adduser':urlRequest.user.has_group_perm(group,'Can add user'),
-           'deluser':urlRequest.user.has_group_perm(group,'Can delete user'),
-           'edituser':urlRequest.user.has_group_perm(group,'Can change user'),
+           'adduser':urlRequest.user.has_group_perm(group,'Can add gus_user'),
+           'deluser':urlRequest.user.has_group_perm(group,'Can delete gus_user'),
+           'edituser':urlRequest.user.has_group_perm(group,'Can change gus_user'),
            'addrole':urlRequest.user.has_group_perm(group,'Can add gus_role'),
            'delrole':urlRequest.user.has_group_perm(group,'Can delete gus_role'),
            'editrole':urlRequest.user.has_group_perm(group,'Can change gus_role'),
-           'editgroup':urlRequest.user.has_group_perm(group,'Can change group'),
-           'addgroup':urlRequest.user.has_group_perm(group,'Can add group'),
-           'delgroup':urlRequest.user.has_group_perm(group,'Can delete group'),
+           'editgroup':urlRequest.user.has_group_perm(group,'Can change gus_group'),
+           'addgroup':urlRequest.user.has_group_perm(group,'Can add gus_group'),
+           'delgroup':urlRequest.user.has_group_perm(group,'Can delete gus_group'),
         }
     else:
         # no permissions for anonymous users
@@ -145,7 +145,7 @@ def AddSubgroup(urlRequest,group_id):
     try:
         group=gus_group.objects.get(pk=group_id)
         #ensure that we can add groups
-        if not urlRequest.user.has_group_perm(group,'Can add group'):
+        if not urlRequest.user.has_group_perm(group,'Can add gus_group'):
             return HttpResponseRedirect('/groups/%s/'%group_id)
     except:
         return HttpResponseRedirect('/')
