@@ -64,7 +64,7 @@
 		</table>
 	{% endif %}
 	{% if forums|length == 0 %}
-		<p>Your group currently has no forums.</p>
+		<p>This group currently has no forums.</p>
 		{% if can.addforum %}
 			<a href="/forum/{{group.id}}/add_forum">Add Forum</a>
 		{% endif %}
