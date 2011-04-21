@@ -186,14 +186,14 @@ a .header_image{
   background: #ffffff;
   border-top: 4px solid #ffffff;
   border-bottom: 1px solid #fff;
-  color: #039;
+  color: #000000;
 }
 .login_register tr td
 {
   padding: 8px;
   background: #ffffff; 
   border-bottom: 1px solid #fff;
-  color: #669;
+  color: #000000;
   border-top: 1px solid transparent;
 }
 .login_register tr.odd td
