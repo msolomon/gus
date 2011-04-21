@@ -270,7 +270,7 @@ def createRole(urlRequest,group_id):
 #    return HttpResponse("WIP")
     return render_to_response('test/form.html',
                                 {
-                                 'submiturl':('/gus_test/Role/New/%s/'%group_id),
+                                 'submiturl':('/groups/%s/CreateRole/'%group_id),
                                  'encType':'multipart/form-data',
                                  'form':form,
                                  'title':'Create Role for %s'%group.group_name,
