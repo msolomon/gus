@@ -114,7 +114,9 @@ class gus_user(models.Model):
                 return self.has_groups_perm(group, perm)
         except:
             return self.has_groups_perm(group, perm)
-    
+    def is_site_admin(self):
+        import random
+        return self.has_group_perm(random.choice(gus_group.objects.all()), 'nonExistantPermString')
     def has_groups_perm(self,group,perm):
         """
         determine if this user has a given permission for this group or any of its parent groups

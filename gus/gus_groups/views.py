@@ -30,7 +30,7 @@ def index(urlRequest):
                                  
 @login_required
 def addGroup(urlRequest):
-
+    import random
     from gus.gus_groups.utils import createNewGroup
     
     #setup our form
@@ -39,14 +39,16 @@ def addGroup(urlRequest):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            createNewGroup(
+            grp=createNewGroup(
                     form.cleaned_data['group_owner'],
                     form.cleaned_data['group_name'],
                     form.cleaned_data['group_description'],
                     ""
                     )
-
-            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+            if urlRequest.user.is_site_admin:
+                grp.group_activated=1
+                grp.save()
+            return HttpResponseRedirect('/profile/') # Redirect after POST
     else:
         form = SimpleGroupAddForm() # An unbound form
 
