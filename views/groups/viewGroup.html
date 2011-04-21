@@ -151,7 +151,7 @@ if (!Array.prototype.filter)
 opts = $('#id_new_member>option')
 opts=opts.map(function (i){return opts[i].innerHTML})
 opts=opts.filter(function(i){return opts[i].match('User:');})
-opts=opts.map(function(i){return opts[i].substr(6,opts[i].length)}
+opts=opts.map(function(i){return opts[i].substr(6,opts[i].length);})
 $('#autoselect').autocomplete({source:opts})
 </script>
 {% endif %}
