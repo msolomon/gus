@@ -287,5 +287,5 @@ def ApproveGroup(urlRequest):
     forms = [{'group':g,'form':ApprovalForm({'group_id':g.id})} for g in groups]
     return render_to_response('groups/unapproved.html',
                               {'groups':groups,
-                               }
+                               },
                               context_instance=RequestContext(urlRequest))
