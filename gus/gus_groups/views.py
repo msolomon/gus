@@ -84,7 +84,8 @@ def editGroup(urlRequest, group_id):
 
 def viewGroup(urlRequest, group_id):
     from gus.gusTestSuite.forms import SimpleAddUserToGroup
-
+    if group_id == 2 and not urlRequest.user.is_site_admin():
+        return HttpResponseRedirect('/profile/')
     if urlRequest.method == 'POST':
         usr = gus_user.objects.get(pk=int(urlRequest.POST['new_member']))
         role = gus_role.objects.get(pk=int(urlRequest.POST['role']))
