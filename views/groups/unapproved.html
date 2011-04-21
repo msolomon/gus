@@ -18,9 +18,9 @@ Unapproved Groups
 	</form>
 	  </tr>
   	<tr>
-		  <td width="10%">
+		  <td colspan="2">
 		  <p><a href="/groups/{{g.group.id}}/">Go to {{g.group.group_name}}</a>
-		  <p>Description - {{g.group.group_description}}</p>
+		  <p>Description - {{g.group.group_description|safe}}</p>
 		  </td>
 	  </tr>
   </table>

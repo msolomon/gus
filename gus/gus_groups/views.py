@@ -32,8 +32,7 @@ def index(urlRequest):
 def addGroup(urlRequest):
 
     from gus.gus_groups.utils import createNewGroup
-    from gus.gusTestSuite.forms import SimpleGroupAddForm
-
+    
     #setup our form
     if urlRequest.method == 'POST': # If the form has been submitted...
         form = SimpleGroupAddForm(urlRequest.POST) # A form bound to the POST data
