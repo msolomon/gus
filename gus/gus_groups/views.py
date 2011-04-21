@@ -155,6 +155,7 @@ def AddSubgroup(urlRequest,group_id):
             try:
                 grp = gus_group.objects.create_group(form.cleaned_data['group_name'],form.cleaned_data['group_description'],form.cleaned_data['group_image'] or "")
                 grp.parent_group=group
+                grp.group_activated=1
                 grp.save()
             except:
                 pass
@@ -283,9 +284,20 @@ def createRole(urlRequest,group_id):
 @login_required
 def ApproveGroup(urlRequest):
     import random
-    if not urlRequest.user.has_group_perm(random.choice(gus_group.objects.all()),'some non existant permission string')<11:
-        return HttpResponse('No Perm')
-    groups = gus_group.objects.filter(group_activated=False)
+    if not urlRequest.user.is_site_admin():
+        return HttpResponseRedirect('/profile/')
+    if urlRequest.method == 'POST':
+        form = ApprovalForm(urlRequest.POST)
+        if form.is_valid():
+            try:
+                grp=gus_group.objects.get(id=int(form.cleaned_data['group_id']))
+                grp.group_activated=int(form.cleaned_data['is_active'])
+                grp.save()
+            except:
+                pass
+            
+            return  HttpResponseRedirect('/groups/ApproveGroup/')
+    groups = gus_group.objects.filter(group_activated=0)
     g2 = [{'group':g,'form':ApprovalForm({'group_id':g.id})} for g in groups]
     return render_to_response('groups/unapproved.html',
                               {'groups':g2,
