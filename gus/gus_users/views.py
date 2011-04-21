@@ -30,7 +30,7 @@ def welcome(request):
     try:
         if request.user.is_anonymous():
             return render_to_response('welcome.html',{
-                                                      'groups':gus_group.objects.filter(parent_group=None,group_activated=1).exclude(id=2).order_by('group_name')
+                                                      'groups':gus_group.objects.filter(parent_group=None).order_by('group_name')
                                                       },
                                                       context_instance=RequestContext(request))
         else:
@@ -122,7 +122,7 @@ def profile(urlRequest):
     
 def listing(urlRequest):
 	return render_to_response('users/listing.html', {
-         'groups':gus_group.objects.filter(parent_group=None,group_activated=1).exclude(id=2).order_by('group_name'),
+         'groups':gus_group.objects.filter(parent_group=None,group_activated=1).exclude(group_name='SuperAdmins').order_by('group_name'),
          },context_instance=RequestContext(urlRequest));
 
 
