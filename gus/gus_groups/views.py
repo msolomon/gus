@@ -234,7 +234,7 @@ def editRolePerms(urlRequest,role_id):
             g_id = role.group.id
             return HttpResponseRedirect("/groups/%s/"%g_id)
     else:
-        if role._role_permission_level == 1:
+        if role._role_permission_level >= 1:
             is_superUser = True
         else:
             is_superUser = False

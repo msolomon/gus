@@ -133,7 +133,7 @@ class RolePermissionForm(forms.Form):
     is_superUser=forms.BooleanField(required=False)
     id = forms.IntegerField(widget=forms.HiddenInput,required=False)
     role_permissions=forms.ModelMultipleChoiceField(
-                        queryset=Permission.objects.filter(name__contains="gus_")
+                        queryset=Permission(name__contains="gus_").objects
                         )
 
 class RoleCreateForm(forms.Form):
@@ -141,5 +141,5 @@ class RoleCreateForm(forms.Form):
     is_superUser=forms.BooleanField(required=False)    
     id = forms.IntegerField(widget=forms.HiddenInput,required=False)
     role_permissions=forms.ModelMultipleChoiceField(
-                        queryset=Permission.objects.filter()
+                        queryset=Permission(name__contains="gus_").objects.filter
                         )
