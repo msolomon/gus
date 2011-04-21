@@ -1,5 +1,3 @@
-# TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
-# TODO: Add the ability for galleries to be flagged public
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.forms.models import model_to_dict
@@ -347,6 +345,31 @@ def index(urlRequest):
                                'can_edit' : can_edit,
                                'can_delete' : can_delete},
                               context_instance = RequestContext(urlRequest))
+
+def public_group(urlRequest, group_id):
+    """
+    The view for a list of public galleries for a given group
+    """
+    # See if the group is valid, if not return to a list of all public galleries
+    try:
+        the_group = gus_group.objects.filter(pk = group_id)
+    except:
+        return HttpResponseRedirect('/gallery/public')
+
+    # Get the public galleries for a given group
+    galleries = []
+    for g in gus_gallery.objects.filter(group = the_group):
+        if g.is_public:
+            galleries.append(g)
+
+    # Return the user to the list of public group galleries
+    return render_to_response('gallery/gallery_group_list.html',
+                              {'the_group' : the_group,
+                               'galleries' : galleries,
+                               'can_add' : False,
+                               'can_edit' : False,
+                               'can_delete' : False},
+                              context_instance = RequestContext(urlRequest))    
 
 def public_list(urlRequest):
     """
