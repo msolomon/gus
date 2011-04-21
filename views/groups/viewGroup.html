@@ -31,7 +31,7 @@
 {{ formAddUser.as_p }}
 <input id="autoselect">
 {% csrf_token %}
-<input type="submit" value="Add New Member">
+<input type="submit" value="Add New Member" style="display:none">
 <a href="#" onClick="toggle(1)">Cancel</a>
 </fieldset>
 </form>
@@ -152,7 +152,7 @@ opts = $('#id_new_member>option')
 opts=opts.map(function (i){return opts[i].innerHTML})
 opts=opts.filter(function(i){return opts[i].match('User:');})
 opts=opts.map(function(i){return opts[i].substr(6,opts[i].length);})
-$('#autoselect').autocomplete({source:opts})
+$('#autoselect').autocomplete({ source:opts })
 </script>
 {% endif %}
 {% endblock %}
