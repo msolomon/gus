@@ -285,8 +285,8 @@ def ApproveGroup(urlRequest):
     if not urlRequest.user.has_group_perm(random.choice(gus_group.objects.all()),'some non existant permission string')<11:
         return HttpResponse('No Perm')
     groups = gus_group.objects.filter(group_activated=False)
-    forms = [{'group':g,'form':ApprovalForm({'group_id':g.id})} for g in groups]
+    g2 = [{'group':g,'form':ApprovalForm({'group_id':g.id})} for g in groups]
     return render_to_response('groups/unapproved.html',
-                              {'groups':groups,
+                              {'groups':g2,
                                },
                               context_instance=RequestContext(urlRequest))
