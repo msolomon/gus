@@ -104,7 +104,16 @@ def DeleteBill(request,bill_id=-1):
     b = bill.objects.get(pk=bill_id)
   except:
     return HttpResponse('Bill Not Found')
-  b.delete()
+  try:
+      if request.POST['confirm']:
+	  b.delete()
+      return HttpResponseRedirect('/bill/')
+  except:
+      return render_to_response('generic/confirm_delete.html',
+			    {'type' : 'bill',
+			      'item' : bill.name,
+			      'cancel_url' : '/bill/'},
+			    context_instance = RequestContext(request))
   return HttpResponseRedirect('/bill/')
 
 #PAYMENTS

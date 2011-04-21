@@ -19,6 +19,10 @@ import logging
 class loginForm(forms.Form):
     user = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput())
+    
+class resetForm(forms.Form):
+    email = forms.CharField(max_length=100)
+
 
 def index(request):
     return HttpResponse('Hello World')
@@ -48,7 +52,9 @@ def loginView(request, fail=''):
                 login(request, user)
                 try:
                     return HttpResponseRedirect(request.GET['next'])                    
-                except: pass    
+                except: 
+		    return HttpResponseRedirect('/users/profile')
+
             return HttpResponseRedirect('fail')
     else:
         form = loginForm()
@@ -127,3 +133,38 @@ def users_groups(urlRequest,user_id):
     my_roles=gus_role.objects.with_user(usr)
     # Note to self: always include that last argument "context_instance=RequestContext(urlRequest)"
     return render_to_response('users/grouplisting.html', {'roles':my_roles}, context_instance=RequestContext(urlRequest))
+
+#Jacob Flynn Did This part.
+def passReset(urlRequest):
+  if urlRequest.method == 'POST': # If the form has been submitted...
+      form = resetForm(urlRequest.POST) # A form bound to the POST data
+      if form.is_valid(): # All validation rules pass
+	  # Process the data in form.cleaned_data
+	  # ...
+	  user_email = form.cleaned_data['email']
+	  try:
+	    usr = User.objects.get(email=user_email)
+	    return HttpResponse(usr)
+	    guser = gus_user.objects.get(_user=usr)
+	  except:
+	    return HttpResponseRedirect('/login/reset/t')
+	  password = GenPasswd()
+	  guser.set_password(password)
+	  Emailer().send_message("GUS Password Reset", "Your temporary password is %s.  Please reset it as soon as possible by logging into GUS and going to your Profile.  Thanks!"%password, [guser.email])
+	  return HttpResponseRedirect('/lobin/')
+#    def send_message(self, subject, message, recipient_list, connection=None)	
+  else:
+        form = resetForm()
+
+  return render_to_response('users/reset.html',{"form":form},context_instance=RequestContext(urlRequest))
+  
+#The internet did this part.
+def GenPasswd():
+    chars = string.letters + string.digits
+    for i in range(8):
+        newpasswd = newpasswd + choice(chars)
+    return newpasswd
+
+
+
+
