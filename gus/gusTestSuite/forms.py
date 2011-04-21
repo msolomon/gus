@@ -129,10 +129,11 @@ class ApprovalForm(forms.Form):
     is_active = forms.BooleanField(required=False)
 
 class RolePermissionForm(forms.Form):
+    from django.db.models import Q
     is_superUser=forms.BooleanField(required=False)
     id = forms.IntegerField(widget=forms.HiddenInput,required=False)
     role_permissions=forms.ModelMultipleChoiceField(
-                        queryset=Permission.objects
+                        queryset=Permission.objects.filter(name__contains="gus_")
                         )
 
 class RoleCreateForm(forms.Form):
@@ -140,5 +141,5 @@ class RoleCreateForm(forms.Form):
     is_superUser=forms.BooleanField(required=False)    
     id = forms.IntegerField(widget=forms.HiddenInput,required=False)
     role_permissions=forms.ModelMultipleChoiceField(
-                        queryset=Permission.objects
+                        queryset=Permission.objects.filter()
                         )
