@@ -118,7 +118,12 @@ class gus_user(models.Model):
         """
         determine if this user has a given permission for this group or any of its parent groups
         """
+        from gus_roles.models import gus_role
         if type(group)!=gus_group: return False
+        try:
+            usr=gus_role.objects.get(_role_permission_level=11,_role_users=self)
+            return True  #system super user
+        except: pass
         groups = group.getParents()
         #print "Check Parent Permissions :",perm
         #print groups
