@@ -284,7 +284,7 @@ def ApproveGroup(urlRequest):
     if urlRequest.user.user_level<11:
         return HttpResponse('')
     groups = gus_group.objects.filter(group_activated=False)
-    forms = [{'group':g,'form':g,ApprovalForm({'group_id':g.id})} for g in groups]
+    forms = [{'group':g,'form':ApprovalForm({'group_id':g.id})} for g in groups]
     return render_to_response('groups/unapproved.html',
                               {'groups':groups,
                                }
