@@ -29,9 +29,9 @@
 <form method="post" >
 <fieldset><legend>Add User to Group</legend>
 {{ formAddUser.as_p }}
-<input id="autoselect">
+<input id="autoselect" style="display:none">
 {% csrf_token %}
-<input type="submit" value="Add New Member" style="display:none">
+<input type="submit" value="Add New Member" >
 <a href="#" onClick="toggle(1)">Cancel</a>
 </fieldset>
 </form>
