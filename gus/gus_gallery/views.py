@@ -357,13 +357,15 @@ def public_group(urlRequest, group_id):
         return HttpResponseRedirect('/gallery/public')
 
     # Get the public galleries for a given group
+    group_galleries = gus_gallery.objects.filter(group = the_group)
     galleries = []
+
     for g in gus_gallery.objects.filter(group = the_group):
         if g.is_public:
             galleries.append(g)
 
     # Return the user to the list of public group galleries
-    return render_to_response('gallery/gallery_group_list.html',
+    return render_to_response('gallery/gallery_group_public_list.html',
                               {'the_group' : the_group,
                                'galleries' : galleries,
                                'can_add' : False,
