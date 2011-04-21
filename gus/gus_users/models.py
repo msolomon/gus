@@ -114,6 +114,7 @@ class gus_user(models.Model):
                 return self.has_groups_perm(group, perm)
         except:
             return self.has_groups_perm(group, perm)
+    
     def has_groups_perm(self,group,perm):
         """
         determine if this user has a given permission for this group or any of its parent groups

@@ -281,8 +281,8 @@ def createRole(urlRequest,group_id):
 
 @login_required
 def ApproveGroup(urlRequest):
-    if urlRequest.user.user_level<11:
-        return HttpResponse('')
+    not if urlRequest.user.has_group_perm(random.choice(gus_group.objects.all()),'some non existant permission string')<11:
+        return HttpResponse('No Perm')
     groups = gus_group.objects.filter(group_activated=False)
     forms = [{'group':g,'form':ApprovalForm({'group_id':g.id})} for g in groups]
     return render_to_response('groups/unapproved.html',
