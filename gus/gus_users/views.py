@@ -115,7 +115,7 @@ def profile(urlRequest):
     
 def listing(urlRequest):
 	return render_to_response('users/listing.html', {
-         'groups':gus_group.objects.filter(parent_group=None,group_name!='SuperAdmins').order_by('group_name'),
+         'groups':gus_group.objects.filter(parent_group=None).exclude(group_name='SuperAdmins').order_by('group_name'),
          },context_instance=RequestContext(urlRequest));
 
 
