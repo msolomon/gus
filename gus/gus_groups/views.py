@@ -50,9 +50,10 @@ def addGroup(urlRequest):
                 grp.save()
             return HttpResponseRedirect('/profile/') # Redirect after POST
     else:
-        form = SimpleGroupAddForm() # An unbound form
-
-
+        form = SimpleGroupAddForm({'group_owner':urlRequest.user}) # An unbound form
+    if not urlRequest.user.is_site_admin():
+        form.fields['group_owner'].widget=forms.Select(attrs={'style':'display:none'})
+        form.fields['group_owner'].label = "Owner : %s"%urlRequest.user.username
     return render_to_response('test/form.html',
                                 {
                                  'submiturl':'/groups/Add/',

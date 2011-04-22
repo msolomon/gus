@@ -22,7 +22,16 @@ DATABASES = {
         'PORT': '', # Set to empty string for default. Not used with sqlite3.
     }
 }
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'pos$
+        'NAME': 'gus_db', # Or path to database file if using sqlite3.
+        'USER': 'root', # Not used with sqlite3.
+        'PASSWORD': '',#chandler is a little girl', # Not used with sq$
+        'HOST': 'localhost', # Set to empty string for localh$
+        'PORT': '', # Set to empty string for default. Not used with sqlite3.
+    }
+}
 
 LOGIN_URL='/login/'
 AUTHENTICATION_BACKENDS=('gus_backend.models.gus_backend',
