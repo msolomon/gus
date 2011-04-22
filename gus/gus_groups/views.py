@@ -94,7 +94,9 @@ def viewGroup(urlRequest, group_id):
     form_addUser = SimpleAddUserToGroup(group)
     role=gus_role.objects.with_user_in_group(group,urlRequest.user)
     roles = group.roles
-
+    tmp_users_list= gus_role.objects.users_without_group(group)
+    users_tmp_namelist = [usr.username for usr in tmp_users_list]
+    userstr = ",".join(users_tmp_namelist)
     if urlRequest.user.is_authenticated():
         my_perms={
            'adduser':urlRequest.user.has_group_perm(group,'Can add gus_user'),
@@ -122,7 +124,7 @@ def viewGroup(urlRequest, group_id):
                     }
     return render_to_response('groups/viewGroup.html',
         { 'group':group, 'role':role,'roles':roles,'can':my_perms,
-          'formAddUser':form_addUser},
+          'formAddUser':form_addUser,'addUserString':userstr},
           context_instance=RequestContext(urlRequest)
           )
 @login_required
