@@ -123,9 +123,9 @@ def gallery_group_list(urlRequest, group_id):
     except:
         return HttpResponseReditect('/gallery/')
 
-    # If the user isn't in the group, then redirect to the list of galleries
+    # If the user isn't in the group, then redirect to the public gallery view
     if gus_role.objects.with_user_in_group(the_group, the_user) == None:
-        return HttpResponseRedirect('/gallery/')
+        return HttpResponseRedirect('/gallery/public/group/' + str(group_id))
 
     # Get the list of group galleries
     galleries = gus_gallery.objects.filter(group = the_group)
@@ -261,7 +261,7 @@ def image_delete(urlRequest, image_id):
     # If the form has been posted, the user wants to delete the image. So do it
     if urlRequest.method == "POST":
         image.delete()
-        return HttpResponseRedirect('/gallery/' + `gallery.id`)
+        return HttpResponseRedirect('/gallery/' + str(gallery.id))
 
     # Otherwise, show the normal view
     return render_to_response('gallery/image_delete.html',
@@ -297,7 +297,7 @@ def image_edit(urlRequest, image_id):
         the_form = image_edit_form(urlRequest.POST, instance=image)
         if the_form.is_valid():
             the_form.save()
-            return HttpResponseRedirect('/gallery/' + `gallery.id`)
+            return HttpResponseRedirect('/gallery/' + str(gallery.id))
         else:
             error = True
 
