@@ -50,14 +50,21 @@ if (!Array.prototype.filter)
 
 
   $(document).ready(function() {
-  	opts = $('#id_new_member>option')
-	opts=opts.map(function (i){return opts[i].innerHTML})
-	opts=opts.filter(function(i){return opts[i].match('User:');})
-	opts=opts.map(function(i){return opts[i].substr(6,opts[i].length);})
+  	$('#id_new_member').hide()
 	
 	//$('#autoselect').autocomplete({ source:opts })
     $("input#autocomplete").autocomplete({
-    source: [{{addUserString}}]
+    source: [{{addUserString|safe}}] ,
+    close: function(event, ui) { 
+    	uname="User: "+$("input#autocomplete").val()
+    	//alert(uname)
+    	opts = $('#id_new_member>option')
+    	for (i=0;i<opts.length;i++){
+    		if (opts[i].innerHTML.match('.*'+uname+'.*'))
+    			opts[i].selected="selected"
+    	}
+    	
+    }
 });
   });
   </script>
@@ -92,8 +99,10 @@ if (!Array.prototype.filter)
 <div style="display:none" id="Add">
 <form method="post" >
 <fieldset><legend>Add User to Group</legend>
-{{ formAddUser.as_p }}
-<input id="autocomplete" style="">
+	
+<p>{{ formAddUser.new_member }}<input id="autocomplete" style=""></p>	
+<p>{{ formAddUser.role }}</p>
+{{ formAddUser.group }}
 {% csrf_token %}
 <input type="submit" value="Add New Member" >
 <a href="#" onClick="toggle(1)">Cancel</a>

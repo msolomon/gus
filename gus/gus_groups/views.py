@@ -96,7 +96,8 @@ def viewGroup(urlRequest, group_id):
     roles = group.roles
     tmp_users_list= gus_role.objects.users_without_group(group)
     users_tmp_namelist = [usr.username for usr in tmp_users_list]
-    userstr = ",".join(users_tmp_namelist)
+    userstr ='"'+ '","'.join(users_tmp_namelist) +'"'
+    #return HttpResponse(userstr)
     if urlRequest.user.is_authenticated():
         my_perms={
            'adduser':urlRequest.user.has_group_perm(group,'Can add gus_user'),

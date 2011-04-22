@@ -22,6 +22,8 @@ DATABASES = {
         'PORT': '', # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+
 LOGIN_URL='/login/'
 AUTHENTICATION_BACKENDS=('gus_backend.models.gus_backend',
                          'django.contrib.auth.backends.ModelBackend',)
