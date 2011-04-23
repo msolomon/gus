@@ -123,6 +123,7 @@ class gus_user(models.Model):
         except:
             return self.has_groups_perm(group, perm)
     def is_site_admin(self):
+        from gus_groups.models import gus_group
         import random
         return self.has_group_perm(random.choice(gus_group.objects.all()), 'nonExistantPermString')
     def has_groups_perm(self,group,perm):
