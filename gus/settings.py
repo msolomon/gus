@@ -119,9 +119,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'gus.gus_users',
     'gus.gus_groups',
     'gus.gus_roles',
-    'gus.gus_users',
+    
     'gus.gus_calendar',
     'gus.gus_widget',
     'gus.gus_forum',

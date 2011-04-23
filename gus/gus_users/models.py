@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import settings
-from gus_groups.models import gus_group
+
 
 
 class UserManager(models.Manager):
