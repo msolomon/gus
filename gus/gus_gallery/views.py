@@ -110,7 +110,6 @@ def gallery_edit(urlRequest, gallery_id):
                                'error' : error},
                               context_instance=RequestContext(urlRequest))
 
-@login_required
 def gallery_group_list(urlRequest, group_id):
     """
     A view for a single group's galleries
