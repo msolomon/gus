@@ -93,6 +93,9 @@ if (!Array.prototype.filter)
 {% block content %}
 
 <h2>{{ group }}</h2>
+{%if can.editgroup %}
+<a href="/groups/{{ group.id }}/Edit">Edit Group Description</a>
+{% endif %}
 <p>{{ group.group_description|safe }}</p>
 <hr />
 {% if can.adduser %}

@@ -9,6 +9,7 @@ from gus.gus_users.models import gus_user
 from gus.gus_groups.models import gus_group
 from gus.gus_roles.models import gus_role
 from gus.gusTestSuite.forms import *
+from django import forms
 
 @login_required
 def index(urlRequest):
@@ -84,6 +85,37 @@ def editGroup(urlRequest, group_id):
           context_instance=RequestContext(urlRequest)
           )
 
+    
+@login_required
+def editGroupDesc(urlRequest, group_id):
+    try:
+        grp=gus_group.objects.get(id=group_id)
+    except:
+        return HttpResponseRedirect('/profile/')
+    if not urlRequest.user.has_group_perm(grp,'Can change gus_group'):
+        return HttpResponseRedirect('/groups/%s/'%group_id)
+    class DescEditForm(forms.Form):
+        group_description=forms.CharField(widget=forms.Textarea())
+        group_id=forms.IntegerField(widget=forms.HiddenInput())
+    if urlRequest.method == 'POST':
+        form = DescEditForm(urlRequest.POST)
+        if form.is_valid():
+            grp.group_description = form.cleaned_data['group_description']
+            grp.save()
+            return HttpResponseRedirect('/groups/%s/'%group_id)
+    else:
+        form=DescEditForm({'group_id':grp.id,'group_description':grp.group_description})
+        return render_to_response('generic/form.html',
+                                {'cancelurl':'/groups/%s/'%group_id,
+                                 'submiturl':'/groups/%s/Edit/'%group_id,
+                                 'enctype':'multipart/form-data',
+                                 'form':form,
+                                 'title':'Edit Description for %s'%grp.group_name,
+                                 'btnlabel':'Save Edits',
+                                },
+                                context_instance=RequestContext(urlRequest)
+
+                                )
 def viewGroup(urlRequest, group_id):
     from gus.gusTestSuite.forms import SimpleAddUserToGroup
     if group_id == 2 and not urlRequest.user.is_site_admin():

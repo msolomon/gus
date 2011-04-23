@@ -7,5 +7,5 @@
 {{ form.as_p }}
 <input type="submit" value="{{ btnlabel }}">
 </form>
-<a href="/gus_test/">Cancel</a><br/>
+<a href="{% if cancelurl %}{{ cancelurl }}{% else %}/{% endif %}">Cancel</a><br/>
 {% endblock %}
