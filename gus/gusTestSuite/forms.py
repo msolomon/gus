@@ -133,7 +133,9 @@ class ContactForm(forms.Form):
 class ApprovalForm(forms.Form):
     group_id = forms.IntegerField(widget=forms.HiddenInput())
     is_active = forms.BooleanField(required=False)
-
+class UserApprovalForm(forms.Form):
+    user_id = forms.IntegerField(widget=forms.HiddenInput())
+    user_role = forms.ModelChoiceField(queryset=gus_role.objects)
 class RolePermissionForm(forms.Form):
     from django.db.models import Q
     is_superUser=forms.BooleanField(required=False)

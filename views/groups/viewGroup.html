@@ -89,15 +89,28 @@ if (!Array.prototype.filter)
     <li><a href="/forum/{{group.id}}/">Group Forums</a>
     <li><a href="/email/group/{{group.id}}/">Email Group</a>
 </ul>
+<ul>
+{% if not user.is_anonymous and not isSubGrouped and not role and not user in group.pending_users.all %}
+<li><a href="/groups/{{ group.id }}/Join/">Request To Join<br>{{group.group_name}}</a></li>
+{% endif %}
+</ul>
 {% endblock%}
-{% block content %}
 
+{% block content %}
+{% if user in group.pending_users.all %}
+<div class="status">
+Your Request To Join This Group is pending approval
+</div>
+{% endif %}
 <h2>{{ group }}</h2>
 {%if can.editgroup %}
 <a href="/groups/{{ group.id }}/Edit">Edit Group Description</a>
-{% endif %}
+{% endif  %}
 <p>{{ group.group_description|safe }}</p>
 <hr />
+{% if group.pending_users.all and can.adduser %}
+<a href="/groups/{{group.id}}/ApproveUser/"> Approve Pending Users ({{group.pending_users.all|length}})</a><br/>
+{% endif %}
 {% if can.adduser %}
 <div style="display:none" id="Add">
 <form method="post" >
@@ -113,6 +126,10 @@ if (!Array.prototype.filter)
 </form>
 </div>
 {% endif %}
+{% if not roles and can.addrole %}
+<i>You Have No Roles in this group</i><br>
+You Can Add A Role By Clicking the <a href="/groups/{{group.id}}/CreateRole/">Create a New Role</a> link on the left
+{% endif %}
 {% for r in roles %}
 {% for usr in r.users.all %}
 {{ usr.username }} (
@@ -125,7 +142,7 @@ if (!Array.prototype.filter)
 <br/>
 <div style="margin-left:25px">
 {% if can.edituser %}
-<a href="/groups/{{group.id}}/EditRole/{{usr.id}}">Change User Role</a>
+<a href="/groups/{{group.id}}/EditRole/{{usr.id}}/">Change User Role</a>
 {% endif %}
 {% if can.edituser and can.deluser and usr.id != user.id%} | {% endif %}
 {% if can.deluser and user.id != usr.id %}
@@ -177,10 +194,5 @@ function toggle(flag){
 </div>
 </div>	
 {% endfor %}
-{% comment %}
-{{ can }} {{ group }}
-{% endcomment %}
-{% if can.adduser %}
 
-{% endif %}
 {% endblock %}
