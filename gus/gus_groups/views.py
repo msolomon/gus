@@ -45,7 +45,7 @@ def addGroup(urlRequest):
                     form.cleaned_data['group_description'],
                     ""
                     )
-            if urlRequest.user.is_site_admin:
+            if urlRequest.user.is_site_admin():
                 grp.group_activated=1
                 grp.save()
             return HttpResponseRedirect('/profile/') # Redirect after POST
@@ -54,6 +54,7 @@ def addGroup(urlRequest):
     if not urlRequest.user.is_site_admin():
         form.fields['group_owner'].widget=forms.Select(attrs={'style':'display:none'})
         form.fields['group_owner'].label = "Owner : %s"%urlRequest.user.username
+        form.fields['group_owner'].queryset=gus_user.objects.filter(_user=urlRequest.user._user)
     return render_to_response('test/form.html',
                                 {
                                  'submiturl':'/groups/Add/',

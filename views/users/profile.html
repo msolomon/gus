@@ -28,6 +28,9 @@ Profile
 		  <th>Group: {{role.group.group_name}} [ <a href="/groups/{{role.group.id}}/RemoveUser/{{user.id}}/">Leave Group</a> ]</th>
 	  </tr>
   	<tr>
+  		{% if not role.group.group_activated %}
+  		<th style="color:darkred">*This Group Is Pending System Approval*</th>
+  		{% else %}
 		  <td width="10%">
 		  <p><a href="/groups/{{role.group.id}}/">Go to {{role.group.group_name}}</a>
 		  <p>Description - {{role.group.group_description|safe}}</p>
@@ -46,6 +49,7 @@ Profile
 		  </p>
 		  <a href="/forum/{{role.group.id}}">Forums</a>
 		  </td>
+		  {% endif %}
 	  </tr>
   </table>
   
