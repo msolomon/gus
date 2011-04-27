@@ -6,7 +6,7 @@ from django import forms
 from gus_forum.models import *
 from gus_users.models import *
 from gus_roles.models import *
-from bleach
+import bleach
 
 class new_forum_form (forms.Form): 
 	Name = forms.CharField(max_length = 32)
