@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from  django.template import RequestContext
 from gus.gus_groups.models import *
+from gus.gus_groups.utils import *
 from gus.gus_roles.models import *
 from gus.gus_users.models import *
 from gus.gus_bill.models import *
@@ -18,9 +19,7 @@ class new_bill_form(forms.Form):
   user = forms.ModelMultipleChoiceField(queryset=gus_user.objects.all())
   def setGroup(self, group):
       role_ids =[r.id for r in group.roles]
-      self.fields[
-            'user'
-            ].queryset = gus_role.objects.users_with_group(group)
+      self.fields['user'].queryset = gus_role.objects.users_with_group(group)
   #      self.fields['group'].initial = group.id
   #	      self.fields['role'].queryset = gus_role.objects.filter(_role_group=group)
 
@@ -32,17 +31,15 @@ def index(request):
 	
 	form = new_bill_form()
 	
-	roles = gus_role.objects.with_user(usr).filter(_role_name = "Owner")
+	groups = getGroupsWithUser(usr)
 	adgroups = []
-	adbills = []
-	adbillsbygroup = []
-	for a in roles:
+	for a in groups:
 		#a.getGroup() returns the group
 		#bill.objects.filter(group) returns the bills associated with that group
 		#adbills will be a list of all the bills which the current user is an owner
-		AGRP = a.group
-		AGRP.my_bills  = bill.objects.filter(group = a.group)
-		adgroups.append(AGRP)
+		if( user.has_group_perm(group, 'Can add gus_bill')
+		  adgroups.append(a)
+		
 		
 		
 
