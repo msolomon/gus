@@ -140,7 +140,7 @@ def add_forum(request, group_id):
 			if len(exists) > 0:
 				return HttpResponse("A forum already exists with this name.")
 			#End
-			forum.objects.create_forum(form.cleaned_data["Name"], form.cleaned_data["Description"], request_for_group)
+			forum.objects.create_forum(form.cleaned_data["Name"], bleach.clean(form.cleaned_data["Description"]), request_for_group)
 			return HttpResponseRedirect('/forum/%s' %group_id)
 		#End
 	#End
@@ -222,7 +222,7 @@ def add_post(request, group_id, forum_id, thread_id):
 		form = new_post_form(request.POST)
 		if form.is_valid():
 			form.cleaned_data["Text"]
-			request_for_thread.CreatePost(request.user, form.cleaned_data["Text"])
+			request_for_thread.CreatePost(request.user, bleach.clean(form.cleaned_data["Text"]))
 			return HttpResponseRedirect('/forum/%s/%s/%s' % (group_id, forum_id, thread_id))
 		#End
 	#End
