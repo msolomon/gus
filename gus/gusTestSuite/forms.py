@@ -20,7 +20,8 @@ class SimpleUserAddForm(forms.Form):
     A form to add a new user to the system
     """
     username = forms.CharField(max_length=100)
-    password = forms.CharField(max_length=100,widget=forms.PasswordInput())
+    password = forms.CharField(max_length=100,widget=forms.PasswordInput(), label="Choose a Password")
+    re_password = forms.CharField(required=False, max_length=100, widget=forms.PasswordInput(), label="Re-Enter Password")
     real_name=forms.CharField(max_length=150)
     email = forms.EmailField(label='Contact e-mail:')
     id  = forms.IntegerField(required=False,widget=forms.HiddenInput())
@@ -35,8 +36,13 @@ class SimpleUserAddForm(forms.Form):
         except:
             data = validate_username_chars(self)
             return data
-        raise forms.ValidationError('This username is already taken')
+        raise forms.ValidationError('This username is already taken.')
     
+    def clean_re_password(self):
+         if self.cleaned_data['password'] != self.cleaned_data['re_password'] :
+            raise forms.ValidationError('Passwords do not match.')            
+
+
     
 class SimpleUserEditForm(forms.Form):
     """
@@ -127,7 +133,9 @@ class ContactForm(forms.Form):
 class ApprovalForm(forms.Form):
     group_id = forms.IntegerField(widget=forms.HiddenInput())
     is_active = forms.BooleanField(required=False)
-
+class UserApprovalForm(forms.Form):
+    user_id = forms.IntegerField(widget=forms.HiddenInput())
+    user_role = forms.ModelChoiceField(queryset=gus_role.objects)
 class RolePermissionForm(forms.Form):
     from django.db.models import Q
     is_superUser=forms.BooleanField(required=False)

@@ -1,4 +1,75 @@
 {% extends "base.html" %}
+{% block custom_header %}{% if can.adduser %}
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+  
+  <script>
+  if (!Array.prototype.map)
+{
+  Array.prototype.map = function(fun /*, thisp*/)
+  {
+    var len = this.length;
+    if (typeof fun != "function")
+      throw new TypeError();
+
+    var res = new Array(len);
+    var thisp = arguments[1];
+    for (var i = 0; i < len; i++)
+    {
+      if (i in this)
+        res[i] = fun.call(thisp, this[i], i, this);
+    }
+
+    return res;
+  };
+}
+if (!Array.prototype.filter)
+{
+  Array.prototype.filter = function(fun /*, thisp*/)
+  {
+    var len = this.length;
+    if (typeof fun != "function")
+      throw new TypeError();
+
+    var res = new Array();
+    var thisp = arguments[1];
+    for (var i = 0; i < len; i++)
+    {
+      if (i in this)
+      {
+        var val = this[i]; // in case fun mutates this
+        if (fun.call(thisp, val, i, this))
+          res.push(val);
+      }
+    }
+
+    return res;
+  };
+}
+
+
+  $(document).ready(function() {
+  	$('#id_new_member').hide()
+	
+	//$('#autoselect').autocomplete({ source:opts })
+    $("input#autocomplete").autocomplete({
+    source: [{{addUserString|safe}}] ,
+    close: function(event, ui) { 
+    	uname="User: "+$("input#autocomplete").val()
+    	//alert(uname)
+    	opts = $('#id_new_member>option')
+    	for (i=0;i<opts.length;i++){
+    		if (opts[i].innerHTML.match('.*'+uname+'.*'))
+    			opts[i].selected="selected"
+    	}
+    	
+    }
+});
+  });
+  </script>
+  {%endif%}
+{% endblock %}
 {% block sidebar_top %}
 <ul>
     {% if can.adduser %}
@@ -18,24 +89,46 @@
     <li><a href="/forum/{{group.id}}/">Group Forums</a>
     <li><a href="/email/group/{{group.id}}/">Email Group</a>
 </ul>
+<ul>
+{% if not user.is_anonymous and not isSubGrouped and not role and not user in group.pending_users.all %}
+<li><a href="/groups/{{ group.id }}/Join/">Request To Join<br>{{group.group_name}}</a></li>
+{% endif %}
+</ul>
 {% endblock%}
-{% block content %}
 
+{% block content %}
+{% if user in group.pending_users.all %}
+<div class="status">
+Your Request To Join This Group is pending approval
+</div>
+{% endif %}
 <h2>{{ group }}</h2>
+{%if can.editgroup %}
+<a href="/groups/{{ group.id }}/Edit">Edit Group Description</a>
+{% endif  %}
 <p>{{ group.group_description|safe }}</p>
 <hr />
+{% if group.pending_users.all and can.adduser %}
+<a href="/groups/{{group.id}}/ApproveUser/"> Approve Pending Users ({{group.pending_users.all|length}})</a><br/>
+{% endif %}
 {% if can.adduser %}
 <div style="display:none" id="Add">
 <form method="post" >
 <fieldset><legend>Add User to Group</legend>
-{{ formAddUser.as_p }}
-<input id="autoselect" style="display:none">
+	
+<p>{{ formAddUser.new_member }}<input id="autocomplete" style=""></p>	
+<p>{{ formAddUser.role }}</p>
+{{ formAddUser.group }}
 {% csrf_token %}
 <input type="submit" value="Add New Member" >
 <a href="#" onClick="toggle(1)">Cancel</a>
 </fieldset>
 </form>
 </div>
+{% endif %}
+{% if not roles and can.addrole %}
+<i>You Have No Roles in this group</i><br>
+You Can Add A Role By Clicking the <a href="/groups/{{group.id}}/CreateRole/">Create a New Role</a> link on the left
 {% endif %}
 {% for r in roles %}
 {% for usr in r.users.all %}
@@ -49,7 +142,7 @@
 <br/>
 <div style="margin-left:25px">
 {% if can.edituser %}
-<a href="/groups/{{group.id}}/EditRole/{{usr.id}}">Change User Role</a>
+<a href="/groups/{{group.id}}/EditRole/{{usr.id}}/">Change User Role</a>
 {% endif %}
 {% if can.edituser and can.deluser and usr.id != user.id%} | {% endif %}
 {% if can.deluser and user.id != usr.id %}
@@ -101,58 +194,5 @@ function toggle(flag){
 </div>
 </div>	
 {% endfor %}
-{% comment %}
-{{ can }} {{ group }}
-{% endcomment %}
-{% if can.adduser %}
-<script type="text/javascript">
-if (!Array.prototype.map)
-{
-  Array.prototype.map = function(fun /*, thisp*/)
-  {
-    var len = this.length;
-    if (typeof fun != "function")
-      throw new TypeError();
 
-    var res = new Array(len);
-    var thisp = arguments[1];
-    for (var i = 0; i < len; i++)
-    {
-      if (i in this)
-        res[i] = fun.call(thisp, this[i], i, this);
-    }
-
-    return res;
-  };
-}
-if (!Array.prototype.filter)
-{
-  Array.prototype.filter = function(fun /*, thisp*/)
-  {
-    var len = this.length;
-    if (typeof fun != "function")
-      throw new TypeError();
-
-    var res = new Array();
-    var thisp = arguments[1];
-    for (var i = 0; i < len; i++)
-    {
-      if (i in this)
-      {
-        var val = this[i]; // in case fun mutates this
-        if (fun.call(thisp, val, i, this))
-          res.push(val);
-      }
-    }
-
-    return res;
-  };
-}
-opts = $('#id_new_member>option')
-opts=opts.map(function (i){return opts[i].innerHTML})
-opts=opts.filter(function(i){return opts[i].match('User:');})
-opts=opts.map(function(i){return opts[i].substr(6,opts[i].length);})
-$('#autoselect').autocomplete({ source:opts })
-</script>
-{% endif %}
 {% endblock %}

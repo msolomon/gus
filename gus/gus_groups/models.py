@@ -38,7 +38,7 @@ class GroupManager(models.Manager):
         """
         return 1 #placeholder
     
-
+from gus_users.models import gus_user
 # Create your models here.
 # Example documentation for pydoc included
 #from gus_roles.models import  gus_role
@@ -48,7 +48,7 @@ class gus_group(models.Model):
     it shall encompass both the data and discreet functionality of groups
     @author: Joran    
     """
-
+    
     #Our Fields
         #Django recommends using OneToOne Fields to extend built in models
     group_name = models.CharField(max_length=100,unique=True) #the group name
@@ -57,7 +57,7 @@ class gus_group(models.Model):
     group_description = models.TextField()         #the group description
     group_image = models.CharField(max_length=50)
     parent_group=models.ForeignKey('gus_group',blank=True,null=True)
-    
+    pending_users=models.ManyToManyField(gus_user)
     group_activated = models.BooleanField()
     
     def getParents(self):
@@ -133,7 +133,7 @@ class gus_group(models.Model):
         return [j for j in [x.users.all() for x in roles ]]
 
     def delete(self):
-	from gus_roles.models import *
+	from gus_roles.models import gus_role
 	roles = gus_role.objects.filter(_role_group=self)
 	for role in roles:
 	    role.delete()

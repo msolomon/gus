@@ -13,7 +13,7 @@ import sys
 	
 class News_upload_widget(models.Model):
 	'''
-	An email manager for a specific user
+	News widget model
 	'''
 		
 	def __unicode__(self):

@@ -1,5 +1,3 @@
-# TODO: Handle attempting to add an invalid image gallery better? Right now it just fails silently, and stays at the form
-# TODO: Add the ability for galleries to be flagged public
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.forms.models import model_to_dict
@@ -112,7 +110,6 @@ def gallery_edit(urlRequest, gallery_id):
                                'error' : error},
                               context_instance=RequestContext(urlRequest))
 
-@login_required
 def gallery_group_list(urlRequest, group_id):
     """
     A view for a single group's galleries
@@ -125,9 +122,9 @@ def gallery_group_list(urlRequest, group_id):
     except:
         return HttpResponseReditect('/gallery/')
 
-    # If the user isn't in the group, then redirect to the list of galleries
+    # If the user isn't in the group, then redirect to the public gallery view
     if gus_role.objects.with_user_in_group(the_group, the_user) == None:
-        return HttpResponseRedirect('/gallery/')
+        return HttpResponseRedirect('/gallery/public/group/' + str(group_id))
 
     # Get the list of group galleries
     galleries = gus_gallery.objects.filter(group = the_group)
@@ -263,7 +260,7 @@ def image_delete(urlRequest, image_id):
     # If the form has been posted, the user wants to delete the image. So do it
     if urlRequest.method == "POST":
         image.delete()
-        return HttpResponseRedirect('/gallery/' + `gallery.id`)
+        return HttpResponseRedirect('/gallery/' + str(gallery.id))
 
     # Otherwise, show the normal view
     return render_to_response('gallery/image_delete.html',
@@ -299,7 +296,7 @@ def image_edit(urlRequest, image_id):
         the_form = image_edit_form(urlRequest.POST, instance=image)
         if the_form.is_valid():
             the_form.save()
-            return HttpResponseRedirect('/gallery/' + `gallery.id`)
+            return HttpResponseRedirect('/gallery/' + str(gallery.id))
         else:
             error = True
 
@@ -347,6 +344,33 @@ def index(urlRequest):
                                'can_edit' : can_edit,
                                'can_delete' : can_delete},
                               context_instance = RequestContext(urlRequest))
+
+def public_group(urlRequest, group_id):
+    """
+    The view for a list of public galleries for a given group
+    """
+    # See if the group is valid, if not return to a list of all public galleries
+    try:
+        the_group = gus_group.objects.filter(pk = group_id)[0]
+    except:
+        return HttpResponseRedirect('/gallery/public')
+
+    # Get the public galleries for a given group
+    group_galleries = gus_gallery.objects.filter(group = the_group)
+    galleries = []
+
+    for g in gus_gallery.objects.filter(group = the_group):
+        if g.is_public:
+            galleries.append(g)
+
+    # Return the user to the list of public group galleries
+    return render_to_response('gallery/gallery_group_public_list.html',
+                              {'the_group' : the_group,
+                               'galleries' : galleries,
+                               'can_add' : False,
+                               'can_edit' : False,
+                               'can_delete' : False},
+                              context_instance = RequestContext(urlRequest))    
 
 def public_list(urlRequest):
     """

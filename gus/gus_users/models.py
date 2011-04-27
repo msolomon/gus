@@ -1,10 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 import settings
-from gus_groups.models import gus_group
+
 
 
 class UserManager(models.Manager):
+    def get_id(self,id):
+        try:
+            djUsr=User.objects.get(id=id)
+            return super(UserManager, self).get_query_set().get(_user=djUsr)
+        except:
+            return None
+        return None
+    
     def create(self, username, email, password):
         self.create_user(username, email, password)
 
@@ -115,12 +123,14 @@ class gus_user(models.Model):
         except:
             return self.has_groups_perm(group, perm)
     def is_site_admin(self):
+        from gus_groups.models import gus_group
         import random
         return self.has_group_perm(random.choice(gus_group.objects.all()), 'nonExistantPermString')
     def has_groups_perm(self,group,perm):
         """
         determine if this user has a given permission for this group or any of its parent groups
         """
+        from gus_groups.models import gus_group
         from gus_roles.models import gus_role
         if type(group)!=gus_group: return False
         try:
@@ -133,7 +143,11 @@ class gus_user(models.Model):
         for g in groups:
             if self.has_group_perm(g,perm): return True
         return False
-    
+    def has_subgroup_membership(self,group):
+        subgroups=group.getChildren()
+        userroles=self.roles
+        usergroups=[r.group for r in userroles]
+        return not set(usergroups).isdisjoint(set(subgroups))
     def get_full_name(self):
         """
         return the users full name

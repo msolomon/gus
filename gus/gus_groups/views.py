@@ -9,6 +9,7 @@ from gus.gus_users.models import gus_user
 from gus.gus_groups.models import gus_group
 from gus.gus_roles.models import gus_role
 from gus.gusTestSuite.forms import *
+from django import forms
 
 @login_required
 def index(urlRequest):
@@ -45,14 +46,16 @@ def addGroup(urlRequest):
                     form.cleaned_data['group_description'],
                     ""
                     )
-            if urlRequest.user.is_site_admin:
+            if urlRequest.user.is_site_admin():
                 grp.group_activated=1
                 grp.save()
             return HttpResponseRedirect('/profile/') # Redirect after POST
     else:
-        form = SimpleGroupAddForm() # An unbound form
-
-
+        form = SimpleGroupAddForm({'group_owner':urlRequest.user}) # An unbound form
+    if not urlRequest.user.is_site_admin():
+        form.fields['group_owner'].widget=forms.Select(attrs={'style':'display:none'})
+        form.fields['group_owner'].label = "Owner : %s"%urlRequest.user.username
+        form.fields['group_owner'].queryset=gus_user.objects.filter(_user=urlRequest.user._user)
     return render_to_response('test/form.html',
                                 {
                                  'submiturl':'/groups/Add/',
@@ -82,6 +85,53 @@ def editGroup(urlRequest, group_id):
           context_instance=RequestContext(urlRequest)
           )
 
+    
+@login_required
+def editGroupDesc(urlRequest, group_id):
+    try:
+        grp=gus_group.objects.get(id=group_id)
+    except:
+        return HttpResponseRedirect('/profile/')
+    if not urlRequest.user.has_group_perm(grp,'Can change gus_group'):
+        return HttpResponseRedirect('/groups/%s/'%group_id)
+    class DescEditForm(forms.Form):
+        group_description=forms.CharField(widget=forms.Textarea())
+        group_id=forms.IntegerField(widget=forms.HiddenInput())
+    if urlRequest.method == 'POST':
+        form = DescEditForm(urlRequest.POST)
+        if form.is_valid():
+            grp.group_description = form.cleaned_data['group_description']
+            grp.save()
+            return HttpResponseRedirect('/groups/%s/'%group_id)
+    else:
+        form=DescEditForm({'group_id':grp.id,'group_description':grp.group_description})
+        return render_to_response('generic/form.html',
+                                {'cancelurl':'/groups/%s/'%group_id,
+                                 'submiturl':'/groups/%s/Edit/'%group_id,
+                                 'enctype':'multipart/form-data',
+                                 'form':form,
+                                 'title':'Edit Description for %s'%grp.group_name,
+                                 'btnlabel':'Save Edits',
+                                },
+                                context_instance=RequestContext(urlRequest)
+
+                                )
+       
+@login_required
+def requestMembership(urlRequest,group_id):
+    """
+    Allow user to request membership to a given group
+    """
+    from gus_roles.models import gus_role
+    try:
+        group=gus_group.objects.get(id=group_id)
+    except:
+        return HttpResponseRedirect('/groups/%s/'%group_id)
+    if gus_role.objects.with_user_in_group(group, urlRequest.user):
+        return HttpResponseRedirect('/groups/%s/'%group_id)
+    group.pending_users.add(urlRequest.user)
+    return HttpResponseRedirect('/groups/%s/'%group_id)
+
 def viewGroup(urlRequest, group_id):
     from gus.gusTestSuite.forms import SimpleAddUserToGroup
     if group_id == 2 and not urlRequest.user.is_site_admin():
@@ -94,7 +144,14 @@ def viewGroup(urlRequest, group_id):
     form_addUser = SimpleAddUserToGroup(group)
     role=gus_role.objects.with_user_in_group(group,urlRequest.user)
     roles = group.roles
-
+    tmp_users_list= gus_role.objects.users_without_group(group)
+    users_tmp_namelist = [usr.username for usr in tmp_users_list]
+    userstr ='"'+ '","'.join(users_tmp_namelist) +'"'
+    isSubGrouped=False
+    if not role and not urlRequest.user.is_anonymous():
+        isSubGrouped = urlRequest.user.has_subgroup_membership(group)
+        
+    #return HttpResponse(userstr)
     if urlRequest.user.is_authenticated():
         my_perms={
            'adduser':urlRequest.user.has_group_perm(group,'Can add gus_user'),
@@ -122,7 +179,7 @@ def viewGroup(urlRequest, group_id):
                     }
     return render_to_response('groups/viewGroup.html',
         { 'group':group, 'role':role,'roles':roles,'can':my_perms,
-          'formAddUser':form_addUser},
+          'formAddUser':form_addUser,'addUserString':userstr},
           context_instance=RequestContext(urlRequest)
           )
 @login_required
@@ -284,7 +341,6 @@ def createRole(urlRequest,group_id):
 
 @login_required
 def ApproveGroup(urlRequest):
-    import random
     if not urlRequest.user.is_site_admin():
         return HttpResponseRedirect('/profile/')
     if urlRequest.method == 'POST':
@@ -302,5 +358,46 @@ def ApproveGroup(urlRequest):
     g2 = [{'group':g,'form':ApprovalForm({'group_id':g.id})} for g in groups]
     return render_to_response('groups/unapproved.html',
                               {'groups':g2,
+                               },
+                              context_instance=RequestContext(urlRequest))
+
+@login_required
+def ApproveUser(urlRequest,group_id):
+    try:
+        group = gus_group.objects.get(id=group_id)
+        
+    except:
+        return HttpResponseRedirect('/profile/')
+    if not urlRequest.user.has_group_perm(group,'Can add gus_user'):
+        return HttpResponseRedirect('/groups/%s/'%group_id)
+    if urlRequest.method == 'POST':
+        
+        form = UserApprovalForm(urlRequest.POST)
+        
+        if form.is_valid():
+            from django.contrib.auth.models import User   
+            
+            try:
+                usr=gus_user.objects.get_id(form.cleaned_data['user_id'])
+                role=form.cleaned_data['user_role']
+                role.users.add(usr)
+                role.save()
+                
+            except:
+                
+                return HttpResponseRedirect('/')
+                
+            group.pending_users.remove(usr)
+            group.save()
+            
+            
+            return  HttpResponseRedirect('/groups/%s/ApproveUser/'%group_id)
+    
+    users_tmp=group.pending_users.all()
+    users = [{'user':u,'form':UserApprovalForm({'user_id':u.id})} for u in users_tmp]
+    for u in users:
+        u['form'].fields['user_role'].queryset=gus_role.objects.with_group(group)
+    return render_to_response('groups/unapprovedUser.html',
+                              {'users':users,
                                },
                               context_instance=RequestContext(urlRequest))
