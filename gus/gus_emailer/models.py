@@ -373,7 +373,8 @@ class Emailer():
         
         # get the message from the DB
         try:
-            message = DBEmail.objects.filter(gus_receivers=self.user).get(id=emailid)
+            message = DBEmail.objects.filter(models.Q(gus_receivers=self.user)
+                                             | models.Q(gus_sender=self.user)).get(id=emailid)
         except Exception, e:
             logging.debug(e)
             return (False, 'This message could not be found on the server, or you do not have permission to view it.')
