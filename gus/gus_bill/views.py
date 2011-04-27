@@ -77,10 +77,10 @@ def AddBill(request,group_id=-1):
 	bill_grp = gus_group.objects.get(pk=group_id)
 	usr = request.user
   except:
-	return HttpResponseRedirect('/bill/')	
-  mygrprole = usr.has_group_perm(bill_grp, 'Can add bill')
+	return HttpResponseRedirect('/bill/uuu/')	
+  mygrprole = usr.has_group_perm(bill_grp, 'Can add gus_bill')
   if( not mygrprole ):
-      return HttpResponseRedirect('/bill/')	
+      return HttpResponseRedirect('/bill/rrr/')	
   if request.method == "POST":
     form = new_bill_form(request.POST)
     if form.is_valid() :
