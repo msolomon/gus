@@ -38,7 +38,7 @@ def index(request):
 		#bill.objects.filter(group) returns the bills associated with that group
 		#adbills will be a list of all the bills which the current user is an owner
 		if( user.has_group_perm(group, 'Can add gus_bill')
-		  adgroups.append(a)
+			adgroups.append(a)
 		
 		
 		
