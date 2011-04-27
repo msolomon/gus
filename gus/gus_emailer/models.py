@@ -374,7 +374,7 @@ class Emailer():
         # get the message from the DB
         try:
             message = DBEmail.objects.filter(models.Q(gus_receivers=self.user)
-                                             | models.Q(gus_sender=self.user)).get(id=emailid)
+                                             | models.Q(gus_sender=self.user), id=emailid)
         except Exception, e:
             logging.debug(e)
             logging.debug(str([message.pk for  message in DBEmail.objects.filter(models.Q(gus_receivers=self.user)
