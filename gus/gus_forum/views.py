@@ -6,6 +6,9 @@ from django import forms
 from gus_forum.models import *
 from gus_users.models import *
 from gus_roles.models import *
+from bleach import Bleach
+
+bleach = Bleach()
 
 class new_forum_form (forms.Form): 
 	Name = forms.CharField(max_length = 32)
@@ -182,7 +185,7 @@ def add_thread(request, group_id, forum_id):
 			except:
 				return HttpResponse('Thread Was Not Created!')
 			#End
-			request_for_thread.CreatePost(request.user, form.cleaned_data["Text"])
+			request_for_thread.CreatePost(request.user, bleach.clean(form.cleaned_data["Text"]))
 			return HttpResponseRedirect('/forum/%s/%s' % (group_id, forum_id))
 		#End
 	#End
