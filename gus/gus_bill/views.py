@@ -75,9 +75,10 @@ def group_view(request, group_id=-1):
 def AddBill(request,group_id=-1):
   try:
 	bill_grp = gus_group.objects.get(pk=group_id)
+	usr = request.user
   except:
 	return HttpResponseRedirect('/bill/')	
-  mygrprole = gus_role.objects.with_user_in_group(bill_grp,request.user)
+  mygrprole = usr.has_group_perm(bill_grp, 'Can add gus_bill')
   if(not mygrprole or mygrprole._role_permission_level < 1):
       return HttpResponseRedirect('/bill/')	
   if request.method == "POST":
