@@ -79,7 +79,7 @@ def AddBill(request,group_id=-1):
   except:
 	return HttpResponseRedirect('/bill/')	
   mygrprole = usr.has_group_perm(bill_grp, 'Can add gus_bill')
-  if(not mygrprole or mygrprole._role_permission_level < 1):
+  if(mygrprole):
       return HttpResponseRedirect('/bill/')	
   if request.method == "POST":
     form = new_bill_form(request.POST)
