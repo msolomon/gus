@@ -13,6 +13,8 @@ def upload_form(request):
 	#if not request.user.is_authenticated():
 	#	return HttpResponseRedirect('/login/')
 	form = News_form()
+	usr = request.user
+	groups = getGroupsWithUser(usr)
 	if request.method == 'POST':
 		form = News_form(request.POST)
 		if form.is_valid():
@@ -33,6 +35,8 @@ def upload_form(request):
 			}, context_instance=RequestContext(request))
 	else:
 		form = News_form()
+		gids = [user_group.id for user_group in groups if usr.has_group_perm(user_group, 'Can add gus_event')]
+		form.fields['group'].queryset = gus_group.objects.filter(pk__in=gids)
 	return render_to_response('news/upload.html', {
 		'form':form
 	}, context_instance=RequestContext(request))
