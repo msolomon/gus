@@ -3,7 +3,7 @@ import os
 from django.core.urlresolvers import get_script_prefix
 
 PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
