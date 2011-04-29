@@ -71,8 +71,8 @@ def view_threads(request, group_id, forum_id):
 	my_perms = {'addthread':False, 'deletethread':False}
 	if not request.user.is_anonymous():
 		my_perms={
-		'addthread':request.user.has_group_perm(request_for_group, 'Can add forum_thread'),
-		'deletethread':request.user.has_group_perm(request_for_group, 'Can delete forum_thread'),
+		'addthread':request.user.has_group_perm(request_for_group, 'Can add gus_forum_thread'),
+		'deletethread':request.user.has_group_perm(request_for_group, 'Can delete gus_forum_thread'),
 		}
 	#End
 
@@ -105,9 +105,9 @@ def view_posts(request, group_id, forum_id, thread_id):
 	if not request.user.is_anonymous():
 		my_perms={
 		'deletethread':request.user.has_group_perm(request_for_group, 'Can delete forum_thread'),
-		'addpost':request.user.has_group_perm(request_for_group, 'Can add forum_post'),
-		'editpost':request.user.has_group_perm(request_for_group, 'Can change forum_post'),
-		'deletepost':request.user.has_group_perm(request_for_group, 'Can delete forum_post'),
+		'addpost':request.user.has_group_perm(request_for_group, 'Can add gus_forum_post'),
+		'editpost':request.user.has_group_perm(request_for_group, 'Can change gus_forum_post'),
+		'deletepost':request.user.has_group_perm(request_for_group, 'Can delete gus_forum_post'),
 		}
 	#End
 
@@ -161,7 +161,7 @@ def add_thread(request, group_id, forum_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can add forum_thread'):
+	if not request.user.has_group_perm(request_for_group, 'Can add gus_forum_thread'):
 		return HttpResponse("You are not allowed to post a thread to this group's forums.")
 	#End
 
@@ -204,7 +204,7 @@ def add_post(request, group_id, forum_id, thread_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can add forum_post'):
+	if not request.user.has_group_perm(request_for_group, 'Can add gus_forum_post'):
 		return HttpResponse("You are not allowed to post replys to this group's threads.")
 	#End
 
