@@ -3,11 +3,11 @@ import os
 from django.core.urlresolvers import get_script_prefix
 
 PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('Gus Team', 'uidaho-software-engineering-10-11@googlegroups.com'),
 )
 
 MANAGERS = ADMINS
@@ -181,3 +181,8 @@ EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = '[gus] '
 # the default email suffix
 EMAIL_SUFFIX = '@guspy.joranbeasley.com'
+
+# email to send debug messages
+SEND_BROKEN_LINK_EMAILS = True
+SERVER_EMAIL = 'gusbugs' + EMAIL_SUFFIX
+
