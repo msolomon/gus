@@ -13,6 +13,7 @@ from gus.gus_widget.models import Widget
 from gus.gus_groups.models import gus_group
 from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
+import bleach
 
 import sys, os
 sys.path.append(os.path.join(settings.PROJECT_PATH,
@@ -190,7 +191,7 @@ class Emailer():
             
             # store the email in the DB
             em = DBEmail()
-            em.fill(v['BODY[HEADER]'], v['BODY[TEXT]'], date,
+            em.fill(v['BODY[HEADER]'], bleach.clean(v['BODY[TEXT]']), date,
                     message.from_email, recip, gus_recip)
             
             # now delete from server
