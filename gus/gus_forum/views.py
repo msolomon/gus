@@ -99,7 +99,7 @@ def view_posts(request, group_id, forum_id, thread_id):
 		return HttpResponse('Thread Not Found!')
 	#End
 
-	threads_posts = forum_post.objects.filter(thread = request_for_thread).order_by('-date_created')
+	threads_posts = forum_post.objects.filter(thread = request_for_thread).order_by('date_created')
 
 	my_perms = {'deletethread':False, 'addpost':False, 'editpost':False, 'deletepost':False}
 	if not request.user.is_anonymous():
