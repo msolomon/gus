@@ -273,7 +273,7 @@ def delete_thread(request, group_id, forum_id, thread_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can delete forum_thread'):
+	if not request.user.has_group_perm(request_for_group, 'Can delete gus_forum_thread'):
 		return HttpResponse("You are not allowed to delete this group's threads.")
 	#End
 
@@ -307,7 +307,7 @@ def delete_post(request, group_id, forum_id, thread_id, post_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can delete forum_post'):
+	if not request.user.has_group_perm(request_for_group, 'Can delete gus_forum_post'):
 		return HttpResponse("You are not allowed to delete this group's posts.")
 	#End
 
@@ -329,7 +329,7 @@ def delete_post(request, group_id, forum_id, thread_id, post_id):
 		form = delete_post_form(request.POST)
 		if form.is_valid():
 			form.cleaned_data["Reason"]
-			request_for_post.post_text = "Post Deleted by %s. Reason: %s" % (request.user.username, form.cleaned_data["Reason"])
+			request_for_post.post_text = "Post Deleted by %s. Reason: %s" % (request.user.username, bleach.clean(form.cleaned_data["Reason"], tags=bleach.ALLOWED_TAGS+["p", "h1", "h2", "h3", "h4", "h5", "h6"]))
 			request_for_post.save()
 			return HttpResponseRedirect('/forum/%s/%s/%s' % (group_id, forum_id, thread_id))
 		#End
@@ -365,7 +365,7 @@ def edit_forum(request, group_id, forum_id):
 		form = new_forum_form(request.POST)
 		if form.is_valid():
 			request_for_forum.forum_name = form.cleaned_data["Name"]
-			request_for_forum.forum_description = form.cleaned_data["Description"]
+			request_for_forum.forum_description = bleach.clean(form.cleaned_data["Description"], tags=bleach.ALLOWED_TAGS+["p"])
 			request_for_forum.save()
 			return HttpResponseRedirect('/forum/%s' %group_id)
 		#End
@@ -387,7 +387,7 @@ def edit_post(request, group_id, forum_id, thread_id, post_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can change forum_post'):
+	if not request.user.has_group_perm(request_for_group, 'Can change gus_forum_post'):
 		return HttpResponse("You are not allowed to edit this group's posts.")
 	#End
 
@@ -412,7 +412,7 @@ def edit_post(request, group_id, forum_id, thread_id, post_id):
 	if request.method == "POST":
 		form = new_post_form(request.POST)
 		if form.is_valid():
-			request_for_post.post_text = form.cleaned_data["Text"]
+			request_for_post.post_text = bleach.clean(form.cleaned_data["Text"], tags=bleach.ALLOWED_TAGS+["p", "h1", "h2", "h3", "h4", "h5", "h6"])
 			request_for_post.save()
 			return HttpResponseRedirect('/forum/%s/%s/%s/' % (group_id, forum_id, thread_id))
 		#End
