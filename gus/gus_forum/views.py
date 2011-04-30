@@ -66,7 +66,7 @@ def view_threads(request, group_id, forum_id):
 		return HttpResponse('Forum Not Found!')
 	#End
 
-	forums_threads = forum_thread.objects.filter(forum = request_for_forum)
+	forums_threads = forum_thread.objects.filter(forum = request_for_forum).order_by('-date_created')
 
 	my_perms = {'addthread':False, 'deletethread':False}
 	if not request.user.is_anonymous():
@@ -99,7 +99,7 @@ def view_posts(request, group_id, forum_id, thread_id):
 		return HttpResponse('Thread Not Found!')
 	#End
 
-	threads_posts = forum_post.objects.filter(thread = request_for_thread)
+	threads_posts = forum_post.objects.filter(thread = request_for_thread).order_by('-date_created')
 
 	my_perms = {'deletethread':False, 'addpost':False, 'editpost':False, 'deletepost':False}
 	if not request.user.is_anonymous():
@@ -176,7 +176,7 @@ def add_thread(request, group_id, forum_id):
 		if form.is_valid():
 			form.cleaned_data["Name"],
 			form.cleaned_data["Text"]
-			request_for_forum.CreateThread(form.cleaned_data["Name"], request.user, form.cleaned_data["Text"], request_for_forum)
+			request_for_forum.CreateThread(form.cleaned_data["Name"], request.user, bleach.clean(form.cleaned_data["Text"], tags=bleach.ALLOWED_TAGS+["p", "h1", "h2", "h3", "h4", "h5", "h6"]), request_for_forum)
 			try:
 				last_thread = forum_thread.objects.filter(forum = request_for_forum).order_by('-date_created')
 				request_for_thread = forum_thread.objects.get(pk = last_thread[0].id)
