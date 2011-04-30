@@ -41,9 +41,9 @@ def index(request, group_id):
 	my_perms = {'addforum':False, 'editforum':False, 'deleteforum':False}
 	if not request.user.is_anonymous():
 		my_perms={
-		'addforum':request.user.has_group_perm(request_for_group, 'Can add forum'),
-		'editforum':request.user.has_group_perm(request_for_group, 'Can change forum'),
-		'deleteforum':request.user.has_group_perm(request_for_group, 'Can delete forum'),
+		'addforum':request.user.has_group_perm(request_for_group, 'Can add gus_forum'),
+		'editforum':request.user.has_group_perm(request_for_group, 'Can change gus_forum'),
+		'deleteforum':request.user.has_group_perm(request_for_group, 'Can delete gus_forum'),
 		}
 	#End
 
@@ -104,7 +104,7 @@ def view_posts(request, group_id, forum_id, thread_id):
 	my_perms = {'deletethread':False, 'addpost':False, 'editpost':False, 'deletepost':False}
 	if not request.user.is_anonymous():
 		my_perms={
-		'deletethread':request.user.has_group_perm(request_for_group, 'Can delete forum_thread'),
+		'deletethread':request.user.has_group_perm(request_for_group, 'Can delete gus_forum_thread'),
 		'addpost':request.user.has_group_perm(request_for_group, 'Can add gus_forum_post'),
 		'editpost':request.user.has_group_perm(request_for_group, 'Can change gus_forum_post'),
 		'deletepost':request.user.has_group_perm(request_for_group, 'Can delete gus_forum_post'),
@@ -127,7 +127,7 @@ def add_forum(request, group_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can add forum'):
+	if not request.user.has_group_perm(request_for_group, 'Can add gus_forum'):
 		return HttpResponse("You are not allowed to add a forum to this group.")
 	#End
 
@@ -243,7 +243,7 @@ def delete_forum(request, group_id, forum_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can delete forum'):
+	if not request.user.has_group_perm(request_for_group, 'Can delete gus_forum'):
 		return HttpResponse("You are not allowed to delete this group's forums.")
 	#End
 
@@ -351,7 +351,7 @@ def edit_forum(request, group_id, forum_id):
 	except:
 		return HttpResponse('Group Not Found!')
 	#End
-	if not request.user.has_group_perm(request_for_group, 'Can change forum'):
+	if not request.user.has_group_perm(request_for_group, 'Can change gus_forum'):
 		return HttpResponse("You are not allowed to edit this group's forums.")
 	#End
 
