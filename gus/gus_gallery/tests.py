@@ -1,7 +1,6 @@
 # GUS Gallery Model Tests
-# Part of the GUSPY effort
+# Part of the GusPy Project
 # Stephen Fischer
-# February 2011
 #
 # TODO: How do you actually test these models without having an image file around to test with? In the mean time, placeholders!
 """

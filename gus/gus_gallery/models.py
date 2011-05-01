@@ -1,10 +1,8 @@
 # GUS Gallery Models
-# Part of the GUSPY effort
+# Part of the GusPy Project
 # Stephen Fischer
-# January 2011
 #
-# TODO: Create a smarter gus_gallery.delete() that will delete all the associated images
-#   at the same time.
+# TODO: Create a smarter gus_gallery.delete() that will delete all the associated images at the same time?
 
 from django.db import models
 from django.forms import ModelForm
