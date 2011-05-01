@@ -191,7 +191,7 @@ class Emailer():
             
             # store the email in the DB
             em = DBEmail()
-            em.fill(v['BODY[HEADER]'], bleach.clean(v['BODY[TEXT]'], tags=bleach.ALLOWED_TAGS+["p", "h1", "h2", "h3", "h4", "h5", "h6"]), date,
+            em.fill(v['BODY[HEADER]'], bleach.clean(v['BODY[TEXT]'], tags=settings.BLEACH_ALLOWED_TAGS), date,
                     message.from_email, recip, gus_recip)
             
             # now delete from server
