@@ -1,3 +1,7 @@
+# GUS Gallery Views
+# Part of the GusPy Project
+# Stephen Fischer
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.forms.models import model_to_dict

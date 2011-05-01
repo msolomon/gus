@@ -125,7 +125,9 @@ class gus_user(models.Model):
     def is_site_admin(self):
         from gus_groups.models import gus_group
         import random
-        return self.has_group_perm(random.choice(gus_group.objects.all()), 'nonExistantPermString')
+        try:
+            return self.has_group_perm(random.choice(gus_group.objects.all()), 'nonExistantPermString')
+        except:return False 
     def has_groups_perm(self,group,perm):
         """
         determine if this user has a given permission for this group or any of its parent groups
@@ -158,7 +160,9 @@ class gus_user(models.Model):
         """
         Set the users password , expects unencoded password
         """
-        return self._user.set_password(raw_password)
+        ret1=self._user.set_password(raw_password)
+        self._user.save()
+        return ret1
     
     def check_password(self, raw_password):
         """
@@ -170,7 +174,9 @@ class gus_user(models.Model):
         """
         create a user that cannot login (or disable login for existing)
         """
-        return self._user.set_unusable_password()
+        ret1=self._user.set_unusable_password()
+        self._user.save()
+        return ret1
     
     def has_usable_password(self):
         return self._user.has_usable_password() 
