@@ -55,7 +55,7 @@ class DBEmail(models.Model):
     
     def fill(self, header, body, date, sender, recipients, gus_recipients):
         h = hashlib.md5()
-        h.update(body)
+        h.update(smart_str(body))
         try:
             h.update(date.ctime())
         except Exception, e:
@@ -168,7 +168,6 @@ class Emailer():
         # get a list of messages 
         potentials = server.search(['NOT DELETED'])
         response = server.fetch(potentials, ['BODY[HEADER]', 'BODY[TEXT]'])
-        logging.debug(repr(response))
         
         for k, v in response.iteritems():
             message = self.parse_rfc822(v['BODY[HEADER]'],
