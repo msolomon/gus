@@ -25,7 +25,7 @@ Profile
 	{% endcomment %}
   <table width="95%">
 	  <tr align="left">
-		  <th>Group: {{role.group.group_name}} [ <a href="/groups/{{role.group.id}}/RemoveUser/{{user.id}}/">Leave Group</a> ]</th>
+		  <th>{{role.group.group_name}} [ <a href="/groups/{{role.group.id}}/RemoveUser/{{user.id}}/">Leave Group</a> ]</th>
 	  </tr>
   	<tr>
   		{% if not role.group.group_activated %}
