@@ -167,6 +167,7 @@ class Emailer():
         # get a list of messages 
         potentials = server.search(['NOT DELETED'])
         response = server.fetch(potentials, ['BODY[HEADER]', 'BODY[TEXT]'])
+        logging.debug(repr(response))
         
         for k, v in response.iteritems():
             message = self.parse_rfc822(v['BODY[HEADER]'],
