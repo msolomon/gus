@@ -13,6 +13,7 @@ from gus.gus_widget.models import Widget
 from gus.gus_groups.models import gus_group
 from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
+from django.utils.encoding import smart_str
 import bleach
 
 import sys, os
@@ -59,9 +60,9 @@ class DBEmail(models.Model):
             h.update(date.ctime())
         except Exception, e:
             logging.debug(e)
-        h.update(str(sender))
-        h.update(str(recipients))
-        h.update(str(gus_recipients))
+        h.update(smart_str(sender))
+        h.update(smart_str(recipients))
+        h.update(smart_str(gus_recipients))
         self.hash = h.hexdigest()
         try:
             #print 'fill'
