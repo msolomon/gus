@@ -7,7 +7,7 @@ from gus_news.models import *
 from gus.gus_groups.utils import *
 from gus_users.models import gus_user
 from django import forms
-from gus.settings import BLEACH_ALLOWED_TAGS
+from gus import settings
 import bleach
 
 @login_required
@@ -24,8 +24,8 @@ def upload_form(request):
 			ni = News_item()
 			ni.headline = form.cleaned_data['headline']
 			ni.date = form.cleaned_data['date']
-			ni.shortdesc = bleach.clean(form.cleaned_data['shortdesc'], tags=BLEACH_ALLOWED_TAGS)
-			ni.content = bleach.clean(form.cleaned_data['content'], tags=BLEACH_ALLOWED_TAGS)
+			ni.shortdesc = bleach.clean(form.cleaned_data['shortdesc'], tags=settings.BLEACH_ALLOWED_TAGS)
+			ni.content = bleach.clean(form.cleaned_data['content'], tags=settings.BLEACH_ALLOWED_TAGS)
 			ni.group = form.cleaned_data['group']
 			ni.save()
 			
