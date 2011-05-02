@@ -132,9 +132,13 @@ class Emailer():
             @param connection: an email backend connection
             @type connection: mail.backends.base
         '''
-        mail.send_mail(subject, message, self.user.getEmail(),
+        address = self.user.getEmail()
+        em = mail.EmailMultiAlternatives(subject, message, address,
+					recipient_list, [], headers={"Reply-To": address})
+		em.attach_alternative(message, 'text/html')
                    recipient_list, connection=connection)
-
+		em.send()
+		
     def set_imap(self, host, port):
         ''' Set the imap host and port
             @param host: imap host
