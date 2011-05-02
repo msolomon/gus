@@ -76,7 +76,7 @@ class Gus_event(models.Model):
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     Delete = models.BooleanField(blank=True, null=False)
     Group = models.ForeignKey(gus_group, null=True)
-    start_time = models.TimeField(auto_now=True)
+    start_time = models.TimeField()
     #Attending = models.BooleanField(blank=True, null=False)
     #reminder = models.BooleanField(default=False)
     
