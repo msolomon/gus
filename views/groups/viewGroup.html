@@ -132,7 +132,7 @@ You Can Add A Role By Clicking the <a href="/groups/{{group.id}}/CreateRole/">Cr
 {% endif %}
 {% for r in roles %}
 {% for usr in r.users.all %}
-{{ usr.username }} (
+{{ usr.get_full_name }} '{{ usr.username }}' (
 {% if r.name != "Owner" and can.editrole %}
 <a href="/groups/EditPerms/{{r.id}}/">{{r.name}}</a>
 {% else %}
