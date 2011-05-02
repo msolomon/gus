@@ -134,6 +134,42 @@ INSTALLED_APPS = [
 	'gus.gus_news',
 ]
 
+BLEACH_ALLOWED_TAGS = ['a',
+                       'abbr',
+                       'address',
+                       'acronym',
+                       'blockquote',
+                       'cite',
+                       'code',
+                       'dd',
+                       'del',
+                       'dfn',
+                       'div',
+                       'dl',
+                       'dt',
+                       'em',
+                       'h1',
+                       'h2',
+                       'h3',
+                       'h4',
+                       'h5',
+                       'h6',
+                       'hr',
+                       'img',
+                       'ins',
+                       'kbd',
+                       'li',
+                       'ol',
+                       'p',
+                       'pre',
+                       'q',
+                       'samp',
+                       'span',
+                       'strong',
+                       'sub',
+                       'sup',
+                       'ul',]
+
 # try to use PIL
 try:
     import Image
