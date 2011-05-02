@@ -133,9 +133,11 @@ class Emailer():
             @type connection: mail.backends.base
         '''
         address = self.user.getEmail()
-        em = mail.EmailMultiAlternatives(subject, message, address,
+        em = mail.EmailMessage(subject, message, address,
                 recipient_list, [], headers={"Reply-To": address})
-        # uncomment the line below to enable sending html. gus will not receive this properly
+        ## uncomment the lines below to enable sending html. gus will not receive this properly
+        #em = mail.EmailMultiAlternatives(subject, message, address,
+        #        recipient_list, [], headers={"Reply-To": address})
         # em.attach_alternative(message, 'text/html')
         em.send()
 
