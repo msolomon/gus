@@ -3,9 +3,12 @@
 {% block pagetitle %}
 Password Reset
 {% endblock pagetitle %}
-<h2>Forgot your Password?</h2>
-<h3>Enter your email address and we'll get you a temporary password.</h3>
+
 {% block content %}
+<p>
+<h3>Password Reset</h3>
+Enter your email address and we'll get you a temporary password.
+</p>
 <form method="post">
 {{ form.as_p }}
 {% csrf_token %}
