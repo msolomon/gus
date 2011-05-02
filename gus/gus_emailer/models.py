@@ -134,11 +134,10 @@ class Emailer():
         '''
         address = self.user.getEmail()
         em = mail.EmailMultiAlternatives(subject, message, address,
-					recipient_list, [], headers={"Reply-To": address})
-		em.attach_alternative(message, 'text/html')
-                   recipient_list, connection=connection)
-		em.send()
-		
+                recipient_list, [], headers={"Reply-To": address})
+        em.attach_alternative(message, 'text/html')
+        em.send()
+
     def set_imap(self, host, port):
         ''' Set the imap host and port
             @param host: imap host
