@@ -261,26 +261,6 @@ a .header_image{
   color: #339;
 }
 
-/* Nicer form tables */
-.niceform{
-        background: #fff;
-        border: 0px;
-	border-collapse: collapse;
-	color: #000;
-	margin: 0px;
-}
-.niceform th{
-        background: #fff;
-	border: 0px;
-	color: #000;
-	text-align: right;
-}
-.niceform tr td{
-        background: #fff;
-	border: 0px;
-	color: #000;
-}
-
 /* Table Defaults */
 table
 {
@@ -326,6 +306,26 @@ table td.odd:hover td
 {
 	background: #ccdddd;
 	color: #339;
+}
+
+/* Nicer form tables */
+.niceform{
+        background: #fff;
+        border: 0px;
+	border-collapse: collapse;
+	color: #000;
+	margin: 0px;
+}
+.niceform th{
+        background: #fff;
+	border: 0px;
+	color: #000;
+	text-align: right;
+}
+.niceform tr td{
+        background: #fff;
+	border: 0px;
+	color: #000;
 }
 
 /* content */
