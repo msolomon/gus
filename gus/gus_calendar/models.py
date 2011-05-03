@@ -12,10 +12,9 @@ from gus.gus_widget.models import Widget #ok
 from gus.gus_users.models import gus_user #ok ignore aptana
 from gus.gus_groups.models import gus_group
 from django.forms import ModelForm
-from django.forms import ModelChoiceField
+from django import forms
 from django.forms.extras.widgets import Select
 from gus.gus_groups.utils import *
-from django import forms
 
 class Gus_calendar(Widget):
     """
@@ -109,7 +108,8 @@ class Event_form(ModelForm):
         model = Gus_event
         exclude = ('start_date', 'creator')
         fields = ('event_name', 'description', 'Group', 'start_time', 'end_time')
-        
+    start_time = TimeField(widget=forms.widgets.TimeInput())
+    end_time = TimeField(widget=forms.widgets.TimeInput())
         
 class Event_form_edit(ModelForm):
     class Meta:
