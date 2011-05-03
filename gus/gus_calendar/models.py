@@ -105,13 +105,13 @@ class Gus_event(models.Model):
         self.delete()
 
 
-class Event_form(forms.ModelForm):            
+class Event_form(forms.ModelForm): 
+    start_time = forms.TimeField(widget=forms.widgets.TimeInput(),input_formats=valid_time_formats, help_text='Ex: 10:30AM')
+    end_time = forms.TimeField(widget=forms.widgets.TimeInput())           
     class Meta:
         model = Gus_event
         exclude = ('start_date', 'creator')
         fields = ('event_name', 'description', 'Group', 'start_time', 'end_time')
-    start_time = forms.TimeField(widget=forms.widgets.TimeInput(),input_formats=valid_time_formats, help_text='Ex: 10:30AM')
-    end_time = forms.TimeField(widget=forms.widgets.TimeInput())
         
 class Event_form_edit(ModelForm):
     class Meta:
