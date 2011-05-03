@@ -158,7 +158,7 @@ def passReset(urlRequest):
 	  password = GenPasswd()
 	  guser.set_password(password)
 	  Emailer().send_message("GUS Password Reset", "Your temporary password is %s.  Please reset it as soon as possible by logging into GUS and going to your Profile.  Thanks!"%password, [guser.email])
-	  return HttpResponseRedirect('/lobin/')
+	  return HttpResponseRedirect('/login/')
 #    def send_message(self, subject, message, recipient_list, connection=None)	
   else:
         form = resetForm()

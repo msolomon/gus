@@ -13,6 +13,7 @@ from gus.gus_widget.models import Widget
 from gus.gus_groups.models import gus_group
 from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
+from django.utils.encoding import smart_str
 import bleach
 
 import sys, os
@@ -54,14 +55,14 @@ class DBEmail(models.Model):
     
     def fill(self, header, body, date, sender, recipients, gus_recipients):
         h = hashlib.md5()
-        h.update(body)
+        h.update(smart_str(body))
         try:
             h.update(date.ctime())
         except Exception, e:
             logging.debug(e)
-        h.update(str(sender))
-        h.update(str(recipients))
-        h.update(str(gus_recipients))
+        h.update(smart_str(sender))
+        h.update(smart_str(recipients))
+        h.update(smart_str(gus_recipients))
         self.hash = h.hexdigest()
         try:
             #print 'fill'
@@ -131,8 +132,14 @@ class Emailer():
             @param connection: an email backend connection
             @type connection: mail.backends.base
         '''
-        mail.send_mail(subject, message, self.user.getEmail(),
+        address = self.user.getEmail()
+        mail.send_mail(subject, message, address,
                    recipient_list, connection=connection)
+        ## uncomment the lines below to enable sending html. gus will not receive this properly
+        #em = mail.EmailMultiAlternatives(subject, message, address,
+        #        recipient_list, [], headers={"Reply-To": address})
+        #em.attach_alternative(message, 'text/html')
+        #em.send()
 
     def set_imap(self, host, port):
         ''' Set the imap host and port
@@ -191,7 +198,7 @@ class Emailer():
             
             # store the email in the DB
             em = DBEmail()
-            em.fill(v['BODY[HEADER]'], bleach.clean(v['BODY[TEXT]'], tags=bleach.ALLOWED_TAGS+["p", "h1", "h2", "h3", "h4", "h5", "h6"]), date,
+            em.fill(v['BODY[HEADER]'], bleach.clean(v['BODY[TEXT]'], tags=settings.BLEACH_ALLOWED_TAGS), date,
                     message.from_email, recip, gus_recip)
             
             # now delete from server

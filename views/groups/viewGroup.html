@@ -102,7 +102,7 @@ if (!Array.prototype.filter)
 Your Request To Join This Group is pending approval
 </div>
 {% endif %}
-<h2>{{ group }}</h2>
+<h2>{{ group.group_name }}</h2>
 {%if can.editgroup %}
 <a href="/groups/{{ group.id }}/Edit">Edit Group Description</a>
 {% endif  %}
@@ -132,7 +132,7 @@ You Can Add A Role By Clicking the <a href="/groups/{{group.id}}/CreateRole/">Cr
 {% endif %}
 {% for r in roles %}
 {% for usr in r.users.all %}
-{{ usr.username }} (
+<strong>{{ usr.get_full_name }}</strong> - {{ usr.username }} (
 {% if r.name != "Owner" and can.editrole %}
 <a href="/groups/EditPerms/{{r.id}}/">{{r.name}}</a>
 {% else %}
@@ -170,13 +170,12 @@ function toggle(flag){
 	<div style="margin-left:15px">
 	{% for r in subgrp.roles %}
 	{% for usr in r.users.all %}
-	{{ usr.username }} (
+	<strong>{{ usr.get_full_name }}</strong> - {{ usr.username }} (
 	{% if r.name != "Owner" and can.editrole %}
 		<a href="/roles/EditPerms/{{r.id}}/">{{r.name}}</a>
 	{% else %}
 		{{r.name}}
-
-	{% endif %} 
+	{% endif %} )
 
 	<br/>
 <div style="margin-left:40px">

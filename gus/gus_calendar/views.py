@@ -116,6 +116,7 @@ def view_all(request, year, month, day):
     for group in groups:
         events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day, Group=group.id)
         total_day_events.append(events)
+    total_day_events.sort(key=lambda event: event.start_time)
     return render_to_response("calendar/view_events.html",
                               {'year':year,
                                'month_name': month_name,
@@ -151,6 +152,8 @@ def day_view(request, year, month, day, event_id):
                                'description': event.description,
                                'name': event.event_name,
                                'start_date': event.start_date,
+                               'start_time': event.start_time,
+                               'end_time': event.end_time,
                                'event_id': event_id,
                                'event_group':event_group,
                                'auth_event_group': auth_event_group}, 
