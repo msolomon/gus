@@ -235,7 +235,6 @@ a .header_image{
   border-bottom: 1px solid #fff;
   color: #039;
 }
-
 .month
 {
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -243,7 +242,6 @@ a .header_image{
   text-align: left;
   border-collapse: collapse;
 }
-
 .month tr td
 {
   padding: 8px;
@@ -252,7 +250,6 @@ a .header_image{
   color: #669;
   border-top: 1px solid transparent;
 }
-
 .calendar td:hover td
 {
   background: #2E8B57;
@@ -264,11 +261,10 @@ a .header_image{
   color: #339;
 }
 
-
 /* Nicer form tables */
-.niceform {
+.niceform{
         background: #fff;
-        border: none;
+        border: 0px;
 	border-collapse: collapse;
 	color: #000;
 	margin: 0px;
@@ -276,7 +272,11 @@ a .header_image{
 .niceform th{
         text-align: right;
 }
-
+.niceform tr td{
+        background: #fff;
+	border: 0px;
+	color: #000;
+}
 
 /* Table Defaults */
 table
