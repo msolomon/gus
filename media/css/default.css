@@ -270,7 +270,10 @@ a .header_image{
 	margin: 0px;
 }
 .niceform th{
-        text-align: right;
+        background: #fff;
+	border: 0px;
+	color: #000;
+	text-align: right;
 }
 .niceform tr td{
         background: #fff;
