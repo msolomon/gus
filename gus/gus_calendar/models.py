@@ -16,7 +16,6 @@ from django import forms
 from django.forms.extras.widgets import Select
 from gus.gus_groups.utils import *
 
-valid_time_formats = ['%P', '%H:%M%A', '%H:%M %A', '%H:%M%a', '%H:%M %a']
 
 class Gus_calendar(Widget):
     """
@@ -78,8 +77,8 @@ class Gus_event(models.Model):
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     Delete = models.BooleanField(blank=True, null=False)
     Group = models.ForeignKey(gus_group, null=True)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    start_time = models.TimeField(help_text='Ex: 13:00')
+    end_time = models.TimeField('Ex: 13:00')
     #Attending = models.BooleanField(blank=True, null=False)
     #reminder = models.BooleanField(default=False)
     
