@@ -10,7 +10,7 @@
   <br/><br/>
 {% endif %}
 <form action="" method="post">
-  {{gallery_form.as_p}}
+  {{gallery_form.as_table}}
   {% csrf_token %}
   <input type="submit" value="Create Gallery"/>
 </form>
