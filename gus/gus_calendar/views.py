@@ -75,7 +75,7 @@ def month(request, year=None, month=None):
             events = Gus_event.objects.filter(start_date__year=year, 
                                               start_date__month=month, 
                                               start_date__day=day,
-                                              Group__in=user_groups)
+                                              Group__in=user_groups).order_by('start_time')
                 
             num_total_events += len(events) 
             if day == nday and year == nyear and month == nmonth: 
@@ -114,9 +114,11 @@ def view_all(request, year, month, day):
     month_name = month
     month = month_names.index(month) + 1
     for group in groups:
-        events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day, Group=group.id)
+        events = Gus_event.objects.filter(start_date__year=year, 
+                                          start_date__month=month, 
+                                          start_date__day=day, 
+                                          Group=group.id).order_by('start_time')
         total_day_events.append(events)
-    total_day_events.sort(key=lambda event: event.start_time)
     return render_to_response("calendar/view_events.html",
                               {'year':year,
                                'month_name': month_name,
@@ -308,7 +310,7 @@ def group_month(request, group_id, year=None, month=None):
             events = Gus_event.objects.filter(start_date__year=year, 
                                               start_date__month=month, 
                                               start_date__day=day,
-                                              Group=group)
+                                              Group=group).order_by('start_time')
             if day == nday and year == nyear and month == nmonth: 
                     current = True
             total_events.append(events)
