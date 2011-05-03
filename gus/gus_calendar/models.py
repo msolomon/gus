@@ -76,7 +76,14 @@ class Gus_event(models.Model):
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     Delete = models.BooleanField(blank=True, null=False)
     Group = models.ForeignKey(gus_group, null=True)
-    start_time = models.TimeField()
+    start_time = models.TimeField(widget=time_widget, help_text='Ex: 10:30AM', 
+                                  input_formats = ['%H:%M', 
+                                                   '%I:%M%p', 
+                                                   '%I:%M %p'])
+    end_time = models.TimeField(widget=time_widget, 
+                                input_formats = ['%H:%M', 
+                                                 '%I:%M%p', 
+                                                 '%I:%M %p'])
     #Attending = models.BooleanField(blank=True, null=False)
     #reminder = models.BooleanField(default=False)
     
@@ -117,14 +124,14 @@ class Event_form(ModelForm):
     class Meta:
         model = Gus_event
         exclude = ('start_date', 'creator')
-        fields = ('event_name', 'description', 'Group', 'start_time')
+        fields = ('event_name', 'description', 'Group', 'start_time', 'end_time')
         
         
 class Event_form_edit(ModelForm):
     class Meta:
         model = Gus_event
         exclude = ('start_date', 'creator',)
-        fields = ('event_name', 'description', 'start_time', 'Delete')
+        fields = ('event_name', 'description', 'start_time','end_time', 'Delete')
         
 #class Event_form_userview(ModelForm):
 #    class Meta:

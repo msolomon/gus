@@ -152,6 +152,7 @@ def day_view(request, year, month, day, event_id):
                                'name': event.event_name,
                                'start_date': event.start_date,
                                'start_time': event.start_time,
+                               'end_time': event.end_time,
                                'event_id': event_id,
                                'event_group':event_group,
                                'auth_event_group': auth_event_group}, 
