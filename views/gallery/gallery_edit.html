@@ -10,13 +10,16 @@
   <br/><br/>
 {% endif %}
 
-<table>
-  <form action="" method="post">
+<form action="" method="post">
+  <table class="login_register">
     {{gallery_form.as_table}}
     {% csrf_token %}
-    <input type="submit" value="Save Changes"/>
-  </form>
-</table>
+    <tr>
+      <td></td>
+      <td><input type="submit" value="Save Changes"/></td>
+    </tr>
+  </table>
+</form>
 
 <br/>
 <a href="/gallery">Cancel</a>
