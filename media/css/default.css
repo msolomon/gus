@@ -215,10 +215,6 @@ a .header_image{
   color: #fff;
 }
 
-
-
-
-
 /* calendar table */
 .calendar
 {
@@ -314,6 +310,15 @@ table td.odd:hover td
 {
 	background: #ccdddd;
 	color: #339;
+}
+
+/* Nicer form tables */
+table.niceform {
+        border: none;
+	border-collapse: collapse;
+}
+table.niceform tr td label{
+        text-align: right;
 }
 
 /* content */

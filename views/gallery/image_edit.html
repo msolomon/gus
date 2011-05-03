@@ -11,16 +11,17 @@
 {% endif %}
 
 <form action="" method="post" enctype="multipart/form-data">
-  <table class="login_register">
+  <table class="niceform">
     {{image_form.as_table}}
     {% csrf_token %}
     <tr>
       <td></td>
-      <td><input type="submit" value="Save Changes"/></td>
+      <td>
+	<input type="submit" value="Save Changes"/><br/>
+	<a href="/gallery/{{gallery.id}}">Cancel</a>
+      </td>
     </tr>
   </table>
 </form>
 
-<br/>
-<a href="/gallery/{{gallery.id}}">Cancel</a>
 {% endblock %}
