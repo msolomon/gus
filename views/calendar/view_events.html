@@ -5,14 +5,14 @@
   {% for event in events %}
 
 <br>
-<h3>{{name}}</h3>
-{{start_time}} to {{end_time}}
+<h3>{{event.event_name}}</h3>
+{{event.start_time}}
 <br>
-<b>Creator:</b> {{creator.username}}
+<b>Creator:</b> {{event.creator.username}}
 <br> 
-<b>Group:</b> {{event_group.group_name}} 
+<b>Group:</b> {{event.Group.group_name}}
 <br>
-<b>Description:</b> {{description}}
+<b>Description:</b> {{event.description}}
 <br>
 <br>
 {% for group in auth_groups %}
