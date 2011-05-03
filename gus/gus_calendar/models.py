@@ -16,6 +16,8 @@ from django import forms
 from django.forms.extras.widgets import Select
 from gus.gus_groups.utils import *
 
+valid_time_formats = ['%P', '%H:%M%A', '%H:%M %A', '%H:%M%a', '%H:%M %a']
+
 class Gus_calendar(Widget):
     """
     An calendar belonging to a gus_group.
@@ -108,7 +110,7 @@ class Event_form(forms.ModelForm):
         model = Gus_event
         exclude = ('start_date', 'creator')
         fields = ('event_name', 'description', 'Group', 'start_time', 'end_time')
-    start_time = forms.TimeField(widget=forms.widgets.TimeInput(input_formats='%P', '%H:%M%A', '%H:%M %A', '%H:%M%a', '%H:%M %a'))
+    start_time = forms.TimeField(widget=forms.widgets.TimeInput(),input_formats=valid_input_formats)
     end_time = forms.TimeField(widget=forms.widgets.TimeInput())
         
 class Event_form_edit(ModelForm):
