@@ -5,10 +5,11 @@
 <form action="/calendar/{{year}}/{{month_name}}/_add{{day}}/"
 method="POST">
 {% csrf_token %}
-{{event_form.as_p}}
+<div class="login_register"></div>
+{{event_form.as_table}}
 
 <input type="submit" value="Save">
-
+</div>
 </form>
 
 {% endblock content %}
