@@ -103,7 +103,7 @@ class Gus_event(models.Model):
         self.delete()
 
 
-class Event_form(ModelForm):            
+class Event_form(forms.ModelForm):            
     class Meta:
         model = Gus_event
         exclude = ('start_date', 'creator')
