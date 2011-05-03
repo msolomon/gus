@@ -76,11 +76,11 @@ class Gus_event(models.Model):
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     Delete = models.BooleanField(blank=True, null=False)
     Group = models.ForeignKey(gus_group, null=True)
-    start_time = models.TimeField(help_text='Ex: 10:30AM', 
+    start_time = forms.TimeField(help_text='Ex: 10:30AM', 
                                   input_formats = ['%H:%M', 
                                                    '%I:%M%p', 
                                                    '%I:%M %p'])
-    end_time = models.TimeField(input_formats = ['%H:%M', 
+    end_time = forms.TimeField(input_formats = ['%H:%M', 
                                                  '%I:%M%p', 
                                                  '%I:%M %p'])
     #Attending = models.BooleanField(blank=True, null=False)
