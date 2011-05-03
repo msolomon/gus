@@ -11,10 +11,14 @@
 {% endif %}
 
 <form action="" method="post" enctype="multipart/form-data">
-  {{image_form.as_p}}
-  {% csrf_token %}
-  <input type="submit" value="Save Changes"/>
+  <table class="niceform">
+    {{image_form.as_table}}
+    {% csrf_token %}
+  </table>
+
+  <input type="submit" value="Save Changes"/><br/>
+  <a href="/gallery/{{gallery.id}}">Cancel</a>
+
 </form>
-<br/>
-<a href="/gallery/{{gallery.id}}">Cancel</a>
+
 {% endblock %}
