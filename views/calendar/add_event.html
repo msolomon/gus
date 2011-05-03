@@ -4,10 +4,12 @@
 
 <form action="/calendar/{{year}}/{{month_name}}/_add{{day}}/"
 method="POST">
+<div class="login_register">
 {% csrf_token %}
-<div class="login_register"></div>
+<table class="login_register">
 {{event_form.as_table}}
 
+</table>
 <input type="submit" value="Save">
 </div>
 </form>
