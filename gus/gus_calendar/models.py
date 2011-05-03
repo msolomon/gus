@@ -15,6 +15,7 @@ from django.forms import ModelForm
 from django.forms import ModelChoiceField
 from django.forms.extras.widgets import Select
 from gus.gus_groups.utils import *
+from django import forms
 
 class Gus_calendar(Widget):
     """
