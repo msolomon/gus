@@ -9,11 +9,15 @@
   <b>There was an error creating a gallery. Please make sure you fill out all fields and try again!</b>
   <br/><br/>
 {% endif %}
-<form action="" method="post">
-  {{gallery_form.as_table}}
-  {% csrf_token %}
-  <input type="submit" value="Create Gallery"/>
-</form>
+
+<table>
+  <form action="" method="post">
+    {{gallery_form.as_table}}
+    {% csrf_token %}
+    <input type="submit" value="Create Gallery"/>
+  </form>
+</table>
+
 <br/>
 <a href="/gallery">Cancel</a>
 {% endblock %}
