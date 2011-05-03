@@ -132,8 +132,14 @@ class Emailer():
             @param connection: an email backend connection
             @type connection: mail.backends.base
         '''
-        mail.send_mail(subject, message, self.user.getEmail(),
+        address = self.user.getEmail()
+        mail.send_mail(subject, message, address,
                    recipient_list, connection=connection)
+        ## uncomment the lines below to enable sending html. gus will not receive this properly
+        #em = mail.EmailMultiAlternatives(subject, message, address,
+        #        recipient_list, [], headers={"Reply-To": address})
+        #em.attach_alternative(message, 'text/html')
+        #em.send()
 
     def set_imap(self, host, port):
         ''' Set the imap host and port
