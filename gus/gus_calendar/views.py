@@ -185,7 +185,6 @@ def day_add(request, year, month, day): #, group_id):
             event = form.save(commit=False)
             event.creator = usr
             event.start_date = date(int(year), int(month), int(day))
-            
             event.save()
             event_group = event.Group
             response = request.META['HTTP_REFERER'].rstrip('/')
