@@ -265,7 +265,18 @@ a .header_image{
 }
 
 
-/* tables */
+/* Nicer form tables */
+table.niceform {
+        background: none;
+        border: none;
+	border-collapse: collapse;
+	color: #000;
+}
+table.niceform tr th{
+        text-align: right;
+}
+
+/* Table Defaults */
 table
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -310,17 +321,6 @@ table td.odd:hover td
 {
 	background: #ccdddd;
 	color: #339;
-}
-
-/* Nicer form tables */
-table.niceform {
-        background: none;
-        border: none;
-	border-collapse: collapse;
-	color: #000;
-}
-table.niceform tr th{
-        text-align: right;
 }
 
 /* content */
