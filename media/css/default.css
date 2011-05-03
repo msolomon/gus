@@ -266,15 +266,17 @@ a .header_image{
 
 
 /* Nicer form tables */
-table.niceform {
-        background: none;
+.niceform {
+        background: #fff;
         border: none;
 	border-collapse: collapse;
 	color: #000;
+	margin: 0px;
 }
-table.niceform tr th{
+.niceform th{
         text-align: right;
 }
+
 
 /* Table Defaults */
 table
