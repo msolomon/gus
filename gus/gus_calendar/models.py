@@ -110,7 +110,7 @@ class Event_form(forms.ModelForm):
         model = Gus_event
         exclude = ('start_date', 'creator')
         fields = ('event_name', 'description', 'Group', 'start_time', 'end_time')
-    start_time = forms.TimeField(widget=forms.widgets.TimeInput(),input_formats=valid_input_formats)
+    start_time = forms.TimeField(widget=forms.widgets.TimeInput(),input_formats=valid_time_formats)
     end_time = forms.TimeField(widget=forms.widgets.TimeInput())
         
 class Event_form_edit(ModelForm):
