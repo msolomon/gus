@@ -37,7 +37,7 @@ def index(request):
 	for g in groups:
 	  g.my_bills = bills.filter(group=g)
 	
-	return HttpResponse(len(groups[1].my_bills))	
+	return HttpResponse(str(len(groups[1].my_bills)))	
 		
 
 	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":adgroups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
