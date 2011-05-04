@@ -35,7 +35,7 @@ def index(request):
 	adgroups = []
 	
 	for g in groups:
-	  if(usr.has_group_perm(g,"Can add gus_bill"):
+	  if(usr.has_group_perm(g,'Can add gus_bill')):
 	    g.my_bills = bill.objects.filter(group=g).exclude(name__contains="_archive")
 	    adgroups.append(g)
 
