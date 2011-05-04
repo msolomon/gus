@@ -12,6 +12,7 @@ from gus_gallery.models import gus_gallery
 from gus_gallery.models import gus_image
 from gus_bill.models import bill
 from gus_emailer.models import DBEmail, Emailer
+from django.core import mail
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.views import logout_then_login
 import logging
@@ -157,7 +158,8 @@ def passReset(urlRequest):
 	    return HttpResponseRedirect('/login/reset/t')
 	  password = GenPasswd()
 	  guser.set_password(password)
-	  Emailer().send_message("GUS Password Reset", "Your temporary password is %s.  Please reset it as soon as possible by logging into GUS and going to your Profile.  Thanks!"%password, [guser.email])
+	  mail.send_mail('Gus password reset', "GUS Password Reset", "Your temporary password is %s.  Please reset it as soon as possible by logging into GUS and going to your Profile.  Thanks!"%password, 'noreply@guspy.joranbeasley.com',
+                   [guser.email])
 	  return HttpResponseRedirect('/login/')
 #    def send_message(self, subject, message, recipient_list, connection=None)	
   else:
