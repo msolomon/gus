@@ -1,0 +1,49 @@
+\documentclass[12pt]{report}
+\usepackage{parskip}
+\usepackage[top=1.5in,right=1.5in,left=1.5in,bottom=1.5in]{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{program}
+\usepackage{subfig}
+\hypersetup{bookmarks=true, unicode=false, pdftoolbar=true, pdfmenubar=true, pdfstartview={FitV}, pdftitle={CS 470 Project 3}, pdfauthor={Max Stillwell}, pdfkeywords={AI} {CS 470} {Neural} {Network}, pdfnewwindow=true, colorlinks=true, linkcolor=black, citecolor=black, filecolor=magenta, urlcolor=black}
+
+\fancyhf{}
+ \headheight 14.49998pt
+ \pagestyle{fancy}
+ \rhead{guspy}
+ \lfoot{\thepage}
+ \cfoot{of}
+ \rfoot{\pageref{LastPage}}
+
+\setlength{\parskip}{2.5pt}
+\setlength{\parindent}{0.0cm}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+\begin{document}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\renewcommand*\thesection{\arabic{section}}
+
+\begin{center}
+\includegraphics[scale=0.45]{gus_black_testplan[1].jpg}
+\end{center}
+
+\section{Test Plan}
+
+\subsection{Running Tests}
+With python-coverage installed, run ``python manage.py test'' from the gus/gus directory. Unit and coverage test results will be displayed shortly.
+
+\subsection{Automatic Testing}
+Every person has a ``git hook'' set up such that before every commit is completed, the tests for each module are run. This includes coverage testing. By this method, test results are available to each developer at all times.
+
+\subsection{Server Reports}
+Coverage testing reports, unit test reports, and API documentation is generated every four hours and posted on the server at: 
+\url{http://guspy.joranbeasley.com/reports/index.html}. 
+This makes it convenient to review, especially for other developers. \\[0.1pt]
+
+\end{document}
