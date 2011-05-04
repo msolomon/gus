@@ -38,7 +38,7 @@ def index(request):
 	  g.my_bills = 	bill.objects.filter(group=g).exclude(name__contains="_archive")
 
 	
-	return HttpResponse(str(len(bills)))	
+	#return HttpResponse(str(len(bills)))	
 		
 
 	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":adgroups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
