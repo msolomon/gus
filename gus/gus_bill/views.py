@@ -35,7 +35,8 @@ def index(request):
 	adgroups = []
 	
 	for g in groups:
-	  g.my_bills = bills.filter(group=g)
+	  g.my_bills = 	bill.objects.filter(group=g).exclude(name__contains="_archive")
+
 	
 	return HttpResponse(str(len(bills)))	
 		
