@@ -41,7 +41,7 @@ def index(request):
 	#return HttpResponse(str(len(bills)))	
 		
 
-	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":adgroups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
+	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":groups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
 
 @login_required
 def group_view(request, group_id=-1):
