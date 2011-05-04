@@ -35,13 +35,15 @@ def index(request):
 	adgroups = []
 	
 	for g in groups:
-	  g.my_bills = 	bill.objects.filter(group=g).exclude(name__contains="_archive")
+	  if(usr.has_group_perm(g,"Can add gus_bill"):
+	    g.my_bills = bill.objects.filter(group=g).exclude(name__contains="_archive")
+	    adgroups.append(g)
 
 	
 	#return HttpResponse(str(len(bills)))	
 		
 
-	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":groups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
+	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":adgroups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
 
 @login_required
 def group_view(request, group_id=-1):
