@@ -33,12 +33,15 @@ def index(request):
 	
 	groups = getGroupsWithUser(usr)
 	adgroups = []
+	
+	for g in groups:
+	  g.my_bills = bills.filter(group=g)
 	for a in groups:
 		#a.getGroup() returns the group
 		#bill.objects.filter(group) returns the bills associated with that group
 		#adbills will be a list of all the bills which the current user is an owner
 		if usr.has_group_perm(a, 'Can add gus_bill'):
-			adgroups.append(a)
+		  adgroups.append(a)
 		
 		
 		
