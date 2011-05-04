@@ -37,7 +37,7 @@ def upload_form(request):
 			}, context_instance=RequestContext(request))
 	else:
 		form = News_form()
-		gids = [user_group.id for user_group in groups if usr.has_group_perm(user_group, 'Can add gus_event')]
+		gids = [user_group.id for user_group in groups if usr.has_group_perm(user_group, 'Can add gus_news')]
 		form.fields['group'].queryset = gus_group.objects.filter(pk__in=gids)
 	return render_to_response('news/upload.html', {
 		'form':form
@@ -49,7 +49,14 @@ def all_news(request):
 	#	return HttpResponseRedirect('/login/')
 	user_groups = getGroupsWithUser(request.user) #[r.group for r in request.user.roles]
 	allnews = News_item.objects.filter(group__in = user_groups)
+	usr = request.user
+	groups = getGroupsWithUser(usr)
+	gids = [user_group.id for user_group in groups if usr.has_group_perm(user_group, 'Can add gus_news')]
+	addlink = '';
+	if (len(gids) > 0):
+		addlink = '<a href="/news/_add">Add News Item</a>'
 	#allnews = News_item.objects.all()
 	return render_to_response('news/show.html', {
-		'r':reversed(allnews)
+		'r':reversed(allnews),
+		'addlink':addlink
 	}, context_instance=RequestContext(request))
