@@ -152,7 +152,6 @@ def passReset(urlRequest):
 	  user_email = form.cleaned_data['email']
 	  try:
 	    usr = User.objects.get(email=user_email)
-	    return HttpResponse(usr)
 	    guser = gus_user.objects.get(_user=usr)
 	  except:
 	    return HttpResponseRedirect('/login/reset/t')
