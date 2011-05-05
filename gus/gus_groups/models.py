@@ -26,7 +26,7 @@ class GroupManager(models.Manager):
         from utils import makeSlug
         return super(GroupManager, self).get_query_set().create(
             group_name=groupname, group_description=description,
-            group_image=image, group_slug=makeSlug(groupname)                                                   
+            group_image=image, group_slug=makeSlug(groupname), group_activated=False
             )
     def has_member(self, gusUser):
         """
@@ -38,7 +38,7 @@ class GroupManager(models.Manager):
         """
         return 1 #placeholder
     
-
+from gus_users.models import gus_user
 # Create your models here.
 # Example documentation for pydoc included
 #from gus_roles.models import  gus_role
@@ -48,7 +48,7 @@ class gus_group(models.Model):
     it shall encompass both the data and discreet functionality of groups
     @author: Joran    
     """
-
+    
     #Our Fields
         #Django recommends using OneToOne Fields to extend built in models
     group_name = models.CharField(max_length=100,unique=True) #the group name
@@ -57,6 +57,9 @@ class gus_group(models.Model):
     group_description = models.TextField()         #the group description
     group_image = models.CharField(max_length=50)
     parent_group=models.ForeignKey('gus_group',blank=True,null=True)
+    pending_users=models.ManyToManyField(gus_user)
+    group_activated = models.BooleanField()
+    
     def getParents(self):
         groups=[]
         p=self.parent_group
@@ -109,6 +112,9 @@ class gus_group(models.Model):
             self.group_description or "(None)",
             self.group_image or "(None)",
             )
+    def approveGroup(self):
+        self.group_activated=True
+        return self
     def getRoles(self):
         """
         return all roles of this group
@@ -125,6 +131,14 @@ class gus_group(models.Model):
         from gus_roles.models import gus_role
         roles = gus_role.objects.filter(_role_group=self)
         return [j for j in [x.users.all() for x in roles ]]
+
+    def delete(self):
+	from gus_roles.models import gus_role
+	roles = gus_role.objects.filter(_role_group=self)
+	for role in roles:
+	    role.delete()
+	super(gus_group,self).delete()
+
     objects = GroupManager() # our custom relationships
     class Meta:
         verbose_name = 'group'

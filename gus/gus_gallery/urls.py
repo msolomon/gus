@@ -1,7 +1,6 @@
 # GUS Gallery URLs
-# Part of the GUSPY effort
+# Part of the GusPy Project
 # Stephen Fischer
-# February 2011
 #
 # Notes: All URL patterns below automatically have /gallery/ appended to their front
 
@@ -21,6 +20,7 @@ urlpatterns = patterns(
     (r'^image/add/([0-9]+)', 'image_add'),       # /gallery/image/add/<gallery id>/
     (r'^image/delete/([0-9]+)', 'image_delete'), # /gallery/image/delete/<image id>/
     (r'^image/edit/([0-9]+)', 'image_edit'),     # /gallery/image/edit/<image id>/
-    (r'^public', 'public_list'),
+    (r'^public/group/([0-9]+)', 'public_group'), # /gallery/public/group/<group id>/
+    (r'^public', 'public_list'),                 # /gallery/public
     (r'^', 'index'),                             # /gallery/
 )

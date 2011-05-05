@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block pagetitle %}
+Unapproved Groups
+{% endblock pagetitle %}
+
+{% block content %}
+
+<h2>Users Pending Approval:<hr/>
+<h4></h4>
+
+{% for u in users %}
+	
+  <table width="95%">
+	  <tr align="left">
+		  <th>User:{{u.user.real_name}} ({{u.user.username}}) </th>
+		  <td><form method="post">{%csrf_token%}
+		{{ u.form.user_role }}
+		{{ u.form.user_id }}<input type="submit" value="give role"/>
+	</form>
+	  </tr>
+  	
+  </table>
+{% endfor %}
+
+{% endblock content %}

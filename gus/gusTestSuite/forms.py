@@ -7,20 +7,65 @@ they are not responsible for the data processing nor the submission of data
 all forms require a cross site request forgery token provided by django
 {% csrf_token %}
 """
-
+import re
 from django import forms
 from gus.gus_users.models import gus_user
 from gus.gus_roles.models import gus_role
 from django.contrib.auth.models import Permission
+from django.contrib.auth.models import User
+from gus.gus_groups.models import gus_group
+
 class SimpleUserAddForm(forms.Form):
     """
     A form to add a new user to the system
+    """
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(max_length=100,widget=forms.PasswordInput(), label="Choose a Password")
+    re_password = forms.CharField(required=False, max_length=100, widget=forms.PasswordInput(), label="Re-Enter Password")
+    real_name=forms.CharField(max_length=150)
+    email = forms.EmailField(label='Contact e-mail:')
+    id  = forms.IntegerField(required=False,widget=forms.HiddenInput())
+    
+    def clean_username(self):
+        '''
+        Ensure the chosen username is unique
+        '''
+        data = self.cleaned_data['username'].lower()
+        try:
+            User.objects.get(username=data)
+        except:
+            data = validate_username_chars(self)
+            return data
+        raise forms.ValidationError('This username is already taken.')
+    
+    def clean_re_password(self):
+         if self.cleaned_data['password'] != self.cleaned_data['re_password'] :
+            raise forms.ValidationError('Passwords do not match.')            
+
+
+    
+class SimpleUserEditForm(forms.Form):
+    """
+    A form to edit an to the system
     """
     username = forms.CharField(max_length=100)
     password = forms.CharField(max_length=100,widget=forms.PasswordInput())
     
     email = forms.EmailField(label='Contact e-mail:')
     id  = forms.IntegerField(required=False,widget=forms.HiddenInput())
+    
+    def clean_username(self):
+        return validate_username_chars(self)
+    
+def validate_username_chars(self):
+    '''
+    Ensure a username only has alphanumeric and underscore characters
+    '''
+    uname = self.cleaned_data['username'].lower()
+    cleaned = re.sub('\W', '', uname)
+    if cleaned != uname:
+        raise forms.ValidationError('Usernames may only contain underscores and alphanumerics')
+    return uname
 
 class SimpleAddUserToGroup(forms.Form):
     """
@@ -40,7 +85,15 @@ class SimpleAddUserToGroup(forms.Form):
         self.fields['group'].initial = group.id
         self.fields['role'].queryset = gus_role.objects.filter(_role_group=group)
                             
-                    
+class SimpleSubGroupAddForm(forms.Form):
+    """
+    This Form Allows the adding of new subgroups to a supergroup
+    """
+    group_name = forms.CharField(max_length=100)
+    group_description=forms.CharField(widget=forms.Textarea,required=False)
+    group_image = forms.FileField(required=False)
+    parent_group=forms.IntegerField(widget=forms.HiddenInput)
+                        
 class SimpleGroupAddForm(forms.Form):
     """
     This is the form that allows you to add a new group
@@ -58,6 +111,17 @@ class SimpleGroupAddForm(forms.Form):
                             queryset=gus_user.objects.all(),
                             empty_label="Select Owner"
                             )
+    
+    def clean_group_name(self):
+        '''
+        Ensure the chosen group name is unique
+        '''
+        data = self.cleaned_data['group_name']
+        try:
+            gus_group.objects.get(group_name=data)
+        except:
+            return data
+        raise forms.ValidationError('This group name is already taken')
 
 
 class ContactForm(forms.Form):
@@ -65,12 +129,19 @@ class ContactForm(forms.Form):
     message = forms.CharField()
     sender = forms.EmailField()
     cc_myself = forms.BooleanField(required=False)
-
+    
+class ApprovalForm(forms.Form):
+    group_id = forms.IntegerField(widget=forms.HiddenInput())
+    is_active = forms.BooleanField(required=False)
+class UserApprovalForm(forms.Form):
+    user_id = forms.IntegerField(widget=forms.HiddenInput())
+    user_role = forms.ModelChoiceField(queryset=gus_role.objects)
 class RolePermissionForm(forms.Form):
+    from django.db.models import Q
     is_superUser=forms.BooleanField(required=False)
     id = forms.IntegerField(widget=forms.HiddenInput,required=False)
     role_permissions=forms.ModelMultipleChoiceField(
-                        queryset=Permission.objects
+                        queryset=Permission.objects.filter(name__contains="gus_")
                         )
 
 class RoleCreateForm(forms.Form):
@@ -78,5 +149,5 @@ class RoleCreateForm(forms.Form):
     is_superUser=forms.BooleanField(required=False)    
     id = forms.IntegerField(widget=forms.HiddenInput,required=False)
     role_permissions=forms.ModelMultipleChoiceField(
-                        queryset=Permission.objects
+                        queryset=Permission.objects.filter(name__contains="gus_")
                         )

@@ -1,15 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 <h4>Upload News Item</h4>
-
-<form action="/news/edit" method="POST">
+<script type="text/javascript">
+   $(function() {
+       $("#id_date").datepicker({ dateFormat: 'yy-mm-dd' });
+	   $("#id_headline").width(336);
+	   $("#id_date").width(336);
+   });
+</script>
+<form action="." method="POST">
 {% csrf_token %}
-{{News_form.as_p}}
-<input type="submit" value="save">
+{{ form.non_field_errors }}
+<table>
+	<tr>
+		<th><label for="id_headline">Headline:</label></th>
+		<td>{{form.headline.errors}} {{form.headline}}</td>
+	</tr>
+	<tr>
+		<th><label for="id_date">Date:</label></th>
+		<td>{{form.date.errors}} {{form.date}}</td>
+	</tr>
+	<tr>
+		<th><label for="id_group">Group:</label></th>
+		<td>{{form.group.errors}} {{form.group}}</td>
+	</tr>
+	<tr>
+		<th><label for="id_shortdesc">Short Summary:</label></th>
+		<td>{{form.shortdesc.errors}} {{form.shortdesc}}</td>
+	</tr>
+	<tr>
+		<th><label for="id_shortdesc">News Article:</label></th>
+		<td>{{form.content.errors}} {{form.content}}</td>
+	</tr>
+</table>
+<input type="submit" value="Save">
 </form>
 
 {% endblock content %}
 
 {% block pagetitle %}
-Calendar-Events
+Add News Item
 {% endblock pagetitle %}

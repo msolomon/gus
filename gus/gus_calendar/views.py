@@ -23,14 +23,14 @@ years = []
 #def index(request):
 #    return render_to_response('calendar/index.html', {}, context_instance=RequestContext(request))
 
-def month(request, year=None, month=None, group=None):
+def month(request, year=None, month=None):
      if not request.user.is_authenticated():
          return HttpResponseRedirect('/login/')
      #groups = getGroupsWithUser(request.user)
-    
+
      if year: year = int(year)
      else: year = time.localtime()[0]
-     
+
      current_year, current_month = time.localtime()[:2]
      if month:
          month_name = month
@@ -46,17 +46,18 @@ def month(request, year=None, month=None, group=None):
      for m in [year]: # calendar goes out 2 years
         month_list = []
      for n, month_name in enumerate(month_names):
-        event = current = False
-        events = Gus_event.objects.filter(start_date__year=m, start_date__month=n+1)
-        if events:
-            event = True # there is an event listed
+        current = False
+        #events = Gus_event.objects.filter(start_date__year=m, start_date__month=n+1)
+        #if events:
+        #    event = True # there is an event listed
         if m == current_year and  n + 1 == current_month:
             current = True # it is current month
-        month_list.append(dict(n=n + 1, name=month_name, event=event, current=current))
+        month_list.append(dict(n=n + 1, name=month_name, current=current))
      years.append((m, month_list))
      month_name = month_names[month-1]
 
-## for months
+## for months        
+     user_groups = getGroupsWithUser(request.user)
      num_total_events = 0
      cal = calendar.Calendar()
      month_days = cal.itermonthdays(year, month)
@@ -70,29 +71,30 @@ def month(request, year=None, month=None, group=None):
         #for group in groups:
         events = current = False
         if day:
-            if group == None:
-                user_groups = getGroupsWithUser(request.user)
-                for user_group in user_groups:
-                    events = Gus_event.objects.filter(start_date__year=year, 
-                                                      start_date__month=month, 
-                                                      start_date__day=day,
-                                                      Group=user_group.id)
-                    
-                    num_total_events += len(events) 
-                    if day == nday and year == nyear and month == nmonth: 
-                        current = True
-                    total_events.append(events)
+            ##group_ids = [user_group.id for user_group in user_groups]
+            events = Gus_event.objects.filter(start_date__year=year, 
+                                              start_date__month=month, 
+                                              start_date__day=day,
+                                              Group__in=user_groups).order_by('start_time')
+                
+            num_total_events += len(events) 
+            if day == nday and year == nyear and month == nmonth: 
+                current = True
+            total_events.append(events)
+
         list[week].append((day, total_events, current, num_total_events))
         num_total_events = 0
         if len(list[week]) == 7:
              list.append([])
              week = week + 1
         total_events = []
-     year = time.localtime()[0]
-    
+     #year = time.localtime()[0]
+     
     
      return render_to_response("calendar/month_view.html",
-                               {'year': year, 
+                               {'year': year,
+                                'yearminus': (year-1),
+                                'yearplus': (year+1), 
                                 'years': years, 
                                 'month_name': month_name, 
                                 'month_days': list,
@@ -112,7 +114,10 @@ def view_all(request, year, month, day):
     month_name = month
     month = month_names.index(month) + 1
     for group in groups:
-        events = Gus_event.objects.filter(start_date__year=year, start_date__month=month, start_date__day=day, Group=group.id)
+        events = Gus_event.objects.filter(start_date__year=year, 
+                                          start_date__month=month, 
+                                          start_date__day=day, 
+                                          Group=group.id).order_by('start_time')
         total_day_events.append(events)
     return render_to_response("calendar/view_events.html",
                               {'year':year,
@@ -149,6 +154,8 @@ def day_view(request, year, month, day, event_id):
                                'description': event.description,
                                'name': event.event_name,
                                'start_date': event.start_date,
+                               'start_time': event.start_time,
+                               'end_time': event.end_time,
                                'event_id': event_id,
                                'event_group':event_group,
                                'auth_event_group': auth_event_group}, 
@@ -180,7 +187,6 @@ def day_add(request, year, month, day): #, group_id):
             event = form.save(commit=False)
             event.creator = usr
             event.start_date = date(int(year), int(month), int(day))
-            
             event.save()
             event_group = event.Group
             response = request.META['HTTP_REFERER'].rstrip('/')
@@ -246,9 +252,149 @@ def day_edit(request, year, month, day, event_id): #, group_id):
                                'month_name':month_name, 
                                'year':year,
                                'day': day, 
-                               'event_id':event_id},
-#                               'group_id': group_id}, 
-                               context_instance=RequestContext(request)) #add_csrf(request, events=form, year=year, month=month, day=day))
+                               'event_id':event_id,
+                               'group': False}, # No, this is NOT a group calendar 
+                               context_instance=RequestContext(request))
     
     
+def group_month(request, group_id, year=None, month=None):
+     try:
+        group = gus_group.objects.get(pk = group_id) ## if there is a group
+        print group
+     except:
+        return HttpResponse('Group Not Found.')
+        
+
+     if year: year = int(year)
+     else: year = time.localtime()[0]
+     
+     current_year, current_month = time.localtime()[:2]
+     if month:
+         month_name = month
+         for i in range(0, len(month_names)):
+             if month == month_names[i]:
+                 month = (i+1)
+         month_list = []
+         years = [] ## have to reset or get duplicates!!!
+     else:
+        month = time.localtime()[1]
+        years = [] ## have to reset or get duplicates!!!
+            
+     for m in [year]: # calendar goes out 2 years
+        month_list = []
+     for n, month_name in enumerate(month_names):
+        current = False
+        #events = Gus_event.objects.filter(start_date__year=m, start_date__month=n+1)
+        #if events:
+        #    event = True # there is an event listed
+        if m == current_year and  n + 1 == current_month:
+            current = True # it is current month
+        month_list.append(dict(n=n + 1, name=month_name, current=current))
+     years.append((m, month_list))
+     month_name = month_names[month-1]
+
+## for months
+     num_total_events = 0
+     cal = calendar.Calendar()
+     month_days = cal.itermonthdays(year, month)
+     nyear, nmonth, nday = time.localtime()[:3]
+     list = [[]]
+     #total_day_events = []
+     week = 0
+     total_events = []
+     count = 0
+     for day in month_days:
+        #for group in groups:
+        events = current = False
+        if day:
+            events = Gus_event.objects.filter(start_date__year=year, 
+                                              start_date__month=month, 
+                                              start_date__day=day,
+                                              Group=group).order_by('start_time')
+            if day == nday and year == nyear and month == nmonth: 
+                    current = True
+            total_events.append(events)
+            
+        list[week].append((day, total_events, current, num_total_events))
+        num_total_events = 0
+        if len(list[week]) == 7:
+             list.append([])
+             week = week + 1
+        total_events = []
+#     year = time.localtime()[0]
     
+    
+     return render_to_response("calendar/month_view.html",
+                               {'group': True, ## yes, this is a group calendar
+                                'group_name':group.group_name,
+                                'group_id':group_id,
+                                'year': year,
+                                'yearminus': (year-1),
+                                'yearplus': (year+1), 
+                                'years': years, 
+                                'month_name': month_name, 
+                                'month_days': list,
+                                'month_list': month_list,
+                                'total_events':total_events}, 
+                                context_instance=RequestContext(request))    
+     
+     
+@login_required
+def group_day_add(request, group_id, year, month, day): #, group_id):
+    ## user permission authenticity ##
+    auth_groups = []
+    usr = request.user
+    try:
+        group = gus_group.objects.get(pk = group_id) ## if there is a group
+    except:
+        return HttpResponse('Group Not Found.')  
+    if usr.has_group_perm(group, 'Can add gus_event'):
+            auth_groups.append(group)
+    else:
+        return HttpResponseRedirect('calendar/month_view.html')
+## -------------------------------------------------------##            
+        
+    month_name = month
+    month = month_names.index(month) + 1
+
+    if request.method == "POST":
+        form = Event_form(request.POST)
+        from django.forms.extras.widgets import SelectDateWidget ##group permission to add event
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.creator = usr
+            event.start_date = date(int(year), int(month), int(day))
+            
+            event.save()
+            event_group = event.Group
+            response = request.META['HTTP_REFERER'].rstrip('/')
+            #print response
+            splice = response.rfind('/')
+            return HttpResponseRedirect(response[:splice] + '/')
+            
+    else:
+        ## check if user is allowed to add events and display those groups
+        auth_groups = []
+        usr = request.user
+        try:
+            group = gus_group.objects.get(pk = group_id) ## if there is a group
+        except:
+            return HttpResponse('Group Not Found.')  
+        if usr.has_group_perm(group, 'Can add gus_event'):
+                auth_groups.append(group)
+        else:
+            return HttpResponseRedirect('calendar/month_view.html')
+        ##------------------------------------------##
+        form = Event_form()
+        ## display groups user has permissions for ##
+        if usr.has_group_perm(group, 'Can add gus_event'):
+            form.fields['Group'].queryset = gus_group.objects.filter(pk=group_id)
+        
+        
+    return render_to_response("calendar/add_event.html", 
+                              {'event_form': form,
+                               'event_group': group, 
+                               'month_name':month_name, 
+                               'year':year, 
+                               'day':day}, 
+                               context_instance=RequestContext(request)) 

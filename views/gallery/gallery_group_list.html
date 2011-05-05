@@ -8,6 +8,10 @@
 {% if can_add %}<a href="/gallery/add/{{the_group.pk}}">Add Gallery</a><br/><br/>
 {% endif %}
 
+{% if galleries|length_is:0 %}
+  <i>This group doesn't have any galleries yet!</i>
+{% endif %}
+
 {% for gal in galleries %}
   <a href="/gallery/{{gal.pk}}">{{ gal.name }}</a>
   {% if can_edit or can_delete %}[{% endif %}

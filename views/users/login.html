@@ -4,11 +4,24 @@ Login
 {% endblock pagetitle %}
 
 {% block content %}
+<h3>Login</h3>
 <form method="post">
-<!--Print Login Form -->
-{{ form.as_p }}
-<!-- add cross site request forgery safety key(reqd for all forms) --> 
+  
+{% if fail %}
+<p><strong>Username or Password is incorrect.</strong></p>
+{% endif %}
+
+<div class="login_register">   
 {% csrf_token %}
-<input type="submit" value="Login">
+<!--Print Login Form -->
+
+<table class="login_register">
+{{ form.as_table }}
+<!-- add cross site request forgery safety key(reqd for all forms) --> 
+</table>
 </form>
+<input type="submit" value="Login">
+<a href="/login/reset/">Forgot Password</a>
+</div>
+
 {% endblock content %}

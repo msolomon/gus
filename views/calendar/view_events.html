@@ -4,11 +4,13 @@
 {% for events in total_day_events %}
   {% for event in events %}
 
-
-<h3>Event: {{event.event_name}} </h3>
-<b>Creator:</b> {{event.creator}}
-<br>  
-<b> Start Date: </b> {{event.start_date}}
+<br>
+<h3>{{event.event_name}}</h3>
+{{event.start_time}} to {{event.end_time}}
+<br>
+<b>Creator:</b> {{event.creator.username}}
+<br> 
+<b>Group:</b> {{event.Group.group_name}}
 <br>
 <b>Description:</b> {{event.description}}
 <br>

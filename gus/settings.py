@@ -7,7 +7,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('Gus Team', 'uidaho-software-engineering-10-11@googlegroups.com'),
 )
 
 MANAGERS = ADMINS
@@ -15,15 +15,29 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '%s/guspy.db'%PROJECT_PATH, # Or path to database file if using sqlite3.
-        'USER': 'guspy', # Not used with sqlite3.
-        'PASSWORD': 'chandler is a little girl', # Not used with sqlite3.
-        'HOST': 'johnls.net', # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': '%s/guspy.db' % PROJECT_PATH, # Or path to database file if using sqlite3.
+        'USER': '', # Not used with sqlite3.
+        'PASSWORD': '', # Not used with sqlite3.
+        'HOST': '', # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '', # Set to empty string for default. Not used with sqlite3.
     }
 }
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'pos$
+        'NAME': 'gus_db', # Or path to database file if using sqlite3.
+        'USER': 'root', # Not used with sqlite3.
+        'PASSWORD': '',#chandler is a little girl', # Not used with sq$
+        'HOST': 'localhost', # Set to empty string for localh$
+        'PORT': '', # Set to empty string for default. Not used with sqlite3.
+    }
+}
+'''
 LOGIN_URL='/login/'
-AUTHENTICATION_BACKENDS=('gus_backend.models.gus_backend','django.contrib.auth.backends.ModelBackend',)
+AUTHENTICATION_BACKENDS=('gus_backend.models.gus_backend',
+                         'django.contrib.auth.backends.ModelBackend',)
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -41,7 +55,7 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
@@ -64,11 +78,22 @@ ADMIN_MEDIA_PREFIX = 'media/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '^nat@lnqd0wmfr9gyw8&o_l(v2=uwr+524(1g!a!@!thf17m&k'
 
+# Make sessions time out after # of seconds
+SESSION_COOKIE_AGE = 2 * 60 * 60  # 2 hours
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+    #   'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+    #   'EXTRA_SIGNALS': ['myproject.signals.MySignal'],
+    'HIDE_DJANGO_SQL': False,
+    #   'TAG': 'div',
+}
 
 MIDDLEWARE_CLASSES = [             
     'django.middleware.gzip.GZipMiddleware',         
@@ -95,9 +120,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'gus.gus_users',
     'gus.gus_groups',
     'gus.gus_roles',
-    'gus.gus_users',
+    
     'gus.gus_calendar',
     'gus.gus_widget',
     'gus.gus_forum',
@@ -105,7 +131,44 @@ INSTALLED_APPS = [
     'gus.gus_bill',
     'gus.gusTestSuite',
     'gus.gus_backend',
+	'gus.gus_news',
 ]
+
+BLEACH_ALLOWED_TAGS = ['a',
+                       'abbr',
+                       'address',
+                       'acronym',
+                       'blockquote',
+                       'cite',
+                       'code',
+                       'dd',
+                       'del',
+                       'dfn',
+                       'div',
+                       'dl',
+                       'dt',
+                       'em',
+                       'h1',
+                       'h2',
+                       'h3',
+                       'h4',
+                       'h5',
+                       'h6',
+                       'hr',
+                       'img',
+                       'ins',
+                       'kbd',
+                       'li',
+                       'ol',
+                       'p',
+                       'pre',
+                       'q',
+                       'samp',
+                       'span',
+                       'strong',
+                       'sub',
+                       'sup',
+                       'ul',]
 
 # try to use PIL
 try:
@@ -154,3 +217,8 @@ EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = '[gus] '
 # the default email suffix
 EMAIL_SUFFIX = '@guspy.joranbeasley.com'
+
+# email to send debug messages
+SEND_BROKEN_LINK_EMAILS = True
+SERVER_EMAIL = 'gusbugs' + EMAIL_SUFFIX
+

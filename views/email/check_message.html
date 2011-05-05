@@ -23,7 +23,7 @@
 
 <h3>From:</h3> {{ email.from_email|urlize }}<br/><hr>
 <h2>{{ email.subject|urlize }} </h2>
-{{ email.body|urlize|linebreaks }}
+{{ email.body|safe|urlize|linebreaks }}
 <hr>
 <form method="post">
 {% csrf_token %}

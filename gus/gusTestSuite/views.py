@@ -37,59 +37,8 @@ def index(urlRequest):
          'groups':gus_group.objects.all(),
          },context_instance=RequestContext(urlRequest));
 
-@login_required
-def index2(urlRequest):
-    
-    #from django.contrib.auth.forms import UserCreationForm
-    #from gus.gusTestSuite.forms import SimpleAddUserToGroup
-    #return HttpResponse(SimpleGroupAddForm().as_p()) 
-    data ={}
-    usr=urlRequest.user
-    grps = [r.group for r in gus_role.objects.with_user(usr)]
-    data['user']=usr
-    data['groups']=grps
-    #return HttpResponse(data['groups'][0].group_name)
-    return render_to_response('test/welcome2.html', data
-         #'urls':{'delete':'/gus_test/Group/Delete/%s/'},
-         ,context_instance=RequestContext(urlRequest));
 def authUser(urlRequest):
-    return render_to_response('users/info.html',{},
-                              context_instance=RequestContext(urlRequest))
-
-@login_required
-def addGroup(urlRequest):
-    
-    from gus.gus_groups.utils import createNewGroup
-    from gus.gusTestSuite.forms import SimpleGroupAddForm
-    
-    #setup our form
-    if urlRequest.method == 'POST': # If the form has been submitted...
-        form = SimpleGroupAddForm(urlRequest.POST) # A form bound to the POST data
-        if form.is_valid(): # All validation rules pass
-            # Process the data in form.cleaned_data
-            # ...
-            createNewGroup(
-                    form.cleaned_data['group_owner'],
-                    form.cleaned_data['group_name'],
-                    form.cleaned_data['group_description'],
-                    ""
-                    )
-            
-            return HttpResponseRedirect('/gus_test/') # Redirect after POST
-    else:
-        form = SimpleGroupAddForm() # An unbound form
-
-    
-    return render_to_response('test/form.html',
-                                {
-                                 'submiturl':'/gus_test/Group/Add/',
-                                 'enctype':'multipart/form-data',
-                                 'form':form,
-                                 'title':'Add New Group',
-                                 'btnlabel':'Create Group',
-                                },
-                                context_instance=RequestContext(urlRequest)
-                              );
+    return HttpResponseRedirect('/users/profile')
 
 @login_required
 def editUser(urlRequest, user_id):
@@ -97,7 +46,7 @@ def editUser(urlRequest, user_id):
     usr = gus_user.objects.get(pk=user_id)
     #setup our form
     if urlRequest.method == 'POST': # If the form has been submitted...
-        form = SimpleUserAddForm(urlRequest.POST) # A form bound to the POST data
+        form = SimpleUserEditForm(urlRequest.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
@@ -106,9 +55,9 @@ def editUser(urlRequest, user_id):
             usr.save()
             usr.set_password(form.cleaned_data['password'])
                         
-            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+            return HttpResponseRedirect('/users/profile') # Redirect after POST
     else:
-        form = SimpleUserAddForm({'username':usr.username,'email':usr.email
+        form = SimpleUserEditForm({'username':usr.username,'email':usr.email
                               ,'id':usr.id,'password':usr._user.password}) 
         # Default Edit Form
     
@@ -127,86 +76,9 @@ def editUser(urlRequest, user_id):
 
 
 @login_required
-def editGroup(urlRequest, group_id):
-    from gus.gus_groups.utils import getGroupRoles
-    from gus.gusTestSuite.forms import SimpleAddUserToGroup
-   
-    if urlRequest.method == 'POST':
-        usr = gus_user.objects.get(pk=int(urlRequest.POST['new_member']))
-        role = gus_role.objects.get(pk=int(urlRequest.POST['role']))
-        role.users.add(usr)
-        #return HttpResponse("New User ID : %s " % new_mem_id)
-    group = gus_group.objects.get(pk=group_id)
-    form_addUser = SimpleAddUserToGroup(group)    
-    return render_to_response('groups/manageGroup.html',
-        { 'group':group, 'roles':getGroupRoles(group),
-          'formAddUser':form_addUser},
-          context_instance=RequestContext(urlRequest)
-          )
-    #return HttpResponse('Manage Group : %s ' % group)
-
-@login_required
-def viewGroup(urlRequest, group_id):
-    group = gus_group.objects.get(pk=group_id)
-    role = group.roles
-    return render_to_response('groups/viewGroup.html',
-	{ 'group':group, 'role':role },
-	  context_instance=RequestContext(urlRequest)
-	  )
-    #return HttpResponse("testing")
-
-@login_required
 def deleteUser(urlRequest, user_id):
     user = gus_user.objects.get(pk=user_id)
     return HttpResponse('Delete User : %s ' % user)
-
-@login_required
-def deleteGroup(urlRequest, group_id):
-    group = gus_group.objects.get(pk=group_id)
-    try:
-        if urlRequest.POST['confirm']:
-            group.delete();
-            
-            return HttpResponseRedirect('/groups/')
-    except:
-        return render_to_response('generic/confirm_delete.html',
-                              {'type' : 'group',
-                               'item' : group.group_name,
-                               'cancel_url' : '/groups/%s/Edit'%group_id},
-                              context_instance = RequestContext(urlRequest))
-
-@login_required
-def removeUserFromRole(urlRequest, user_id, role_id):
-    user = gus_user.objects.get(pk=user_id)
-    role = gus_role.objects.get(pk=role_id)
-    g_id = role.group.id
-    role.users.remove(user)
-    return HttpResponseRedirect('/groups/%s/Edit/'%g_id)
-
-@login_required
-def removeUserFromGroup(urlRequest, group_id, user_id):
-    group = gus_group.objects.get(pk=group_id)
-    user = gus_user.objects.get(pk=user_id)
-    r = gus_role.objects.with_user_in_group(group,user)
-    return removeUserFromRole(urlRequest, user_id, r.id)
-
-@login_required
-def deleteRole(urlRequest, role_id):
-    role = gus_role.objects.get(pk=role_id)
-    g_id = role.group.id
-    role.delete()
-    return HttpResponseRedirect('/groups/%s/Edit'%g_id)
-
-@login_required
-def editRole(urlRequest, role_id):
-    role = gus_role.objects.get(pk=role_id)
-    
-    return render_to_response('groups/manageRole.html',
-                       {
-                         'role':role,
-                        
-                       },context_instance=RequestContext(urlRequest)
-                       )
 
  
  
@@ -219,96 +91,25 @@ def addUser(urlRequest):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            gus_user.objects.create_user(
+            usr = gus_user.objects.create_user(
                             form.cleaned_data['username'],
                             form.cleaned_data['email'],
                             form.cleaned_data['password'],
                         )
-            return HttpResponseRedirect('/gus_test/') # Redirect after POST
+            usr._user.first_name=form.cleaned_data['real_name']
+            usr._user.save()
+            return HttpResponseRedirect('/users/profile') # Redirect after POST
+
     else:
         form = SimpleUserAddForm() # An unbound form
-
 
     return render_to_response('test/form.html',
                                 {
                                  'submiturl':'/gus_test/User/Add/',
                                  'encType':'multipart/form-data',
-                                 'form':form,
+                                 'form' : form,
                                  'title':'Register New User',
                                  'btnlabel':'Create User',
                                 },
                                 context_instance=RequestContext(urlRequest)
                               );
-                              
-@login_required
-def viewUser(urlRequest,user_id):
-    try:
-        usr = gus_user.objects.get(pk=user_id)
-    except:
-        return HttpResponse("This User Does not exist<br/>")
-    return render_to_response('test/viewUser.html',
-                                {
-                                 'usr':usr,
-                                 'roles':gus_role.objects.with_user(usr),
-                                },
-                                context_instance=RequestContext(urlRequest)
-                              );
-
-@login_required
-def createRole(urlRequest,group_id):
-    group = gus_group.objects.get(pk=group_id)
-    if urlRequest.method == 'POST':
-        form = RoleCreateForm(urlRequest.POST)
-	if form.is_valid():
-	    role = gus_role.objects.create_role(group,form.cleaned_data['role_name'])
-	    if form.cleaned_data['is_superUser'] == True:
-		role._role_permission_level = 1
-	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
-    else:
-        form = RoleCreateForm({'id':group_id})
-	
-#    return HttpResponse("WIP")
-    return render_to_response('test/form.html',
-                                {
-                                 'submiturl':('/gus_test/Role/New/%s/'%group_id),
-                                 'encType':'multipart/form-data',
-                                 'form':form,
-                                 'title':'Create Role for %s'%group.group_name,
-                                 'btnlabel':'Create Role',
-                                },
-                                context_instance=RequestContext(urlRequest)
-                              )
-
-@login_required
-def editRolePerms(urlRequest,role_id):
-    role = gus_role.objects.get(pk=role_id)
-    if urlRequest.method == 'POST':
-        form = RolePermissionForm(urlRequest.POST)
-	if form.is_valid():
-	    role._role_permissions.permissions.clear()
-	    role._role_permission_level = int(form.cleaned_data['is_superUser'])
-	    [role._role_permissions.permissions.add(r) for r in form.cleaned_data['role_permissions']]
-	    role.save()
-	    g_id = role.group.id
-	    return HttpResponseRedirect("/groups/%s/Edit/"%g_id)
-    else:
-	if role._role_permission_level == 1:
-	    is_superUser = True
-	else:
-	    is_superUser = False
-	role_permissions = role._role_permissions.permissions.all()
-	data = {'id':role_id, 'is_superUser':is_superUser, 'role_permissions':role_permissions}
-        form = RolePermissionForm(data)
-
-    #return HttpResponse("WIP")
-    
-    return render_to_response('test/form.html',
-                                {
-                                 'submiturl':('/gus_test/Role/EditPerms/%s/'%role_id),
-                                 'encType':'multipart/form-data',
-                                 'form':form,
-                                 'title':'Edit Permissions For Role %s'%role.name,
-                                 'btnlabel':'Save Role',
-                                },
-                                context_instance=RequestContext(urlRequest)
-                              )

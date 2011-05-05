@@ -1,7 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from  django.template import RequestContext
 from gus.gus_groups.models import *
+from gus.gus_groups.utils import *
 from gus.gus_roles.models import *
 from gus.gus_users.models import *
 from gus.gus_bill.models import *
@@ -17,45 +19,67 @@ class new_bill_form(forms.Form):
   user = forms.ModelMultipleChoiceField(queryset=gus_user.objects.all())
   def setGroup(self, group):
       role_ids =[r.id for r in group.roles]
-      self.fields[
-            'user'
-            ].queryset = gus_role.objects.users_with_group(group)
+      self.fields['user'].queryset = gus_role.objects.users_with_group(group)
   #      self.fields['group'].initial = group.id
   #	      self.fields['role'].queryset = gus_role.objects.filter(_role_group=group)
 
+@login_required
 def index(request):
-	if not request.user.is_authenticated():
-	   return HttpResponseRedirect('/login/')
 	usr = request.user
 	bills = bill.objects.filter(user = usr.id).exclude(name__contains="_archive")
 	#returns all the roles which the usr is an Owner
 	
 	form = new_bill_form()
 	
-	roles = gus_role.objects.with_user(usr).filter(_role_name = "Owner")
+	groups = getGroupsWithUser(usr)
 	adgroups = []
-	adbills = []
-	adbillsbygroup = []
-	for a in roles:
-		#a.getGroup() returns the group
-		#bill.objects.filter(group) returns the bills associated with that group
-		#adbills will be a list of all the bills which the current user is an owner
-		AGRP = a.group
-		AGRP.my_bills  = bill.objects.filter(group = a.group)
-		adgroups.append(AGRP)
-		
+	
+	for g in groups:
+	  if(usr.has_group_perm(g,'Can add gus_bill')):
+	    g.my_bills = bill.objects.filter(group=g).exclude(name__contains="_archive")
+	    adgroups.append(g)
+
+	
+	#return HttpResponse(str(len(bills)))	
 		
 
 	return render_to_response('bill/index.html', {"bills":bills, "adminGroups":adgroups, "formFint":form, "user":usr}, context_instance=RequestContext(request))
+
+@login_required
+def group_view(request, group_id=-1):
+	try:
+	  group = gus_group.objects.get(pk=group_id)
+	except:
+	  return HttpResponseRedirect('/bill/')
+
+	usr = request.user
+	bills = bill.objects.filter(user = usr.id, group = group).exclude(name__contains="_archive")
+	#returns all the roles which the usr is an Owner
 	
+	form = new_bill_form()
+	
+	#roles = gus_role.objects.with_user(usr).filter(_role_name = "Owner")
+	#roles = [r in usr.roles if usr.has_group_perm(r.group,'Can add gus_bill')]
+	admin_bills=None
+	perm=usr.has_group_perm(group,'Can add gus_bill')
+	if perm: admin_bills=bill.objects.filter(group = group)
+		
+		
+		
+
+	return render_to_response('bill/index2.html', {"bills":bills,'group_name':group.group_name, "adminBills":admin_bills, "formFint":form, "user":usr}, context_instance=RequestContext(request))
+
+
 #AddBill
+@login_required
 def AddBill(request,group_id=-1):
   try:
 	bill_grp = gus_group.objects.get(pk=group_id)
+	usr = request.user
   except:
 	return HttpResponseRedirect('/bill/')	
-  mygrprole = gus_role.objects.with_user_in_group(bill_grp,request.user)
-  if(not mygrprole or mygrprole._role_permission_level < 1):
+  mygrprole = usr.has_group_perm(bill_grp, 'Can add gus_bill')
+  if( not mygrprole ):
       return HttpResponseRedirect('/bill/')	
   if request.method == "POST":
     form = new_bill_form(request.POST)
@@ -72,18 +96,29 @@ def AddBill(request,group_id=-1):
 			    context_instance=RequestContext(request))
 
 #Delete
+@login_required
 def DeleteBill(request,bill_id=-1):
   try:
     b = bill.objects.get(pk=bill_id)
   except:
     return HttpResponse('Bill Not Found')
-  b.delete()
+  try:
+      if request.POST['confirm']:
+	  b.delete()
+      return HttpResponseRedirect('/bill/')
+  except:
+      return render_to_response('generic/confirm_delete.html',
+			    {'type' : 'bill',
+			      'item' : bill.name,
+			      'cancel_url' : '/bill/'},
+			    context_instance = RequestContext(request))
   return HttpResponseRedirect('/bill/')
 
 #PAYMENTS
 #class payment_bill_form(forms.Form):
 #  Value = forms.FloatField(min_value=0)
 
+@login_required
 def Payments(request, bill_id=-1):
   try:
     b = bill.objects.get(pk=bill_id)
@@ -101,7 +136,8 @@ def Payments(request, bill_id=-1):
   balance = b.value - b.paid_balance()
   return render_to_response('bill/payments.html',{'payments':paymnts,'form':form, 'bill':b, 'balance':balance},
 			    context_instance=RequestContext(request))
-  
+
+@login_required
 def Archive(request, bill_id=-1):
   try:
     b = bill.objects.get(pk=bill_id)
@@ -109,3 +145,5 @@ def Archive(request, bill_id=-1):
     return HttpResponse('Bill Not Found')
   b.archive()
   return HttpResponseRedirect('/bill/')
+  
+  

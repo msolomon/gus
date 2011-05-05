@@ -4,6 +4,11 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<title>{% block pagetitle %}Gus{% endblock %}</title>
 		<link rel="stylesheet" type="text/css" href="/include/css/default.css" media="screen"/>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+		<script type="text/javascript" src="/include/js/jquery-ui-1.8.11.custom.min.js"></script>
+		<script type="text/javascript" src="/include/js/tiny_mce/tiny_mce.js"></script>
+		<script type="text/javascript" src="/include/js/mce.js"></script>
+		<link rel="stylesheet" type="text/css" href="/include/css/ui-lightness/jquery-ui-1.8.11.custom.css" media="screen"/>
 		{% block custom_header %}
 		{% endblock %}
 	</head>
@@ -13,9 +18,12 @@
 <div class="outer-container">
 <div class="inner-container">
     <div class="header">
+    	<div class="beta">
+     		<a href="http://bugs.joranbeasley.com/GUS/"><img src="/include/images/css_img/beta.png" /></a> 
+    	</div>
         <div class="title">
             {% block title %}
-                <a href="/"><img src="/include/images/guspy.png"/></a>
+                <a href="/"><img class="header_image" src="/include/images/gus_white_small.png"/></a>
             {% endblock %}</td>
             <div class="slogan">{% block subtitle %}Groups in a University Setting{% endblock %}</div>
         </div>
@@ -23,11 +31,15 @@
 
     <div class="topbar">
         {% block menu %}
+	{% comment %}
             <a href="/gus_test/">Manage Groups and Users</a> | 
+            <a href="/groups/">My Groups</a> | 
+	{% endcomment %}
             <a href="/calendar/">My Calendar</a> | 
             <a href="/email/">My Messages</a> | 
             <a href="/bill/">My Bills</a> | 
-            <a href="/gallery/">My Galleries</a>
+            <a href="/gallery/">My Galleries</a> |
+			<a href="/news/_all/">My News</a>
         {% endblock %}
     </div>
 
@@ -36,7 +48,7 @@
                 {% if user.is_anonymous %}
                     Not Logged In. <a href="/login/">Login</a> | <a href="/register/">Register</a>
                 {% else %}
-                    Logged in as <strong>{{ user.username|capfirst }}</strong>. <a href="/users/profile">My Profile</a> | <a href="/logout/">Logout</a> 
+                    Logged in as <strong>{{ user.get_full_name }} ({{ user.username }})</strong>. <a href="/users/profile">My Profile</a> | <a href="/logout/">Logout</a> 
                 {% endif %}
         {% endblock %}
     </div>
@@ -60,8 +72,11 @@
                 {% block sidebar_sidewide %}
                 <h2>Gus</h2>
                 <ul>
-                    <li><a href="https://github.com/arkenflame/gus">Reports</a></li>
-                </ul>
+                	<li><a href="/listing">All Groups</a></li>
+                    <li><a href="https://docs.google.com/document/pub?id=1uWUyukRuzSW0uTwWk9wjTEQqmqnxjEoYgT2F5STrg4Q&pli=1">Help</a></li>
+	              </ul>
+
+
                 {% endblock %}
 
                 {% block sidebar_bottom %}

@@ -5,21 +5,32 @@
 {% if not user.is_anonymous %}
 <h2>My Groups</h2>
 <hr/>
+{% for role in user.roles %}
+{{role.group.group_name}} ({{ role.name }}) 
+[<a href="/groups/{{role.group.id}}/Edit">Visit</a>]
+<br/>
+
+{% endfor %}
 <br/><br/><br/>
 <br/>
 
 {% else %}
-<h2>G.U.S.</h2>
-<hr/>
-<h3>What is Gus?</h3><ul>
-<li>Set of group management tools</li>
-<li>Aimed at university-style groups </li>
-<li><strong>Simple</strong></li>
+<h2>Gus</h2>
+<strong>Gus is a set of group management tools tailored for University-style groups.</strong>
+<ul>
+<h3>Simple</h3>
 <li>Easy to pick up, straight to the point</li>
-<li><strong>Modular</strong></li>
-<li>Modules: Calendar, Forum, Image Gallery...</li>
-<li><strong>Granular</strong></li>
+<h3>Modular</strong></h3>
+<li>Calendar</li>
+<li>Forum</li>
+<li>Image Gallery</li>
+<li>News</li>
+<li>Messages</li>
+<li>Bills</li>
+<h3>Granular</h3>
 <li>Control who has access to specific information</li>
 </ul>
 {% endif %}
+
+{% include "users/list.html/" %}
 {%  endblock %}

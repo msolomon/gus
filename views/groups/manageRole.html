@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-<a href="/gus_test/Group/Edit/{{role.group.id}}">Back To Group Manager</a><br/>
-<a href="/gus_test/Role/EditPerms/{{role.id}}">Edit Role Permissions</a>
-<h2>Edit Role {{ role.name }} [{{ role.group.group_name }}]</h2>
-<h3>Users</h3>
-{% for user in role.users.all %}
-{{user}} [
-<a href="/gus_test/Role/{{role.id}}/RemoveUser/{{user.id}}">
-Remove User From Role
-</a>
-]<br />
-{% endfor %}
+<h2>Edit Role {{ role.name }} for <i>{{usr.username}}</i> in group <i>{{ role.group.group_name }}</i></h2>
+<form method="post">
+<select name="newRole">
+{% for r in group.roles %}
+<option value="{{r.id}}"
+{% if r.id == role.id %}
+selected="SELECTED"
+{% endif %}>
 
+{{r.name}}
+</option>
+{% endfor %}
+</select>
+<br>
+<br>
+<input type="submit" value="Confirm Change">
+{% csrf_token %}
+</form>
 {% endblock %}

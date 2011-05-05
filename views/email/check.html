@@ -26,15 +26,19 @@
 		<th>Subject</th>
 	</tr>
 	
+<style type="text/css">
+	td.unread {background-color:#bad0ef;}
+</style>
+
 	{% for email in page.object_list %}
 	<tr>
-		<td width="10%">
+		<td width="10%" {% if email.unviewed %} class="unread"{% endif %}>
 			{{email.date}}
 		</td>
-		<td width="30%">
-			<a href="{{email.from}}">{{email.from}}</a> <br>
+		<td width="30%" {% if email.unviewed %} class="unread"{% endif %}>
+			<a href="{{email.from_address}}">{{email.from}}</a> <br>
 		</td>
-		<td width="50%">
+		<td width="50%" {% if email.unviewed %} class="unread"{% endif %}>
 			<a href="/email/check/message/{{email.id}}">{{email.subject}}
 		</td>
 	</tr>

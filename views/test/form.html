@@ -3,9 +3,17 @@
 {%block content %}
 <h3>{{ title }}</h3>
 <form action="{{ submiturl }}" enctype="{{ enctype }}" method="post">
+  <div class="login_register">
 {% csrf_token %}
-{{ form.as_p }}
+<table class="login_register">
+{{ form.as_table }}
+</table>
 <input type="submit" value="{{ btnlabel }}">
+
+<a href="/">Cancel</a><br/>
+
 </form>
-<a href="/gus_test/">Cancel</a><br/>
+
+</div>
+
 {% endblock %}

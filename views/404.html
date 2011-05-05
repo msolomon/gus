@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style type="text/css">
+#sub_col {
+float: right;
+width: 318px;
+}
+#main_col {
+float: left;
+width: 473px;
+}
+</style>
+<div>
+		<div id="main_col" class="copy">
+			<h2 class="divider first">Uh-oh! That page can't be found.</h2>
+			<p><img src="/include/images/bg_404_nerds.jpg" alt="angry and sad man"></p> 
+		
+		</div><!--END MAIL COL-->
+		<div id="sub_col" class="copy">
+			<h3 class="divider first">Don't get angry, and don't cry.</h3>
+			<p><strong>Let us take that burden.</strong> It's not your fault. No, really, listen to me. It's not your fault. We have a 24 hour hotline to deal with things just like this. Okay, its not really a hotline, its really just some encouraging words to keep trying, but hotline sounds so much better.</p>
+			
+			<h3 class="divider">The very nerdy error</h3>
+			
+			<p><strong>404 Page Not Found</strong> - </p><p>The page you requested was not found.</p><p><a href="/">Go Back To The Begining</a></p>
+			
+			
+		</div>
+		<div style="clear:both">
+		this 404 page is <del>courtesy of</del> hijacked from <a href="http://patterntap.com/404">http://patterntap.com/404</a>
+		</div>
+ </div>
+{% endblock %}

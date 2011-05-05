@@ -1,0 +1,17 @@
+{% extends "gallery/base.html" %}
+{% block pagetitle %}Public Image Galleries - {{ the_group.group_name }}{% endblock %}
+
+{% block content %}
+<h3>Public Image Galleries - {{ the_group.group_name }}</h3>
+<br/>
+
+{% if galleries|length_is:0 %}
+  <i>This group doesn't have any public galleries yet!</i>
+{% endif %}
+
+{% for gal in galleries %}
+  <a href="/gallery/{{gal.pk}}">{{ gal.name }}</a>
+  <br/>
+{% endfor %}
+
+{% endblock %}

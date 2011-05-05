@@ -1,31 +1,72 @@
 {% extends "base.html" %}
 
 {% block pagetitle %}
-{{group.group_name}} : Forums
+	{{group.group_name}} : Forums
 {% endblock pagetitle %}
 
 {% block sidebar_top %}
-<h2>Forum Options</h2>
-<ul>
- <li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
- <li><a href="/forum/{{group.id}}/add_forum">Add Forum</a></li>
-</ul>
+	<h2>Forum Options</h2>
+	<ul>
+		<li><a href="/groups/{{group.id}}">Return to Group Page</a></li>
+		{% if can.addforum %}
+			<li><a href="/forum/{{group.id}}/add_forum">Add Forum</a></li>
+		{% endif %}
+	</ul>
 {% endblock %}
 
 {% block content %}
-<table border="1" cellpadding="6" class="table" width="95%">
-<th>Forum</th><th align="right">Last Post</th><th></th>
-{% for forum in forums %}
-	<tr class="{% cycle 'odd' "even" %}">
-	 <td><b><a href="/forum/{{group.id}}/{{forum.id}}">{{forum.forum_name}}</a></b><br />
-	  <p>{{forum.forum_description}}</p></td>
-	 <td align="right">Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostDate}}</a><br />
-	  by <a href="/users/profile">{{forum.LastPostUser.username|capfirst}}</a>
-	  in <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostThread.thread_name}}</a>
-	 </td>
-	 <td align="right"> <a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">Edit Forum</a><br />
-	  <a href="/forum/{{group.id}}/{{forum.id}}/delete_forum">Delete Forum</a>
-	</tr>
-{% endfor %}
-</table>
+	{% if forums|length > 0 %}
+		<table border="1" cellpadding="6" class="table" width="95%">
+		<th>Forum</th><th align="center">Threads</th><th align="center">Posts</th><th align="right">Last Post</th>
+		{% if can.editforum or can.deleteforum %}
+			<th></th>
+		{% endif %}
+		{% for forum in forums %}
+			<tr class="{% cycle 'odd' "even" %}">
+				<td>
+					<b><a href="/forum/{{group.id}}/{{forum.id}}">{{forum.forum_name}}</a></b><br />
+					<p>{{forum.forum_description|safe}}</p>
+				</td>
+				<td align="center">
+					{{forum.numThreads}}
+				</td>
+				<td align="center">
+					{{forum.numPosts}}
+				</td>
+				<td align="right">Last Post on <a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostDate}}</a><br />
+					by 
+					{% if forum.LastPostUser != 'Nobody' %}
+						<!--<a href="">-->{{forum.LastPostUser.username|capfirst}}<!--</a>-->
+					{% else %}
+						Nobody
+					{% endif %}
+					in 
+					{% if forum.LastPostThread != 'None' %}
+						<a href="/forum/{{group.id}}/{{forum.id}}/{{forum.LastPostThread.id}}">{{forum.LastPostThread.thread_name}}</a>
+					{% else %}
+						<a href="/forum/{{group.id}}/{{forum.id}}">None</a>
+					{% endif %}
+				</td>
+				{% if can.editforum or can.deleteforum %}
+					<td align="right"> 
+				{% endif %}
+				{% if can.editforum %}
+					<a href="/forum/{{group.id}}/{{forum.id}}/edit_forum">Edit Forum</a><br />
+				{% endif %}
+				{% if can.deleteforum %}
+					<a href="/forum/{{group.id}}/{{forum.id}}/delete_forum">Delete Forum</a>
+				{% endif %}
+				{% if can.editforum or can.deleteforum %}
+					</td>
+				{% endif %}
+			</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+	{% if forums|length == 0 %}
+		<p>This group currently has no forums.</p>
+		{% if can.addforum %}
+			<a href="/forum/{{group.id}}/add_forum">Add Forum</a>
+		{% endif %}
+	{% endif %}
 {% endblock content %}

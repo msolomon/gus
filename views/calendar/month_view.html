@@ -1,29 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-<h4><center>{{month_name}} {{year}}</center></h4>
+<center>
+{% if group %} <h1>{{group_name}} Calendar</h1> {% endif %}
+{% if not group %}<h1>My Calendar</h1>{% endif %}
+</center>
+<h2><center>{{month_name}} {{year}}</center></h2>
 {% for year, months in years %}
 <center>
 <table cellpadding="10" cellspacing="3" class="calendar">
-     <tr>
+
        <div class="year">
+
+         <td><a href="/calendar/{{yearminus}}/December/"><< {{yearminus}}</a></td>
+
    {% for month in months %}
         {% if month.current %}
+             {% if group %}
+                <td><a href="/calendar/group{{group_id}}/{{year}}/{{month.name}}/"><center><b>{{ month.name }}</b></center></a></td>
+             {% else %}
             <td><a href="/calendar/{{year}}/{{month.name}}/"><center><b>{{ month.name }}</b></center></a></td>
+            {% endif %}
         {% endif %}
         
         {% if not month.current %} 
-                <!--{% if month.event %}<b>{% endif %}-->
+                {% if group %}
+                     <td><a href="/calendar/group{{group_id}}/{{year}}/{{month.name}}/"><center>{{ month.name }}</center></a></td>
+                {% else %}
                 <td> <a href="/calendar/{{year}}/{{month.name}}/"><center>{{ month.name }}</center></a></td>
+                {% endif %}
         {% endif %}
                 
                 <!--{% if month.event %}</b>{% endif %}<-->
 
     
        {% endfor %}
+
+       <td><a href="/calendar/{{yearplus}}/January/">{{yearplus}}  >></a></td>
+
        </div>
-     </tr>
+</td>
      </table>
      </center>
 {% endfor %}
@@ -31,7 +47,7 @@
 
 <div class="month">
   <center>
-    <table border="1" bordercolor="#ced9fe"class="month">
+    <table border="1" bordercolor="#ced9fe">
 
     <tr align="center">
         <th>Monday</th>
@@ -49,20 +65,36 @@
 
     
             <td height="70" width="75"
-
-            {% if day != 0 %}
+                  {% if current %}
+                      backgroundColor="#0000FF" 
+                  {% endif %}
+            {% if day != 0 and not group %}
+              
               valign="top"
               onmouseover=this.style.backgroundColor="#dce4cc";this.style.cursor='pointer'
               onmouseout=this.style.backgroundColor="#e8edff" 
               onclick= "top.location='/calendar/{{year}}/{{month_name}}/_add{{day}}/'">
-             
+             {% endif %}
+             {% if day != 0 and group %}
+
+             valign="top"
+              onmouseover=this.style.backgroundColor="#dce4cc";this.style.cursor='pointer'
+              onmouseout=this.style.backgroundColor="#e8edff"
+              onclick= "top.location='/calendar/group{{group_id}}/{{year}}/{{month_name}}/_add{{day}}/'">
               {% endif %}
               
+              
               {% if day != 0 %}
+            
+              {% if current %}
+              <b> <font color="#1B5782">{{ day }} </font></b>
+              {% else %}
                 {{ day }}
+                {% endif %}
                 <br>
                
                {% if num_total_events > 2 %} 
+               
                 <a href="/calendar/{{year}}/{{month_name}}/{{day}}/view_events/">Show {{num_total_events}} events</a>
                 
                 

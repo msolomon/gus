@@ -2,45 +2,59 @@
 {% block pagetitle %}
 Profile
 {% endblock pagetitle %}
-
+{% block sidebar_top%}
+<ul>
+ <li><a href="/groups/Add/">Request a New Group</a></li>               
+</ul>
+{% endblock %}
 {% block content %}
 
+<h2>Welcome, {{usr.get_full_name}} ({{usr.username}})<hr/>
+<h4></h4>
+<p>Email: {{usr.email}}
+	<br>
+<a href="/email/check">{{unread_emails}} unread messsages</a></p>
 {% if not roles %}
- 	<strong>You are not yet a member of any groups</strong>
- 	{% else %}
-<form name=groupsForm  method=POST>
-  {% csrf_token %}
- 	
-  <p>	Groups
-<!-- Switch to \{\{ form.as_p or somevariation of django forms\}\} -->
-  <select name=groupSelect size=1 onChange="groupsForm.submit();">
-    <option value="" SELECTED>Select a group
-
-    {% for role in roles %}
-    <option value={{role.group.id}}>{{role.group.group_name}}
-    {%endfor %}
-
-  </select>
-  </p>
-</form>
-{%endif%}
-
-{% if group %}
-<h3>{{group.group_name}} Profile<hr/>
-<p></p>
-<h4>Group: {{group.group_name}}</h4>
-<p>Description - {{group.group_description}}</p>
-<p></p>
-
-<p>Role: {{role.name}}</p>
-<p>
-{% endif %}	
-{% if not bill %}
-	Bill: No bills
-{% else %}
-	{{bill}}
+<i>You Dont Have Any Groups Yet</i><br/>You May Request A new group with the link to the left
+<br>To Join an existing group you must contact the admin of that group directly and ask them to add you
 {% endif %}
-</p>
+{% for role in roles %}
+	{% comment %}
+  {%if role.isSiteAdminRole %}
+	{% else  %}
+	{% endcomment %}
+  <table width="95%">
+	  <tr align="left">
+		  <th>{{role.group.group_name}} [ <a href="/groups/{{role.group.id}}/RemoveUser/{{user.id}}/">Leave Group</a> ]</th>
+	  </tr>
+  	<tr>
+  		{% if not role.group.group_activated %}
+  		<th style="color:darkred">*This Group Is Pending System Approval*</th>
+  		{% else %}
+		  <td width="10%">
+		  <p><a href="/groups/{{role.group.id}}/">Go to {{role.group.group_name}}</a>
+		  <p>Description - {{role.group.group_description|safe}}</p>
+		  <p>Role: {{role.name}}</p>
+		  <p>	
+		  <a href="/bill/{{role.group.id}}">Bills:</a>
+		  {% for bill in role.group.my_bills %}
+		  	{{bill.outstanding}}
+		  {% endfor %}
+		  </p>
+		  <p>
+      <a href="/calendar/group{{role.group.id}}/">Calendar</a>
+      </p>
+		  <p>
+		  <a href="/gallery/group/{{role.group.id}}">Gallery</a> - {{role.group.my_images}} images uploaded by you
+		  </p>
+		  <a href="/forum/{{role.group.id}}">Forums</a>
+		  </td>
+		  {% endif %}
+	  </tr>
+  </table>
+  
+{% endfor %}
+
 {% endblock content %}
 
 

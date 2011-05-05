@@ -1,10 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 import settings
-from gus_groups.models import gus_group
+
 
 
 class UserManager(models.Manager):
+    def get_id(self,id):
+        try:
+            djUsr=User.objects.get(id=id)
+            return super(UserManager, self).get_query_set().get(_user=djUsr)
+        except:
+            return None
+        return None
+    
     def create(self, username, email, password):
         self.create_user(username, email, password)
 
@@ -114,18 +122,34 @@ class gus_user(models.Model):
                 return self.has_groups_perm(group, perm)
         except:
             return self.has_groups_perm(group, perm)
+    def is_site_admin(self):
+        from gus_groups.models import gus_group
+        import random
+        try:
+            return self.has_group_perm(random.choice(gus_group.objects.all()), 'nonExistantPermString')
+        except:return False 
     def has_groups_perm(self,group,perm):
         """
         determine if this user has a given permission for this group or any of its parent groups
         """
+        from gus_groups.models import gus_group
+        from gus_roles.models import gus_role
         if type(group)!=gus_group: return False
+        try:
+            usr=gus_role.objects.get(_role_permission_level=11,_role_users=self)
+            return True  #system super user
+        except: pass
         groups = group.getParents()
         #print "Check Parent Permissions :",perm
         #print groups
         for g in groups:
             if self.has_group_perm(g,perm): return True
         return False
-    
+    def has_subgroup_membership(self,group):
+        subgroups=group.getChildren()
+        userroles=self.roles
+        usergroups=[r.group for r in userroles]
+        return not set(usergroups).isdisjoint(set(subgroups))
     def get_full_name(self):
         """
         return the users full name
@@ -136,7 +160,9 @@ class gus_user(models.Model):
         """
         Set the users password , expects unencoded password
         """
-        return self._user.set_password(raw_password)
+        ret1=self._user.set_password(raw_password)
+        self._user.save()
+        return ret1
     
     def check_password(self, raw_password):
         """
@@ -148,7 +174,9 @@ class gus_user(models.Model):
         """
         create a user that cannot login (or disable login for existing)
         """
-        return self._user.set_unusable_password()
+        ret1=self._user.set_unusable_password()
+        self._user.save()
+        return ret1
     
     def has_usable_password(self):
         return self._user.has_usable_password() 
@@ -284,7 +312,9 @@ class gus_user(models.Model):
         return self._user.first_name
     def getLN(self):
         return self._user.last_name
-    
+    def getRealName(self):
+        if self._user.first_name : return self._user.first_name
+        else: return self.username
     #GETTER/SETTER enabled ... hackish
     #GETTERS AND SETTERS WILL BE USED (!Include simillar code in all classes)
     #getter and setter hooks , these must be setup if you wish to 
@@ -299,4 +329,5 @@ class gus_user(models.Model):
     email = property(getEmail, setEmail)
     first_name = property(getFN, setFN)
     last_name = property(getLN, setLN)
+    real_name = first_name
     roles = property(getRoles, None)

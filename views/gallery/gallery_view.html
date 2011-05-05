@@ -2,8 +2,8 @@
 {% block pagetitle %}{{gallery}} - Image Gallery{% endblock %}
 
 {% block content %}
-<h3>{{gallery}} {% if can_add %}[<a href="/gallery/image/add/{{gallery.pk}}">Add Image</a>]{% endif %}</h3>
-Created by: <a href="#">{{gallery.user.username}}</a> on {{gallery.date_created|date:"l, F jS, Y"}}
+<h3>{{gallery}} {% if can_add %}[ <a href="/gallery/image/add/{{gallery.pk}}">Add Image</a> ]{% endif %}</h3>
+Created by: <b>{{gallery.user.username}}</b> on {{gallery.date_created|date:"l, F jS, Y"}}
 <br/><br/>
 
 {% for i in images %}
@@ -16,7 +16,7 @@ Created by: <a href="#">{{gallery.user.username}}</a> on {{gallery.date_created|
   {% if can_edit or can_delete %}]{% endif %}
   <br/>
   
-  <img src="{{i.image.url}}"/>
+  <img src="{{i.image.url}}" style="max-width: 100%"/>
   <br/>
 
   {{i.description}}

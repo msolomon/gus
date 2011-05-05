@@ -16,4 +16,11 @@ def control(usr,group,label,url,permstring,props=None):
     return ' no perms %s,%s'%(usr,group)
 
 control.is_safe = True
+@register.simple_tag
+def has_group_perm(usr,group,permstring):
+    
+    if usr.has_group_perm(group,permstring) or not permstring:
+        return True
+    return False
+
 

@@ -1,10 +1,8 @@
 # GUS Gallery Models
-# Part of the GUSPY effort
+# Part of the GusPy Project
 # Stephen Fischer
-# January 2011
 #
-# TODO: Create a smarter gus_gallery.delete() that will delete all the associated images
-#   at the same time.
+# TODO: Create a smarter gus_gallery.delete() that will delete all the associated images at the same time?
 
 from django.db import models
 from django.forms import ModelForm
@@ -64,10 +62,10 @@ class gus_image(models.Model):
     A single image belonging to a gus_gallery.
     """
     date_created = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=1000)
+    description = models.CharField(max_length=1000, blank=True, null=True)
     gallery = models.ForeignKey(gus_gallery)
     image = models.ImageField(upload_to='gallery/%Y/%m')
-    name = models.CharField(max_length=500)
+    name = models.CharField(max_length=500, blank=True, null=True)
     user = models.ForeignKey(gus_user)
     
     def __unicode__(self):

@@ -10,8 +10,8 @@ class ForumManager(models.Manager):
 
 	def create_forum(self, Name, Description, Group):
 		"""
-		This will create a new forum.
-		
+		This will create a new forum tied to a group.
+
 		@type Name: models.CharField()
 		@param Name: The name of the forum being created.
 		@type Description: models.TextField()
@@ -30,7 +30,7 @@ class ForumManager(models.Manager):
 		return super(ForumManager, self).get_query_set().create(forum_name = Name, forum_description = Description, group = Group)
 	#End
 #End
-			
+
 class forum(models.Model):
 	"""
 	class forum is our model of a forum.
@@ -41,22 +41,39 @@ class forum(models.Model):
 	forum_name = models.CharField(max_length=25)#The forum's name.
 	forum_description = models.TextField()		#The forum's description.
 
-	def EditForumDescription(self, Description):
+	def numThreads(self):
 		"""
-		This allows the forum's description to be changed.
-		
-		@type Description: models.TextField()
-		@param Description: The description to replace the current description.
+		Returns the number of threads associated with this forum.
+
+		@rtype: integer
+		@return: The number of threads associated with this forum.
 		"""
 
-		self.forum_description = Description
-		self.save()
+		return len(forum_thread.objects.filter(forum = self))
+	#End
+
+	def numPosts(self):
+		"""
+		Returns the number of posts associtaed with this forum.
+
+		@rtype: integer
+		@return: The number of posts associated with this forum.
+		"""
+
+		forums_threads = forum_thread.objects.filter(forum = self)
+		numPosts = 0
+
+		for for_thr in forums_threads:
+			numPosts += len(forum_post.objects.filter(thread = for_thr))
+		#End
+
+		return numPosts
 	#End
 
 	def LastPostDate(self):
 		"""
 		Returns the date of the last post made in this forum's threads.
-		
+
 		@rtype: models.DateTimeField
 		@return: The last date a post was made in this forum's threads.
 		"""
@@ -76,7 +93,7 @@ class forum(models.Model):
 	def LastPostUser(self):
 		"""
 		Returns the user of the last post made in this forum's threads.
-		
+
 		@rtype: gus_roles.models.gus_user
 		@return: The user of the last date a post was made in this forum's threads.
 		"""
@@ -96,7 +113,7 @@ class forum(models.Model):
 	def LastPostThread(self):
 		"""
 		Returns the thread of the last post made in this forum's threads.
-		
+
 		@rtype: gus_forum.forum_thread
 		@return The thread of the last thread the was posted in this forum's threads.
 		"""
@@ -112,7 +129,7 @@ class forum(models.Model):
 	def CreateThread(self, Threadname, User, Text, Forum):
 		"""
 		Creates a thread for this forum.
-		
+
 		@type Threadname: string
 		@param Threadname: The name of the thread to be created.
 		@type User: gus_user
@@ -123,24 +140,7 @@ class forum(models.Model):
 		@param Forum: The forum to assosciate the thread with.
 		"""
 
-		forum_thread.objects.create(thread_name = Threadname, user = User, thread_text = Text, forum = Forum)
-	#End
-
-	def DeleteThread(self, Thread):
-		"""
-		Allows for the deletion of a thread in this forum as long as the user has admin permissions.
-		
-		@type Thread: forum_thread
-		@param Thread: The thread to be found and deleted.
-		"""
-
-		threads = forum_thread.objects.filter(pk = Thread.id)
-		if(len(threads) > 0):
-			threads[0].delete()
-		#End
-		else:
-			raise Exception("Threads Empty", "List of Threads are Empty.")
-		#End
+		forum_thread.objects.create(thread_name = Threadname, user = User, thread_text = Text, forum = Forum, numViews = 0)
 	#End
 #End
 
@@ -154,11 +154,29 @@ class forum_thread(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True, blank=True)#The thread's creation date.
 	thread_name = models.CharField(max_length=25)	#The thread's name.
 	thread_text = models.TextField()				#The thread's content.
+	numViews = models.IntegerField()				#Number of views for this thread.
+
+	def numReplies(self):
+		"""
+		Returns the number of replies to this thread.
+
+		@rtype: integer
+		@return: The number of replies to this thread.
+		"""
+
+		numPosts = len(forum_post.objects.filter(thread = self))
+
+		if numPosts == 0:
+			return 0
+		#End
+
+		return numPosts - 1
+	#End
 
 	def LastPostDate(self):
 		"""
 		Returns the date of the last post made in this forum's threads.
-		
+
 		@rtype: models.DateTimeField
 		@return: The last date a post was made in this forum's threads.
 		"""
@@ -174,7 +192,7 @@ class forum_thread(models.Model):
 	def LastPostUser(self):
 		"""
 		Returns the user of the last post made in this forum's threads.
-		
+
 		@rtype: gus_roles.models.gus_user
 		@return: The user of the last date a post was made in this forum's threads.
 		"""
@@ -190,7 +208,7 @@ class forum_thread(models.Model):
 	def LastPostThread(self):
 		"""
 		Returns the thread of the last post made in this forum's threads.
-		
+
 		@rtype: gus_forum.forum_thread
 		@return The thread of the last thread the was posted in this forum's threads.
 		"""
@@ -206,7 +224,7 @@ class forum_thread(models.Model):
 	def CreatePost(self, User, Text):
 		"""
 		Creates a post in this thread.
-		
+
 		@type User: gus_user
 		@param User: The user the post is to be associated with.
 		@type Text: models.TextField()
@@ -214,23 +232,6 @@ class forum_thread(models.Model):
 		"""
 
 		forum_post.objects.create(user = User, thread = self, post_text = Text)
-	#End
-
-	def DeletePost(self, Post):
-		"""
-		Allows for the deletion of a post in this thread.
-		
-		@type Post: forum_post
-		@param Post: The post to be found and deleted.
-		"""
-
-		posts = forum_post.objects.filter(pk = Post)
-		if(len(posts) > 0):
-			posts[0].delete()
-		#End
-		else:
-			raise Exception("Posts Empty", "The list of posts is empty.")
-		#End
 	#End
 #End
 
@@ -243,16 +244,4 @@ class forum_post(models.Model):
 	user = models.ForeignKey(gus_user)			#The user this post is assosciated with.
 	date_created = models.DateTimeField(auto_now_add=True, blank=True)#The date this post was created.
 	post_text = models.TextField()				#The content of this post.
-
-	def EditPost(self, Text):
-		"""
-		This allows the post's text to be changed.
-		
-		@type Text: models.TextField()
-		@param Text: The text to replace the current text.
-		"""
-
-		self.post_text = Text
-		self.save()
-    #End
 #End

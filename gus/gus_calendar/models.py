@@ -12,10 +12,11 @@ from gus.gus_widget.models import Widget #ok
 from gus.gus_users.models import gus_user #ok ignore aptana
 from gus.gus_groups.models import gus_group
 from django.forms import ModelForm
-from django.forms import ModelChoiceField
+from django import forms
 from django.forms.extras.widgets import Select
 from gus.gus_groups.utils import *
 
+valid_time_formats = ['%P', '%H:%M%A', '%H:%M %A', '%H:%M%a', '%H:%M %a']
 class Gus_calendar(Widget):
     """
     An calendar belonging to a gus_group.
@@ -61,6 +62,7 @@ class Gus_calendar(Widget):
         #super(Gus_calendar, self).delete()
         #self.delete() ##not working
         #events.delete()
+
  #       self.delete()
           
 class Gus_event(models.Model):
@@ -75,7 +77,9 @@ class Gus_event(models.Model):
     description = models.CharField(max_length=1000, blank=True)
     creator = models.ForeignKey(gus_user, blank=True, null=True)
     Delete = models.BooleanField(blank=True, null=False)
-    Group = models.ForeignKey(gus_group,  null=True)
+    Group = models.ForeignKey(gus_group, null=True)
+    start_time = models.TimeField(help_text='Ex: 13:00')
+    end_time = models.TimeField(help_text='Ex: 13:00')
     #Attending = models.BooleanField(blank=True, null=False)
     #reminder = models.BooleanField(default=False)
     
@@ -101,29 +105,17 @@ class Gus_event(models.Model):
         self.delete()
 
 
-class Event_form(ModelForm):
- #   def add_groups(self, usr):
-        
-
-  #      groups = getGroupsWithUser(usr)
-        
-  #      gids = [g.id for g in groups if usr.has_group_perm(g, 'Can add gus_event')]
-   #     print gids
-
-    #    print gus_group.objects.filter(pk__in=gids)
-     #   self.fields['Groups'].queryset = gus_group.objects.filter(pk__in=gids)
-                   
+class Event_form(ModelForm):         
     class Meta:
         model = Gus_event
         exclude = ('start_date', 'creator')
-        fields = ('event_name', 'description', 'Group')
-        
+        fields = ('event_name', 'description', 'Group', 'start_time', 'end_time')
         
 class Event_form_edit(ModelForm):
     class Meta:
         model = Gus_event
         exclude = ('start_date', 'creator',)
-        fields = ('event_name', 'description', 'Delete')
+        fields = ('event_name', 'description', 'start_time','end_time', 'Delete')
         
 #class Event_form_userview(ModelForm):
 #    class Meta:

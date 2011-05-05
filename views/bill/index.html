@@ -1,56 +1,64 @@
 {% extends "base.html" %}
-{% block pagetitle %}Bills for the User{%endblock%}
+{% block pagetitle %}
+Bills
+{%endblock pagetitle%}
+
+{% block sidebar_top %}
+<h2>Bill Options</h2>
+<ul>
+ <li><a href="/groups">Return to Groups Page</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
-
-
-<p>
 {% if not bills %}
   No Bills associated with user: {{user.username|capfirst}}.
 {% endif %}
 
-<table border="1" bordercolor="#42647F" style="background-color:#A7CAE8" cellpadding="10" cellspacing="3">
+<table border="1" class="table" width="95%">
+  <tr>
+  <th align="center" ><b>Group</b></th>
+  <th align="center" ><b>User</th> 
+  <th align="center" ><b>Name</th> 
+  <th align="center" ><b>Total</th> 
+  <th align="center" ><b>Payments</th> 
+  <th align="center" ><b>Outstanding</th> </b>
+  </tr>
 {% for bill in bills %}
-  <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="50">
-  <th width="75">{{bill.group.group_name|capfirst}} </th></tr>
-  <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="50">
-  <td width="50"></td>
-  <th width="75"><b>User</th> <th width="75"><b>Name</th> <th width="75"><b>Total</th> <th width="75"><b>Payments</th> <th width="75"><b>Outstanding</th> </b>
-    <tr height="30">
-    <td width="75"> </td>
-    <td align="center" width="75">{{bill.user.username|capfirst}}</td> 
-    <td align="center" width="75">{{bill.name}}</td>
-    <td align="center" width="75">{{bill.value}}</td>
-    <td align="center" width="75">{{bill.paid_balance}}</td>
-    <td align="center" width="75">{{bill.outstanding}}</td>
+  <tr>
+  <td align="center" ><b>{{bill.group.group_name|capfirst}} </b></td>
+    <td align="center" >{{bill.user.username|capfirst}}</td> 
+    <td align="center" >{{bill.name}}</td>
+    <td align="center" >{{bill.totalvalue}}</td>
+    <td align="center" >{{bill.totalpaid}}</td>
+    <td align="center" >{{bill.outstanding}}</td>
     </tr>
 {% endfor %}
 </table>
-</p>
-
-<p>
-<center>
-<table border="1" bordercolor="#42647F" style="background-color:#A7CAE8" cellpadding="10" cellspacing="3">
+<br><br>
+<table border="1" class="table" width="95%">
 {% for group in adminGroups %}
-  <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="50">
-  <th width="75">{{group.group_name|capfirst}} </th> <th width="75"> <a  href='/bill/Add/{{group.id}}/'>Add</a></th></tr>
-  <tr bgcolor="#D8D8D8" background-color="#D8D8D8" height="50">
-  <td width="50"></td>
-  <th width="75"><b>User</th> <th width="75"><b>Name</th> <th width="75"><b>Total</th> <th width="75"><b>Payments</th> <th width="75"><b>Outstanding</th> </b>
+  <tr>
+  <th align="center">{{group.group_name|capfirst}} : <a href='/bill/Add/{{group.id}}/'>Add</a></th> 
+  <th align="center"><b>User</th> 
+  <th align="center"><b>Name</th> 
+  <th align="center"><b>Total</th> 
+  <th align="center"><b>Payments</th> 
+  <th align="center"><b>Outstanding</th> </b>
+  <th></th>
   {% for bill in group.my_bills %}
-    <tr height="30">
-    <td width="75"> </td>
-    <td align="center" width="75">{{bill.user.username|capfirst}}</td> 
-    <td align="center" width="75">{{bill.name}}</td>
-    <td align="center" width="75">{{bill.value}}</td>
-    <td align="center" width="75">{{bill.paid_balance}}</td>
-    <td align="center" width="75">{{bill.outstanding}}</td>
-    <td align="center" width="75"><a href='/bill/Delete/{{bill.id}}'>Delete</a></td> 
-    <td align="center" width="75"><a href='/bill/Payments/{{bill.id}}'>Payments</a></td>
-    <td align="center" width="75"><a href='/bill/Archive/{{bill.id}}'>Renew</a>]</td>
+  <tr>
+    <td align="center" ><a href='/bill/Delete/{{bill.id}}'>Delete</a></td> 
+    <td align="center" >{{bill.user.username|capfirst}}</td> 
+    <td align="center" >{{bill.name}}</td>
+    <td align="center" >{{bill.totalvalue}}</td>
+    <td align="center" >{{bill.totalpaid}}</td>
+    <td align="center" >{{bill.outstanding}}</td>
+    <td align="center" ><a href='/bill/Payments/{{bill.id}}'>Payments</a><br />
+    <a href='/bill/Archive/{{bill.id}}'>Renew</a></td>
     </tr>
   {% endfor %}
 {% endfor %}
 </table>
-</p>
 
 {%endblock%}
