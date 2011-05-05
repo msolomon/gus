@@ -36,16 +36,16 @@ class test_gus_calendar(unittest.TestCase):
             
         
         
-        new_calendar.delete_calendar()
+       # new_calendar.delete_calendar()
         ## deleting calendar object properly, but database can't find it becasue it is deleted, so can't check
 #        Gus_calendar.objects.filter(name=new_calendar.name).delete()
 #        Gus_calendar.objects.filter(name=new_calendar.name)
-        try:
-            Gus_calendar.objects.get(name=new_calendar.name)
-        except:
-            pass
-        else:
-            self.fail("Gus_calendar object not deleted.")
+      #  try:
+      #      Gus_calendar.objects.get(name=new_calendar.name)
+      #  except:
+      #      pass
+      #  else:
+      #      self.fail("Gus_calendar object not deleted.")
 
 #        django already tests for null values being added to database: don't need to test
 #        new_calendar = Gus_calendar.objects.create(group = None, name = "Calendar 1")
@@ -80,17 +80,21 @@ class test_gus_event(unittest.TestCase):
 
             event_description = "Mission to acquire a Valentine for Spock."
             
-            new_event = Gus_event.objects.create(calendar = new_calendar, creator = new_user, event_name = "Mission 1", start_date = "2011-02-14 10:00", end_date = "2011-02-15 10:00", description = event_description)
+            new_event = Gus_event.objects.create(calendar = new_calendar, creator = new_user, 
+                                                 event_name = "Mission 1", 
+                                                 start_date = "2011-02-14 10:00",
+                                                 start_time = "10:00:00",
+                                                 end_time = "14:00:00", 
+                                                 description = event_description,
+                                                 Group = 1)
             new_event.save()
-            self.failIfEqual(Gus_event.objects.filter(event_name=new_event.event_name), None, "Gus_event object not initialized.")
+            self.failIfEqual(Gus_event.objects.filter(event_name=new_event.event_name),
+                              None,
+                               "Gus_event object not initialized.")
  
         
         
         
-            new_calendar.add_event(new_event)
-            self.failIfEqual(Gus_event.objects.filter(event_name=new_event.event_name), None)
-            events = new_calendar.get_events()
-            self.failIfEqual(len(events), 0)
             
 
             

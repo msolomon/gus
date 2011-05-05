@@ -33,14 +33,14 @@ class Gus_calendar(Widget):
         """
         return self.name 
         
-    def get_events(self):
+#    def get_events(self):
         """
         Gets an array of events from the calendar.
         @rtype: event
         @return: an array of events from the calendar
         
         """
-        return Gus_event.objects.filter(calendar=self)
+#        return Gus_event.objects.filter(calendar=self)
         
     def add_event(self, event):
         """
@@ -50,18 +50,18 @@ class Gus_calendar(Widget):
         event.calendar = self
         event.save()
         
-    def delete_calendar(self):
+ #   def delete_calendar(self):
         """
         Deletes the calendar and all of its events.
         
         """
-        events = self.get_events()
-        for event in events:
-            event.delete() ##or event.delete()
+ #       events = self.get_events()
+ #       for event in events:
+ #           event.delete() ##or event.delete()
         #super(Gus_calendar, self).delete()
         #self.delete() ##not working
         #events.delete()
-        self.delete()
+ #       self.delete()
           
 class Gus_event(models.Model):
     """
