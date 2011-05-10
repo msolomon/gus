@@ -29,7 +29,7 @@ def upload_form(request):
 			ni.group = form.cleaned_data['group']
 			ni.save()
 			
-			return render_to_response('news/upl-test.html', {
+			return render_to_response('news/upload-show.html', {
 				'headline':form.cleaned_data['headline'],
 				'date':form.cleaned_data['date'],
 				'shortdesc':form.cleaned_data['shortdesc'],
